@@ -6,18 +6,14 @@ stages:
 variables:
   GIT_STRATEGY: clone
   GRADLE_OPTS: "-Dorg:gradle.daemon=false"
-  
-before_script:
-  # The following line is only necessary if using a docker-based runner.
-  - apk add --no-cache openssh-client
-  - chmod +x ./gradlew
-
+   
 build:
   stage: build
   tags: 
     - dalfcs_docker_kvm
   image: gradle:latest
   script: 
+    - chmod +x ./gradlew
     - ./gradlew assemble --scan
 
 test:
@@ -26,6 +22,7 @@ test:
     - dalfcs_docker_kvm
   image: gradle:latest
   script: 
+    - chmod +x ./gradlew
     - ./gradlew check
 
 deploy-test:
