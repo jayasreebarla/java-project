@@ -36,7 +36,7 @@ deploy-test:
   only:
     - Develop
     
-deploy-test:
+deploy-main:
   stage: deploy
   tags:
     - dalfcs_docker_kvm
@@ -47,4 +47,4 @@ deploy-test:
     - gem install dpl
     - dpl --provider=heroku --app=$HEROKU_APPLICATION_NAME --api-key=$HEROKU_API_KEY
   only:
-    - master
+    - main
