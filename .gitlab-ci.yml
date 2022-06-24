@@ -1,7 +1,8 @@
 stages:          # List of stages for jobs, and their order of execution
   - build
   - test
-  - deploy
+  - deploy_develop
+  - deploy_main
 
 variables:
   GIT_STRATEGY: clone
@@ -24,7 +25,8 @@ test:
     - ./gradlew check
 
 deploy-test:
-  stage: deploy
+  type: deploy
+  stage: deploy_develop
   tags:
     - dalfcs_docker_kvm
   image: ruby:2.6
@@ -36,8 +38,9 @@ deploy-test:
   only:
     - Develop
     
-deploy-test:
-  stage: deploy
+deploy-main:
+  type: deploy
+  stage: deploy_main
   tags:
     - dalfcs_docker_kvm
   image: ruby:2.6
@@ -47,4 +50,4 @@ deploy-test:
     - gem install dpl
     - dpl --provider=heroku --app=$HEROKU_APPLICATION_NAME --api-key=$HEROKU_API_KEY
   only:
-    - master
+    - main
