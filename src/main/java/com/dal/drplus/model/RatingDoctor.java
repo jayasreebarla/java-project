@@ -1,28 +1,40 @@
 package com.dal.drplus.model;
 
-public class RatingDoctor extends Rating{
+public class RatingDoctor{
+    private int ratingId;
+    private int patientId;
+    private int doctorId;
+    private int doctorRating;
 
-    @Override
-    void addRating() {
+    public int getRatingId() {
+        return ratingId;
     }
 
-    @Override
-    void viewRating() {
-
+    public void setRatingId(int ratingId) {
+        this.ratingId = ratingId;
     }
 
-    @Override
-    void deleteRating() {
-
+    public int getPatientId() {
+        return patientId;
     }
 
-    @Override
-    void getRating() {
-
+    public void setPatientId(int patientId) {
+        this.patientId = patientId;
     }
 
-    @Override
-    void editRating() {
+    public int getDoctorId() {
+        return doctorId;
+    }
 
+    public void setDoctorId(int doctorId) {
+        this.doctorId = doctorId;
+    }
+
+    public int getDoctorRating() {
+        return doctorRating;
+    }
+
+    public void setDoctorRating(int doctorRating) {
+        this.doctorRating = doctorRating;
     }
 }
