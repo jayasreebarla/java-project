@@ -91,23 +91,5 @@ public class Patient {
     public void setPrivacyAgreementEnabled(boolean privacyAgreementEnabled) {
         this.privacyAgreementEnabled = privacyAgreementEnabled;
     }
-
-    public void loginPatient(){
-
-    }
-
-    public void logoutPatient(){
-
-    }
-
-    public void registerPatient(){
-
-    }
-
-    public void aunthenticatePatient(){
-
-    }
-
-
 }
 
