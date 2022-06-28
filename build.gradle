@@ -18,6 +18,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc:2.7.0'
 	runtimeOnly 'mysql:mysql-connector-java'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	// https://mvnrepository.com/artifact/org.thymeleaf/thymeleaf
+	implementation group: 'org.thymeleaf', name: 'thymeleaf', version: '3.0.14.RELEASE'
+
 }
 
 tasks.named('test') {
