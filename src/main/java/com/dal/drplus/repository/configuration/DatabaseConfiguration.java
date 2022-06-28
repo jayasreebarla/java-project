@@ -6,5 +6,5 @@ import java.sql.Connection;
 
 
 public interface DatabaseConfiguration{
-    void getDBConnection();
+    Connection getDBConnection();
 }
