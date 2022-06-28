@@ -26,10 +26,15 @@ public class DatabaseConfigurationImpl implements DatabaseConfiguration{
     }
 
     @Override
-    public void getDBConnection() {
+    public Connection getDBConnection() {
         System.out.println("inside get connection"+ ConfigVariables.getDburl());
         System.out.println(ConfigVariables.getDbpassword());
         System.out.println(ConfigVariables.getDbusername());
+        try {
+            return DriverManager.getConnection(ConfigVariables.getDburl(),ConfigVariables.getDbusername(),ConfigVariables.getDbpassword());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }
