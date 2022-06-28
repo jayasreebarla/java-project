@@ -40,4 +40,5 @@ public class Promotions {
     public void setPromotionEndDate(Date promotionEndDate) {
         this.promotionEndDate = promotionEndDate;
     }
+
 }

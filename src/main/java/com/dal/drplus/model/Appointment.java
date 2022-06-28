@@ -8,6 +8,7 @@ public class Appointment {
     private String appointmentDescription;
     private double appointmentFee;
 
+
     public String getAppointmentId() {
         return appointmentId;
     }

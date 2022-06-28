@@ -48,4 +48,5 @@ public class Billing {
     public void setBillStatus(String billStatus) {
         this.billStatus = billStatus;
     }
+
 }
