@@ -52,10 +52,10 @@ public class DoctorRepositoryImpl implements IDoctorRepository {
         PreparedStatement statement = null;
         try {
             statement = databaseConfiguration.getDBConnection().prepareStatement("UPDATE Doctor set doctor_name=?, doctor_email=?,doctor_phone=? WHERE doctor_id=?");
-            statement.setString(2, doctor.getDoctorName());
-            statement.setString(4,doctor.getDoctorEmail());
-            statement.setString(5, doctor.getDoctorPhoneNo());
-            statement.setString(1,doctor.getDoctorId());
+            statement.setString(1, doctor.getDoctorName());
+            statement.setString(2,doctor.getDoctorEmail());
+            statement.setString(3, doctor.getDoctorPhoneNo());
+            statement.setString(4,doctor.getDoctorId());
             return statement.executeUpdate();
 
         } catch (SQLException e) {
@@ -137,8 +137,8 @@ public class DoctorRepositoryImpl implements IDoctorRepository {
         List<Doctor> doctorsBySpecialization = new ArrayList<>();
         PreparedStatement statement = null;
         try {
-            statement = databaseConfiguration.getDBConnection().prepareStatement("Select * from Doctor where doctor_specialization = ?");
-            statement.setString(9,specialization);
+            statement = databaseConfiguration.getDBConnection().prepareStatement("Select * from Doctor  where doctor_specialization = ?");
+            statement.setString(1,specialization);
             ResultSet rs = statement.executeQuery();
             while (rs.next()){
                 Doctor doctorObject = new Doctor();
@@ -168,7 +168,7 @@ public class DoctorRepositoryImpl implements IDoctorRepository {
         PreparedStatement statement = null;
         try {
             statement = databaseConfiguration.getDBConnection().prepareStatement("Select * from Doctor where doctor_specialization = ?");
-            statement.setString(11,pincode);
+            statement.setString(1,pincode);
             ResultSet rs = statement.executeQuery();
             while (rs.next()){
                 Doctor doctorObject = new Doctor();
@@ -198,8 +198,8 @@ public class DoctorRepositoryImpl implements IDoctorRepository {
         PreparedStatement statement = null;
         try {
             statement = databaseConfiguration.getDBConnection().prepareStatement("Select * from Doctor where doctor_specialization = ? and doctor_pincode =?");
-            statement.setString(9,specialization);
-            statement.setString(11,pincode);
+            statement.setString(1,specialization);
+            statement.setString(2,pincode);
             ResultSet rs = statement.executeQuery();
             while (rs.next()){
                 Doctor doctorObject = new Doctor();
@@ -225,7 +225,6 @@ public class DoctorRepositoryImpl implements IDoctorRepository {
 
     @Override
     public int deleteDoctorById(String id) {
-        List<Doctor> doctorsBySpecializationAndPincode = new ArrayList<>();
         PreparedStatement statement = null;
         int returnValue;
         try {
@@ -240,7 +239,6 @@ public class DoctorRepositoryImpl implements IDoctorRepository {
 
     @Override
     public int deleteAllDoctors() {
-        List<Doctor> doctorsBySpecializationAndPincode = new ArrayList<>();
         PreparedStatement statement = null;
         int returnValue;
         try {

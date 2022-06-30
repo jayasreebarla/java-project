@@ -49,16 +49,6 @@ public class Appointment {
         this.appointmentFee = appointmentFee;
     }
 
-    public void addAppointment(){
 
-    }
-
-    public void deleteAppointment(){
-
-    }
-
-    public void rescheduleAppointment(){
-
-    }
 }
 

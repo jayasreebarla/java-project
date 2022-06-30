@@ -13,7 +13,6 @@ public interface IDoctorRepository {
         FAILURE
     }
 
-
     public int saveDoctor(Doctor doctor);
     public int updateDoctor(Doctor doctor);
     public Doctor findDoctorById(String id);

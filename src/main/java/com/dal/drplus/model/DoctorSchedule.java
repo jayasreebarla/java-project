@@ -5,7 +5,7 @@ public class DoctorSchedule {
     private String slotTiming;
     private String slotDate;
     private String doctorId;
-    private String status;
+    private Boolean status;
 
     public int getSlotId() {
         return slotId;
@@ -39,11 +39,11 @@ public class DoctorSchedule {
         this.doctorId = doctorId;
     }
 
-    public String getStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 }
