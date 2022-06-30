@@ -3,13 +3,12 @@ package com.dal.drplus.model;
 public class Patient {
     private String patientId;
     private String patientName;
+    private int patientAge;
     private String patientEmail;
     private String patientPhoneNo;
-    private int patientAge;
     private String patientPassword;
-    private String patientConfirmPassword;
     private String patientAddress;
-    private String patientPincode;
+    private Double patientPincode;
     private boolean privacyAgreementEnabled;
 
     public String getPatientId() {
@@ -60,13 +59,6 @@ public class Patient {
         this.patientPassword = patientPassword;
     }
 
-    public String getPatientConfirmPassword() {
-        return patientConfirmPassword;
-    }
-
-    public void setPatientConfirmPassword(String patientConfirmPassword) {
-        this.patientConfirmPassword = patientConfirmPassword;
-    }
 
     public String getPatientAddress() {
         return patientAddress;
@@ -76,11 +68,11 @@ public class Patient {
         this.patientAddress = patientAddress;
     }
 
-    public String getPatientPincode() {
+    public Double getPatientPincode() {
         return patientPincode;
     }
 
-    public void setPatientPincode(String patientPincode) {
+    public void setPatientPincode(Double patientPincode) {
         this.patientPincode = patientPincode;
     }
 
