@@ -8,6 +8,7 @@ public class Lab {
     private String labEmailId;
     private String labAddress;
     private String labContactInfo;
+    private String labPincode;
 
     public String getLabId() {return labId;}
     public void setLabId(String labId) {this.labId = labId;}
@@ -23,4 +24,12 @@ public class Lab {
     public void setLabAddress(String labAddress) {this.labAddress = labAddress;}
     public String getLabContactInfo() {return labContactInfo;}
     public void setLabContactInfo(String labContactInfo) {this.labContactInfo = labContactInfo;}
+
+    public String getLabPincode() {
+        return labPincode;
+    }
+
+    public void setLabPincode(String labPincode) {
+        this.labPincode = labPincode;
+    }
 }
