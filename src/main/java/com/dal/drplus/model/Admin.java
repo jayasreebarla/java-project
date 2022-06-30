@@ -29,15 +29,4 @@ public class Admin {
         this.adminAccessKey = adminAccessKey;
     }
 
-    public void login(){
-
-    }
-
-    public void logout(){
-
-    }
-
-    public void verifyAccessKey(){
-
-    }
 }

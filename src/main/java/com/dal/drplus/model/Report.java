@@ -1,10 +1,31 @@
 package com.dal.drplus.model;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
 public class Report {
     private String reportId;
-    private String patientId;
-    private String doctorId;
+    private String AppointmentId;
     private String reportDetails;
+    private Byte[] reportFile;
+
+    private String fileName;
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public Byte[] getReportFile() {
+        return reportFile;
+    }
+
+    public void setReportFile(Byte[] reportFile) {
+        this.reportFile = reportFile;
+    }
 
     public String getReportId() {
         return reportId;
@@ -14,20 +35,12 @@ public class Report {
         this.reportId = reportId;
     }
 
-    public String getPatientId() {
-        return patientId;
+    public String getAppointmentId() {
+        return AppointmentId;
     }
 
-    public void setPatientId(String patientId) {
-        this.patientId = patientId;
-    }
-
-    public String getDoctorId() {
-        return doctorId;
-    }
-
-    public void setDoctorId(String doctorId) {
-        this.doctorId = doctorId;
+    public void setAppointmentId(String AppointmentId) {
+        this.AppointmentId = AppointmentId;
     }
 
     public String getReportDetails() {
@@ -38,11 +51,10 @@ public class Report {
         this.reportDetails = reportDetails;
     }
 
-    public void uploadReport(){
-
+    public FileInputStream getReport() throws FileNotFoundException {
+        FileInputStream file;
+        file = new FileInputStream(this.fileName);
+        return file;
     }
 
-    public void deleteReport(){
-
-    }
 }
