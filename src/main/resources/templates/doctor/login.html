@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Doctor Signup</title>
+</head>
+<body>
+
+<form action="/auth_doctor/doctor_login" method="post">
+  <p>Doctor Id: <input type="text" required="required" th:name="doctorId" /></p>
+  <p>Doctor Password : <input type="text" required="required" th:name="doctorPassword" /></p>
+  <button type="submit">Login</button>
+</form>
+
+</body>
+</html>

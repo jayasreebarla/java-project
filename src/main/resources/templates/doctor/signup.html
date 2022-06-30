@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Doctor Signup</title>
+</head>
+<body>
+
+<form action="#" th:action="@{/auth_doctor/doctor_signup}" th:object="${doctor}" method="post">
+    <p>Doctor Id: <input type="text" required="required" th:field="*{doctorId}" /></p>
+    <p>Doctor Full name: <input type="text" required="required" th:field="*{doctorName}" /></p>
+    <p>Doctor Age: <input type="number" required="required" th:field="*{doctorAge}" /></p>
+    <p>Doctor Gender: <input type="text" required="required" th:field="*{doctorGender}" /></p>
+    <p>Doctor Email: <input type="text" required="required" th:field="*{doctorEmail}" /></p>
+    <p>Doctor Phone No. : <input type="text" required="required" th:field="*{doctorPhoneNo}" /></p>
+    <p>Doctor Password : <input type="text" required="required" th:field="*{doctorPassword}" /></p>
+    <p>Doctor Confirm Password : <input type="text" required="required" th:name="confirmDoctorPassword" /></p>
+    <p>Doctor Specilization: <input type="text" required="required" th:field="*{doctorSpecialization}" /></p>
+    <p>Doctor Credentials: <input type="text" required="required" th:field="*{doctorCredentials}" /></p>
+    <p>Doctor Clinic Address: <input type="text" required="required" th:field="*{doctorClinicAddress}" /></p>
+    <p>Doctor Pincode: <input type="number" required="required" th:field="*{doctorPincode}" /></p>
+    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+</form>
+
+</body>
+</html>
+
+
+//`doctor_id`, `doctor_name`, `doctor_password`, `doctor_email`, `doctor_phone`,
+// `doctor_gender`, `doctor_age`, `doctor_credentials`, `doctor_specialization`,
+// `doctor_clinic_address`, `doctor_pincode`
