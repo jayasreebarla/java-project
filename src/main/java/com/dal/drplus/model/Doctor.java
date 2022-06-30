@@ -4,14 +4,14 @@ public class Doctor {
     private String doctorId;
     private String doctorName;
     private String doctorPassword;
-    private String doctorConfirmPassword;
-    private String doctorEmailId;
-    private String doctorPhoneNumber;
+    private String doctorEmail;
+    private String doctorPhoneNo;
     private String doctorGender;
     private int doctorAge;
     private String doctorCredentials;
+    private String doctorSpecialization;
     private String doctorClinicAddress;
-    private String doctorPincode;
+    private double doctorPincode;
     private int doctorRating;
 
 
@@ -39,28 +39,20 @@ public class Doctor {
         this.doctorPassword = doctorPassword;
     }
 
-    public String getDoctorConfirmPassword() {
-        return doctorConfirmPassword;
+    public String getDoctorEmail() {
+        return doctorEmail;
     }
 
-    public void setDoctorConfirmPassword(String doctorConfirmPassword) {
-        this.doctorConfirmPassword = doctorConfirmPassword;
+    public void setDoctorEmail(String doctorEmail) {
+        this.doctorEmail = doctorEmail;
     }
 
-    public String getDoctorEmailId() {
-        return doctorEmailId;
+    public String getDoctorPhoneNo() {
+        return doctorPhoneNo;
     }
 
-    public void setDoctorEmailId(String doctorEmailId) {
-        this.doctorEmailId = doctorEmailId;
-    }
-
-    public String getDoctorPhoneNumber() {
-        return doctorPhoneNumber;
-    }
-
-    public void setDoctorPhoneNumber(String doctorPhoneNumber) {
-        this.doctorPhoneNumber = doctorPhoneNumber;
+    public void setDoctorPhoneNo(String doctorPhoneNo) {
+        this.doctorPhoneNo = doctorPhoneNo;
     }
 
     public String getDoctorGender() {
@@ -87,6 +79,14 @@ public class Doctor {
         this.doctorCredentials = doctorCredentials;
     }
 
+    public String getDoctorSpecialization() {
+        return doctorSpecialization;
+    }
+
+    public void setDoctorSpecialization(String doctorSpecialization) {
+        this.doctorSpecialization = doctorSpecialization;
+    }
+
     public String getDoctorClinicAddress() {
         return doctorClinicAddress;
     }
@@ -95,11 +95,11 @@ public class Doctor {
         this.doctorClinicAddress = doctorClinicAddress;
     }
 
-    public String getDoctorPincode() {
+    public double getDoctorPincode() {
         return doctorPincode;
     }
 
-    public void setDoctorPincode(String doctorPincode) {
+    public void setDoctorPincode(double doctorPincode) {
         this.doctorPincode = doctorPincode;
     }
 
