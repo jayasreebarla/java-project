@@ -7,7 +7,9 @@ public class Appointment {
     private String appointmentTime;
     private String appointmentDescription;
     private double appointmentFee;
-
+    private String patientId;
+    private String doctorId;
+    private String billId;
 
     public String getAppointmentId() {
         return appointmentId;
@@ -49,6 +51,28 @@ public class Appointment {
         this.appointmentFee = appointmentFee;
     }
 
+    public String getPatientId() {
+        return patientId;
+    }
 
+    public void setPatientId(String patientId) {
+        this.patientId = patientId;
+    }
+
+    public String getDoctorId() {
+        return doctorId;
+    }
+
+    public void setDoctorId(String doctorId) {
+        this.doctorId = doctorId;
+    }
+
+    public String getBillId() {
+        return billId;
+    }
+
+    public void setBillId(String billId) {
+        this.billId = billId;
+    }
 }
 
