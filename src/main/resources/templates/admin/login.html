@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form action="/auth_admin/admin_login" method = "post" >
+    Enter Admin ID: <input type="text" id = "name" name = "name" required="required" th:name="adminId" placeholder = "Admin ID"> <br>
+    Enter password: <input type="password" id = "password" name = "password"  required="required" th:name="adminPassword"  placeholder = "password"><br><br><br>
+    <button type="submit">Login</button>
+</form>
+
+</body>
+</html>

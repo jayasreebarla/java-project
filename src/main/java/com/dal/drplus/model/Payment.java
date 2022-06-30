@@ -7,19 +7,43 @@ public class Payment {
     private String paymentDetails;
     private boolean paymentStatusEnabled;
 
-    public void addPayment(){
-
+    public String getPaymentId() {
+        return paymentId;
     }
 
-    public void getPayment(){
-
+    public void setPaymentId(String paymentId) {
+        this.paymentId = paymentId;
     }
 
-    public void updatePayment(){
-
+    public String getBillId() {
+        return billId;
     }
 
-    public void revertPaymentAppointmentCancelled(){
+    public void setBillId(String billId) {
+        this.billId = billId;
+    }
 
+    public String getPaymentType() {
+        return paymentType;
+    }
+
+    public void setPaymentType(String paymentType) {
+        this.paymentType = paymentType;
+    }
+
+    public String getPaymentDetails() {
+        return paymentDetails;
+    }
+
+    public void setPaymentDetails(String paymentDetails) {
+        this.paymentDetails = paymentDetails;
+    }
+
+    public boolean isPaymentStatusEnabled() {
+        return paymentStatusEnabled;
+    }
+
+    public void setPaymentStatusEnabled(boolean paymentStatusEnabled) {
+        this.paymentStatusEnabled = paymentStatusEnabled;
     }
 }
