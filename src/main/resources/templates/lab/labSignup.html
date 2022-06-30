@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lab Sign Up</title>
+</head>
+<body>
+<form action="#" th:action="@{/auth_lab/lab_signup}" th:object="${lab}" method="post">
+    <p>LabPerson Id: <input type="text" required="required" th:field="*{labId}" /></p>
+    <p>LabPerson Full name: <input type="text" required="required" th:field="*{labPersonName}" /></p>
+    <p>LabPerson Email: <input type="text" required="required" th:field="*{labEmailId}" /></p>
+    <p>LabPerson Password : <input type="text" required="required" th:field="*{labPassword}" /></p>
+    <p>LabPerson Address: <input type="text" required="required" th:field="*{labAddress}" /></p>
+    <p>LabPerson Contact Info: <input type="number" required="required" th:field="*{labContactInfo}" /></p>
+    <p>LabPerson Pincode: <input type="number" required="required" th:field="*{labPincode}" /></p>
+
+    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+</form>
+</body>
+</html>
