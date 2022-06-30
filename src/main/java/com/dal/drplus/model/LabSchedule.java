@@ -1,5 +1,7 @@
 package com.dal.drplus.model;
 
+import java.util.Date;
+
 public class LabSchedule {
     private int slotId;
     private String slotTiming;
