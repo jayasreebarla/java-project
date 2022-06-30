@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+
+<form action="/auth/patient_login" method = "post" >
+  Enter Patient ID: <input type="text" id = "name" name = "name" required="required" th:name="patientId" placeholder = "Patient ID"> <br>
+  Enter password: <input type="password" id = "password" name = "password"  required="required" th:name="patientPassword"  placeholder = "password"><br><br><br>
+  <button type="submit">Login</button>
+</form>
+
+</body>
+</html>
