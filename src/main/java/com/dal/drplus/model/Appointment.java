@@ -10,6 +10,26 @@ public class Appointment {
     private String patientId;
     private String doctorId;
     private String billId;
+    private String slotId;
+    private String labId;
+
+    private String appointmentType;
+
+    public String getLabId() {
+        return labId;
+    }
+
+    public void setLabId(String labId) {
+        this.labId = labId;
+    }
+
+    public String getAppointmentType() {
+        return appointmentType;
+    }
+
+    public void setAppointmentType(String appointmentType) {
+        this.appointmentType = appointmentType;
+    }
 
     public String getAppointmentId() {
         return appointmentId;
@@ -73,6 +93,14 @@ public class Appointment {
 
     public void setBillId(String billId) {
         this.billId = billId;
+    }
+
+    public String getSlotId() {
+        //slot id logic to be added
+        return slotId;
+    }
+    public void setSlotId(String slotId) {
+        this.slotId = slotId;
     }
 }
 
