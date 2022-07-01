@@ -38,7 +38,7 @@ public class DoctorRepositoryImpl implements IDoctorRepository {
             statement.setString(8, doctor.getDoctorCredentials());
             statement.setString(9, doctor.getDoctorSpecialization());
             statement.setString(10, doctor.getDoctorClinicAddress());
-            statement.setDouble(11,doctor.getDoctorPincode());
+            statement.setString(11,doctor.getDoctorPincode());
             return statement.executeUpdate();
 
         } catch (SQLException e) {
@@ -81,7 +81,7 @@ public class DoctorRepositoryImpl implements IDoctorRepository {
             doctorObject.setDoctorCredentials(rs.getString("doctor_credentials"));
             doctorObject.setDoctorSpecialization(rs.getString("doctor_specialization"));
             doctorObject.setDoctorClinicAddress(rs.getString("doctor_clinic_address"));
-            doctorObject.setDoctorPincode(rs.getDouble("doctor_pincode"));
+            doctorObject.setDoctorPincode(rs.getString("doctor_pincode"));
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -107,7 +107,7 @@ public class DoctorRepositoryImpl implements IDoctorRepository {
            doctorObject.setDoctorCredentials(rs.getString("doctor_credentials"));
            doctorObject.setDoctorSpecialization(rs.getString("doctor_specialization"));
            doctorObject.setDoctorClinicAddress(rs.getString("doctor_clinic_address"));
-           doctorObject.setDoctorPincode(rs.getDouble("doctor_pincode"));
+           doctorObject.setDoctorPincode(rs.getString("doctor_pincode"));
            doctors.add(doctorObject);
         }
         return doctors;
@@ -152,7 +152,7 @@ public class DoctorRepositoryImpl implements IDoctorRepository {
                 doctorObject.setDoctorCredentials(rs.getString("doctor_credentials"));
                 doctorObject.setDoctorSpecialization(rs.getString("doctor_specialization"));
                 doctorObject.setDoctorClinicAddress(rs.getString("doctor_clinic_address"));
-                doctorObject.setDoctorPincode(rs.getDouble("doctor_pincode"));
+                doctorObject.setDoctorPincode(rs.getString("doctor_pincode"));
                 doctorsBySpecialization.add(doctorObject);
             }
         } catch (SQLException e) {
@@ -182,7 +182,7 @@ public class DoctorRepositoryImpl implements IDoctorRepository {
                 doctorObject.setDoctorCredentials(rs.getString("doctor_credentials"));
                 doctorObject.setDoctorSpecialization(rs.getString("doctor_specialization"));
                 doctorObject.setDoctorClinicAddress(rs.getString("doctor_clinic_address"));
-                doctorObject.setDoctorPincode(rs.getDouble("doctor_pincode"));
+                doctorObject.setDoctorPincode(rs.getString("doctor_pincode"));
                 doctorsByPincode.add(doctorObject);
             }
         } catch (SQLException e) {
@@ -213,7 +213,7 @@ public class DoctorRepositoryImpl implements IDoctorRepository {
                 doctorObject.setDoctorCredentials(rs.getString("doctor_credentials"));
                 doctorObject.setDoctorSpecialization(rs.getString("doctor_specialization"));
                 doctorObject.setDoctorClinicAddress(rs.getString("doctor_clinic_address"));
-                doctorObject.setDoctorPincode(rs.getDouble("doctor_pincode"));
+                doctorObject.setDoctorPincode(rs.getString("doctor_pincode"));
                 doctorsBySpecializationAndPincode.add(doctorObject);
             }
         } catch (SQLException e) {

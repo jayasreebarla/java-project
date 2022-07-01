@@ -11,7 +11,7 @@ public class Doctor {
     private String doctorCredentials;
     private String doctorSpecialization;
     private String doctorClinicAddress;
-    private double doctorPincode;
+    private String doctorPincode;
     private int doctorRating;
 
 
@@ -95,11 +95,11 @@ public class Doctor {
         this.doctorClinicAddress = doctorClinicAddress;
     }
 
-    public double getDoctorPincode() {
+    public String getDoctorPincode() {
         return doctorPincode;
     }
 
-    public void setDoctorPincode(double doctorPincode) {
+    public void setDoctorPincode(String doctorPincode) {
         this.doctorPincode = doctorPincode;
     }
 
