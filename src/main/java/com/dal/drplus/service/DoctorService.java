@@ -21,7 +21,7 @@ public class DoctorService {
 
     }
 
-//    public List<Doctor> filterDoctorOnPincodeAndSpecialization(double doctorPincode, String doctorSpecialization){
-//        return doctorRepository.findAllDoctorsBySpecializationAndPincode(doctorSpecialization,doctorPincode);
-//    }
+    public List<Doctor> filterDoctorOnPincodeAndSpecialization(String doctorPincode, String doctorSpecialization){
+        return doctorRepository.findAllDoctorsBySpecializationAndPincode(doctorSpecialization,doctorPincode);
+    }
 }

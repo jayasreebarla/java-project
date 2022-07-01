@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Patient Home</title>
@@ -7,5 +7,17 @@
 <a href="/auth/logout">Logout</a>
 <body>
 <p>This patient homepage</p>
+
+<form action="/show_doctors" method = "get" >
+    <p>Enter Pincode: <input type="text" id = "name" name = "name" required="required" th:name="pincode" placeholder = "pincode"></p> <br>
+    <p>Select Specialization: <select required="required" th:name="specialization">
+        <option value="Cardiologist">Cardiologist</option>
+        <option value="Ophthalmologist">Ophthalmologist</option>
+        <option value="Dermatologist">Dermatologist</option>
+        <option value="Gynaecologist">Gynaecologist</option>
+        <option value="Orthopedic">Orthopedic</option>
+    </select></p><br><br><br>
+    <button type="submit">SUBMIT</button>
+</form>
 </body>
 </html>
