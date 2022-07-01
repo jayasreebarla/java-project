@@ -8,7 +8,7 @@ public class Patient {
     private String patientPhoneNo;
     private String patientPassword;
     private String patientAddress;
-    private Double patientPincode;
+    private String patientPincode;
     private boolean privacyAgreementEnabled;
 
     public String getPatientId() {
@@ -68,11 +68,11 @@ public class Patient {
         this.patientAddress = patientAddress;
     }
 
-    public Double getPatientPincode() {
+    public String getPatientPincode() {
         return patientPincode;
     }
 
-    public void setPatientPincode(Double patientPincode) {
+    public void setPatientPincode(String patientPincode) {
         this.patientPincode = patientPincode;
     }
 
