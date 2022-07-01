@@ -53,7 +53,7 @@ public class PatientRepositoryImpl implements IPatientRepository{
             statement.setString(5,patient.getPatientPhoneNo());
             statement.setString(6,patient.getPatientPassword());
             statement.setString(7,patient.getPatientAddress());
-            statement.setDouble(8,patient.getPatientPincode());
+            statement.setString(8,patient.getPatientPincode());
             statement.setBoolean(9,patient.isPrivacyAgreementEnabled());
             statement.executeUpdate();
             return StorageResult.SUCCESS;
@@ -73,7 +73,7 @@ public class PatientRepositoryImpl implements IPatientRepository{
             statement.setString(4,patient.getPatientPhoneNo());
             statement.setString(5,patient.getPatientPassword());
             statement.setString(6,patient.getPatientAddress());
-            statement.setDouble(7,patient.getPatientPincode());
+            statement.setString(7,patient.getPatientPincode());
             statement.setBoolean(8, patient.isPrivacyAgreementEnabled());
             statement.setString(9,patient.getPatientId());
             statement.executeUpdate();
@@ -158,7 +158,7 @@ public class PatientRepositoryImpl implements IPatientRepository{
         patient.setPatientPhoneNo(rs.getString("patient_phone_no"));
         patient.setPatientPassword(rs.getString("patient_password"));
         patient.setPatientAddress(rs.getString("patient_address"));
-        patient.setPatientPincode(rs.getDouble("patient_pincode"));
+        patient.setPatientPincode(rs.getString("patient_pincode"));
         patient.setPrivacyAgreementEnabled(rs.getBoolean("privacy_agreement_enabled"));
 
         return patient;

@@ -1,11 +1,27 @@
 package com.dal.drplus.service;
 
+import com.dal.drplus.model.Doctor;
+import com.dal.drplus.repository.interfaces.IDoctorRepository;
+
+import java.util.List;
+
 public class DoctorService {
-    public void filterDoctorOnRating(){
+    IDoctorRepository doctorRepository;
+
+    public DoctorService(IDoctorRepository doctorRepository) {
+        this.doctorRepository = doctorRepository;
+    }
+
+
+    public void sortDoctorOnRating(){
 
     }
 
     public void filterDoctorOnLocation(){
 
     }
+
+//    public List<Doctor> filterDoctorOnPincodeAndSpecialization(double doctorPincode, String doctorSpecialization){
+//        return doctorRepository.findAllDoctorsBySpecializationAndPincode(doctorSpecialization,doctorPincode);
+//    }
 }
