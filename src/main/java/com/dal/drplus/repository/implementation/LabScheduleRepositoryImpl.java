@@ -1,10 +1,11 @@
-package com.dal.drplus.service;
+package com.dal.drplus.repository.implementation;
 
 import com.dal.drplus.model.LabSchedule;
 import com.dal.drplus.model.Patient;
 import com.dal.drplus.repository.configuration.DatabaseConfiguration;
 import com.dal.drplus.repository.configuration.DatabaseConfigurationImpl;
 import com.dal.drplus.repository.interfaces.ILabScheduleRepository;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -13,6 +14,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class LabScheduleRepositoryImpl implements ILabScheduleRepository {
 
     String INSERT_LAB_SCHEDULE = "INSERT into Lab_schedule (slot_id,slot_timing,slot_date,lab_id,status) VALUES(NEXT VALUE FOR doc_sch_seq,?,?,?,?)";
