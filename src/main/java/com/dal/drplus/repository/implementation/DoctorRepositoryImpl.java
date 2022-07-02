@@ -144,7 +144,6 @@ public class DoctorRepositoryImpl implements IDoctorRepository {
                 Doctor doctorObject = new Doctor();
                 doctorObject.setDoctorId(rs.getString("doctor_id"));
                 doctorObject.setDoctorName(rs.getString("doctor_name"));
-                doctorObject.setDoctorPassword(rs.getString("doctor_password"));
                 doctorObject.setDoctorEmail(rs.getString("doctor_email"));
                 doctorObject.setDoctorPhoneNo(rs.getString("doctor_phone"));
                 doctorObject.setDoctorGender(rs.getString("doctor_gender"));
@@ -174,7 +173,6 @@ public class DoctorRepositoryImpl implements IDoctorRepository {
                 Doctor doctorObject = new Doctor();
                 doctorObject.setDoctorId(rs.getString("doctor_id"));
                 doctorObject.setDoctorName(rs.getString("doctor_name"));
-                doctorObject.setDoctorPassword(rs.getString("doctor_password"));
                 doctorObject.setDoctorEmail(rs.getString("doctor_email"));
                 doctorObject.setDoctorPhoneNo(rs.getString("doctor_phone"));
                 doctorObject.setDoctorGender(rs.getString("doctor_gender"));
@@ -197,7 +195,7 @@ public class DoctorRepositoryImpl implements IDoctorRepository {
         List<Doctor> doctorsBySpecializationAndPincode = new ArrayList<>();
         PreparedStatement statement = null;
         try {
-            statement = databaseConfiguration.getDBConnection().prepareStatement("Select doctor_id,doctor_name,doctor_email,doctor_phone,doctor_specialization,doctor_clinic_address,doctor_pincode from Doctor where doctor_specialization = ? and doctor_pincode =?");
+            statement = databaseConfiguration.getDBConnection().prepareStatement("Select * from Doctor where doctor_specialization = ? and doctor_pincode =?");
             statement.setString(1,specialization);
             statement.setString(2,pincode);
             ResultSet rs = statement.executeQuery();
@@ -205,12 +203,11 @@ public class DoctorRepositoryImpl implements IDoctorRepository {
                 Doctor doctorObject = new Doctor();
                 doctorObject.setDoctorId(rs.getString("doctor_id"));
                 doctorObject.setDoctorName(rs.getString("doctor_name"));
-//                doctorObject.setDoctorPassword(rs.getString("doctor_password"));
                 doctorObject.setDoctorEmail(rs.getString("doctor_email"));
                 doctorObject.setDoctorPhoneNo(rs.getString("doctor_phone"));
-//                doctorObject.setDoctorGender(rs.getString("doctor_gender"));
-//                doctorObject.setDoctorAge(rs.getInt("doctor_age"));
-//                doctorObject.setDoctorCredentials(rs.getString("doctor_credentials"));
+                doctorObject.setDoctorGender(rs.getString("doctor_gender"));
+                doctorObject.setDoctorAge(rs.getInt("doctor_age"));
+                doctorObject.setDoctorCredentials(rs.getString("doctor_credentials"));
                 doctorObject.setDoctorSpecialization(rs.getString("doctor_specialization"));
                 doctorObject.setDoctorClinicAddress(rs.getString("doctor_clinic_address"));
                 doctorObject.setDoctorPincode(rs.getString("doctor_pincode"));
