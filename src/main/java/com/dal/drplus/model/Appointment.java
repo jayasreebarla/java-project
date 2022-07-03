@@ -2,7 +2,7 @@ package com.dal.drplus.model;
 
 public class Appointment {
 
-    private String appointmentId;
+    private int appointmentId;
     private String appointmentDate;
     private String appointmentTime;
     private String appointmentDescription;
@@ -31,11 +31,11 @@ public class Appointment {
         this.appointmentType = appointmentType;
     }
 
-    public String getAppointmentId() {
+    public int getAppointmentId() {
         return appointmentId;
     }
 
-    public void setAppointmentId(String appointmentId) {
+    public void setAppointmentId(int appointmentId) {
         this.appointmentId = appointmentId;
     }
 
