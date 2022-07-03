@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rating</title>
+</head>
+<body>
+
+<p><strong>This is rating page for Doctor and Lab</strong></p>
+
+<p><strong>Rating for Doctor: </strong></p>
+<form>
+
+    <label for="doc_info">Doctor name/ Doctor ID:</label><br>
+    <input type="text" id="doc_info" name="doc_info"><br>
+    <label for="comments_doc">Comments:</label><br>
+    <textarea id="comments_doc" name="comments" rows="4" cols="50"> </textarea><br>
+
+    <label for="rating_doc">Choose a rating:</label>
+
+    <select name="rating_doc" id="rating_doc">
+        <option value="one">1</option>
+        <option value="two">2</option>
+        <option value="three">3</option>
+        <option value="four">4</option>
+        <option value="five">5</option>
+
+        <input type="submit" value="Submit"><br><br><br>
+</form>
+
+<p><strong>Rating for Lab: </strong></p>
+<form>
+
+    <label for="lab_info">Lab name/ Lab ID:</label><br>
+    <input type="text" id="lab_info" name="lab_info"><br>
+    <label for="comments_lab">Comments:</label><br>
+    <textarea id="comments_lab" name="comments" rows="4" cols="50"> </textarea><br>
+
+    <label for="rating_lab">Choose a rating:</label>
+
+    <select name="rating_lab" id="rating_lab">
+        <option value="one">1</option>
+        <option value="two">2</option>
+        <option value="three">3</option>
+        <option value="four">4</option>
+        <option value="five">5</option>
+
+        <input type="submit" value="Submit"><br><br><br>
+</form>
+
+</body>
+</html>
