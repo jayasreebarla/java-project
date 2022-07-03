@@ -5,6 +5,7 @@ import com.dal.drplus.model.Appointment;
 import java.util.List;
 
 public interface IAppointmentRepository {
+
     enum StorageResult{
         SUCCESS,
         FAILURE
@@ -20,7 +21,8 @@ public interface IAppointmentRepository {
     List<Appointment> findAppointmentByLabIdNDate(String labId, String date);
     List<Appointment> findAppointmentByPatientIdNDate(String patientId, String date);
     List<Appointment> findAppointmentByDate(String date);
-    IAppointmentRepository.StorageResult deleteAppointmentById(String appointmentId);
+    IAppointmentRepository.StorageResult deleteAppointmentById(int appointmentId);
     List<Appointment> findAll();
     StorageResult deleteAll();
+    StorageResult isAppointmentConflict(String slotDate, String slotTime, String patientId);
 }
