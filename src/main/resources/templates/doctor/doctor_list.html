@@ -30,13 +30,13 @@
         <td colspan="2"> No Doctors Available </td>
     </tr>
     <tr th:each="doctor : ${doctors}">
-        <td><span th:text="${doctor.doctorId}"> Title </span></td>
-        <td><span th:text="${doctor.doctorName}"> Author </span></td>
-        <td><span th:text="${doctor.doctorEmail}"> Author </span></td>
-        <td><span th:text="${doctor.doctorPhoneNo}"> Author </span></td>
-        <td><span th:text="${doctor.doctorSpecialization}"> Author </span></td>
-        <td><span th:text="${doctor.doctorClinicAddress}"> Author </span></td>
-        <td><span th:text="${doctor.doctorPincode}"> Author </span></td>
+        <td><span th:text="${doctor.doctorId}"> doctor Id </span></td>
+        <td><span th:text="${doctor.doctorName}"> doctor Name </span></td>
+        <td><span th:text="${doctor.doctorEmail}"> doctor Email </span></td>
+        <td><span th:text="${doctor.doctorPhoneNo}"> doctor PhoneNo </span></td>
+        <td><span th:text="${doctor.doctorSpecialization}"> doctor Specialization </span></td>
+        <td><span th:text="${doctor.doctorClinicAddress}"> doctor Clinic Address </span></td>
+        <td><span th:text="${doctor.doctorPincode}"> doctor Pincode </span></td>
         <td><a th:href = "@{/doctor/{doctorId}(doctorId=${doctor.doctorId})}"
                class = "btn btn-primary">Check Availability</a></td>
     </tr>
