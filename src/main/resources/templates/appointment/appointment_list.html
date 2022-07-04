@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Appointment List</title>
 </head>
+<a href="/auth/logout">Logout</a>
 <body>
 
 <table>
@@ -26,7 +27,7 @@
         <td><span th:text="${appointment.getDoctorId()}"> Title </span></td>
         <td><span th:text="${appointment.getSlotId()}"> Title </span></td>
         <td><a th:href="@{/cancel_appointment/{id}(id=${appointment.getAppointmentId()})}"><button>Delete Appointment</button></a></td>
-
+        <td><a th:href="@{/add_rating/{doctor_id}(doctor_id=${appointment.getDoctorId()})}"><button>Add Rating</button></a></td>
     </tr>
     </tbody>
 </table>
