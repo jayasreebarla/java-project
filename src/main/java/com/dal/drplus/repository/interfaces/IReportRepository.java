@@ -6,7 +6,12 @@ import java.io.FileNotFoundException;
 import java.util.List;
 
 public interface IReportRepository {
-    public int uploadReport(Report report) throws FileNotFoundException;
+
+    enum StorageResult{
+        SUCCESS,
+        FAILURE
+    }
+    public StorageResult uploadReport(Report report) throws FileNotFoundException;
 
     public int deleteReport(Report report);
 
