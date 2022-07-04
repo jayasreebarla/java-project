@@ -27,7 +27,7 @@
     </thead>
     <tbody>
     <tr th:if="${doctors.isEmpty()}">
-        <td colspan="2"> No Books Available </td>
+        <td colspan="2"> No Doctors Available </td>
     </tr>
     <tr th:each="doctor : ${doctors}">
         <td><span th:text="${doctor.doctorId}"> Title </span></td>

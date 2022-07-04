@@ -29,7 +29,7 @@ public class AppointmentRepositoryImpl implements IAppointmentRepository{
             " else (select slot_date from Lab_schedule L where L.slot_id=A.slot_id)  end as slot_date ,"+
             " case when appointment_type = 'DOCTOR' then (select slot_timing from Doc_schedule D where D.slot_id=A.slot_id)"+
             " else (select slot_timing from Lab_schedule L where L.slot_id=A.slot_id)  end as slot_timing"+
-            " FROM Appointment WHERE appointment_id=?";
+            " FROM Appointment A WHERE appointment_id=?";
 
     String SELECT_APPOINTMENT_BY_PATIENT_ID = "SELECT appointment_id, appointment_description, appointment_type, "+
             " appointment_fee, patient_id, bill_id, lab_id, doctor_id, slot_id, "+
@@ -57,7 +57,7 @@ public class AppointmentRepositoryImpl implements IAppointmentRepository{
             " case when appointment_type = 'DOCTOR' then "+
             "(select slot_timing from Doc_schedule D where D.slot_id=A.slot_id and slot_date=?) "+
             " else (select slot_timing from Lab_schedule L where L.slot_id=A.slot_id and slot_date=?)  end as slot_timing"+
-            " FROM Appointment WHERE patient_id=? ";
+            " FROM Appointment A WHERE patient_id=? ";
 
     String SELECT_APPOINTMENT_BY_DOCTOR_ID_N_DATE = "SELECT appointment_id, appointment_description, appointment_type, "+
             " appointment_fee, patient_id, bill_id, lab_id, doctor_id, slot_timing, slot_date  FROM Appointment, Doc_schedule"+
@@ -75,7 +75,7 @@ public class AppointmentRepositoryImpl implements IAppointmentRepository{
             " case when appointment_type = 'DOCTOR' then "+
             "(select slot_timing from Doc_schedule D where D.slot_id=A.slot_id and slot_date=?)"+
             " else (select slot_timing from Lab_schedule L where L.slot_id=A.slot_id and slot_date=?)  end as slot_timing"+
-            " FROM Appointment ";
+            " FROM Appointment A";
 
     String DELETE_APPOINTMENT_BY_ID = "DELETE from Appointment where appointment_id=? ";
 
