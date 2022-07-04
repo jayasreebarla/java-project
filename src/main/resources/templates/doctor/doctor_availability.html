@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Doctor Availability</title>
+</head>
+<body>
+
+    <h2> Doctor Availability List: </h2>
+    <table class = "table table-striped table-bordered">
+        <thead>
+        <tr>
+            <th> Slot Id </th>
+            <th> Slot Timing </th>
+            <th> Slot date </th>
+            <th> Actions </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${doctorSlots.isEmpty()}">
+            <td colspan="2"> No Slots Available </td>
+        </tr>
+        <tr th:each="doctorSlot : ${doctorSlots}">
+            <td><span th:text="${doctorSlot.slotId}"> Title </span></td>
+            <td><span th:text="${doctorSlot.slotDate}"> Author </span></td>
+            <td><span th:text="${doctorSlot.slotTiming}"> Author </span></td>
+            <td><a th:href = "@{/doctorSlot/{slotId}/{doctorId}(slotId=${doctorSlot.slotId},doctorId=${doctorSlot.doctorId})}"
+                   class = "btn btn-primary">Book Appointment</a></td>
+        </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>
+
+
+

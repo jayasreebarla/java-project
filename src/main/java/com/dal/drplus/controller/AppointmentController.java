@@ -1,6 +1,8 @@
 package com.dal.drplus.controller;
 
 import com.dal.drplus.model.Appointment;
+import com.dal.drplus.model.Doctor;
+import com.dal.drplus.model.DoctorSchedule;
 import com.dal.drplus.model.Patient;
 import com.dal.drplus.repository.implementation.AppointmentRepositoryImpl;
 import com.dal.drplus.repository.interfaces.IAppointmentRepository;
@@ -10,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpSession;
@@ -34,6 +38,28 @@ public class AppointmentController {
         List<Appointment> appointmentList = appointmentListService.listAppointmentbyPatient(currentPatient.getPatientId());
         model.addAttribute("appointments",appointmentList);
         return "appointment/appointment_list";
+    }
+
+
+    @GetMapping("/doctorSlot/{slotId}/{doctorId}")
+    public String bookAppointment(Model model, HttpSession session, @PathVariable("slotId") String slotId, @PathVariable("doctorId") String doctorId){
+
+        Appointment appointment = new Appointment();
+        Patient currentPatient = (Patient) session.getAttribute("CurrentPatient");
+       // Doctor currentDoctor = (Doctor) session.getAttribute("CurrentDoctor");
+
+        //appointment.setAppointmentId(Integer.parseInt(slotId)+1);
+        appointment.setSlotId(Integer.parseInt(slotId));
+        appointment.setAppointmentType("DOCTOR");
+        appointment.setAppointmentDescription("");
+        appointment.setAppointmentFee(0);
+        appointment.setPatientId(currentPatient.getPatientId());
+        appointment.setDoctorId(doctorId);
+        appointment.setBillId(0);
+        appointment.setLabId("");
+
+        appointmentService.bookAppointment(appointment);
+        return "appointment/appointment_booked";
     }
 
     @GetMapping("/error_appointment")

@@ -64,7 +64,7 @@ public class DoctorScheduleRepositoryImpl implements IDoctorScheduleRepository {
 
     @Override
     public List<DoctorSchedule> findScheduleByDoctorID(String id) {
-
+        System.out.println("Doctor"+id);
         List<DoctorSchedule> doctorSchedules = new ArrayList<>();
         PreparedStatement statement = null;
         try {
