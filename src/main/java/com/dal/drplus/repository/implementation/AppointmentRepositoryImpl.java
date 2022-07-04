@@ -4,6 +4,7 @@ import com.dal.drplus.model.Appointment;
 import com.dal.drplus.repository.configuration.DatabaseConfiguration;
 import com.dal.drplus.repository.configuration.DatabaseConfigurationImpl;
 import com.dal.drplus.repository.interfaces.IAppointmentRepository;
+import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,6 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class AppointmentRepositoryImpl implements IAppointmentRepository{
 
     String INSERT_APPOINTMENT= "INSERT into Appointment " +

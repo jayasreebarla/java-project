@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Appointment List</title>
+</head>
+<body>
+
+<table>
+    <thead>
+    <tr>
+        <th> Title </th>
+        <th> Author </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${appointments.isEmpty()}">
+        <td colspan="2"> No Books Available </td>
+    </tr>
+    <tr th:each="appointment : ${appointments}">
+        <td><span th:text="${appointment.getAppointmentId()}"> Title </span></td>
+        <td><span th:text="${appointment.getAppointmentDate()}"> Title </span></td>
+        <td><span th:text="${appointment.getAppointmentDescription()}"> Title </span></td>
+        <td><span th:text="${appointment.getAppointmentType()}"> Title </span></td>
+        <td><span th:text="${appointment.getBillId()}"> Title </span></td>
+        <td><span th:text="${appointment.getDoctorId()}"> Title </span></td>
+        <td><span th:text="${appointment.getSlotId()}"> Title </span></td>
+        <td><a th:href="@{/cancel_appointment/{id}(id=${appointment.getAppointmentId()})}"><button>Delete Appointment</button></a></td>
+
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

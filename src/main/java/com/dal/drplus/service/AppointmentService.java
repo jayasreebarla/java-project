@@ -30,8 +30,8 @@ public class AppointmentService {
         }
     }
 
-    public boolean cancelAppointment(Appointment appointment) {
-        IAppointmentRepository.StorageResult result = appointmentRepository.deleteAppointmentById(appointment.getAppointmentId());
+    public boolean cancelAppointment(int appointmentId) {
+        IAppointmentRepository.StorageResult result = appointmentRepository.deleteAppointmentById(appointmentId);
         if(result.equals(IAppointmentRepository.StorageResult.SUCCESS)){
             return true;
         } else {
