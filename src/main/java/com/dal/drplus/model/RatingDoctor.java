@@ -2,9 +2,11 @@ package com.dal.drplus.model;
 
 public class RatingDoctor{
     private int ratingId;
-    private int patientId;
-    private int doctorId;
+    private String patientId;
+    private String doctorId;
     private int doctorRating;
+
+    private String review;
 
     public int getRatingId() {
         return ratingId;
@@ -14,19 +16,19 @@ public class RatingDoctor{
         this.ratingId = ratingId;
     }
 
-    public int getPatientId() {
+    public String getPatientId() {
         return patientId;
     }
 
-    public void setPatientId(int patientId) {
+    public void setPatientId(String patientId) {
         this.patientId = patientId;
     }
 
-    public int getDoctorId() {
+    public String getDoctorId() {
         return doctorId;
     }
 
-    public void setDoctorId(int doctorId) {
+    public void setDoctorId(String doctorId) {
         this.doctorId = doctorId;
     }
 
@@ -36,5 +38,13 @@ public class RatingDoctor{
 
     public void setDoctorRating(int doctorRating) {
         this.doctorRating = doctorRating;
+    }
+
+    public String getReview() {
+        return review;
+    }
+
+    public void setReview(String review) {
+        this.review = review;
     }
 }
