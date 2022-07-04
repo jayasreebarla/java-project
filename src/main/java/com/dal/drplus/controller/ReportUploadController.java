@@ -51,7 +51,7 @@ public class ReportUploadController {
         report.setReportFile(file.getBytes());
         report.setAppointmentId(appointmentId);
         boolean result = reportService.uploadReport(report);
-        return new RedirectView("appointment/appointment_list");
+        return new RedirectView("appointment_list");
     }
 
 //    @GetMapping("/files/{filename:.+}")
