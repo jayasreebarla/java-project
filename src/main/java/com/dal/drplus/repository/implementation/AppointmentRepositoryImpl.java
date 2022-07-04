@@ -29,7 +29,7 @@ public class AppointmentRepositoryImpl implements IAppointmentRepository{
             " else (select slot_date from Lab_schedule L where L.slot_id=A.slot_id)  end as slot_date ,"+
             " case when appointment_type = 'DOCTOR' then (select slot_timing from Doc_schedule D where D.slot_id=A.slot_id)"+
             " else (select slot_timing from Lab_schedule L where L.slot_id=A.slot_id)  end as slot_timing"+
-            " FROM Appointment WHERE appointment_id=?";
+            " FROM Appointment A WHERE appointment_id=?";
 
     String SELECT_APPOINTMENT_BY_PATIENT_ID = "SELECT appointment_id, appointment_description, appointment_type, "+
             " appointment_fee, patient_id, bill_id, lab_id, doctor_id, slot_id, "+
@@ -57,7 +57,7 @@ public class AppointmentRepositoryImpl implements IAppointmentRepository{
             " case when appointment_type = 'DOCTOR' then "+
             "(select slot_timing from Doc_schedule D where D.slot_id=A.slot_id and slot_date=?) "+
             " else (select slot_timing from Lab_schedule L where L.slot_id=A.slot_id and slot_date=?)  end as slot_timing"+
-            " FROM Appointment WHERE patient_id=? ";
+            " FROM Appointment A WHERE patient_id=? ";
 
     String SELECT_APPOINTMENT_BY_DOCTOR_ID_N_DATE = "SELECT appointment_id, appointment_description, appointment_type, "+
             " appointment_fee, patient_id, bill_id, lab_id, doctor_id, slot_timing, slot_date  FROM Appointment, Doc_schedule"+
@@ -75,7 +75,7 @@ public class AppointmentRepositoryImpl implements IAppointmentRepository{
             " case when appointment_type = 'DOCTOR' then "+
             "(select slot_timing from Doc_schedule D where D.slot_id=A.slot_id and slot_date=?)"+
             " else (select slot_timing from Lab_schedule L where L.slot_id=A.slot_id and slot_date=?)  end as slot_timing"+
-            " FROM Appointment ";
+            " FROM Appointment A";
 
     String DELETE_APPOINTMENT_BY_ID = "DELETE from Appointment where appointment_id=? ";
 
@@ -105,13 +105,13 @@ public class AppointmentRepositoryImpl implements IAppointmentRepository{
             PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(INSERT_APPOINTMENT);
             statement.setInt(1,appointment.getAppointmentId());
             //slot id logic to be added
-            statement.setString(2,appointment.getSlotId());
+            statement.setInt(2,appointment.getSlotId());
             statement.setString(3,appointment.getAppointmentType());
             statement.setString(4,appointment.getAppointmentDescription());
             statement.setDouble(5,appointment.getAppointmentFee());
             statement.setString(6,appointment.getPatientId());
             statement.setString(7,appointment.getDoctorId());
-            statement.setString(8,appointment.getBillId());
+            statement.setInt(8,appointment.getBillId());
             statement.setString(9,appointment.getLabId());
             statement.executeUpdate();
             return IAppointmentRepository.StorageResult.SUCCESS;
@@ -127,13 +127,13 @@ public class AppointmentRepositoryImpl implements IAppointmentRepository{
             PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(UPDATE_APPOINTMENT);
             statement.setInt(9,appointment.getAppointmentId());
             //slot id logic to be added
-            statement.setString(1,appointment.getSlotId());
+            statement.setInt(1,appointment.getSlotId());
             statement.setString(2,appointment.getAppointmentType());
             statement.setString(3,appointment.getAppointmentDescription());
             statement.setDouble(4,appointment.getAppointmentFee());
             statement.setString(5,appointment.getPatientId());
             statement.setString(6,appointment.getDoctorId());
-            statement.setString(7,appointment.getBillId());
+            statement.setInt(7,appointment.getBillId());
             statement.setString(8,appointment.getLabId());
             statement.executeUpdate();
             return IAppointmentRepository.StorageResult.SUCCESS;
@@ -366,13 +366,13 @@ public class AppointmentRepositoryImpl implements IAppointmentRepository{
     private Appointment createAppointment(ResultSet rs) throws SQLException {
         Appointment appointment= new Appointment();
         appointment.setAppointmentId(rs.getInt("appointment_id"));
-        appointment.setSlotId(rs.getString("slot_id"));
+        appointment.setSlotId(rs.getInt("slot_id"));
         appointment.setAppointmentType(rs.getString("appointment_type"));
         appointment.setAppointmentDescription(rs.getString("appointment_description"));
         appointment.setAppointmentFee(rs.getDouble("appointment_fee"));
         appointment.setPatientId(rs.getString("patient_id"));
         appointment.setDoctorId(rs.getString("doctor_id"));
-        appointment.setBillId(rs.getString("bill_id"));
+        appointment.setBillId(rs.getInt("bill_id"));
         appointment.setLabId(rs.getString("lab_id"));
         appointment.setAppointmentDate(rs.getString("slot_date"));
         appointment.setAppointmentTime(rs.getString("slot_timing"));

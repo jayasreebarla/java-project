@@ -27,7 +27,7 @@ public class DoctorLoginSignupController {
     }
 
     @PostMapping("/doctor_signup")
-    public String RegisterPatient(@ModelAttribute Doctor doctor, @RequestParam(value = "confirmDoctorPassword") String confirmPassword){
+    public String RegisterDoctor(@ModelAttribute Doctor doctor, @RequestParam(value = "confirmDoctorPassword") String confirmPassword){
         System.out.println(doctor.toString());
         System.out.println("confirmPassword"+confirmPassword);
         boolean result = loginSignupService.registerDoctor(doctor,confirmPassword);
@@ -54,7 +54,7 @@ public class DoctorLoginSignupController {
     }
 
     @GetMapping("/doctor_home")
-    public String PatientHome(){
+    public String DoctorHome(){
         return "doctor/doctor_home";
     }
 

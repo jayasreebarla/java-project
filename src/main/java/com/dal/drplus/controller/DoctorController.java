@@ -21,7 +21,6 @@ public class DoctorController {
         this.doctorService = new DoctorService(doctorRepository);
     }
 
-
     @GetMapping("/show_doctors")
     public String filterDoctorOnPincodeAndSpecialization(Model model, @RequestParam("pincode") String pincode, @RequestParam("specialization") String specialization){
         List<Doctor> doctorList = doctorService.filterDoctorOnPincodeAndSpecialization(pincode,specialization);
