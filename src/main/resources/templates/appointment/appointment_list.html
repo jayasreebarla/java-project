@@ -1,34 +1,44 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Appointment List</title>
+  <style>
+        table, th, td {
+            border: 1px solid;
+        }
+    </style>
+  <meta charset="UTF-8">
+  <title>Appointment List</title>
 </head>
+<a href="/auth/logout">Logout</a>
 <body>
-
-<table>
-    <thead>
-    <tr>
-        <th> Title </th>
-        <th> Author </th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:if="${appointments.isEmpty()}">
-        <td colspan="2"> No Books Available </td>
-    </tr>
-    <tr th:each="appointment : ${appointments}">
-        <td><span th:text="${appointment.getAppointmentId()}"> Title </span></td>
-        <td><span th:text="${appointment.getAppointmentDate()}"> Title </span></td>
-        <td><span th:text="${appointment.getAppointmentDescription()}"> Title </span></td>
-        <td><span th:text="${appointment.getAppointmentType()}"> Title </span></td>
-        <td><span th:text="${appointment.getBillId()}"> Title </span></td>
-        <td><span th:text="${appointment.getDoctorId()}"> Title </span></td>
-        <td><span th:text="${appointment.getSlotId()}"> Title </span></td>
-        <td><a th:href="@{/cancel_appointment/{id}(id=${appointment.getAppointmentId()})}"><button>Delete Appointment</button></a></td>
-
-    </tr>
-    </tbody>
+<h2> List of appointments </h2>
+<table class = "table table-striped table-bordered">
+  <thead>
+  <tr>
+    <th> Appointment Id </th>
+    <th> Appointment Type </th>
+    <th> Appointment Description </th>
+    <th> Appointment Fee</th>
+    <th> Doctor ID </th>
+    <th> Patient ID </th>
+    <th> Bill ID</th>
+    <th> Lab ID </th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:if="${doctors.isEmpty()}">
+    <td colspan="2"> No Books Available </td>
+  </tr>
+  <tr th:each="doctor : ${doctors}">
+    <td><span th:text="${doctor.doctorId}"> Title </span></td>
+    <td><span th:text="${doctor.doctorName}"> Author </span></td>
+    <td><span th:text="${doctor.doctorEmail}"> Author </span></td>
+    <td><span th:text="${doctor.doctorPhoneNo}"> Author </span></td>
+    <td><span th:text="${doctor.doctorSpecialization}"> Author </span></td>
+    <td><span th:text="${doctor.doctorClinicAddress}"> Author </span></td>
+    <td><span th:text="${doctor.doctorPincode}"> Author </span></td>
+  </tr>
+  </tbody>
 </table>
 
 </body>

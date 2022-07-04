@@ -37,6 +37,8 @@
         <td><span th:text="${doctor.doctorSpecialization}"> Author </span></td>
         <td><span th:text="${doctor.doctorClinicAddress}"> Author </span></td>
         <td><span th:text="${doctor.doctorPincode}"> Author </span></td>
+        <td><a th:href = "@{/doctor/{doctorId}(doctorId=${doctor.doctorId})}"
+               class = "btn btn-primary">Check Availability</a></td>
     </tr>
     </tbody>
 </table>

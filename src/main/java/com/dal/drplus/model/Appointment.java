@@ -9,8 +9,8 @@ public class Appointment {
     private double appointmentFee;
     private String patientId;
     private String doctorId;
-    private String billId;
-    private String slotId;
+    private int billId;
+    private int slotId;
     private String labId;
 
     private String appointmentType;
@@ -87,19 +87,19 @@ public class Appointment {
         this.doctorId = doctorId;
     }
 
-    public String getBillId() {
+    public int getBillId() {
         return billId;
     }
 
-    public void setBillId(String billId) {
+    public void setBillId(int billId) {
         this.billId = billId;
     }
 
-    public String getSlotId() {
+    public int getSlotId() {
         //slot id logic to be added
         return slotId;
     }
-    public void setSlotId(String slotId) {
+    public void setSlotId(int slotId) {
         this.slotId = slotId;
     }
 }
