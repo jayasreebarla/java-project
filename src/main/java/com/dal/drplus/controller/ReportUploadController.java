@@ -1,5 +1,7 @@
 package com.dal.drplus.controller;
 import com.dal.drplus.model.Report;
+import com.dal.drplus.repository.implementation.ReportRepositoryImpl;
+import com.dal.drplus.repository.interfaces.IReportRepository;
 import com.dal.drplus.service.ReportService;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -30,8 +32,8 @@ public class ReportUploadController {
     private final ReportService reportService;
     private String appointmentId;
 
-    public ReportUploadController(ReportService reportService) {
-        this.reportService = reportService;
+    public ReportUploadController(ReportRepositoryImpl reportRepository) {
+        this.reportService = new ReportService(reportRepository);
     }
 
     @GetMapping("/upload/{id}")

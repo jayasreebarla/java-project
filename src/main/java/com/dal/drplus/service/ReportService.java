@@ -12,6 +12,10 @@ public class ReportService {
 
     private IReportRepository reportRepository;
 
+    public ReportService(IReportRepository reportRepository) {
+        this.reportRepository = reportRepository;
+    }
+
     public boolean uploadReport(Report report){
         try {
             IReportRepository.StorageResult result = reportRepository.uploadReport(report);
