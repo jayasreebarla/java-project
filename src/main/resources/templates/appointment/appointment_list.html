@@ -9,22 +9,29 @@
 <table>
     <thead>
     <tr>
-        <th> Title </th>
-        <th> Author </th>
+        <th> Appointment Id </th>
+        <th> Appointment Date </th>
+        <th> Appointment Time </th>
+        <th> Appointment Description </th>
+        <th> Appointment Type </th>
+        <th> Doctor Id </th>
+        <th> Lab Id </th>
+        <th> Bill Id </th>
     </tr>
     </thead>
     <tbody>
     <tr th:if="${appointments.isEmpty()}">
-        <td colspan="2"> No Books Available </td>
+        <td colspan="2"> No Appointments Available </td>
     </tr>
     <tr th:each="appointment : ${appointments}">
         <td><span th:text="${appointment.getAppointmentId()}"> Title </span></td>
         <td><span th:text="${appointment.getAppointmentDate()}"> Title </span></td>
+        <td><span th:text="${appointment.getAppointmentTime()}"> Title </span></td>
         <td><span th:text="${appointment.getAppointmentDescription()}"> Title </span></td>
         <td><span th:text="${appointment.getAppointmentType()}"> Title </span></td>
-        <td><span th:text="${appointment.getBillId()}"> Title </span></td>
         <td><span th:text="${appointment.getDoctorId()}"> Title </span></td>
-        <td><span th:text="${appointment.getSlotId()}"> Title </span></td>
+        <td><span th:text="${appointment.getLabId()}"> Title </span></td>
+        <td><span th:text="${appointment.getBillId()}"> Title </span></td>
         <td><a th:href="@{/cancel_appointment/{id}(id=${appointment.getAppointmentId()})}"><button>Delete Appointment</button></a></td>
 
     </tr>
