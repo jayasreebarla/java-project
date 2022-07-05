@@ -38,12 +38,14 @@ public class ReportUploadController {
 
     @GetMapping("/upload/{id}")
     public String uploadFile(@PathVariable String id){
+        System.out.println("report controller upload file appointment"+appointmentId);
         appointmentId=id;
         return "reports/report_upload";
     }
 
     @PostMapping("/upload")
     public RedirectView listUploadedFiles(@RequestParam("file") MultipartFile file) throws IOException {
+        System.out.println("list upload file"+appointmentId);
         String fileName = file.getOriginalFilename();
         Report report = new Report();
         report.setReportId(0);
@@ -51,28 +53,9 @@ public class ReportUploadController {
         report.setReportFile(file.getBytes());
         report.setAppointmentId(appointmentId);
         boolean result = reportService.uploadReport(report);
-        return new RedirectView("appointment/appointment_list");
+        return new RedirectView("appointment_list");
     }
 
-//    @GetMapping("/files/{filename:.+}")
-//    @ResponseBody
-//    public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
-//
-//        Resource file = reportService.loadAsResource(filename);
-//        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
-//                "attachment; filename=\"" + file.getFilename() + "\"").body(file);
-//    }
-//
-//    @PostMapping("/")
-//    public String handleFileUpload(@RequestParam("file") MultipartFile file,
-//                                   RedirectAttributes redirectAttributes) {
-//
-//        reportService.store(file);
-//        redirectAttributes.addFlashAttribute("message",
-//                "You successfully uploaded " + file.getOriginalFilename() + "!");
-//
-//        return "redirect:/";
-//    }
 
 
 }
