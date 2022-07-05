@@ -2,11 +2,9 @@ package com.dal.drplus.service;
 
 import com.dal.drplus.model.Report;
 import com.dal.drplus.repository.interfaces.IReportRepository;
-import org.springframework.core.io.Resource;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileNotFoundException;
-import java.util.Optional;
+import java.util.List;
 
 public class ReportService {
 
@@ -30,6 +28,18 @@ public class ReportService {
     }
 
     public void deleteReport(){
+
+    }
+
+    public Report downloadReport(int id){
+        return reportRepository.getReportbyId(id);
+
+
+    }
+
+    public List<Report> findAllbyAppointment(String appointmentId){
+
+        return reportRepository.findAllbyAppointment(appointmentId);
 
     }
 //

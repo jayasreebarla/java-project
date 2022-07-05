@@ -3,7 +3,6 @@ package com.dal.drplus.repository.implementation;
 import com.dal.drplus.model.Report;
 import com.dal.drplus.repository.configuration.DatabaseConfiguration;
 import com.dal.drplus.repository.configuration.DatabaseConfigurationImpl;
-import com.dal.drplus.repository.interfaces.ILabRepository;
 import com.dal.drplus.repository.interfaces.IReportRepository;
 import org.springframework.stereotype.Repository;
 
@@ -50,7 +49,7 @@ public class ReportRepositoryImpl implements IReportRepository {
             System.out.println("report uploaded ");
             return IReportRepository.StorageResult.SUCCESS;
         } catch (SQLException e) {
-//            throw new RuntimeException(e);
+//           throw new RuntimeException(e);
             return IReportRepository.StorageResult.FAILURE;
         }
     }
@@ -68,11 +67,11 @@ public class ReportRepositoryImpl implements IReportRepository {
     }
 
     @Override
-    public Report getReportbyId(String reportId) {
+    public Report getReportbyId(int reportId) {
         Report report = null;
         try {
             PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(SELECT_REPORT_BY_ID);
-            statement.setString(1,reportId);
+            statement.setInt(1,reportId);
             ResultSet rs = statement.executeQuery();
             while (rs.next()){
                 report = createReport(rs);

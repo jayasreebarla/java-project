@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBui
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.stream.Collectors;
 
@@ -54,6 +55,42 @@ public class ReportUploadController {
         report.setAppointmentId(appointmentId);
         boolean result = reportService.uploadReport(report);
         return new RedirectView("appointment_list");
+    }
+
+//    @GetMapping("/download")
+//    public void downloadFile(@Param("id") Long id , Model model, HttpServletResponse response) throws IOException {
+//        Optional<Student> temp = service.findStudentById(id);
+//        if(temp!=null) {
+//            Student student = temp.get();
+//            response.setContentType("image/jpeg, image/jpg, image/png, image/gif, image/pdf");
+//            String headerKey = "Content-Disposition";
+//            String headerValue = "attachment; filename = "+student.getProfilePicture();
+//            response.setHeader(headerKey, headerValue);
+//            ServletOutputStream outputStream = response.getOutputStream();
+//            outputStream.write(student.getContent());
+//            outputStream.close();
+//        }
+//    }
+
+
+    @GetMapping("/download/{id}")
+    public void showImage(HttpServletResponse response, @PathVariable("id") int id)  {
+
+        Report report = reportService.downloadReport(id);
+        response.setContentType("image/jpeg, image/jpg, image/png, image/gif, image/pdf");
+        try {
+            response.getOutputStream().write(report.getReportFile());
+            response.getOutputStream().close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    @GetMapping("/download/{appointment_id}")
+    public String showReportList(Model model,@PathVariable("appointment_id") int id){
+        model.addAttribute("reports",reportService.findAllbyAppointment(appointmentId));
+        return "/report/report_list";
     }
 
 
