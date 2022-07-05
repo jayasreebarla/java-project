@@ -15,8 +15,8 @@ public interface IReportRepository {
 
     public int deleteReport(Report report);
 
-    public Report getReportbyId (String reportId);
+    public Report getReportbyId (int reportId);
 
-    public List<Report> findAllbyAppointment(String patientId);
+    public List<Report> findAllbyAppointment(String appointmentId);
 
 }

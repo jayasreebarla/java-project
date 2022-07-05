@@ -52,10 +52,6 @@ public class Report {
         this.reportDetails = reportDetails;
     }
 
-    public FileInputStream getReport() throws FileNotFoundException {
-        FileInputStream file;
-        file = new FileInputStream(this.fileName);
-        return file;
-    }
+
 
 }
