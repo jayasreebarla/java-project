@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBui
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.stream.Collectors;
@@ -28,6 +29,7 @@ import java.util.stream.Collectors;
 
 @Controller
 public class ReportUploadController {
+
 
 
     private final ReportService reportService;
@@ -73,14 +75,23 @@ public class ReportUploadController {
 //    }
 
 
-    @GetMapping("/download/{id}")
-    public void showImage(HttpServletResponse response, @PathVariable("id") int id)  {
+    @GetMapping("/download_file/{report_id}")
+    public void showDownload(HttpServletResponse response, @PathVariable("report_id") int report_id)  {
 
-        Report report = reportService.downloadReport(id);
-        response.setContentType("image/jpeg, image/jpg, image/png, image/gif, image/pdf");
+        Report report = reportService.downloadReport(report_id);
         try {
-            response.getOutputStream().write(report.getReportFile());
-            response.getOutputStream().close();
+            System.out.println("inside download "+report.getReportId());
+            System.out.println("inside download "+report.getReportDetails());
+            response.setContentType("application/octet-stream");
+            String headerKey = "Content-Disposition";
+            String headerValue = "attachment; filename = "+report.getReportDetails();
+            response.setHeader(headerKey,headerValue);
+            ServletOutputStream outputStream = response.getOutputStream();
+            outputStream.write(report.getReportFile());
+            outputStream.close();
+//            response.setContentType("application/pdf");
+//            response.getOutputStream().write(report.getReportFile());
+//            response.getOutputStream().close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -88,11 +99,8 @@ public class ReportUploadController {
     }
 
     @GetMapping("/download/{appointment_id}")
-    public String showReportList(Model model,@PathVariable("appointment_id") int id){
-        model.addAttribute("reports",reportService.findAllbyAppointment(appointmentId));
-        return "/report/report_list";
+    public String showReportList(Model model,@PathVariable("appointment_id") String appointment_id){
+        model.addAttribute("reports",reportService.findAllbyAppointment(appointment_id));
+        return "/reports/report_list";
     }
-
-
-
 }

@@ -12,19 +12,19 @@ import java.sql.Blob;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 
 @Repository
 public class ReportRepositoryImpl implements IReportRepository {
 
+
     String INSERT_REPORT = "INSERT INTO Report (appointment_id, report_desc, report) VALUES (?,?,?)";
     String SELECT_REPORT_BY_ID = "Select * FROM Report WHERE report_id = ?";
     String DELETE_REPORT_BY_ID = "DELETE FROM Report WHERE report_id = ?";
     String SELECT_REPORT_BY_AID = "Select * from Report where appointment_id=?";
-
     DatabaseConfiguration databaseConfiguration;
-
     public ReportRepositoryImpl() {
         this.databaseConfiguration = dbConfig();
     }
@@ -40,11 +40,10 @@ public class ReportRepositoryImpl implements IReportRepository {
             PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(INSERT_REPORT);
             Blob blob_file = new SerialBlob(report.getReportFile());
             //statement.setString(1, report.getReportId());
-           // Patient currentPatient = session.getAttributeNames("current")
+            // Patient currentPatient = session.getAttributeNames("current")
             statement.setString(1, report.getAppointmentId());
             statement.setString(2, report.getReportDetails());
             statement.setBlob(3, blob_file);
-
             statement.executeUpdate();
             System.out.println("report uploaded ");
             return IReportRepository.StorageResult.SUCCESS;
@@ -94,6 +93,7 @@ public class ReportRepositoryImpl implements IReportRepository {
 
     @Override
     public List<Report> findAllbyAppointment(String appointmentId) {
+        List<Report> reportList = new ArrayList<>();
         Report report = null;
         try {
             PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(SELECT_REPORT_BY_AID);
@@ -101,11 +101,11 @@ public class ReportRepositoryImpl implements IReportRepository {
             ResultSet rs = statement.executeQuery();
             while (rs.next()){
                 report = createReport(rs);
+                reportList.add(report);
             }
-            return (List<Report>) report;
+            return reportList;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
-
 }
