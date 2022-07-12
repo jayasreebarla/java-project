@@ -33,8 +33,6 @@ public class ReportService {
 
     public Report downloadReport(int id){
         return reportRepository.getReportbyId(id);
-
-
     }
 
     public List<Report> findAllbyAppointment(String appointmentId){

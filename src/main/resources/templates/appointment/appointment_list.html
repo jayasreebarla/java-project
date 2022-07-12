@@ -43,6 +43,7 @@
         <td><a th:href="@{/add_rating/{doctor_id}(doctor_id=${appointment.getDoctorId()})}"><button>Add Rating</button></a></td>
         <td><a th:href="@{/upload/{id}(id=${appointment.getAppointmentId()})}"><button>Upload Report</button></a></td>
         <td><a th:href="@{/download/{appointment_id}(appointment_id=${appointment.getAppointmentId()})}"><button>View Report</button></a></td>
+        <td><a th:href="@{/download/{appointment_id}(appointment_id=${appointment.getAppointmentId()})}"><button>View Prescription</button></a></td>
     </tr>
     </tbody>
 </table>

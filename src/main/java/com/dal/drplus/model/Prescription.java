@@ -1,22 +1,25 @@
 package com.dal.drplus.model;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-
 public class Prescription {
-    String prescriptionId;
+    int prescriptionId;
 
     String appointmentId;
     String prescriptionDetails;
-     Byte[] Prescription;
+
+    private byte[] prescriptionFile;
+
+    public void setPrescription(byte[] prescription) {
+        Prescription = prescription;
+    }
+
+    private byte[] Prescription;
      String fileName;
 
-    public String getPrescriptionId() {
+    public int getPrescriptionId() {
         return prescriptionId;
     }
 
-    public void setPrescriptionId(String prescriptionId) {
+    public void setPrescriptionId(int prescriptionId) {
         this.prescriptionId = prescriptionId;
     }
 
@@ -37,10 +40,14 @@ public class Prescription {
         return appointmentId;
     }
 
-    public FileInputStream getPrescription() throws FileNotFoundException
-    {
-        FileInputStream fileName;
-        fileName = new FileInputStream(this.fileName);
-        return fileName;
+//    public Blob getPrescription() throws FileNotFoundException
+//    {
+//        FileInputStream fileName;
+//        fileName = new FileInputStream(this.fileName);
+//        return fileName;
+//    }
+
+    public byte[] getPrescription() {
+        return prescriptionFile;
     }
 }
