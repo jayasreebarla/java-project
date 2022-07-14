@@ -1,8 +1,10 @@
 package com.dal.drplus.controller;
-
-
+import com.dal.drplus.model.Appointment;
+import com.dal.drplus.model.Doctor;
 import com.dal.drplus.model.Lab;
+import com.dal.drplus.repository.implementation.AppointmentRepositoryImpl;
 import com.dal.drplus.repository.implementation.LabRepositoryImpl;
+import com.dal.drplus.service.AppointmentListService;
 import com.dal.drplus.service.LabLoginSignupService;
 import com.dal.drplus.service.LabService;
 import org.springframework.stereotype.Controller;
@@ -12,17 +14,22 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
+
 
 @Controller
 @RequestMapping (value = "/auth_lab")
 public class LabLoginSignupController {
     private LabLoginSignupService loginSignupService;
     private LabService labService;
-    public LabLoginSignupController(LabRepositoryImpl labRepository)
+
+    private AppointmentListService appointmentListService;
+    public LabLoginSignupController(LabRepositoryImpl labRepository, AppointmentRepositoryImpl appointmentRepository)
     {
 
         this.loginSignupService = new LabLoginSignupService(labRepository);
         this.labService =new LabService(labRepository);
+        this.appointmentListService = new AppointmentListService(appointmentRepository);
     }
 
     @GetMapping("/lab_signup")
@@ -33,7 +40,7 @@ public class LabLoginSignupController {
 
     @PostMapping("/lab_signup")
     public String RegisterLab(@ModelAttribute Lab lab){
-        System.out.println("LAB SIGNUP"+lab.toString());
+        System.out.println("LAB SIGNUP"+lab.getLabId()+lab.getLabPassword()+lab.getLabAddress()+lab.getLabEmailId()+lab.getLabPincode()+lab.getLabContactInfo()+lab.getLabPersonName());
         boolean result = loginSignupService.registerLab(lab);
         return "lab/labLogin";
     }
@@ -44,22 +51,38 @@ public class LabLoginSignupController {
     }
 
     @PostMapping("/lab_login")
-    public RedirectView LoginLab(@RequestParam(value="labId") String labId, @RequestParam(value="labPassword") String labPassword){
+    public RedirectView LoginLab(HttpSession session,@RequestParam(value="labId") String labId, @RequestParam(value="labPassword") String labPassword, Model model){
         System.out.println(labId+"labId");
         System.out.println(labPassword+"labPassword");
         boolean isCredentialsValid;
         isCredentialsValid = loginSignupService.isLabCredentialValid(labId,labPassword);
         System.out.println(isCredentialsValid+"iscredentialValid");
+//        if(isCredentialsValid){
+//           // return "lab/lab_home";
+//            return new RedirectView("/auth_lab/lab_home");
+//        }else{
+//            //return "lab/login";
+//            return new RedirectView("/auth_lab/lab_login");
+//        }
+
         if(isCredentialsValid){
-           // return "lab/lab_home";
+            System.out.println("inside if");
+            Lab lab = labService.getLabById(labId);
+            session.setAttribute("CurrentLab",lab);
+            //List<Appointment> appointmentList = appointmentListService.listAppointmentbyDoctor(doctorId);
+            System.out.println("labId"+labId);
+            System.out.println("abcd");
             return new RedirectView("/auth_lab/lab_home");
         }else{
-            //return "lab/login";
             return new RedirectView("/auth_lab/lab_login");
         }
+
     }
     @GetMapping("/lab_home")
-    public String LabHome(){
+    public String LabHome(HttpSession session, Model model){
+        Lab currentLab= (Lab) session.getAttribute("CurrentLab");
+        List<Appointment> appointmentList = appointmentListService.listAppointmentbyLab(currentLab.getLabId());
+        model.addAttribute("appointments",appointmentList);
         return "lab/lab_home";
     }
 

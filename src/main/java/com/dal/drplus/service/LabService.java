@@ -1,5 +1,6 @@
 package com.dal.drplus.service;
 
+import com.dal.drplus.model.Doctor;
 import com.dal.drplus.model.Lab;
 import com.dal.drplus.model.Patient;
 import com.dal.drplus.repository.interfaces.ILabRepository;
@@ -16,4 +17,5 @@ public class LabService  {
         Lab lab = labRepository.findLabById(labId);
         return lab;
     }
+
 }

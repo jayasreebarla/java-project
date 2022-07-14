@@ -8,14 +8,14 @@ import com.dal.drplus.repository.interfaces.IPatientRepository;
 
 public class LabLoginSignupService {
     ILabRepository labRepository;
-    public LabLoginSignupService(LabRepositoryImpl labRepository) {
+    public LabLoginSignupService(ILabRepository labRepository) {
         this.labRepository = labRepository;
     }
 
     public boolean registerLab(Lab lab){
         ILabRepository.StorageResult result = labRepository.saveLab(lab);
-        System.out.println("result inside service"+result);
-            if(result.equals(IPatientRepository.StorageResult.SUCCESS)){
+        System.out.println("result inside service"+ result);
+            if(result.equals(ILabRepository.StorageResult.SUCCESS)){
                 return true;
             }else {
                 return false;

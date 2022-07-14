@@ -53,6 +53,7 @@ public class PatientLoginSignupController {
         if(isCredentialsValid){
             Patient patient = patientService.getPatientById(patientId);
             session.setAttribute("CurrentPatient",patient);
+            session.setAttribute("Type","P");
 //            return "patient/patient_home";
             return new RedirectView("/auth/patient_home");
         }else{

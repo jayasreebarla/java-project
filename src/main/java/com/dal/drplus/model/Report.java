@@ -1,12 +1,8 @@
 package com.dal.drplus.model;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.sql.Blob;
-
 public class Report {
     private int reportId;
-    private String AppointmentId;
+    private int AppointmentId;
     private String reportDetails;
     private byte[] reportFile;
 
@@ -36,11 +32,11 @@ public class Report {
         this.reportId = reportId;
     }
 
-    public String getAppointmentId() {
+    public int getAppointmentId() {
         return AppointmentId;
     }
 
-    public void setAppointmentId(String AppointmentId) {
+    public void setAppointmentId(int AppointmentId) {
         this.AppointmentId = AppointmentId;
     }
 

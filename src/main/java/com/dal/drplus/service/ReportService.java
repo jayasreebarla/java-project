@@ -35,7 +35,7 @@ public class ReportService {
         return reportRepository.getReportbyId(id);
     }
 
-    public List<Report> findAllbyAppointment(String appointmentId){
+    public List<Report> findAllbyAppointment(int appointmentId){
 
         return reportRepository.findAllbyAppointment(appointmentId);
 
