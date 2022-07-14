@@ -14,7 +14,7 @@
     <th> Appointment Date </th>
     <th> Appointment Time </th>
     <th> Appointment Description </th>
-    <th> Appointment Type </th>
+    <!--th> Appointment Type </th-->
     <th> Patient Id </th>
     <th> Bill Id </th>
     <th> Actions </th>
@@ -29,12 +29,13 @@
     <td><span th:text="${appointment.getAppointmentDate()}"> Appointment Date </span></td>
     <td><span th:text="${appointment.getAppointmentTime()}"> Appointment Time </span></td>
     <td><span th:text="${appointment.getAppointmentDescription()}"> Appointment Description </span></td>
-    <td><span th:text="${appointment.getAppointmentType()}"> Appointment Type </span></td>
+    <!--td><span th:text="${appointment.getAppointmentType()}"> Appointment Type </span></td-->
     <td><span th:text="${appointment.getPatientId()}"> Patient Id </span></td>
     <td><span th:text="${appointment.getBillId()}"> Bill Id </span></td>
     <td><a th:href="@{/cancel_appointment_doc/{id}(id=${appointment.getAppointmentId()})}"><button>Delete Appointment</button></a></td>
-    <td><a th:href="@{/upload/{id}(id=${appointment.getAppointmentId()})}"><button>Upload Report</button></a></td>
-    <td><a th:href="@{/download/{appointment_id}(appointment_id=${appointment.getAppointmentId()})}"><button>View Report</button></a></td>
+    <td><a th:href="@{/upload_prescription/{id}(id=${appointment.getAppointmentId()})}"><button>Upload Prescription</button></a></td>
+    <td><a th:href="@{/download_prescription/{appointment_id}(appointment_id=${appointment.getAppointmentId()})}"><button>View Prescription</button></a></td>
+    <td><a th:href="@{/download_report/{appointment_id}(appointment_id=${appointment.getAppointmentId()})}"><button>View Report</button></a></td>
   </tr>
   </tbody>
 </table>
