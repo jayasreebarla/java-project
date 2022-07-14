@@ -47,8 +47,8 @@ public class AppointmentRepositoryImpl implements IAppointmentRepository{
             " WHERE Appointment.slot_id = Doc_schedule.slot_id and Appointment.doctor_id=?";
 
     String SELECT_APPOINTMENT_BY_LAB_ID = "SELECT appointment_id, appointment_description, appointment_type, "+
-            " appointment_fee, patient_id, bill_id, lab_id, doctor_id, slot_timing, slot_date  FROM Appointment, Lab_schedule"+
-            " WHERE Appointment.slot_id = Lab_schedule.slot_id and lab_id=?";
+            " appointment_fee, patient_id, bill_id, Appointment.lab_id, doctor_id, slot_timing, slot_date, Appointment.slot_id FROM Appointment, Lab_schedule"+
+            " WHERE Appointment.slot_id = Lab_schedule.slot_id and Appointment.lab_id=?";
 
     String SELECT_APPOINTMENT_BY_PATIENT_ID_N_DATE = "SELECT appointment_id, appointment_description, appointment_type, "+
             " appointment_fee, patient_id, bill_id, lab_id, doctor_id, "+

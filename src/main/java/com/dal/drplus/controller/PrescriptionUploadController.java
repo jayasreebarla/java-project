@@ -1,9 +1,9 @@
 package com.dal.drplus.controller;
 
 import com.dal.drplus.model.Prescription;
-import com.dal.drplus.model.Report;
 import com.dal.drplus.repository.implementation.PrescriptionRepositoryImpl;
 import com.dal.drplus.service.PrescriptionService;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,26 +14,27 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
-
+@Controller
 public class PrescriptionUploadController {
 
     private final PrescriptionService prescriptionService;
-    private String appointmentId;
+    private int appointmentId;
 
     public PrescriptionUploadController(PrescriptionRepositoryImpl prescriptionRepository) {
         this.prescriptionService = new PrescriptionService(prescriptionRepository);
     }
 
-    @GetMapping("/upload/{id}")
-    public String uploadFile(@PathVariable String id){
+    @GetMapping("/upload_prescription/{id}")
+    public String uploadFile(@PathVariable int id){
         System.out.println("prescription controller upload file appointment"+appointmentId);
         appointmentId=id;
-        return "precription/prescription_upload";
+        return "prescription/prescription_upload";
     }
 
-    @PostMapping("/upload")
-    public RedirectView listUploadedFiles(@RequestParam("file") MultipartFile file) throws IOException {
+    @PostMapping("/upload_prescription")
+    public RedirectView listUploadedFiles(HttpSession session,@RequestParam("file") MultipartFile file) throws IOException {
         System.out.println("list upload file"+appointmentId);
         String fileName = file.getOriginalFilename();
         Prescription prescription = new Prescription();
@@ -44,10 +45,12 @@ public class PrescriptionUploadController {
         prescription.setPrescription(file.getBytes());
         prescription.setAppointmentId(appointmentId);
         boolean result = prescriptionService.uploadPrescription(prescription);
-        return new RedirectView("appointment_list");
+        //return new RedirectView("appointment_list");
+        String type = String.valueOf(session.getAttribute("Type"));
+        return new RedirectView("/appointment_list/"+type);
     }
 
-    @GetMapping("/download_file/{prescription_id}")
+    @GetMapping("/download_file_prescription/{prescription_id}")
     public void showDownload(HttpServletResponse response, @PathVariable("prescription_id") int prescription_id)  {
 
         Prescription prescription = prescriptionService.downloadPrescription(prescription_id);
@@ -70,9 +73,9 @@ public class PrescriptionUploadController {
 
     }
 
-    @GetMapping("/download/{appointment_id}")
-    public String showReportList(Model model, @PathVariable("appointment_id") String appointment_id){
-        model.addAttribute("prescription",prescriptionService.findAllbyAppointment(appointment_id));
+    @GetMapping("/download_prescription/{appointmentId}")
+    public String showPrescriptionList(Model model, @PathVariable("appointmentId") int appointmentId){
+        model.addAttribute("prescription",prescriptionService.findAllbyAppointment(appointmentId));
         return "/prescription/prescription_list";
     }
 }

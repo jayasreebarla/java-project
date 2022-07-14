@@ -9,7 +9,7 @@
     <thead>
     <tr>
         <th> Prescription Id </th>
-        <th> Report Details </th>
+        <th> Prescription Details </th>
         <th> Appointment Id </th>
         <th> Actions </th>
     </tr>
@@ -22,7 +22,7 @@
         <td><span th:text="${prescription.prescriptionId}"> doctor Id </span></td>
         <td><span th:text="${prescription.prescriptionDetails}"> doctor Name </span></td>
         <td><span th:text="${prescription.appointmentId}"> doctor Email </span></td>
-        <td><a th:href = "@{/download_file/{prescription_id}(prescription_id=${prescription.prescriptionId})}"
+        <td><a th:href = "@{/download_file_prescription/{prescription_id}(prescription_id=${prescription.prescriptionId})}"
                class = "btn btn-primary">Download</a></td>
     </tr>
     </tbody>

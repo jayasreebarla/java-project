@@ -38,6 +38,7 @@ public class LabRepositoryImpl implements ILabRepository{
     @Override
     public ILabRepository.StorageResult saveLab(Lab lab) {
 
+        System.out.println("inside save lab");
         try {
             PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(INSERT_LAB);
             statement.setString(1, lab.getLabId());
@@ -48,10 +49,11 @@ public class LabRepositoryImpl implements ILabRepository{
             statement.setString(6, lab.getLabContactInfo());
             statement.setString(7, lab.getLabPincode());
             statement.executeUpdate();
-            System.out.println("inisde save ");
+            System.out.println("inside save !!!!!!");
             return ILabRepository.StorageResult.SUCCESS;
         } catch (SQLException e) {
 //            throw new RuntimeException(e);
+            e.printStackTrace();
             return ILabRepository.StorageResult.FAILURE;
         }
     }
@@ -99,7 +101,7 @@ public class LabRepositoryImpl implements ILabRepository{
         lab.setLabEmailId(rs.getString("lab_email_id"));
         lab.setLabPassword(rs.getString("lab_password"));
         lab.setLabAddress(rs.getString("lab_address"));
-        lab.setLabContactInfo((rs.getString("lab_phone_no")));
+        lab.setLabContactInfo((rs.getString("lab_contact_info")));
         lab.setLabPincode(rs.getString("lab_pincode"));
         return lab;
     }

@@ -12,13 +12,13 @@ public class PrescriptionService {
 
     private IPrescriptionRepository prescriptionRepository;
 
-    public PrescriptionService(IPrescriptionRepository reportRepository) {
+    public PrescriptionService(IPrescriptionRepository prescriptionRepository) {
         this.prescriptionRepository = prescriptionRepository;
     }
     public boolean uploadPrescription(Prescription prescription){
         try {
             IPrescriptionRepository.StorageResult result = prescriptionRepository.uploadPrescription(prescription);
-            if(result.equals(IReportRepository.StorageResult.SUCCESS)){
+            if(result.equals(IPrescriptionRepository.StorageResult.SUCCESS)){
                 return true;
             }else{
                 return false;
@@ -33,10 +33,10 @@ public class PrescriptionService {
     }
 
     public Prescription downloadPrescription(int id){
-        return prescriptionRepository.findById();
+        return prescriptionRepository.findById(id);
     }
 
-    public List<Prescription> findAllbyAppointment(String appointmentId){
+    public List<Prescription> findAllbyAppointment(int appointmentId){
         return (List<Prescription>) prescriptionRepository.findAllbyAppointment(appointmentId);
     }
 }

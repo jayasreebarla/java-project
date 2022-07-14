@@ -15,11 +15,11 @@ public interface IPrescriptionRepository {
     public StorageResult uploadPrescription(Prescription prescription) throws FileNotFoundException;
 
 
-    public default Prescription findById(){
+    public default Prescription findById(int id){
         return null;
     }
 
-    public default List<Prescription> findAllbyAppointment(String prescription_id) {
+    public default List<Prescription> findAllbyAppointment(int prescription_id) {
         return null;
     }
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Lab Home</title>
@@ -7,5 +7,36 @@
 <a href="/auth_lab/logout">Logout</a>
 <body>
 <p>This lab homepage</p>
+<table>
+    <thead>
+    <tr>
+        <th> Appointment Id </th>
+        <th> Appointment Date </th>
+        <th> Appointment Time </th>
+        <th> Appointment Description </th>
+        <th> Appointment Type </th>
+        <th> Patient Id </th>
+        <th> Bill Id </th>
+        <th> Actions </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${appointments.isEmpty()}">
+        <td colspan="2"> No Appointments Available </td>
+    </tr>
+    <tr th:each="appointment : ${appointments}">
+        <td><span th:text="${appointment.getAppointmentId()}"> Appointment Id </span></td>
+        <td><span th:text="${appointment.getAppointmentDate()}"> Appointment Date </span></td>
+        <td><span th:text="${appointment.getAppointmentTime()}"> Appointment Time </span></td>
+        <td><span th:text="${appointment.getAppointmentDescription()}"> Appointment Description </span></td>
+        <td><span th:text="${appointment.getAppointmentType()}"> Appointment Type </span></td>
+        <td><span th:text="${appointment.getPatientId()}"> Patient Id </span></td>
+        <td><span th:text="${appointment.getBillId()}"> Bill Id </span></td>
+        <td><a th:href="@{/cancel_appointment_doc/{id}(id=${appointment.getAppointmentId()})}"><button>Delete Appointment</button></a></td>
+        <td><a th:href="@{/upload/{id}(id=${appointment.getAppointmentId()})}"><button>Upload Report</button></a></td>
+        <td><a th:href="@{/download/{appointment_id}(appointment_id=${appointment.getAppointmentId()})}"><button>View Report</button></a></td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>
