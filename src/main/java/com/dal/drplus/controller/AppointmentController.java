@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.print.Doc;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +40,6 @@ public class AppointmentController {
         model.addAttribute("appointments",appointmentList);
         return "appointment/appointment_list";
     }
-
 
     @GetMapping("/doctorSlot/{slotId}/{doctorId}")
     public String bookAppointment(Model model, HttpSession session, @PathVariable("slotId") String slotId, @PathVariable("doctorId") String doctorId){
@@ -76,6 +76,15 @@ public class AppointmentController {
         }else{
             return new RedirectView("/error_appointment");
         }
+    }
 
+    @GetMapping("/cancel_appointment_doc/{id}")
+    public String cancelAppointmentbyDoc(@PathVariable int id){
+        boolean result = appointmentService.cancelAppointment(id);
+        if(result == true){
+            return "doctor/doctor_home";
+        }else{
+            return "appointment/error";
+        }
     }
 }
