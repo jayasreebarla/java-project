@@ -61,6 +61,7 @@ public class  DoctorLoginSignupController {
             System.out.println("inside if");
             Doctor doctor = doctorService.getDoctorById(doctorId);
             session.setAttribute("CurrentDoctor",doctor);
+            session.setAttribute("Type","D");
             List<Appointment> appointmentList = appointmentListService.listAppointmentbyDoctor(doctorId);
             model.addAttribute("appointments",appointmentList);
             System.out.println("abcd");
