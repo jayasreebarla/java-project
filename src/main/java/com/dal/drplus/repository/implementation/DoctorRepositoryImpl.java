@@ -71,18 +71,20 @@ public class DoctorRepositoryImpl implements IDoctorRepository {
             statement = databaseConfiguration.getDBConnection().prepareStatement("Select * from Doctor where doctor_id = ?");
             statement.setString(1,id);
             ResultSet rs = statement.executeQuery();
-            doctorObject.setDoctorId(rs.getString("doctor_id"));
-            doctorObject.setDoctorName(rs.getString("doctor_name"));
-            doctorObject.setDoctorPassword(rs.getString("doctor_password"));
-            doctorObject.setDoctorEmail(rs.getString("doctor_email"));
-            doctorObject.setDoctorPhoneNo(rs.getString("doctor_phone"));
-            doctorObject.setDoctorGender(rs.getString("doctor_gender"));
-            doctorObject.setDoctorAge(rs.getInt("doctor_age"));
-            doctorObject.setDoctorCredentials(rs.getString("doctor_credentials"));
-            doctorObject.setDoctorSpecialization(rs.getString("doctor_specialization"));
-            doctorObject.setDoctorClinicAddress(rs.getString("doctor_clinic_address"));
-            doctorObject.setDoctorPincode(rs.getString("doctor_pincode"));
-
+            while(rs.next()) {
+                System.out.println("inside rs");
+                doctorObject.setDoctorId(rs.getString("doctor_id"));
+                doctorObject.setDoctorName(rs.getString("doctor_name"));
+                doctorObject.setDoctorPassword(rs.getString("doctor_password"));
+                doctorObject.setDoctorEmail(rs.getString("doctor_email"));
+                doctorObject.setDoctorPhoneNo(rs.getString("doctor_phone"));
+                doctorObject.setDoctorGender(rs.getString("doctor_gender"));
+                doctorObject.setDoctorAge(rs.getInt("doctor_age"));
+                doctorObject.setDoctorCredentials(rs.getString("doctor_credentials"));
+                doctorObject.setDoctorSpecialization(rs.getString("doctor_specialization"));
+                doctorObject.setDoctorClinicAddress(rs.getString("doctor_clinic_address"));
+                doctorObject.setDoctorPincode(rs.getString("doctor_pincode"));
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
