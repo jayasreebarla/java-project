@@ -19,7 +19,7 @@ public class AdminController {
     private LabService labService;
     private PatientService patientService;
     private DoctorSlotService doctorSlotService;
-//    private LabSlotService labSlotService;
+    private LabSlotService labSlotService;
 
     public AdminController(AppointmentRepositoryImpl appointmentRepository,
                            DoctorRepositoryImpl doctorRepository,
@@ -33,7 +33,7 @@ public class AdminController {
         this.labService = new LabService(labRepository);
         this.patientService = new PatientService(patientRepository);
         this.doctorSlotService = new DoctorSlotService(doctorScheduleRepository);
-//        this.labSlotService = new LabSlotService(labScheduleRepository);
+        this.labSlotService = new LabSlotService(labScheduleRepository);
     }
 
     @GetMapping("/appointment_list_admin")
@@ -73,8 +73,8 @@ public class AdminController {
 
     @GetMapping("/lab_schedule_list_admin")
     public String getLabScheduleList(Model model){
-//        List<LabSchedule> labSchedulesList = labService.listAllLabs();
-//        model.addAttribute("labs",labSchedulesList);
+        List<LabSchedule> labSchedulesList = labSlotService.listAllLabSlots();
+        model.addAttribute("labSlots",labSchedulesList);
         return "admin/lab_schedule_list_admin";
     }
 
@@ -97,6 +97,22 @@ public class AdminController {
         boolean result = doctorSlotService.addDoctorSlot(doctorSchedule);
         return new RedirectView("/admin/doctor_schedule_list_admin");
 //        return "admin/doctor_schedule_add";
+    }
+
+    @GetMapping("/lab_slot_add")
+    public String labSlotAdd(Model model){
+        model.addAttribute("labSchedule", new LabSchedule());
+        return "admin/lab_schedule_add";
+    }
+
+    @PostMapping("/lab_slot_add")
+    public RedirectView addLabSlot(@ModelAttribute LabSchedule labSchedule,
+                                      @RequestParam(value = "fromTime") String fromTime,
+                                      @RequestParam(value = "toTime") String toTime){
+        labSchedule.setSlotTiming(fromTime+"-"+toTime);
+        boolean result = labSlotService.addLabSlot(labSchedule);
+        return new RedirectView("/admin/lab_schedule_list_admin");
+//        return "admin/lab_schedule_add";
     }
 
     @GetMapping("/cancel_appointment_admin/{id}")
@@ -154,7 +170,7 @@ public class AdminController {
 
     @GetMapping("/delete_lab_schedule_admin/{id}")
     public RedirectView deleteLabSchedulebyadmin(@PathVariable String id){
-        boolean result = doctorSlotService.deleteSlotbyId(id);
+        boolean result = labSlotService.deleteSlotById(id);
         if(result == true){
             return new RedirectView("/admin/lab_schedule_list_admin");
         }else{

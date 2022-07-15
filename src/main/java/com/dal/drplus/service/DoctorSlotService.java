@@ -32,6 +32,7 @@ public class DoctorSlotService {
     }
 
     public boolean addDoctorSlot(DoctorSchedule doctorSchedule) {
+        doctorSchedule.setStatus(false);
         IDoctorScheduleRepository.StorageResult result = doctorScheduleRepository.saveDoctorSchedule(doctorSchedule);
         if(result.equals(IDoctorScheduleRepository.StorageResult.SUCCESS)){
             return true;

@@ -35,7 +35,7 @@ public class DoctorScheduleRepositoryImpl implements IDoctorScheduleRepository {
             statement.setString(1, doctorSchedule.getSlotTiming());
             statement.setString(2, doctorSchedule.getSlotDate());
             statement.setString(3,doctorSchedule.getDoctorId());
-            statement.setBoolean(4, false);
+            statement.setBoolean(4, doctorSchedule.getStatus());
             statement.executeUpdate();
 
             return StorageResult.SUCCESS;
