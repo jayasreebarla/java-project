@@ -3,7 +3,6 @@ package com.dal.drplus.repository.implementation;
 import com.dal.drplus.model.Doctor;
 import com.dal.drplus.repository.configuration.DatabaseConfiguration;
 import com.dal.drplus.repository.configuration.DatabaseConfigurationImpl;
-import com.dal.drplus.repository.interfaces.IAppointmentRepository;
 import com.dal.drplus.repository.interfaces.IDoctorRepository;
 import org.springframework.stereotype.Repository;
 

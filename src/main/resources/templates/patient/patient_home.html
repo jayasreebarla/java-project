@@ -7,10 +7,12 @@
 <a href="/auth/logout">Logout</a>
 <br>
 <a href="/appointment_list">View Appointments</a>
+<br>
+<a href="/patient_lab_home">Book a lab</a>
 <body>
 <p>This patient homepage</p>
 
-<form action="/show_doctors" method = "get" >
+<form action="/show_doctors" >
     <p>Enter Pincode: <input type="text" id = "name" name = "name" required="required" th:name="pincode" placeholder = "pincode"></p> <br>
     <p>Select Specialization: <select required="required" th:name="specialization">
         <option value="Cardiologist">Cardiologist</option>

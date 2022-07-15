@@ -32,4 +32,7 @@ public class LabService  {
         }
     }
 
+    public List<Lab> filterLabOnPincode(String labPincode){
+        return labRepository.findAllLabsByPincode(labPincode);
+    }
 }
