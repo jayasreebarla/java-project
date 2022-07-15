@@ -38,11 +38,15 @@ public class  DoctorLoginSignupController {
     }
 
     @PostMapping("/doctor_signup")
-    public String RegisterDoctor(@ModelAttribute Doctor doctor, @RequestParam(value = "confirmDoctorPassword") String confirmPassword){
+    public RedirectView RegisterDoctor(HttpSession session, @ModelAttribute Doctor doctor, @RequestParam(value = "confirmDoctorPassword") String confirmPassword){
         System.out.println(doctor.toString());
         System.out.println("confirmPassword"+confirmPassword);
         boolean result = loginSignupService.registerDoctor(doctor,confirmPassword);
-        return "doctor/login";
+        String type = String.valueOf(session.getAttribute("Type"));
+        if(type.equals("A")){
+            return new RedirectView("/admin/doctor_list_admin");
+        }
+        return new RedirectView("/doctor_login");
     }
 
     @GetMapping("/doctor_login")

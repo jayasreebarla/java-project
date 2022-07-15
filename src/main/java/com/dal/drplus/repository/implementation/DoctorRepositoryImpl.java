@@ -3,6 +3,7 @@ package com.dal.drplus.repository.implementation;
 import com.dal.drplus.model.Doctor;
 import com.dal.drplus.repository.configuration.DatabaseConfiguration;
 import com.dal.drplus.repository.configuration.DatabaseConfigurationImpl;
+import com.dal.drplus.repository.interfaces.IAppointmentRepository;
 import com.dal.drplus.repository.interfaces.IDoctorRepository;
 import org.springframework.stereotype.Repository;
 
@@ -92,25 +93,29 @@ public class DoctorRepositoryImpl implements IDoctorRepository {
     }
 
     @Override
-    public List<Doctor> findAllDoctors(Connection connection) throws SQLException {
-
-        List<Doctor> doctors = new ArrayList<>();
-        PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement("Select * from Doctor");
-        ResultSet rs = statement.executeQuery();
-        while (rs.next()){
-           Doctor doctorObject = new Doctor();
-           doctorObject.setDoctorId(rs.getString("doctor_id"));
-           doctorObject.setDoctorName(rs.getString("doctor_name"));
-           doctorObject.setDoctorPassword(rs.getString("doctor_password"));
-           doctorObject.setDoctorEmail(rs.getString("doctor_email"));
-           doctorObject.setDoctorPhoneNo(rs.getString("doctor_phone"));
-           doctorObject.setDoctorGender(rs.getString("doctor_gender"));
-           doctorObject.setDoctorAge(rs.getInt("doctor_age"));
-           doctorObject.setDoctorCredentials(rs.getString("doctor_credentials"));
-           doctorObject.setDoctorSpecialization(rs.getString("doctor_specialization"));
-           doctorObject.setDoctorClinicAddress(rs.getString("doctor_clinic_address"));
-           doctorObject.setDoctorPincode(rs.getString("doctor_pincode"));
-           doctors.add(doctorObject);
+    public List<Doctor> findAllDoctors() {
+        List<Doctor> doctors;
+        try {
+            doctors = new ArrayList<>();
+            PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement("Select * from Doctor");
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Doctor doctorObject = new Doctor();
+                doctorObject.setDoctorId(rs.getString("doctor_id"));
+                doctorObject.setDoctorName(rs.getString("doctor_name"));
+                doctorObject.setDoctorPassword(rs.getString("doctor_password"));
+                doctorObject.setDoctorEmail(rs.getString("doctor_email"));
+                doctorObject.setDoctorPhoneNo(rs.getString("doctor_phone"));
+                doctorObject.setDoctorGender(rs.getString("doctor_gender"));
+                doctorObject.setDoctorAge(rs.getInt("doctor_age"));
+                doctorObject.setDoctorCredentials(rs.getString("doctor_credentials"));
+                doctorObject.setDoctorSpecialization(rs.getString("doctor_specialization"));
+                doctorObject.setDoctorClinicAddress(rs.getString("doctor_clinic_address"));
+                doctorObject.setDoctorPincode(rs.getString("doctor_pincode"));
+                doctors.add(doctorObject);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
         return doctors;
     }
@@ -223,16 +228,18 @@ public class DoctorRepositoryImpl implements IDoctorRepository {
     }
 
     @Override
-    public int deleteDoctorById(String id) {
+    public StorageResult deleteDoctorById(String id) {
         PreparedStatement statement = null;
         int returnValue;
         try {
             statement = databaseConfiguration.getDBConnection().prepareStatement("Delete from Doctor where doctor_id = ?");
             statement.setString(1,id);
-            return statement.executeUpdate();
+            statement.executeUpdate();
+            return IDoctorRepository.StorageResult.SUCCESS;
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            //throw new RuntimeException(e);
+            return IDoctorRepository.StorageResult.FAILURE;
         }
     }
 

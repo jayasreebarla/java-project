@@ -17,5 +17,28 @@ public class DoctorSlotService {
     public List<DoctorSchedule> filterSlotOnDoctorId(String doctorId){
         return doctorScheduleRepository.findScheduleByDoctorID(doctorId);
     }
+
+    public List<DoctorSchedule> listAllDoctorSlots(){
+        return doctorScheduleRepository.findAll();
+    }
+
+    public boolean deleteSlotbyId(String slotId){
+        IDoctorScheduleRepository.StorageResult result = doctorScheduleRepository.deleteScheduleBySlotID(slotId);
+        if(result.equals(IDoctorScheduleRepository.StorageResult.SUCCESS)){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean addDoctorSlot(DoctorSchedule doctorSchedule) {
+        IDoctorScheduleRepository.StorageResult result = doctorScheduleRepository.saveDoctorSchedule(doctorSchedule);
+        if(result.equals(IDoctorScheduleRepository.StorageResult.SUCCESS)){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }
 

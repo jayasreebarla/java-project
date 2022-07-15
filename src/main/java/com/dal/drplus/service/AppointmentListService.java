@@ -36,5 +36,9 @@ public class AppointmentListService {
         return appointmentRepository.findAppointmentByLabIdNDate(labId, date);
     }
 
+    public List<Appointment> listAppointmentAll() {
+        return appointmentRepository.findAll();
+    }
+
 
 }

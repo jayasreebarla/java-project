@@ -31,11 +31,15 @@ public class PatientLoginSignupController {
     }
 
     @PostMapping("/patient_signup")
-    public String RegisterPatient(@ModelAttribute Patient patient, @RequestParam(value = "confirmPatientPassword") String confirmPassword){
+    public RedirectView RegisterPatient(HttpSession session, @ModelAttribute Patient patient, @RequestParam(value = "confirmPatientPassword") String confirmPassword){
         System.out.println(patient.toString());
         System.out.println("confirmPassword"+confirmPassword);
         boolean result = loginSignupService.registerPatient(patient,confirmPassword);
-        return "patient/login";
+        String type = String.valueOf(session.getAttribute("Type"));
+        if(type.equals("A")){
+            return new RedirectView("/admin/patient_list_admin");
+        }
+        return new RedirectView("/patient_login");
     }
 
     @GetMapping("/patient_login")
