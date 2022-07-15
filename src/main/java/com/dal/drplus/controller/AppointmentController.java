@@ -46,15 +46,32 @@ public class AppointmentController {
 
         Appointment appointment = new Appointment();
         Patient currentPatient = (Patient) session.getAttribute("CurrentPatient");
-       // Doctor currentDoctor = (Doctor) session.getAttribute("CurrentDoctor");
 
-        //appointment.setAppointmentId(Integer.parseInt(slotId)+1);
         appointment.setSlotId(Integer.parseInt(slotId));
         appointment.setAppointmentType("DOCTOR");
         appointment.setAppointmentDescription("");
         appointment.setAppointmentFee(0);
         appointment.setPatientId(currentPatient.getPatientId());
         appointment.setDoctorId(doctorId);
+        appointment.setBillId(0);
+        appointment.setLabId("");
+
+        appointmentService.bookAppointment(appointment);
+        return "appointment/appointment_booked";
+    }
+
+    @GetMapping("/labSlot/{slotId}/{labId}")
+    public String bookAppointmentForLab(Model model, HttpSession session, @PathVariable("slotId") String slotId, @PathVariable("labId") String labId){
+
+        Appointment appointment = new Appointment();
+        Patient currentPatient = (Patient) session.getAttribute("CurrentPatient");
+
+        appointment.setSlotId(Integer.parseInt(slotId));
+        appointment.setAppointmentType("LAB");
+        appointment.setAppointmentDescription("");
+        appointment.setAppointmentFee(0);
+        appointment.setPatientId(currentPatient.getPatientId());
+        appointment.setDoctorId(labId);
         appointment.setBillId(0);
         appointment.setLabId("");
 
