@@ -39,10 +39,14 @@ public class LabLoginSignupController {
     }
 
     @PostMapping("/lab_signup")
-    public String RegisterLab(@ModelAttribute Lab lab){
+    public RedirectView RegisterLab(HttpSession session, @ModelAttribute Lab lab){
         System.out.println("LAB SIGNUP"+lab.getLabId()+lab.getLabPassword()+lab.getLabAddress()+lab.getLabEmailId()+lab.getLabPincode()+lab.getLabContactInfo()+lab.getLabPersonName());
         boolean result = loginSignupService.registerLab(lab);
-        return "lab/labLogin";
+        String type = String.valueOf(session.getAttribute("Type"));
+        if(type.equals("A")){
+            return new RedirectView("/admin/lab_list_admin");
+        }
+        return new RedirectView("/lab_login");
     }
 
     @GetMapping("/lab_login")

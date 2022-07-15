@@ -16,12 +16,12 @@ public interface IDoctorRepository {
     public int saveDoctor(Doctor doctor);
     public int updateDoctor(Doctor doctor);
     public Doctor findDoctorById(String id);
-    public List<Doctor> findAllDoctors(Connection connection) throws SQLException;
+    public List<Doctor> findAllDoctors();
     public String getDoctorPasswordById(String doctorId);
     public List<Doctor> findAllDoctorsBySpecialization(String specialization);
     public List<Doctor> findAllDoctorsByPincode(String pincode);
     public List<Doctor> findAllDoctorsBySpecializationAndPincode(String specialization, String pincode);
-    public int deleteDoctorById(String id);
+    public StorageResult deleteDoctorById(String id);
     public int deleteAllDoctors();
 
 }

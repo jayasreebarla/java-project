@@ -15,12 +15,24 @@ public class LabService  {
         this.labRepository = labRepository;
     }
 
+    public List<Lab> listAllLabs(){
+        return labRepository.findAll();
+    }
     public Lab getLabById(String labId){
         Lab lab = labRepository.findLabById(labId);
         return lab;
     }
     public Lab findLabById(String labId){
         return labRepository.findLabById(labId);
+    }
+
+    public boolean deleteLabById(String labId){
+        ILabRepository.StorageResult result = labRepository.deleteLabById(labId);
+        if(result.equals(ILabRepository.StorageResult.SUCCESS)){
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public List<Lab> filterLabOnPincode(String labPincode){

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Doctor Schedule</title>
+</head>
+<body>
+<a href="/home">Home</a>
+<a href="/auth_admin/logout">Logout</a>
+</br>
+<!--a href="/admin/doctor_schedule_list_admin">View Slots</a-->
+<h2> Add Doctor Slots</h2>
+<form action="#" th:action="@{/admin/doctor_slot_add}" th:object="${doctorSchedule}" method="post">
+    <!--p>Slot ID: <input type="text" required="required" th:field="*{slotId}" /></p-->
+    <p>Slot Date : <input type="date" required="required" th:field="*{slotDate}" /></p>
+    <p>Slot Timing : <input type="time" required="required" th:name="fromTime" />
+       - <input type="time" required="required" th:name="toTime" /></p>
+    <p>Doctor ID : <input type="text" required="required" th:field="*{doctorId}" /></p>
+    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+</form>
+
+</body>
+</html>

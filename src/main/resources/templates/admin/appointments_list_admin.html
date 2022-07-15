@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+  <title>Appointment List</title>
+</head>
+<a href="/home">Home</a>
+<a href="/auth_admin/logout">Logout</a>
+<body>
+<table>
+  <thead>
+  <tr>
+    <th> Appointment Id </th>
+    <th> Appointment Date </th>
+    <th> Appointment Time </th>
+    <th> Appointment Description </th>
+    <th> Appointment Type </th>
+    <th> Patient Id </th>
+    <th> Doctor Id </th>
+    <th> Lab Id </th>
+    <th> Bill Id </th>
+    <th> Actions </th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:if="${appointments.isEmpty()}">
+    <td colspan="2"> No Appointments Available </td>
+  </tr>
+  <tr th:each="appointment : ${appointments}">
+    <td><span th:text="${appointment.getAppointmentId()}"> Appointment Id </span></td>
+    <td><span th:text="${appointment.getAppointmentDate()}"> Appointment Date </span></td>
+    <td><span th:text="${appointment.getAppointmentTime()}"> Appointment Time </span></td>
+    <td><span th:text="${appointment.getAppointmentDescription()}"> Appointment Description </span></td>
+    <td><span th:text="${appointment.getAppointmentType()}"> Appointment Type </span></td>
+    <td><span th:text="${appointment.getPatientId()}"> Patient Id </span></td>
+    <td><span th:text="${appointment.getDoctorId()}"> Doctor Id </span></td>
+    <td><span th:text="${appointment.getLabId()}"> Lab Id </span></td>
+    <td><span th:text="${appointment.getBillId()}"> Bill Id </span></td>
+    <td><a th:href="@{/admin/cancel_appointment_admin/{id}(id=${appointment.getAppointmentId()})}"><button>Delete Appointment</button></a></td>
+    <!--td><a th:href="@{/add_rating/{doctor_id}(doctor_id=${appointment.getDoctorId()})}"><button>Add Rating</button></a></td>
+    <td><a th:href="@{/upload_report/{id}(id=${appointment.getAppointmentId()})}"><button>Upload Report</button></a></td>
+    <td><a th:href="@{/download_report/{appointmentId}(appointmentId=${appointment.getAppointmentId()})}"><button>View Report</button></a></td>
+    <td><a th:href="@{/download_prescription/{appointmentId}(appointmentId=${appointment.getAppointmentId()})}"><button>View Prescription</button></a></td-->
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>
