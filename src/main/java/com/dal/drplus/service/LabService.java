@@ -19,6 +19,9 @@ public class LabService  {
         Lab lab = labRepository.findLabById(labId);
         return lab;
     }
+    public Lab findLabById(String labId){
+        return labRepository.findLabById(labId);
+    }
 
     public List<Lab> filterLabOnPincode(String labPincode){
         return labRepository.findAllLabsByPincode(labPincode);

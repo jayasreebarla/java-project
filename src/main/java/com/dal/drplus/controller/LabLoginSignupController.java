@@ -69,6 +69,7 @@ public class LabLoginSignupController {
             System.out.println("inside if");
             Lab lab = labService.getLabById(labId);
             session.setAttribute("CurrentLab",lab);
+            session.setAttribute("Type","L");
             //List<Appointment> appointmentList = appointmentListService.listAppointmentbyDoctor(doctorId);
             System.out.println("labId"+labId);
             System.out.println("abcd");
@@ -81,6 +82,7 @@ public class LabLoginSignupController {
     @GetMapping("/lab_home")
     public String LabHome(HttpSession session, Model model){
         Lab currentLab= (Lab) session.getAttribute("CurrentLab");
+        System.out.println("current Lab Id inside lab login signup controller"+currentLab.getLabId());
         List<Appointment> appointmentList = appointmentListService.listAppointmentbyLab(currentLab.getLabId());
         model.addAttribute("appointments",appointmentList);
         return "lab/lab_home";
