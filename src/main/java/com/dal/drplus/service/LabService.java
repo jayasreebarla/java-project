@@ -6,6 +6,8 @@ import com.dal.drplus.model.Patient;
 import com.dal.drplus.repository.interfaces.ILabRepository;
 import com.dal.drplus.repository.interfaces.IPatientRepository;
 
+import java.util.List;
+
 public class LabService  {
     ILabRepository labRepository;
 
@@ -18,4 +20,7 @@ public class LabService  {
         return lab;
     }
 
+    public List<Lab> filterLabOnPincode(String labPincode){
+        return labRepository.findAllLabsByPincode(labPincode);
+    }
 }

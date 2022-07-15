@@ -97,6 +97,7 @@ public class DoctorRepositoryImpl implements IDoctorRepository {
         List<Doctor> doctors = new ArrayList<>();
         PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement("Select * from Doctor");
         ResultSet rs = statement.executeQuery();
+
         while (rs.next()){
            Doctor doctorObject = new Doctor();
            doctorObject.setDoctorId(rs.getString("doctor_id"));
