@@ -31,6 +31,7 @@ public class ReportUploadController {
         this.reportService = new ReportService(reportRepository);
     }
 
+
     @GetMapping("/upload_report/{id}")
     public String uploadFile(@PathVariable int id){
         System.out.println("report controller upload file appointment"+appointmentId);
@@ -48,8 +49,11 @@ public class ReportUploadController {
         report.setReportFile(file.getBytes());
         report.setAppointmentId(appointmentId);
         boolean result = reportService.uploadReport(report);
+        //boolean result2 = labService.
         String type = String.valueOf(session.getAttribute("Type"));
+        System.out.print("type of appointment"+type);
         return new RedirectView("/appointment_list/"+type);
+
     }
 
     @GetMapping("/appointment_list/D")
@@ -109,6 +113,7 @@ public class ReportUploadController {
     @GetMapping("/download_report/{appointmentId}")
     public String showReportList(Model model,@PathVariable("appointmentId") int appointmentId){
         model.addAttribute("reports",reportService.findAllbyAppointment(appointmentId));
+        //model.addAttribute("reports",Service.findAllbyAppointment(appointmentId));
         return "/reports/report_list";
     }
 }

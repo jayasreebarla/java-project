@@ -104,4 +104,14 @@ public class AppointmentController {
             return "appointment/error";
         }
     }
+
+    @GetMapping("/cancel_appointment_lab/{id}")
+    public String cancelAppointmentbyLab(@PathVariable int id){
+        boolean result = appointmentService.cancelAppointment(id);
+        if(result == true){
+            return "lab/lab_home";
+        }else{
+            return "appointment/error";
+        }
+    }
 }
