@@ -22,7 +22,7 @@
         <td><span th:text="${report.reportId}"> doctor Id </span></td>
         <td><span th:text="${report.appointmentId}"> doctor Name </span></td>
         <td><span th:text="${report.reportDetails}"> doctor Email </span></td>
-        <td><a th:href = "@{/download_file/{report_id}(report_id=${report.reportId})}"
+        <td><a th:href = "@{/download_file_report/{report_id}(report_id=${report.reportId})}"
                class = "btn btn-primary">Download</a></td>
     </tr>
     </tbody>

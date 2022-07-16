@@ -41,16 +41,16 @@ public class PrescriptionRepositoryImpl implements IPrescriptionRepository {
             PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(UPLOAD_PRESCRIPTION);
             Blob blob_file = new SerialBlob(prescription.getPrescription());
             //statement.setString(1, prescription.getPrescriptionId());
-            statement.setString(1, prescription.getAppointmentId());
-            statement.setString(2, prescription.getPrescriptionDetails());
-            statement.setBlob(3,blob_file);
+            statement.setInt(3, prescription.getAppointmentId());
+            statement.setString(1, prescription.getPrescriptionDetails());
+            statement.setBlob(2,blob_file);
 
             statement.executeUpdate();
             System.out.println("prescription uploaded ");
             return IPrescriptionRepository.StorageResult.SUCCESS;
         } catch (SQLException e) {
-//            throw new RuntimeException(e);
-            return IPrescriptionRepository.StorageResult.FAILURE;
+          throw new RuntimeException(e);
+          //  return IPrescriptionRepository.StorageResult.FAILURE;
         }
     }
 
@@ -58,19 +58,19 @@ public class PrescriptionRepositoryImpl implements IPrescriptionRepository {
     private Prescription createPrescription(ResultSet rs) throws SQLException {
 
         Prescription prescription = new Prescription();
-        prescription.setPrescriptionId(rs.getInt(""));
-        prescription.setPrescriptionDetails(rs.getString(""));
-        prescription.setAppointmentId(rs.getString(""));
+        prescription.setPrescriptionId(rs.getInt("prescription_id"));
+        prescription.setPrescriptionDetails(rs.getString("prescription_details"));
+        prescription.setAppointmentId(rs.getInt("appointment_id"));
         prescription.setPrescription(rs.getBytes("Prescription"));
         //report.setReportFile(rs.getBytes("report"));
         return prescription;
     }
 
-    public Prescription findById(String prescription_id) {
+    public Prescription findById(int prescription_id) {
         Prescription prescription = null;
         try {
             PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(SELECT_PRESCRIPTION_BY_ID);
-            statement.setString(1,prescription_id);
+            statement.setInt(1,prescription_id);
             ResultSet rs = statement.executeQuery();
             while (rs.next()){
                 prescription = createPrescription(rs);
@@ -81,12 +81,12 @@ public class PrescriptionRepositoryImpl implements IPrescriptionRepository {
         }
     }
 
-    public List<Prescription> findAllbyAppointment(String appointmentId) {
+    public List<Prescription> findAllbyAppointment(int appointmentId) {
         List<Prescription> prescriptionList = new ArrayList<>();
         Prescription prescription = null;
         try {
             PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(SELECT_PRESCRIPTION_BY_AID);
-            statement.setString(1,appointmentId);
+            statement.setInt(1,appointmentId);
             ResultSet rs = statement.executeQuery();
             while (rs.next()){
                 prescription = createPrescription(rs);

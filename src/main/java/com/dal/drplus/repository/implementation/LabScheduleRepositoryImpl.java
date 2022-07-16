@@ -17,13 +17,15 @@ import java.util.List;
 @Repository
 public class LabScheduleRepositoryImpl implements ILabScheduleRepository {
 
-    String INSERT_LAB_SCHEDULE = "INSERT into Lab_schedule (slot_id,slot_timing,slot_date,lab_id,status) VALUES(NEXT VALUE FOR doc_sch_seq,?,?,?,?)";
+    String INSERT_LAB_SCHEDULE = "INSERT into Lab_schedule (slot_timing,slot_date,lab_id,status) VALUES(?,?,?,?)";
     String UPDATE_LAB_SCHEDULE = "UPDATE Lab_schedule SET slot_timing=?,slot_date=?,lab_id=?,status=? WHERE slot_id=?";
     String FIND_SCHEDULE_BY_LAB_ID = "SELECT * FROM Lab_schedule WHERE lab_id=?";
     String FIND_SCHEDULE_BY_SLOT_ID = "SELECT * FROM Lab_schedule WHERE slot_id=?";
     String DELETE_SCHEDULE_BY_LAB_ID = "DELETE FROM Lab_schedule WHERE lab_id=?";
     String DELETE_SCHEDULE_BY_SLOT_ID = "DELETE FROM Lab_schedule WHERE slot_id=?";
     String DELETE_ALL = "DELETE FROM Lab_schedule";
+
+    String FIND_ALL = "SELECT * FROM Lab_schedule";
 
     String GET_SLOT_IDS = "SELECT slot_id FROM Lab_schedule";
 
@@ -38,16 +40,19 @@ public class LabScheduleRepositoryImpl implements ILabScheduleRepository {
     }
 
     @Override
-    public int saveLabSchedule(LabSchedule labSchedule) {
+    public StorageResult saveLabSchedule(LabSchedule labSchedule) {
         try {
             PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(INSERT_LAB_SCHEDULE);
-            statement.setString(1,labSchedule.getSlotTiming());
-            statement.setString(2, labSchedule.getSlotDate());
+//            statement.setString(1,labSchedule.getSlotTiming());
+            statement.setString(1, labSchedule.getSlotDate());
+            statement.setString(2, labSchedule.getSlotTiming());
             statement.setString(3,labSchedule.getLabId());
             statement.setBoolean(4,labSchedule.getStatus());
-            return statement.executeUpdate();
+            statement.executeUpdate();
+            return StorageResult.SUCCESS;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+//            throw new RuntimeException(e);
+            return StorageResult.FAILURE;
         }
     }
 
@@ -84,6 +89,21 @@ public class LabScheduleRepositoryImpl implements ILabScheduleRepository {
     }
 
     @Override
+    public List<LabSchedule> findAll() {
+        List<LabSchedule> labScheduleList = new ArrayList<>();
+        try {
+            PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(FIND_ALL);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()){
+                labScheduleList.add(createLabSchedule(rs));
+            }
+            return labScheduleList;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
     public LabSchedule findScheduleBySlotID(String id) {
         LabSchedule labSchedule=null;
         try {
@@ -112,14 +132,16 @@ public class LabScheduleRepositoryImpl implements ILabScheduleRepository {
     }
 
     @Override
-    public int deleteScheduleBySlotID(String id) {
+    public StorageResult deleteScheduleBySlotID(String id) {
         PreparedStatement statement = null;
         try {
             statement = databaseConfiguration.getDBConnection().prepareStatement(DELETE_SCHEDULE_BY_SLOT_ID);
             statement.setString(1,id);
-            return statement.executeUpdate();
+            statement.executeUpdate();
+            return StorageResult.SUCCESS;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+//            throw new RuntimeException(e);
+        return StorageResult.FAILURE;
         }
     }
 

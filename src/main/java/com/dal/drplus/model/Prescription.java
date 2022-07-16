@@ -3,16 +3,16 @@ package com.dal.drplus.model;
 public class Prescription {
     int prescriptionId;
 
-    String appointmentId;
+    int appointmentId;
     String prescriptionDetails;
 
     private byte[] prescriptionFile;
 
     public void setPrescription(byte[] prescription) {
-        Prescription = prescription;
+        this.prescriptionFile = prescription;
     }
 
-    private byte[] Prescription;
+
      String fileName;
 
     public int getPrescriptionId() {
@@ -32,11 +32,11 @@ public class Prescription {
         this.prescriptionDetails = prescriptionDetails;
     }
 
-    public void setAppointmentId(String appointmentId) {
+    public void setAppointmentId(int appointmentId) {
         this.appointmentId = appointmentId;
     }
 
-    public String getAppointmentId(){
+    public int getAppointmentId(){
         return appointmentId;
     }
 

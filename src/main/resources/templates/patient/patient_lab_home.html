@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Patient Home</title>
+</head>
+<a href="/auth/logout">Logout</a>
+<br>
+<a href="/appointment_lab_list">View Lab Appointments</a>
+<body>
+<p>This patient homepage</p>
+
+<form action="/show_labs" >
+  <p>Enter Pincode: <input type="text" id = "name" name = "name" required="required" th:name="pincode" placeholder = "pincode"></p> <br>
+  <br><br><br>
+  <button type="submit">SUBMIT</button>
+</form>
+</body>
+</html>

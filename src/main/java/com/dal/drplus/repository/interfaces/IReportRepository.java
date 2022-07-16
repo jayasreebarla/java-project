@@ -17,6 +17,6 @@ public interface IReportRepository {
 
     public Report getReportbyId (int reportId);
 
-    public List<Report> findAllbyAppointment(String appointmentId);
+    public List<Report> findAllbyAppointment(int appointmentId);
 
 }

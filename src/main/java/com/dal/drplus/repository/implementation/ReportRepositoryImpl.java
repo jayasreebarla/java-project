@@ -41,7 +41,7 @@ public class ReportRepositoryImpl implements IReportRepository {
             Blob blob_file = new SerialBlob(report.getReportFile());
             //statement.setString(1, report.getReportId());
             // Patient currentPatient = session.getAttributeNames("current")
-            statement.setString(1, report.getAppointmentId());
+            statement.setInt(1, report.getAppointmentId());
             statement.setString(2, report.getReportDetails());
             statement.setBlob(3, blob_file);
             statement.executeUpdate();
@@ -86,18 +86,18 @@ public class ReportRepositoryImpl implements IReportRepository {
         Report report= new Report();
         report.setReportId(rs.getInt("report_id"));
         report.setReportDetails(rs.getString("report_desc"));
-        report.setAppointmentId(rs.getString("appointment_id"));
+        report.setAppointmentId(rs.getInt("appointment_id"));
         report.setReportFile(rs.getBytes("report"));
         return report;
     }
 
     @Override
-    public List<Report> findAllbyAppointment(String appointmentId) {
+    public List<Report> findAllbyAppointment(int appointmentId) {
         List<Report> reportList = new ArrayList<>();
         Report report = null;
         try {
             PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(SELECT_REPORT_BY_AID);
-            statement.setString(1,appointmentId);
+            statement.setInt(1,appointmentId);
             ResultSet rs = statement.executeQuery();
             while (rs.next()){
                 report = createReport(rs);

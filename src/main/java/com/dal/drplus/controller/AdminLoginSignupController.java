@@ -55,6 +55,7 @@ public class AdminLoginSignupController {
         if(isCredentialsValid){
             Admin admin = adminService.getAdminbyId(adminId);
             session.setAttribute("CurrentAdmin",admin);
+            session.setAttribute("Type","A");
             return new RedirectView("/auth_admin/admin_home");
         }else{
             return new RedirectView("/auth_admin/admin_login");

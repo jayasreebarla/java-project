@@ -1,6 +1,7 @@
 package com.dal.drplus.service;
 
 import com.dal.drplus.model.Doctor;
+import com.dal.drplus.repository.interfaces.IAppointmentRepository;
 import com.dal.drplus.repository.interfaces.IDoctorRepository;
 
 import java.util.List;
@@ -12,6 +13,20 @@ public class DoctorService {
         this.doctorRepository = doctorRepository;
     }
 
+    public List<Doctor> listAllDoctor(){
+        return doctorRepository.findAllDoctors();
+    }
+
+    public boolean deleteDoctorbyId(String doctorId){
+        System.out.println("doc service");
+        IDoctorRepository.StorageResult result = doctorRepository.deleteDoctorById(doctorId);
+        System.out.println("doc service res "+result);
+        if(result.equals(IDoctorRepository.StorageResult.SUCCESS)){
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     public void sortDoctorOnRating(){
 
@@ -23,5 +38,10 @@ public class DoctorService {
 
     public List<Doctor> filterDoctorOnPincodeAndSpecialization(String doctorPincode, String doctorSpecialization){
         return doctorRepository.findAllDoctorsBySpecializationAndPincode(doctorSpecialization,doctorPincode);
+    }
+
+    public Doctor getDoctorById(String doctorId){
+        Doctor doctor = doctorRepository.findDoctorById(doctorId);
+        return doctor;
     }
 }

@@ -42,12 +42,13 @@ public class AppointmentRepositoryImpl implements IAppointmentRepository{
             " FROM Appointment A WHERE A.patient_id=?";
 
     String SELECT_APPOINTMENT_BY_DOCTOR_ID = "SELECT appointment_id, appointment_description, appointment_type, "+
-            " appointment_fee, patient_id, bill_id, lab_id, doctor_id, slot_timing, slot_date  FROM Appointment, Doc_schedule"+
-            " WHERE Appointment.slot_id = Doc_schedule.slot_id and doctor_id=?";
+            " appointment_fee, patient_id, bill_id, lab_id, Appointment.doctor_id, "+
+            " slot_timing, slot_date, Appointment.slot_id FROM Appointment, Doc_schedule "+
+            " WHERE Appointment.slot_id = Doc_schedule.slot_id and Appointment.doctor_id=?";
 
     String SELECT_APPOINTMENT_BY_LAB_ID = "SELECT appointment_id, appointment_description, appointment_type, "+
-            " appointment_fee, patient_id, bill_id, lab_id, doctor_id, slot_timing, slot_date  FROM Appointment, Lab_schedule"+
-            " WHERE Appointment.slot_id = Lab_schedule.slot_id and lab_id=?";
+            " appointment_fee, patient_id, bill_id, Appointment.lab_id, doctor_id, slot_timing, slot_date, Appointment.slot_id FROM Appointment, Lab_schedule"+
+            " WHERE Appointment.slot_id = Lab_schedule.slot_id and Appointment.lab_id=?";
 
     String SELECT_APPOINTMENT_BY_PATIENT_ID_N_DATE = "SELECT appointment_id, appointment_description, appointment_type, "+
             " appointment_fee, patient_id, bill_id, lab_id, doctor_id, "+
@@ -85,7 +86,10 @@ public class AppointmentRepositoryImpl implements IAppointmentRepository{
             " or (a.slot_id=l.slot_id and a.appointment_type='LAB' and l.slot_date=? and l.slot_timing=?)" +
             " and patient_id=?";
 
-    String SELECT_ALL = "SELECT * from Appointment";
+    String SELECT_ALL = "SELECT * from Appointment a, Doc_schedule d, Lab_schedule l" +
+            " where (a.slot_id=d.slot_id and a.appointment_type='DOCTOR') " +
+            " or (a.slot_id=l.slot_id and a.appointment_type='LAB')" ;
+
     String DELETE_ALL = "DELETE from Appointment";
 
     String SELECT_PATIENT_BY_SLOT_ID_DOCTOR = "SELECT patient_id from Appointment WHERE slot_id=? and appointment_type='DOCTOR' ";

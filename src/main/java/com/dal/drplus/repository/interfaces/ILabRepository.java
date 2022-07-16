@@ -13,6 +13,7 @@ public interface ILabRepository {
     StorageResult saveLab(Lab lab);
     StorageResult updateLab(Lab lab);
     Lab findLabById(String labId);
+    List<Lab> findAllLabsByPincode(String labPincode);
     String getLabPasswordById(String labId);
     StorageResult deleteLabById(String labId);
     List<Lab> findAll();

@@ -1,5 +1,6 @@
 package com.dal.drplus.repository.implementation;
 
+import com.dal.drplus.model.Doctor;
 import com.dal.drplus.model.Lab;
 import com.dal.drplus.model.Patient;
 import com.dal.drplus.repository.configuration.DatabaseConfiguration;
@@ -24,6 +25,7 @@ public class LabRepositoryImpl implements ILabRepository{
     String DELETE_LAB_BY_ID = "DELETE FROM Lab WHERE lab_id=?";
     String SELECT_LAB = "SELECT * from Lab";
     String DELETE_ALL = "DELETE from Lab";
+    String SELECT_LAB_BY_PINCODE = "Select * from Lab where lab_pincode = ?";
 
     DatabaseConfiguration databaseConfiguration;
 
@@ -38,6 +40,7 @@ public class LabRepositoryImpl implements ILabRepository{
     @Override
     public ILabRepository.StorageResult saveLab(Lab lab) {
 
+        System.out.println("inside save lab");
         try {
             PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(INSERT_LAB);
             statement.setString(1, lab.getLabId());
@@ -48,10 +51,11 @@ public class LabRepositoryImpl implements ILabRepository{
             statement.setString(6, lab.getLabContactInfo());
             statement.setString(7, lab.getLabPincode());
             statement.executeUpdate();
-            System.out.println("inisde save ");
+            System.out.println("inside save !!!!!!");
             return ILabRepository.StorageResult.SUCCESS;
         } catch (SQLException e) {
 //            throw new RuntimeException(e);
+            e.printStackTrace();
             return ILabRepository.StorageResult.FAILURE;
         }
     }
@@ -91,6 +95,32 @@ public class LabRepositoryImpl implements ILabRepository{
         }
     }
 
+
+    @Override
+    public List<Lab> findAllLabsByPincode(String labPincode) {
+        List<Lab> labsByPincode = new ArrayList<>();
+        PreparedStatement statement = null;
+        try {
+            statement = databaseConfiguration.getDBConnection().prepareStatement("Select * from Lab where lab_pincode = ?");
+            statement.setString(1,labPincode);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()){
+                Lab labObject = new Lab();
+                labObject.setLabId(rs.getString("lab_id"));
+                labObject.setLabPersonName(rs.getString("lab_person_name"));
+                labObject.setLabEmailId(rs.getString("lab_email_id"));
+                labObject.setLabAddress(rs.getString("lab_address"));
+                labObject.setLabPincode(rs.getString("lab_pincode"));
+                labObject.setLabContactInfo(rs.getString("lab_contact_info"));
+                labsByPincode.add(labObject);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return labsByPincode;
+    }
+
     private Lab createLab(ResultSet rs) throws SQLException {
 
         Lab lab= new Lab();
@@ -99,7 +129,7 @@ public class LabRepositoryImpl implements ILabRepository{
         lab.setLabEmailId(rs.getString("lab_email_id"));
         lab.setLabPassword(rs.getString("lab_password"));
         lab.setLabAddress(rs.getString("lab_address"));
-        lab.setLabContactInfo((rs.getString("lab_phone_no")));
+        lab.setLabContactInfo((rs.getString("lab_contact_info")));
         lab.setLabPincode(rs.getString("lab_pincode"));
         return lab;
     }
