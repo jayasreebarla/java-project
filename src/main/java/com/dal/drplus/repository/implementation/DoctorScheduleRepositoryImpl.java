@@ -15,7 +15,8 @@ import java.util.List;
 @Repository
 public class DoctorScheduleRepositoryImpl implements IDoctorScheduleRepository {
 
-
+    String GET_SLOT_IDS = "SELECT slot_id FROM Doc_schedule WHERE slot_date=?";
+    //String GET_SLOT_IDS = "SELECT slot_id FROM Doc_schedule";
     DatabaseConfiguration databaseConfiguration;
     private DatabaseConfiguration DbConfig(){
         return new DatabaseConfigurationImpl();
@@ -30,12 +31,12 @@ public class DoctorScheduleRepositoryImpl implements IDoctorScheduleRepository {
 
         PreparedStatement statement = null;
         try {
-            statement = databaseConfiguration.getDBConnection().prepareStatement("INSERT into Doc_schedule(slot_id, slot_timing, slot_date, doctor_id, status) VALUES (doc_sch_seq,?,?,?,?)");
-            statement.setInt(1,doctorSchedule.getSlotId());
-            statement.setString(2, doctorSchedule.getSlotTiming());
-            statement.setString(3, doctorSchedule.getSlotDate());
-            statement.setString(4,doctorSchedule.getDoctorId());
-            statement.setBoolean(5, doctorSchedule.getStatus());
+            statement = databaseConfiguration.getDBConnection().prepareStatement("INSERT into Doc_schedule(slot_id, slot_timing, slot_date, doctor_id, status) VALUES (NEXT VALUE FOR doc_sch_seq,?,?,?,?)");
+//            statement.setInt(1,doctorSchedule.getSlotId());
+            statement.setString(1, doctorSchedule.getSlotTiming());
+            statement.setString(2, doctorSchedule.getSlotDate());
+            statement.setString(3,doctorSchedule.getDoctorId());
+            statement.setBoolean(4, doctorSchedule.getStatus());
             return statement.executeUpdate();
 
         } catch (SQLException e) {
@@ -147,6 +148,24 @@ public class DoctorScheduleRepositoryImpl implements IDoctorScheduleRepository {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
     }
+
+    @Override
+    public List<Integer> getAllSlotIds(String slotDate) {
+        List<Integer> slot_id_list;
+        try {
+            slot_id_list = new ArrayList<>();
+            PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(GET_SLOT_IDS);
+            statement.setString(1,slotDate);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()){
+                slot_id_list.add(rs.getInt("slot_id"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return slot_id_list;
+    }
+
+
 }

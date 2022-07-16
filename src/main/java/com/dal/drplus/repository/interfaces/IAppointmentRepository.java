@@ -25,4 +25,5 @@ public interface IAppointmentRepository {
     List<Appointment> findAll();
     StorageResult deleteAll();
     StorageResult isAppointmentConflict(String slotDate, String slotTime, String patientId);
+    String getPatientIdBySlotId(int slotId);
 }

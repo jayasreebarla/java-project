@@ -31,7 +31,6 @@ import java.util.stream.Collectors;
 public class ReportUploadController {
 
 
-
     private final ReportService reportService;
     private String appointmentId;
 

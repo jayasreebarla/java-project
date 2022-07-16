@@ -25,6 +25,8 @@ public class LabScheduleRepositoryImpl implements ILabScheduleRepository {
     String DELETE_SCHEDULE_BY_SLOT_ID = "DELETE FROM Lab_schedule WHERE slot_id=?";
     String DELETE_ALL = "DELETE FROM Lab_schedule";
 
+    String GET_SLOT_IDS = "SELECT slot_id FROM Lab_schedule";
+
     DatabaseConfiguration databaseConfiguration;
 
     public LabScheduleRepositoryImpl() {
