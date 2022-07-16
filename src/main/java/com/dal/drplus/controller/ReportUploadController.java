@@ -23,7 +23,6 @@ import java.io.IOException;
 public class ReportUploadController {
 
 
-
     private final ReportService reportService;
     private int appointmentId;
 

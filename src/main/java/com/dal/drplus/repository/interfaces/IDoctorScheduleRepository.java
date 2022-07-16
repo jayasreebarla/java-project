@@ -17,4 +17,6 @@ public interface IDoctorScheduleRepository {
     public int deleteScheduleByDoctorID(String id);
     public StorageResult deleteScheduleBySlotID(String id);
     public int deleteAllSchedules();
+
+    public List<Integer> getAllSlotIds(String slotDate);
 }

@@ -27,6 +27,8 @@ public class LabScheduleRepositoryImpl implements ILabScheduleRepository {
 
     String FIND_ALL = "SELECT * FROM Lab_schedule";
 
+    String GET_SLOT_IDS = "SELECT slot_id FROM Lab_schedule";
+
     DatabaseConfiguration databaseConfiguration;
 
     public LabScheduleRepositoryImpl() {

@@ -92,6 +92,8 @@ public class AppointmentRepositoryImpl implements IAppointmentRepository{
 
     String DELETE_ALL = "DELETE from Appointment";
 
+    String SELECT_PATIENT_BY_SLOT_ID_DOCTOR = "SELECT patient_id from Appointment WHERE slot_id=? and appointment_type='DOCTOR' ";
+
     DatabaseConfiguration databaseConfiguration;
 
     public AppointmentRepositoryImpl() {
@@ -367,6 +369,22 @@ public class AppointmentRepositoryImpl implements IAppointmentRepository{
         }
     }
 
+    @Override
+    public String getPatientIdBySlotId(int slotId) {
+        String patientId = null;
+        try {
+            PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(SELECT_PATIENT_BY_SLOT_ID_DOCTOR);
+            statement.setInt(1,slotId);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()){
+                patientId = rs.getString("patient_id");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return patientId;
+    }
+
     private Appointment createAppointment(ResultSet rs) throws SQLException {
         Appointment appointment= new Appointment();
         appointment.setAppointmentId(rs.getInt("appointment_id"));
@@ -382,4 +400,5 @@ public class AppointmentRepositoryImpl implements IAppointmentRepository{
         appointment.setAppointmentTime(rs.getString("slot_timing"));
         return appointment;
     }
+
 }
