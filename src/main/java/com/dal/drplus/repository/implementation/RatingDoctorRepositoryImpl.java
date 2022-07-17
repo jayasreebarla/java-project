@@ -44,8 +44,13 @@ public class RatingDoctorRepositoryImpl implements IRatingDoctorRepository {
             statement.setString(2,ratingDoctor.getDoctorId());
             statement.setInt(3,ratingDoctor.getDoctorRating());
             statement.setString(4, ratingDoctor.getReview());
-            statement.executeUpdate();
-            return StorageResult.SUCCESS;
+            int result = statement.executeUpdate();
+            if(result == 1){
+                return StorageResult.SUCCESS;
+            }else{
+                return StorageResult.FAILURE;
+            }
+
         } catch (SQLException e) {
 //            throw new RuntimeException(e);
             return StorageResult.SUCCESS;
@@ -60,8 +65,12 @@ public class RatingDoctorRepositoryImpl implements IRatingDoctorRepository {
             statement.setInt(1,ratingDoctor.getDoctorRating());
             statement.setInt(2,ratingDoctor.getRatingId());
             statement.setString(3,ratingDoctor.getDoctorId());
-            statement.executeUpdate();
-            return StorageResult.SUCCESS;
+            int result = statement.executeUpdate();
+            if(result == 1){
+                return StorageResult.SUCCESS;
+            }else{
+                return StorageResult.FAILURE;
+            }
         } catch (SQLException e) {
 //            throw new RuntimeException(e);
             return StorageResult.FAILURE;
@@ -75,8 +84,12 @@ public class RatingDoctorRepositoryImpl implements IRatingDoctorRepository {
             statement.setString(1, ratingDoctor.getReview());
             statement.setInt(2,ratingDoctor.getRatingId());
             statement.setString(3,ratingDoctor.getDoctorId());
-            statement.executeUpdate();
-            return StorageResult.SUCCESS;
+            int result = statement.executeUpdate();
+            if(result == 1){
+                return StorageResult.SUCCESS;
+            }else{
+                return StorageResult.FAILURE;
+            }
         } catch (SQLException e) {
 //            throw new RuntimeException(e);
             return StorageResult.FAILURE;
