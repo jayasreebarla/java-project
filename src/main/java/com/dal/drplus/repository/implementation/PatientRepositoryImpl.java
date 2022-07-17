@@ -55,8 +55,13 @@ public class PatientRepositoryImpl implements IPatientRepository{
             statement.setString(7,patient.getPatientAddress());
             statement.setString(8,patient.getPatientPincode());
             statement.setBoolean(9,patient.isPrivacyAgreementEnabled());
-            statement.executeUpdate();
-            return StorageResult.SUCCESS;
+            int result = statement.executeUpdate();
+            if(result==1){
+                return StorageResult.SUCCESS;
+            }
+            else {
+                return StorageResult.FAILURE;
+            }
         } catch (SQLException e) {
 //            throw new RuntimeException(e);
             return StorageResult.FAILURE;
@@ -123,13 +128,16 @@ public class PatientRepositoryImpl implements IPatientRepository{
         try {
             PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(DELETE_PATIENT_BY_ID);
             statement.setString(1,patientId);
-            statement.executeUpdate();
-            return StorageResult.SUCCESS;
+            int result = statement.executeUpdate();
+            if(result == 1){
+                return StorageResult.SUCCESS;
+            }else{
+                return StorageResult.FAILURE;
+            }
         } catch (SQLException e) {
 //            throw new RuntimeException(e);
             return StorageResult.FAILURE;
         }
-
     }
 
     @Override

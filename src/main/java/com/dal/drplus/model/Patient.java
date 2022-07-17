@@ -11,6 +11,21 @@ public class Patient {
     private String patientPincode;
     private boolean privacyAgreementEnabled;
 
+    public Patient() {
+    }
+
+    public Patient(String patientId, String patientName, int patientAge, String patientEmail, String patientPhoneNo, String patientPassword, String patientAddress, String patientPincode, boolean privacyAgreementEnabled) {
+        this.patientId = patientId;
+        this.patientName = patientName;
+        this.patientAge = patientAge;
+        this.patientEmail = patientEmail;
+        this.patientPhoneNo = patientPhoneNo;
+        this.patientPassword = patientPassword;
+        this.patientAddress = patientAddress;
+        this.patientPincode = patientPincode;
+        this.privacyAgreementEnabled = privacyAgreementEnabled;
+    }
+
     public String getPatientId() {
         return patientId;
     }
