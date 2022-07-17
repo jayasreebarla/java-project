@@ -39,7 +39,7 @@ public class PatientLoginSignupController {
         if(type.equals("A")){
             return new RedirectView("/admin/patient_list_admin");
         }
-        return new RedirectView("/patient_login");
+        return new RedirectView("/auth/patient_login");
     }
 
     @GetMapping("/patient_login")
