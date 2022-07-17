@@ -28,14 +28,6 @@ public class DoctorService {
         }
     }
 
-    public void sortDoctorOnRating(){
-
-    }
-
-    public void filterDoctorOnLocation(){
-
-    }
-
     public List<Doctor> filterDoctorOnPincodeAndSpecialization(String doctorPincode, String doctorSpecialization){
         return doctorRepository.findAllDoctorsBySpecializationAndPincode(doctorSpecialization,doctorPincode);
     }
