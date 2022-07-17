@@ -5,6 +5,10 @@ import com.dal.drplus.model.RatingLab;
 import java.util.List;
 
 public interface IRatingLabRepository {
+    enum StorageResult{
+        SUCCESS,
+        FAILURE
+    }
     int saveLabRating(RatingLab ratingLab);
     int updateLabRating(RatingLab ratingLab);
     RatingLab findLabRatingById(String ratingId,String labId);
