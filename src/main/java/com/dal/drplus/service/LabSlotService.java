@@ -32,7 +32,7 @@ public class LabSlotService {
         }
     }
 
-    public boolean deleteSlotById(String slotId){
+    public boolean deleteSlotById(int slotId){
         ILabScheduleRepository.StorageResult result = labScheduleRepository.deleteScheduleBySlotID(slotId);
         if(result.equals(ILabScheduleRepository.StorageResult.SUCCESS)){
             return true;

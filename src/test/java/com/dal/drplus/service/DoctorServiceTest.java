@@ -14,9 +14,9 @@ import java.util.List;
 
 public class DoctorServiceTest {
 
-    static Doctor doctor1 = new Doctor("A1", "A1", "A1", "A1", "A1", "M", 7, "A1", "Cardiologist", "A1", "AP1");
-    static Doctor doctor2 = new Doctor("B1", "B1", "B1", "B1", "B1", "M", 7, "B1", "Dermatologist", "B1", "15");
-    static Doctor doctor3 = new Doctor("C1", "C1", "C1", "C1", "C1", "M", 7, "C1", "Cardiologist", "C1", "AP1");
+    static Doctor doctor1 = new Doctor("A1", "A1", "A1", "A1", "A1", "M", 7, "A1", "Cardiologist", "A1", "AP1",10000);
+    static Doctor doctor2 = new Doctor("B1", "B1", "B1", "B1", "B1", "M", 7, "B1", "Dermatologist", "B1", "15",12938);
+    static Doctor doctor3 = new Doctor("C1", "C1", "C1", "C1", "C1", "M", 7, "C1", "Cardiologist", "C1", "AP1",18726);
 
     private static DoctorService doctorService;
 

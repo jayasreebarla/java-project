@@ -9,6 +9,21 @@ public class LabSchedule {
     private String labId;
     private Boolean status;
 
+    public LabSchedule(int slotId, String slotTiming, String slotDate, String doctorId, Boolean status){
+        this.slotId = slotId;
+        this.slotTiming = slotTiming;
+        this.slotDate = slotDate;
+        this.labId = doctorId;
+        this.status = status;
+    }
+
+    public LabSchedule(){
+        this.slotId = 0;
+        this.slotTiming = null;
+        this.slotDate = null;
+        this.labId = null;
+        this.status = null;
+    }
     public int getSlotId() {
         return slotId;
     }

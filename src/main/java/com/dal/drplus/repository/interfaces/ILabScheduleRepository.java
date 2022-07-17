@@ -14,8 +14,8 @@ public interface ILabScheduleRepository {
     public List<LabSchedule> findScheduleByLabID(String id);
     public List<LabSchedule> findAll();
     public LabSchedule findScheduleBySlotID(String id);
-    public int deleteScheduleByLabID(String id);
-    public StorageResult deleteScheduleBySlotID(String id);
+    public StorageResult deleteScheduleByLabID(String id);
+    public StorageResult deleteScheduleBySlotID(int id);
     public int deleteAllSchedules();
 
 }

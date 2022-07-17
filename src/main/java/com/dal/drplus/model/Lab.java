@@ -10,6 +10,16 @@ public class Lab {
     private String labContactInfo;
     private String labPincode;
 
+    public double getLabFee() {
+        return labFee;
+    }
+
+    public void setLabFee(double labFee) {
+        this.labFee = labFee;
+    }
+
+    private double labFee;
+
     public String getLabId() {return labId;}
     public void setLabId(String labId) {this.labId = labId;}
     public String getLabPersonName() {return labPersonName;}

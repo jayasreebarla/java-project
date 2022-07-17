@@ -28,7 +28,7 @@ public class DoctorRepositoryImpl implements IDoctorRepository {
 
         PreparedStatement statement = null;
         try {
-            statement = databaseConfiguration.getDBConnection().prepareStatement("INSERT into Doctor(doctor_id, doctor_name, doctor_password, doctor_email, doctor_phone, doctor_gender, doctor_age, doctor_credentials, doctor_specialization, doctor_clinic_address, doctor_pincode) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+            statement = databaseConfiguration.getDBConnection().prepareStatement("INSERT into Doctor(doctor_id, doctor_name, doctor_password, doctor_email, doctor_phone, doctor_gender, doctor_age, doctor_credentials, doctor_specialization, doctor_clinic_address, doctor_pincode, doctor_fee) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
             statement.setString(1,doctor.getDoctorId());
             statement.setString(2, doctor.getDoctorName());
             statement.setString(3, doctor.getDoctorPassword());
@@ -40,6 +40,8 @@ public class DoctorRepositoryImpl implements IDoctorRepository {
             statement.setString(9, doctor.getDoctorSpecialization());
             statement.setString(10, doctor.getDoctorClinicAddress());
             statement.setString(11,doctor.getDoctorPincode());
+            statement.setDouble(12,doctor.getDoctorFee());
+
             if(statement.executeUpdate() == 1){
                 return IDoctorRepository.StorageResult.SUCCESS;
             }
@@ -95,6 +97,7 @@ public class DoctorRepositoryImpl implements IDoctorRepository {
                 doctorObject.setDoctorSpecialization(rs.getString("doctor_specialization"));
                 doctorObject.setDoctorClinicAddress(rs.getString("doctor_clinic_address"));
                 doctorObject.setDoctorPincode(rs.getString("doctor_pincode"));
+                doctorObject.setDoctorFee(rs.getDouble("doctor_fee"));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -122,6 +125,8 @@ public class DoctorRepositoryImpl implements IDoctorRepository {
                 doctorObject.setDoctorSpecialization(rs.getString("doctor_specialization"));
                 doctorObject.setDoctorClinicAddress(rs.getString("doctor_clinic_address"));
                 doctorObject.setDoctorPincode(rs.getString("doctor_pincode"));
+                doctorObject.setDoctorFee(rs.getDouble("doctor_fee"));
+
                 doctors.add(doctorObject);
             }
         } catch (SQLException e) {
@@ -169,6 +174,8 @@ public class DoctorRepositoryImpl implements IDoctorRepository {
                 doctorObject.setDoctorSpecialization(rs.getString("doctor_specialization"));
                 doctorObject.setDoctorClinicAddress(rs.getString("doctor_clinic_address"));
                 doctorObject.setDoctorPincode(rs.getString("doctor_pincode"));
+                doctorObject.setDoctorFee(rs.getDouble("doctor_fee"));
+
                 doctorsBySpecialization.add(doctorObject);
             }
         } catch (SQLException e) {
@@ -198,12 +205,13 @@ public class DoctorRepositoryImpl implements IDoctorRepository {
                 doctorObject.setDoctorSpecialization(rs.getString("doctor_specialization"));
                 doctorObject.setDoctorClinicAddress(rs.getString("doctor_clinic_address"));
                 doctorObject.setDoctorPincode(rs.getString("doctor_pincode"));
+                doctorObject.setDoctorFee(rs.getDouble("doctor_fee"));
+
                 doctorsByPincode.add(doctorObject);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
         return doctorsByPincode;
     }
 
@@ -228,6 +236,8 @@ public class DoctorRepositoryImpl implements IDoctorRepository {
                 doctorObject.setDoctorSpecialization(rs.getString("doctor_specialization"));
                 doctorObject.setDoctorClinicAddress(rs.getString("doctor_clinic_address"));
                 doctorObject.setDoctorPincode(rs.getString("doctor_pincode"));
+                doctorObject.setDoctorFee(rs.getDouble("doctor_fee"));
+
                 doctorsBySpecializationAndPincode.add(doctorObject);
             }
         } catch (SQLException e) {
@@ -275,97 +285,3 @@ public class DoctorRepositoryImpl implements IDoctorRepository {
         }
     }
 }
-
-
-//`doctor_id`, `doctor_name`, `doctor_password`, `doctor_email`, `doctor_phone`,
-// `doctor_gender`, `doctor_age`, `doctor_credentials`, `doctor_specialization`,
-// `doctor_clinic_address`, `doctor_pincode`
-
-/*
-
-
-    String GET_PATIENT_PASSWORD_BY_ID = "SELECT patient_password FROM Patient WHERE patient_id=?";
-
-@Override
-    public String getPatientPasswordById(String patientId) {
-        PreparedStatement statement = null;
-        String password = null;
-        try {
-            statement = databaseConfiguration.getDBConnection().prepareStatement(GET_PATIENT_PASSWORD_BY_ID);
-            statement.setString(1,patientId);
-            ResultSet rs = statement.executeQuery();
-            while (rs.next()){
-            password = rs.getString("patient_password");
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return password;
-    }
-
-
-
-
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
-
-    @Override
-    public int saveDoctor(Doctor doctor){
-        return jdbcTemplate.update("INSERT into doctor(doctor_id, doctor_name, doctor_password, doctor_email, doctor_phone, doctor_gender, doctor_age, doctor_credentials, doctor_specialization, doctor_clinic_address, doctor_pincode) VALUES (?,?,?,?,?,?,?,?,?,?,?)",
-                new Object[] { doctor.getDoctorId(), doctor.getDoctorName(), doctor.getDoctorPassword(), doctor.getDoctorEmailId(),
-                        doctor.getDoctorPhoneNumber(), doctor.getDoctorGender(), doctor.getDoctorAge(), doctor.getDoctorCredentials(),
-                        doctor.getDoctorSpecialization(), doctor.getDoctorClinicAddress(), doctor.getDoctorPincode()});
-    }
-
-    @Override
-    public int updateDoctor(Doctor doctor) {
-        return jdbcTemplate.update("UPDATE doctor set doctor_name=?, doctor_email=?,doctor_phone=? WHERE doctor_id=?",
-                new Object[] {doctor.getDoctorName(), doctor.getDoctorEmailId(), doctor.getDoctorPhoneNumber()});
-    }
-
-    @Override
-    public Doctor findDoctorById(String id) {
-        try{
-            Doctor doctor = jdbcTemplate.queryForObject("SELECT * from doctor where id = ?",
-                    BeanPropertyRowMapper.newInstance(Doctor.class),id);
-            return doctor;
-        }catch(IncorrectResultSizeDataAccessException e){
-            return null;
-        }
-    }
-
-    @Override
-    public List<Doctor> findAllDoctors() {
-        return jdbcTemplate.query("SELECT * from doctor", BeanPropertyRowMapper.newInstance(Doctor.class));
-    }
-
-    @Override
-    public List<Doctor> findAllDoctorsBySpecialization(String specialization) {
-        return (List<Doctor>) jdbcTemplate.queryForObject("SELECT * from doctor where doctor_specialization = ?",
-                BeanPropertyRowMapper.newInstance(Doctor.class),specialization);
-    }
-
-    @Override
-    public List<Doctor> findAllDoctorsByPincode(String pincode) {
-        return (List<Doctor>) jdbcTemplate.queryForObject("SELECT * from doctor where doctor_pincode = ?",
-                BeanPropertyRowMapper.newInstance(Doctor.class),pincode);
-    }
-
-    @Override
-    public List<Doctor> findAllDoctorsBySpecializationAndPincode(String specialization, String pincode) {
-        return (List<Doctor>) jdbcTemplate.queryForObject("SELECT * from specialization where doctor_specialization = ? and doctor_pincode = ?",
-                BeanPropertyRowMapper.newInstance(Doctor.class), specialization, pincode);
-    }
-
-    @Override
-    public int deleteDoctorById(String id) {
-        return jdbcTemplate.update("DELETE from doctor where doctor_id = ?",id);
-    }
-
-    @Override
-    public int deleteAllDoctors() {
-        return jdbcTemplate.update("DELETE from doctor");
-    }*/
-
-
-

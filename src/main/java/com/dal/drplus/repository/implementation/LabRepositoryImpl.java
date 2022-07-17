@@ -17,7 +17,7 @@ import java.util.List;
 @Repository
 public class LabRepositoryImpl implements ILabRepository{
 
-    String INSERT_LAB = "INSERT into Lab (lab_id,lab_person_name,lab_email_id,lab_password,lab_address,lab_contact_info,lab_pincode) VALUES(?,?,?,?,?,?,?)";
+    String INSERT_LAB = "INSERT into Lab (lab_id,lab_person_name,lab_email_id,lab_password,lab_address,lab_contact_info,lab_pincode,lab_fee) VALUES(?,?,?,?,?,?,?,?)";
     String UPDATE_LAB = "UPDATE Lab SET lab_person_name=?,lab_email_id=?,lab_password=?,lab_address=?,lab_contact_info=?,lab_pincode=?, WHERE lab_id=?";
     String SELECT_LAB_BY_ID = "SELECT * FROM Lab WHERE lab_id=?";
 
@@ -50,6 +50,8 @@ public class LabRepositoryImpl implements ILabRepository{
             statement.setString(5, lab.getLabAddress());
             statement.setString(6, lab.getLabContactInfo());
             statement.setString(7, lab.getLabPincode());
+            statement.setDouble(8,lab.getLabFee());
+
             statement.executeUpdate();
             System.out.println("inside save !!!!!!");
             return ILabRepository.StorageResult.SUCCESS;
@@ -71,6 +73,8 @@ public class LabRepositoryImpl implements ILabRepository{
             statement.setString(5, lab.getLabContactInfo());
             statement.setString(6, lab.getLabPincode());
             statement.setString(7, lab.getLabId());
+            statement.setDouble(8,lab.getLabFee());
+
             statement.executeUpdate();
             return ILabRepository.StorageResult.SUCCESS;
         } catch (SQLException e) {
@@ -112,6 +116,8 @@ public class LabRepositoryImpl implements ILabRepository{
                 labObject.setLabAddress(rs.getString("lab_address"));
                 labObject.setLabPincode(rs.getString("lab_pincode"));
                 labObject.setLabContactInfo(rs.getString("lab_contact_info"));
+                labObject.setLabFee(rs.getDouble("lab_fee"));
+
                 labsByPincode.add(labObject);
             }
         } catch (SQLException e) {
@@ -131,6 +137,8 @@ public class LabRepositoryImpl implements ILabRepository{
         lab.setLabAddress(rs.getString("lab_address"));
         lab.setLabContactInfo((rs.getString("lab_contact_info")));
         lab.setLabPincode(rs.getString("lab_pincode"));
+        lab.setLabFee(rs.getDouble("lab_fee"));
+
         return lab;
     }
 
