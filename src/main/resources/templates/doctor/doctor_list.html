@@ -22,6 +22,7 @@
         <th> Doctor Specialization</th>
         <th> Doctor Clinic Address</th>
         <th> Doctor Pincode</th>
+        <th> Doctor Fee</th>
         <th> Actions </th>
     </tr>
     </thead>
@@ -37,6 +38,7 @@
         <td><span th:text="${doctor.doctorSpecialization}"> doctor Specialization </span></td>
         <td><span th:text="${doctor.doctorClinicAddress}"> doctor Clinic Address </span></td>
         <td><span th:text="${doctor.doctorPincode}"> doctor Pincode </span></td>
+        <td><span th:text="${doctor.doctorFee}"> doctor Fee </span></td>
         <td><a th:href = "@{/doctor/{doctorId}(doctorId=${doctor.doctorId})}"
                class = "btn btn-primary">Check Availability</a></td>
     </tr>

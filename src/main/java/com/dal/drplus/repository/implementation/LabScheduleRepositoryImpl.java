@@ -120,23 +120,27 @@ public class LabScheduleRepositoryImpl implements ILabScheduleRepository {
     }
 
     @Override
-    public int deleteScheduleByLabID(String id) {
+    public StorageResult deleteScheduleByLabID(String id) {
         PreparedStatement statement = null;
         try {
             statement = databaseConfiguration.getDBConnection().prepareStatement(DELETE_SCHEDULE_BY_LAB_ID);
             statement.setString(1,id);
-            return statement.executeUpdate();
+            if(statement.executeUpdate() == 1){
+                return StorageResult.SUCCESS;
+            }
+            return StorageResult.FAILURE;
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
     @Override
-    public StorageResult deleteScheduleBySlotID(String id) {
+    public StorageResult deleteScheduleBySlotID(int id) {
         PreparedStatement statement = null;
         try {
             statement = databaseConfiguration.getDBConnection().prepareStatement(DELETE_SCHEDULE_BY_SLOT_ID);
-            statement.setString(1,id);
+            statement.setInt(1,id);
             statement.executeUpdate();
             return StorageResult.SUCCESS;
         } catch (SQLException e) {

@@ -116,13 +116,13 @@ public class DoctorScheduleRepositoryImpl implements IDoctorScheduleRepository {
     }
 
     @Override
-    public DoctorSchedule findScheduleBySlotID(String id) {
+    public DoctorSchedule findScheduleBySlotID(int id) {
 
         DoctorSchedule doctorSchedule = new DoctorSchedule();
         PreparedStatement statement = null;
         try {
             statement = databaseConfiguration.getDBConnection().prepareStatement("Select * from Doc_schedule where slot_id = ?");
-            statement.setString(1,id);
+            statement.setInt(1,id);
             ResultSet rs = statement.executeQuery();
             doctorSchedule.setSlotId(rs.getInt("slot_id"));
             doctorSchedule.setSlotTiming(rs.getString("slot_timing"));
@@ -136,13 +136,16 @@ public class DoctorScheduleRepositoryImpl implements IDoctorScheduleRepository {
     }
 
     @Override
-    public int deleteScheduleByDoctorID(String id) {
+    public StorageResult deleteScheduleByDoctorID(String id) {
 
         PreparedStatement statement = null;
         try {
             statement = databaseConfiguration.getDBConnection().prepareStatement("Delete from Doc_schedule where doctor_id = ?");
             statement.setString(1,id);
-            return statement.executeUpdate();
+            if(statement.executeUpdate() == 1){
+                return StorageResult.SUCCESS;
+            }
+            return StorageResult.FAILURE;
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -150,12 +153,12 @@ public class DoctorScheduleRepositoryImpl implements IDoctorScheduleRepository {
     }
 
     @Override
-    public StorageResult deleteScheduleBySlotID(String id) {
+    public StorageResult deleteScheduleBySlotID(int id) {
 
         PreparedStatement statement = null;
         try {
             statement = databaseConfiguration.getDBConnection().prepareStatement("Delete from Doc_schedule where slot_id = ?");
-            statement.setString(1,id);
+            statement.setInt(1,id);
             statement.executeUpdate();
             return StorageResult.SUCCESS;
         } catch (SQLException e) {

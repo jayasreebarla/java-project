@@ -159,7 +159,7 @@ public class AdminController {
     }
 
     @GetMapping("/delete_doctor_schedule_admin/{id}")
-    public RedirectView deleteDoctorSchedulebyadmin(@PathVariable String id){
+    public RedirectView deleteDoctorSchedulebyadmin(@PathVariable int id){
         boolean result = doctorSlotService.deleteSlotbyId(id);
         if(result == true){
             return new RedirectView("/admin/doctor_schedule_list_admin");
@@ -169,7 +169,7 @@ public class AdminController {
     }
 
     @GetMapping("/delete_lab_schedule_admin/{id}")
-    public RedirectView deleteLabSchedulebyadmin(@PathVariable String id){
+    public RedirectView deleteLabSchedulebyadmin(@PathVariable int id){
         boolean result = labSlotService.deleteSlotById(id);
         if(result == true){
             return new RedirectView("/admin/lab_schedule_list_admin");

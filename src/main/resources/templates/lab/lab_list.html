@@ -19,9 +19,9 @@
         <th> Lab Name </th>
         <th> Lab Email</th>
         <th> Lab Phone No</th>
-        <th> Lab Specialization</th>
         <th> Lab Clinic Address</th>
         <th> Lab Pincode</th>
+        <th> Lab Fee</th>
         <th> Actions </th>
     </tr>
     </thead>
@@ -36,6 +36,7 @@
         <td><span th:text="${lab.labContactInfo}"> Lab PhoneNo </span></td>
         <td><span th:text="${lab.labAddress}"> Lab Clinic Address </span></td>
         <td><span th:text="${lab.labPincode}"> Lab Pincode </span></td>
+        <td><span th:text="${lab.labFee}"> Lab Fee </span></td>
         <td><a th:href = "@{/lab/{labId}(labId=${lab.labId})}"
                class = "btn btn-primary">Check Availability</a></td>
     </tr>
@@ -46,14 +47,3 @@
 </html>
 
 
-<!-- labId;-->
-<!-- labPersonName;-->
-<!-- labPassword;-->
-<!--// labConfirmPassword;-->
-<!-- labEmailId;-->
-<!-- labAddress;-->
-<!--labContactInfo;-->
-<!-- labPincode;-->
-
-<!--//`lab_id`, `lab_person_name`, `lab_password`,-->
-<!--//`lab_email_id`, `lab_address`, `lab_contact_info`, `lab_pincode`-->

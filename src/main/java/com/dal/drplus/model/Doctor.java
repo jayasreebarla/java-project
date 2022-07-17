@@ -13,11 +13,20 @@ public class Doctor {
     private String doctorClinicAddress;
     private String doctorPincode;
     private int doctorRating;
+    private double doctorFee;
+
+    public double getDoctorFee() {
+        return doctorFee;
+    }
+
+    public void setDoctorFee(double doctorFee) {
+        this.doctorFee = doctorFee;
+    }
 
     public Doctor() {
     }
 
-    public Doctor(String doctorId, String doctorName, String doctorPassword, String doctorEmail, String doctorPhoneNo, String doctorGender, int doctorAge, String doctorCredentials, String doctorSpecialization, String doctorClinicAddress, String doctorPincode) {
+    public Doctor(String doctorId, String doctorName, String doctorPassword, String doctorEmail, String doctorPhoneNo, String doctorGender, int doctorAge, String doctorCredentials, String doctorSpecialization, String doctorClinicAddress, String doctorPincode, double doctorFee) {
         this.doctorId = doctorId;
         this.doctorName = doctorName;
         this.doctorPassword = doctorPassword;
@@ -29,6 +38,7 @@ public class Doctor {
         this.doctorSpecialization = doctorSpecialization;
         this.doctorClinicAddress = doctorClinicAddress;
         this.doctorPincode = doctorPincode;
+        this.doctorFee = doctorFee;
     }
 
     public String getDoctorId() {

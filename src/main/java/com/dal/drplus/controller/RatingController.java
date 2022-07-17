@@ -61,4 +61,21 @@ public class RatingController {
         System.out.println("rating save result"+result);
         return "Rating/rating_successful";
     }
+
+    @PostMapping("/add_lab_rating/")
+    public String AddRatingForLab(@RequestParam("review") String review,@RequestParam("doctorRating") String doctorRating){
+        System.out.println("inside add rating for doc");
+        System.out.println("inside add rating for doc => patientId"+patientId);
+        System.out.println("inside add rating for doc => doctorId"+doctorId);
+        RatingDoctor rating = new RatingDoctor();
+        rating.setRatingId(0);
+        rating.setPatientId(patientId);
+        rating.setDoctorId(doctorId);
+        rating.setReview(review);
+        rating.setDoctorRating(Integer.parseInt(doctorRating));
+        boolean result = ratingDoctorService.addRating(rating);
+        System.out.println("rating save result"+result);
+        return "Rating/rating_successful";
+    }
+
 }
