@@ -27,7 +27,7 @@ public class AdminLoginSignupService {
 
     public boolean isAdminCredentialValid(String adminId,String password) {
         String passwordFromDB = adminRepository.getAdminPasswordById(adminId);
-        if(passwordFromDB.equals(password)){
+        if(password.equals(passwordFromDB)){
             return true;
         }else{
             return false;
