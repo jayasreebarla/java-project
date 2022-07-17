@@ -14,6 +14,22 @@ public class Doctor {
     private String doctorPincode;
     private int doctorRating;
 
+    public Doctor() {
+    }
+
+    public Doctor(String doctorId, String doctorName, String doctorPassword, String doctorEmail, String doctorPhoneNo, String doctorGender, int doctorAge, String doctorCredentials, String doctorSpecialization, String doctorClinicAddress, String doctorPincode) {
+        this.doctorId = doctorId;
+        this.doctorName = doctorName;
+        this.doctorPassword = doctorPassword;
+        this.doctorEmail = doctorEmail;
+        this.doctorPhoneNo = doctorPhoneNo;
+        this.doctorGender = doctorGender;
+        this.doctorAge = doctorAge;
+        this.doctorCredentials = doctorCredentials;
+        this.doctorSpecialization = doctorSpecialization;
+        this.doctorClinicAddress = doctorClinicAddress;
+        this.doctorPincode = doctorPincode;
+    }
 
     public String getDoctorId() {
         return doctorId;

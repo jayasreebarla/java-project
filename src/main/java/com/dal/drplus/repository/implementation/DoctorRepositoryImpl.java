@@ -233,9 +233,13 @@ public class DoctorRepositoryImpl implements IDoctorRepository {
         try {
             statement = databaseConfiguration.getDBConnection().prepareStatement("Delete from Doctor where doctor_id = ?");
             statement.setString(1,id);
-            statement.executeUpdate();
+            int result = statement.executeUpdate();
+            System.out.println("result inside repo"+result);
+            if(result==1){
             return IDoctorRepository.StorageResult.SUCCESS;
-
+            }else {
+                return IDoctorRepository.StorageResult.FAILURE;
+            }
         } catch (SQLException e) {
             //throw new RuntimeException(e);
             return IDoctorRepository.StorageResult.FAILURE;
