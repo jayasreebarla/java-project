@@ -22,7 +22,6 @@ public class LabLoginSignupService {
             }
     }
 
-
     public boolean isLabCredentialValid(String labId,String labPassword){
         String passwordFromDB=labRepository.getLabPasswordById(labId);
         if(passwordFromDB.equals(labPassword)){

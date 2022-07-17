@@ -4,16 +4,16 @@ import java.util.Date;
 
 public class Promotions {
 
-    String promotionId;
+    int promotionId;
     String promotionName;
     Date promotionStartDate;
     Date promotionEndDate;
 
-    public String getPromotionId() {
+    public int getPromotionId() {
         return promotionId;
     }
 
-    public void setPromotionId(String promotionId) {
+    public void setPromotionId(int promotionId) {
         this.promotionId = promotionId;
     }
 
@@ -40,5 +40,7 @@ public class Promotions {
     public void setPromotionEndDate(Date promotionEndDate) {
         this.promotionEndDate = promotionEndDate;
     }
+
+    //public void set
 
 }
