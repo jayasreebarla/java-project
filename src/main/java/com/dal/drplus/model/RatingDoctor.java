@@ -8,6 +8,17 @@ public class RatingDoctor{
 
     private String review;
 
+    public RatingDoctor() {
+    }
+
+    public RatingDoctor(int ratingId, String patientId, String doctorId, int doctorRating, String review) {
+        this.ratingId = ratingId;
+        this.patientId = patientId;
+        this.doctorId = doctorId;
+        this.doctorRating = doctorRating;
+        this.review = review;
+    }
+
     public int getRatingId() {
         return ratingId;
     }
