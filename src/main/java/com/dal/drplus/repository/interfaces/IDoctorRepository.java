@@ -13,8 +13,8 @@ public interface IDoctorRepository {
         FAILURE
     }
 
-    public int saveDoctor(Doctor doctor);
-    public int updateDoctor(Doctor doctor);
+    public StorageResult saveDoctor(Doctor doctor);
+    public StorageResult updateDoctor(Doctor doctor);
     public Doctor findDoctorById(String id);
     public List<Doctor> findAllDoctors();
     public String getDoctorPasswordById(String doctorId);
@@ -22,6 +22,6 @@ public interface IDoctorRepository {
     public List<Doctor> findAllDoctorsByPincode(String pincode);
     public List<Doctor> findAllDoctorsBySpecializationAndPincode(String specialization, String pincode);
     public StorageResult deleteDoctorById(String id);
-    public int deleteAllDoctors();
+    public StorageResult deleteAllDoctors();
 
 }

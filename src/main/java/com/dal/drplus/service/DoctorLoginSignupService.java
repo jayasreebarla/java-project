@@ -13,8 +13,8 @@ public class DoctorLoginSignupService {
 
     public boolean registerDoctor(Doctor doctor, String confirmPassword){
         if(confirmPassword.equals(doctor.getDoctorPassword())){
-            int result = doctorRepository.saveDoctor(doctor);
-            if(result == 1){
+            IDoctorRepository.StorageResult result = doctorRepository.saveDoctor(doctor);
+            if(result == IDoctorRepository.StorageResult.SUCCESS){
                 return true;
             }else {
                 return false;

@@ -4,6 +4,7 @@ import com.dal.drplus.model.Doctor;
 import com.dal.drplus.repository.configuration.DatabaseConfiguration;
 import com.dal.drplus.repository.configuration.DatabaseConfigurationImpl;
 import com.dal.drplus.repository.interfaces.IDoctorRepository;
+import com.dal.drplus.repository.interfaces.IPatientRepository;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -23,7 +24,7 @@ public class DoctorRepositoryImpl implements IDoctorRepository {
     }
 
     @Override
-    public int saveDoctor(Doctor doctor) {
+    public StorageResult saveDoctor(Doctor doctor) {
 
         PreparedStatement statement = null;
         try {
@@ -39,7 +40,12 @@ public class DoctorRepositoryImpl implements IDoctorRepository {
             statement.setString(9, doctor.getDoctorSpecialization());
             statement.setString(10, doctor.getDoctorClinicAddress());
             statement.setString(11,doctor.getDoctorPincode());
-            return statement.executeUpdate();
+            if(statement.executeUpdate() == 1){
+                return IDoctorRepository.StorageResult.SUCCESS;
+            }
+            else {
+                return IDoctorRepository.StorageResult.FAILURE;
+            }
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -47,7 +53,7 @@ public class DoctorRepositoryImpl implements IDoctorRepository {
     }
 
     @Override
-    public int updateDoctor(Doctor doctor) {
+    public StorageResult updateDoctor(Doctor doctor) {
 
         PreparedStatement statement = null;
         try {
@@ -56,9 +62,14 @@ public class DoctorRepositoryImpl implements IDoctorRepository {
             statement.setString(2,doctor.getDoctorEmail());
             statement.setString(3, doctor.getDoctorPhoneNo());
             statement.setString(4,doctor.getDoctorId());
-            return statement.executeUpdate();
-
-        } catch (SQLException e) {
+            if(statement.executeUpdate() == 1){
+                return IDoctorRepository.StorageResult.SUCCESS;
+            }
+            else {
+                return IDoctorRepository.StorageResult.FAILURE;
+            }
+        }
+        catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
@@ -247,12 +258,17 @@ public class DoctorRepositoryImpl implements IDoctorRepository {
     }
 
     @Override
-    public int deleteAllDoctors() {
+    public StorageResult deleteAllDoctors() {
         PreparedStatement statement = null;
         int returnValue;
         try {
             statement = databaseConfiguration.getDBConnection().prepareStatement("Delete from Doctor");
-            return statement.executeUpdate();
+            if(statement.executeUpdate() == 1){
+                return IDoctorRepository.StorageResult.SUCCESS;
+            }
+            else {
+                return IDoctorRepository.StorageResult.FAILURE;
+            }
 
         } catch (SQLException e) {
             throw new RuntimeException(e);

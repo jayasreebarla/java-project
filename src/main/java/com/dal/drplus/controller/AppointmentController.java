@@ -71,9 +71,9 @@ public class AppointmentController {
         appointment.setAppointmentDescription("");
         appointment.setAppointmentFee(0);
         appointment.setPatientId(currentPatient.getPatientId());
-        appointment.setDoctorId(labId);
+        appointment.setDoctorId("");
         appointment.setBillId(0);
-        appointment.setLabId("");
+        appointment.setLabId(labId);
 
         appointmentService.bookAppointment(appointment);
         return "appointment/appointment_booked";
