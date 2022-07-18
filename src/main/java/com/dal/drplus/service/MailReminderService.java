@@ -103,7 +103,7 @@ public class MailReminderService implements MailService {
         }
     }
 
-    private List<Patient> getPatientIdsToMail(String tomorrow){
+    public List<Patient> getPatientIdsToMail(String tomorrow){
         List<Patient> patientList = new ArrayList<>();
         //get all slot ids where date equal to
         List<Integer> slotList = doctorScheduleRepository.getAllSlotIds(tomorrow);

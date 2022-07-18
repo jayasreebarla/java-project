@@ -22,7 +22,7 @@ public class DoctorSlotService {
         return doctorScheduleRepository.findAll();
     }
 
-    public boolean deleteSlotbyId(String slotId){
+    public boolean deleteSlotbyId(int slotId){
         IDoctorScheduleRepository.StorageResult result = doctorScheduleRepository.deleteScheduleBySlotID(slotId);
         if(result.equals(IDoctorScheduleRepository.StorageResult.SUCCESS)){
             return true;
