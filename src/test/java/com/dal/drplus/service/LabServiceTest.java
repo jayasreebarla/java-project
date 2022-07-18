@@ -31,8 +31,8 @@ public class LabServiceTest {
         Mockito.when(labRepository.getLabPasswordById("lab2")).thenReturn("lab2");
         Mockito.when(labRepository.findLabById("lab1")).thenReturn(lab1);
         Mockito.when(labRepository.findLabById("lab2")).thenReturn(null);
-        Mockito.when(labRepository.deleteLabById("lab1")).thenReturn(true);
-        Mockito.when(labRepository.deleteLabById("lab2")).thenReturn(false);
+        Mockito.when(labRepository.deleteLabById("lab1")).thenReturn(ILabRepository.StorageResult.SUCCESS);
+        Mockito.when(labRepository.deleteLabById("lab2")).thenReturn(ILabRepository.StorageResult.FAILURE);
         labService = new LabService(labRepository);
     }
 
