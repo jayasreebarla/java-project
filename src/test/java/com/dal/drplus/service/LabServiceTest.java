@@ -28,6 +28,11 @@ public class LabServiceTest {
         Mockito.when(labRepository.saveLab(lab1)).thenReturn(ILabRepository.StorageResult.SUCCESS);
         Mockito.when(labRepository.saveLab(lab2)).thenReturn(ILabRepository.StorageResult.FAILURE);
         Mockito.when(labRepository.getLabPasswordById("lab1")).thenReturn("lab1");
+        Mockito.when(labRepository.getLabPasswordById("lab2")).thenReturn("lab2");
+        Mockito.when(labRepository.findLabById("lab1")).thenReturn(lab1);
+        Mockito.when(labRepository.findLabById("lab2")).thenReturn(null);
+        Mockito.when(labRepository.deleteLabById("lab1")).thenReturn(true);
+        Mockito.when(labRepository.deleteLabById("lab2")).thenReturn(false);
         labService = new LabService(labRepository);
     }
 
@@ -89,7 +94,7 @@ public class LabServiceTest {
         lab.add(lab1);
         lab.add(lab2);
         Mockito.when(labRepository.findAllLabsByPincode(lab1.getLabPincode())).thenReturn(lab);
-        List<Lab> lab_result = labService.listAllLabs();
+        List<Lab> lab_result = labService.filterLabOnPincode(lab1.getLabPincode());
         List<Lab> expectedLab = new ArrayList<>();
         expectedLab.add(lab1);
         expectedLab.add(lab2);
@@ -97,12 +102,22 @@ public class LabServiceTest {
     }
 
     public void filterLabOnPincodeFailNull(){
-        Mockito.when(labRepository.findAll()).thenReturn(null);
-        List<Lab> lab_result = labService.listAllLabs();
+        Mockito.when(labRepository.findAllLabsByPincode(lab1.getLabPincode())).thenReturn(null);
+        List<Lab> lab_result = labService.filterLabOnPincode(lab1.getLabPincode());
         assertIterableEquals(null,lab_result);
     }
 
-    public void filterLabOnPincodeFailEmpty(){}
+    public void filterLabOnPincodeFailEmpty(){
+        List<Lab> lab = new ArrayList<>();
+        Mockito.when(labRepository.findAllLabsByPincode(lab1.getLabPincode())).thenReturn(lab);
+        List<Lab> lab_result = labService.filterLabOnPincode(lab1.getLabPincode());;
+        assertIterableEquals(null,lab_result);
+    }
 
-    public void filterLabOnPincodeFailIncorrectPincode(){}
+    public void filterLabOnPincodeFailIncorrectPincode(){
+        List<Lab> lab = new ArrayList<>();
+        Mockito.when(labRepository.findAllLabsByPincode(lab1.getLabPincode())).thenReturn(lab);
+        List<Lab> lab_result = labService.filterLabOnPincode(lab2.getLabPincode());;
+        assertIterableEquals(null,lab_result);
+    }
 }

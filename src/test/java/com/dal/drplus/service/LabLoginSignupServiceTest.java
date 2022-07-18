@@ -20,13 +20,13 @@ public class LabLoginSignupServiceTest {
     private static LabLoginSignupService labLoginSignupService;
     private static ILabRepository labRepository;
 
-    public LabLoginSignupServiceTest (ILabRepository labRepository) {
-    }
+//    public LabLoginSignupServiceTest (ILabRepository labRepository) {
+//    }
 
     @BeforeAll
     public static void init(){
         labRepository = Mockito.mock(LabRepositoryImpl.class);
-        labRepository = Mockito.mock(LabRepositoryImpl.class);
+
         Mockito.when(labRepository.saveLab(lab1)).thenReturn(ILabRepository.StorageResult.SUCCESS);
         Mockito.when(labRepository.saveLab(lab2)).thenReturn(ILabRepository.StorageResult.FAILURE);
         Mockito.when(labRepository.getLabPasswordById("lab1")).thenReturn("lab1");
@@ -36,24 +36,24 @@ public class LabLoginSignupServiceTest {
     @Test
     void registerLabFalseWhenStorageResultSuccess() {
         boolean result = labLoginSignupService.registerLab(lab1);
-        assertFalse(result);
+        assertTrue(result);
     }
 
     @Test
     void registerLabFalseWhenStorageResultFailure(){
-        boolean result = labLoginSignupService.registerLab(lab1);
+        boolean result = labLoginSignupService.registerLab(lab2);
         assertFalse(result);
     }
 
 
     @Test
-    void isPatientCredentialsValidTrue(){
+    void isLabCredentialsValidTrue(){
         boolean result = labLoginSignupService.isLabCredentialValid("lab1",labPassword);
         assertTrue(result);
     }
 
     @Test
-    void isPatientCredentialsValidFalse(){
+    void isLabCredentialsValidFalse(){
         boolean result = labLoginSignupService.isLabCredentialValid("lab1",labPassword1);
         assertFalse(result);
     }

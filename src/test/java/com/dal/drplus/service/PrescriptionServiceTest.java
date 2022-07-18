@@ -1,8 +1,6 @@
 package com.dal.drplus.service;
 import com.dal.drplus.model.Prescription;
-import com.dal.drplus.repository.implementation.LabRepositoryImpl;
 import com.dal.drplus.repository.implementation.PrescriptionRepositoryImpl;
-import com.dal.drplus.repository.interfaces.IPrescriptionRepository;
 import com.dal.drplus.repository.interfaces.IPrescriptionRepository;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -27,5 +25,29 @@ public class PrescriptionServiceTest {
         prescriptionService = new PrescriptionService(prescriptionRepository);
     }
 
+    @Test
+    public void uploadPrescriptionPass(){
+
+    }
+
+    public void uploadPrescriptionFail(){
+
+    }
+
+    public void downloadPrescriptionPass(){
+
+    }
+
+    public void downloadPrescriptionFail(){
+
+    }
+
+    public void deletePrescriptionPass(){
+
+    }
+
+    public void deletePrescriptionFail(){
+
+    }
 
 }
