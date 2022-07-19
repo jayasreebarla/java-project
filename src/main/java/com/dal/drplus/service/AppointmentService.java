@@ -23,7 +23,7 @@ public class AppointmentService {
 
     public boolean bookAppointment(Appointment appointment) {
         IAppointmentRepository.StorageResult result = appointmentRepository.saveAppointment(appointment);
-        if(result.equals(IAppointmentRepository.StorageResult.SUCCESS)){
+        if(IAppointmentRepository.StorageResult.SUCCESS.equals(result)){
             return true;
         } else {
             return false;
@@ -32,7 +32,7 @@ public class AppointmentService {
 
     public boolean cancelAppointment(int appointmentId) {
         IAppointmentRepository.StorageResult result = appointmentRepository.deleteAppointmentById(appointmentId);
-        if(result.equals(IAppointmentRepository.StorageResult.SUCCESS)){
+        if(IAppointmentRepository.StorageResult.SUCCESS.equals(result)){
             return true;
         } else {
             return false;

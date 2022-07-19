@@ -15,6 +15,23 @@ public class Appointment {
 
     private String appointmentType;
 
+    public Appointment() {
+    }
+
+    public Appointment(int appointmentId, String appointmentDate, String appointmentTime, String appointmentDescription, double appointmentFee, String patientId, String doctorId, int billId, int slotId, String labId, String appointmentType) {
+        this.appointmentId = appointmentId;
+        this.appointmentDate = appointmentDate;
+        this.appointmentTime = appointmentTime;
+        this.appointmentDescription = appointmentDescription;
+        this.appointmentFee = appointmentFee;
+        this.patientId = patientId;
+        this.doctorId = doctorId;
+        this.billId = billId;
+        this.slotId = slotId;
+        this.labId = labId;
+        this.appointmentType = appointmentType;
+    }
+
     public String getLabId() {
         return labId;
     }
