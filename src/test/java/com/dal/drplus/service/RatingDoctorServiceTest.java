@@ -114,12 +114,22 @@ public class RatingDoctorServiceTest {
 
     @Test
     void deleteDoctorRatingbydoctoridTrue(){
+        List<RatingDoctor> ratingDoctorList = new ArrayList<>();
+        ratingDoctorList.add(ratingDoctor1);
+        Mockito.when(ratingDoctorRepository.findDoctorRatingByDoctorId(ratingDoctor1.getDoctorId()))
+                .thenReturn(ratingDoctorList);
+
         boolean result = ratingDoctorService.deleteDoctorRatingbydoctorid(ratingDoctor1.getDoctorId());
         assertTrue(result);
     }
 
     @Test
     void deleteDoctorRatingbydoctoridFalse(){
+        List<RatingDoctor> ratingDoctorList = new ArrayList<>();
+        ratingDoctorList.add(ratingDoctor2);
+        Mockito.when(ratingDoctorRepository.findDoctorRatingByDoctorId(ratingDoctor2.getDoctorId()))
+                .thenReturn(ratingDoctorList);
+
         boolean result = ratingDoctorService.deleteDoctorRatingbydoctorid(ratingDoctor2.getDoctorId());
         assertFalse(result);
     }
@@ -145,12 +155,22 @@ public class RatingDoctorServiceTest {
 
     @Test
     void deleteDoctorRatingbyPatientIdTrue(){
+        List<RatingDoctor> ratingDoctorList = new ArrayList<>();
+        ratingDoctorList.add(ratingDoctor1);
+        Mockito.when(ratingDoctorRepository.findDoctorRatingByPatientId(ratingDoctor1.getPatientId()))
+                .thenReturn(ratingDoctorList);
+
         boolean result = ratingDoctorService.deleteDoctorRatingbyPatientId(ratingDoctor1.getPatientId());
         assertTrue(result);
     }
 
     @Test
     void deleteDoctorRatingbyPatientIdFalse(){
+        List<RatingDoctor> ratingDoctorList = new ArrayList<>();
+        ratingDoctorList.add(ratingDoctor2);
+        Mockito.when(ratingDoctorRepository.findDoctorRatingByPatientId(ratingDoctor2.getPatientId()))
+                .thenReturn(ratingDoctorList);
+
         boolean result = ratingDoctorService.deleteDoctorRatingbyPatientId(ratingDoctor2.getPatientId());
         assertFalse(result);
     }
