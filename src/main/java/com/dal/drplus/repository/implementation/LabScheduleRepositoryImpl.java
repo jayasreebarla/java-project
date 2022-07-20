@@ -1,13 +1,11 @@
 package com.dal.drplus.repository.implementation;
 
 import com.dal.drplus.model.LabSchedule;
-import com.dal.drplus.model.Patient;
 import com.dal.drplus.repository.configuration.DatabaseConfiguration;
 import com.dal.drplus.repository.configuration.DatabaseConfigurationImpl;
 import com.dal.drplus.repository.interfaces.ILabScheduleRepository;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -57,7 +55,7 @@ public class LabScheduleRepositoryImpl implements ILabScheduleRepository {
     }
 
     @Override
-    public int updateLabSchedule(LabSchedule labSchedule) {
+    public StorageResult updateLabSchedule(LabSchedule labSchedule) {
         PreparedStatement statement = null;
         try {
             statement = databaseConfiguration.getDBConnection().prepareStatement(UPDATE_LAB_SCHEDULE);
@@ -66,7 +64,12 @@ public class LabScheduleRepositoryImpl implements ILabScheduleRepository {
             statement.setString(3,labSchedule.getLabId());
             statement.setBoolean(4,labSchedule.getStatus());
             statement.setInt(5,labSchedule.getSlotId());
-            return statement.executeUpdate();
+            int result = statement.executeUpdate();
+            if(result == 1){
+                return StorageResult.SUCCESS;
+            } else {
+                return StorageResult.FAILURE;
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -131,7 +134,8 @@ public class LabScheduleRepositoryImpl implements ILabScheduleRepository {
             return StorageResult.FAILURE;
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+//            throw new RuntimeException(e);
+            return StorageResult.FAILURE;
         }
     }
 

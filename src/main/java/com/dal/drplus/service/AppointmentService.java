@@ -2,6 +2,8 @@ package com.dal.drplus.service;
 import com.dal.drplus.model.Appointment;
 import com.dal.drplus.repository.interfaces.IAppointmentRepository;
 
+import java.util.List;
+
 public class AppointmentService {
     IAppointmentRepository appointmentRepository;
 
@@ -39,5 +41,73 @@ public class AppointmentService {
         }
     }
 
+    public boolean isAppointmentexistsforLabId(String labId){
+        List<Appointment> appointmentList = appointmentRepository.findAppointmentByLabId(labId);
+        if(appointmentList.isEmpty()){
+            return false;
+        } else {
+            return true;
+        }
+    }
 
+    public boolean deleteAppointmentbyLabId(String labId){
+        if(isAppointmentexistsforLabId(labId))
+        {
+            IAppointmentRepository.StorageResult result = appointmentRepository.deleteAppointmentbyLabID(labId);
+            System.out.println(result);
+            if(IAppointmentRepository.StorageResult.SUCCESS.equals(result))
+            {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean isAppointmentexistsforPatientId(String patientId){
+        List<Appointment> appointmentList = appointmentRepository.findAppointmentByPatientId(patientId);
+        if(appointmentList.isEmpty()){
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public boolean deleteAppointmentbyPatientId(String patientId){
+        if(isAppointmentexistsforPatientId(patientId))
+        {
+            IAppointmentRepository.StorageResult result = appointmentRepository.deleteAppointmentbyPatientID(patientId);
+            if(IAppointmentRepository.StorageResult.SUCCESS.equals(result))
+            {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean isAppointmentexistsforDoctor(String doctorId){
+        List<Appointment> appointmentList = appointmentRepository.findAppointmentByDoctorId(doctorId);
+        if(appointmentList.isEmpty()){
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public boolean deleteAppointmentbyDoctorId(String doctorId){
+        if(isAppointmentexistsforDoctor(doctorId))
+        {
+            IAppointmentRepository.StorageResult result = appointmentRepository.deleteAppointmentbyDoctorID(doctorId);
+            if(IAppointmentRepository.StorageResult.SUCCESS.equals(result))
+            {
+                return true;
+            } else {
+            return false;
+            }
+        }
+        return true;
+    }
 }

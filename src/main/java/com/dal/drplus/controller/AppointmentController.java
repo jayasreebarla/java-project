@@ -86,7 +86,6 @@ public class AppointmentController {
 
     @GetMapping("/cancel_appointment/{id}")
     public RedirectView cancelAppointment(@PathVariable int id){
-
         boolean result = appointmentService.cancelAppointment(id);
         if(result == true){
             return new RedirectView("/appointment_list");

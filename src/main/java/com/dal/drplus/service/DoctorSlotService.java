@@ -31,6 +31,18 @@ public class DoctorSlotService {
         }
     }
 
+    public boolean deleteSlotbyDoctorId(String doctorId){
+        if(filterSlotOnDoctorId(doctorId).isEmpty()){
+            return true;
+        }
+        IDoctorScheduleRepository.StorageResult result = doctorScheduleRepository.deleteScheduleByDoctorID(doctorId);
+        if(IDoctorScheduleRepository.StorageResult.SUCCESS.equals(result)){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public boolean addDoctorSlot(DoctorSchedule doctorSchedule) {
         doctorSchedule.setStatus(false);
         IDoctorScheduleRepository.StorageResult result = doctorScheduleRepository.saveDoctorSchedule(doctorSchedule);

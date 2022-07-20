@@ -14,4 +14,5 @@ public class AdminService {
         Admin admin = adminRepository.getAdminbyId(adminId);
         return admin;
     }
+
 }
