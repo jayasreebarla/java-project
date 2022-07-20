@@ -40,4 +40,16 @@ public class LabSlotService {
             return false;
         }
     }
+
+    public boolean deleteSlotByLabId(String labId){
+        if(filterSlotOnLabId(labId).isEmpty()){
+            return true;
+        }
+        ILabScheduleRepository.StorageResult result = labScheduleRepository.deleteScheduleByLabID(labId);
+        if(ILabScheduleRepository.StorageResult.SUCCESS.equals(result)){
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

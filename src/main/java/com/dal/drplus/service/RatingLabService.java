@@ -8,7 +8,6 @@ import java.util.List;
 public class RatingLabService {
     private IRatingLabRepository ratingLabRepository;
 
-
     public RatingLabService(IRatingLabRepository ratingLabRepository) {
         this.ratingLabRepository = ratingLabRepository;
     }
@@ -36,6 +35,48 @@ public class RatingLabService {
 
         int average_rating = total_sum/ratings.size();
         return average_rating;
+    }
+
+    public boolean isLabRatingexistsforLab(String labId){
+        List<RatingLab> ratingLabList = ratingLabRepository.findLabRatingByLabId(labId);
+        if(ratingLabList.isEmpty()){
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public boolean deleteLabRatingbyLabId(String labId){
+        if(isLabRatingexistsforLab(labId)){
+            IRatingLabRepository.StorageResult result = ratingLabRepository.deleteLabRatingByLabId(labId);
+            if(IRatingLabRepository.StorageResult.SUCCESS.equals(result)){
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean isLabRatingexistsforPatient(String patientId){
+        List<RatingLab> ratingLabList = ratingLabRepository.findLabRatingByPatientId(patientId);
+        if(ratingLabList.isEmpty()){
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public boolean deleteLabRatingbyPatientId(String patientId){
+        if(isLabRatingexistsforPatient(patientId)){
+            IRatingLabRepository.StorageResult result = ratingLabRepository.deleteLabRatingByLabId(patientId);
+            if(IRatingLabRepository.StorageResult.SUCCESS.equals(result)){
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return true;
     }
 
 }

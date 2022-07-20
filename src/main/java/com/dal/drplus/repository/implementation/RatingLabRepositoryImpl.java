@@ -1,11 +1,8 @@
 package com.dal.drplus.repository.implementation;
 
-import com.dal.drplus.model.RatingDoctor;
-import com.dal.drplus.model.RatingLab;
 import com.dal.drplus.model.RatingLab;
 import com.dal.drplus.repository.configuration.DatabaseConfiguration;
 import com.dal.drplus.repository.configuration.DatabaseConfigurationImpl;
-import com.dal.drplus.repository.interfaces.IRatingLabRepository;
 import com.dal.drplus.repository.interfaces.IRatingLabRepository;
 import org.springframework.stereotype.Repository;
 
@@ -32,9 +29,11 @@ public class RatingLabRepositoryImpl implements IRatingLabRepository {
     String UPDATE_REVIEW_LAB = "UPDATE RatingLab SET review=? WHERE rating_id=? and lab_id=?";
     String SELECT_BY_RATING_AND_LAB_ID = "SELECT * FROM RatingLab WHERE rating_id=? and lab_id=?";
     String SELECT_BY_LAB_ID = "SELECT * FROM RatingLab WHERE lab_id=?";
+    String SELECT_BY_PATIENT_ID = "SELECT * FROM RatingLab WHERE patient_id=?";
     String SELECT_REVIEWS_BY_LAB_ID = "SELECT review FROM RatingLab WHERE lab_id=?";
     String SELECT_RATING_BY_LAB_ID = "SELECT lab_rating FROM RatingLab WHERE lab_id=?";
-    String DELETE_BY_RATING_AND_LAB_ID = "DELETE FROM RatingLab WHERE rating_id=? and lab_id=?";
+    String DELETE_BY_LAB_ID = "DELETE FROM RatingLab WHERE lab_id=?";
+    String DELETE_BY_PATIENT_ID = "DELETE FROM RatingLab WHERE patient_id=?";
     String SELECT_ALL = "SELECT * from RatingLab";
     String DELETE_ALL = "DELETE from RatingLab";
 
@@ -136,6 +135,20 @@ public class RatingLabRepositoryImpl implements IRatingLabRepository {
     }
 
     @Override
+    public List<RatingLab> findLabRatingByPatientId(String patientId) {
+        PreparedStatement statement = null;
+        List<RatingLab> ratingLabList = new ArrayList<>();
+        try {
+            statement = databaseConfiguration.getDBConnection().prepareStatement(SELECT_BY_PATIENT_ID);
+            statement.setString(1,patientId);
+            ResultSet rs = statement.executeQuery();
+            return getRatingLab(ratingLabList, rs);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
     public List<String> findLabReviewsByLabId(String labId) {
         List<String> reviewList = new ArrayList<>();
         try {
@@ -171,12 +184,31 @@ public class RatingLabRepositoryImpl implements IRatingLabRepository {
     }
 
     @Override
-    public StorageResult deleteLabRatingById(int ratingId, String labId) {
+    public StorageResult deleteLabRatingByLabId(String labId) {
         try {
-            PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(DELETE_BY_RATING_AND_LAB_ID);
-            statement.setInt(1,ratingId);
-            statement.setString(2,labId);
-            return IRatingLabRepository.StorageResult.SUCCESS;
+            PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(DELETE_BY_LAB_ID);
+            statement.setString(1,labId);
+            int result = statement.executeUpdate();
+            if(result == 1) {
+                return IRatingLabRepository.StorageResult.SUCCESS;
+            }
+            return IRatingLabRepository.StorageResult.FAILURE;
+        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+            return IRatingLabRepository.StorageResult.FAILURE;
+        }
+    }
+
+    @Override
+    public StorageResult deleteLabRatingByPatientId(String patientId) {
+        try {
+            PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(DELETE_BY_PATIENT_ID);
+            statement.setString(1,patientId);
+            int result = statement.executeUpdate();
+            if(result == 1) {
+                return IRatingLabRepository.StorageResult.SUCCESS;
+            }
+            return IRatingLabRepository.StorageResult.FAILURE;
         } catch (SQLException e) {
 //            throw new RuntimeException(e);
             return IRatingLabRepository.StorageResult.FAILURE;
