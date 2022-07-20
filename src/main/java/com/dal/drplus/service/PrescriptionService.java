@@ -1,9 +1,7 @@
 package com.dal.drplus.service;
 
 import com.dal.drplus.model.Prescription;
-import com.dal.drplus.model.Report;
 import com.dal.drplus.repository.interfaces.IPrescriptionRepository;
-import com.dal.drplus.repository.interfaces.IReportRepository;
 
 import java.io.FileNotFoundException;
 import java.util.List;
@@ -28,8 +26,8 @@ public class PrescriptionService {
         }
     }
 
-    public void deletePrescription(){
-
+    public int deletePrescription(int id){
+        return prescriptionRepository.deleteById(id);
     }
 
     public Prescription downloadPrescription(int id){

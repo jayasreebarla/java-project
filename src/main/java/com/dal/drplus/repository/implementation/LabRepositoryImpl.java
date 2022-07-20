@@ -52,9 +52,10 @@ public class LabRepositoryImpl implements ILabRepository{
             statement.setString(7, lab.getLabPincode());
             statement.setDouble(8,lab.getLabFee());
 
-            statement.executeUpdate();
+            int result = statement.executeUpdate();
             System.out.println("inside save !!!!!!");
-            return ILabRepository.StorageResult.SUCCESS;
+            if (result == 1){return ILabRepository.StorageResult.SUCCESS;}
+            else{return ILabRepository.StorageResult.FAILURE;}
         } catch (SQLException e) {
 //            throw new RuntimeException(e);
             e.printStackTrace();
