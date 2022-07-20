@@ -109,16 +109,16 @@ public class AppointmentRepositoryImpl implements IAppointmentRepository{
 
         try {
             PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(INSERT_APPOINTMENT);
-            statement.setInt(1,appointment.getAppointmentId());
+//            statement.setInt(1,appointment.getAppointmentId());
             //slot id logic to be added
-            statement.setInt(2,appointment.getSlotId());
-            statement.setString(3,appointment.getAppointmentType());
-            statement.setString(4,appointment.getAppointmentDescription());
-            statement.setDouble(5,appointment.getAppointmentFee());
-            statement.setString(6,appointment.getPatientId());
-            statement.setString(7,appointment.getDoctorId());
-            statement.setInt(8,appointment.getBillId());
-            statement.setString(9,appointment.getLabId());
+            statement.setInt(1,appointment.getSlotId());
+            statement.setString(2,appointment.getAppointmentType());
+            statement.setString(3,appointment.getAppointmentDescription());
+            statement.setDouble(4,appointment.getAppointmentFee());
+            statement.setString(5,appointment.getPatientId());
+            statement.setString(6,appointment.getDoctorId());
+            statement.setInt(7,appointment.getBillId());
+            statement.setString(8,appointment.getLabId());
             statement.executeUpdate();
             return IAppointmentRepository.StorageResult.SUCCESS;
         } catch (SQLException e) {
