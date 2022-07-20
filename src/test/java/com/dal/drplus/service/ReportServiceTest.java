@@ -2,6 +2,7 @@ package com.dal.drplus.service;
 import com.dal.drplus.model.Report;
 import com.dal.drplus.repository.implementation.ReportRepositoryImpl;
 import com.dal.drplus.repository.interfaces.IReportRepository;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -17,9 +18,27 @@ public class ReportServiceTest {
     public static void init() throws FileNotFoundException {
 
         reportRepository = Mockito.mock(ReportRepositoryImpl.class);
-        reportRepository = Mockito.mock(ReportRepositoryImpl.class);
-        Mockito.when(reportRepository.uploadReport(report)).thenReturn(IReportRepository.StorageResult.SUCCESS);
+
         Mockito.when(reportRepository.uploadReport(report)).thenReturn(IReportRepository.StorageResult.FAILURE);
         reportService = new ReportService(reportRepository);
     }
+
+    @Test
+    public void uploadReportTest() throws Exception{
+        Mockito.when(reportRepository.uploadReport(report)).thenReturn(IReportRepository.StorageResult.SUCCESS);
+        Assertions.assertEquals(true, reportService.uploadReport(report));
+    }
+
+    @Test
+    public void uploadReportTest2() throws Exception{
+        Mockito.when(reportRepository.uploadReport(report)).thenReturn(IReportRepository.StorageResult.FAILURE);
+        Assertions.assertEquals(false, reportService.uploadReport(report));
+    }
+
+    @Test
+    public void downloadReportTestPass() throws Exception{
+        Mockito.when(reportRepository.getReportbyId(1)).thenReturn(report);
+        Assertions.assertEquals(report, reportService.downloadReport(1));
+    }
+
 }

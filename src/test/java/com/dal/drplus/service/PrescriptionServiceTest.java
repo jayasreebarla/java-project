@@ -2,6 +2,7 @@ package com.dal.drplus.service;
 import com.dal.drplus.model.Prescription;
 import com.dal.drplus.repository.implementation.PrescriptionRepositoryImpl;
 import com.dal.drplus.repository.interfaces.IPrescriptionRepository;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -26,16 +27,21 @@ public class PrescriptionServiceTest {
     }
 
     @Test
-    public void uploadPrescriptionPass(){
-
+    public void uploadPrescriptionPass() throws FileNotFoundException {
+        Mockito.when(prescriptionRepository.uploadPrescription(prescription)).thenReturn(IPrescriptionRepository.StorageResult.SUCCESS);
+        Assertions.assertEquals(true, prescriptionService.uploadPrescription(prescription));
     }
 
-    public void uploadPrescriptionFail(){
-
+    @Test
+    public void uploadPrescriptionFail() throws FileNotFoundException {
+        Mockito.when(prescriptionRepository.uploadPrescription(prescription)).thenReturn(IPrescriptionRepository.StorageResult.FAILURE);
+        Assertions.assertEquals(false, prescriptionService.uploadPrescription(prescription));
     }
 
-    public void downloadPrescriptionPass(){
-
+    @Test
+    public void downloadPrescriptionPass()throws Exception{
+            Mockito.when(prescriptionRepository.findById(1)).thenReturn(prescription);
+            Assertions.assertEquals(prescription, prescriptionService.downloadPrescription(1));
     }
 
     public void downloadPrescriptionFail(){

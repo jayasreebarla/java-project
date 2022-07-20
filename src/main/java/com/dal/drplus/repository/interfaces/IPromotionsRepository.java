@@ -6,13 +6,17 @@ import com.dal.drplus.model.Promotions;
 import java.util.List;
 
 public interface IPromotionsRepository {
-    int savePromotions(Promotions promotions);
+    enum StorageResult{
+        SUCCESS,
+        FAILURE
+    }
+   StorageResult savePromotions(Promotions promotions);
 
-    int updatePromotions(Promotions promotions);
+    StorageResult updatePromotions(Promotions promotions);
 
-    Promotions findById(Long bill_id);
+    Promotions findById(int promotionId);
 
-    int deleteById(Long bill_id);
+    StorageResult deleteById(int promotionId);
 
     List<Promotions> findAll();
 
