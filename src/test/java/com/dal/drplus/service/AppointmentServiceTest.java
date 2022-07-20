@@ -7,6 +7,9 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -15,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
     static Appointment appointment1 = new Appointment(100,"2022-07-17","10:00-11:00","",200,"p1","d1",1,2,"","DOCTOR");
     static Appointment appointment2 = new Appointment(7,"2022-07-17","10:00-11:00","",200,"p1","d1",1,2,"","DOCTOR");
     static Appointment appointment3 = new Appointment(101,"2022-07-17","02:00-04:00","",200,"p1","",1,2,"l1","LAB");
-    static Appointment appointment4 = new Appointment(102,"2022-07-18","02:00-04:00","",200,"p1","",1,2,"l1","LAB");
+    static Appointment appointment4 = new Appointment(102,"2022-07-18","02:00-04:00","",200,"p2","",1,2,"l1","LAB");
 
     private static AppointmentService appointmentService;
     private static IAppointmentRepository appointmentRepository;
@@ -31,6 +34,22 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
                 .thenReturn(IAppointmentRepository.StorageResult.SUCCESS);
         Mockito.when(appointmentRepository.isAppointmentConflict(appointment4.getAppointmentDate(), appointment4.getAppointmentTime(), appointment4.getPatientId()))
                 .thenReturn(IAppointmentRepository.StorageResult.FAILURE);
+
+        Mockito.when(appointmentRepository.deleteAppointmentbyLabID(appointment1.getLabId()))
+                .thenReturn(IAppointmentRepository.StorageResult.SUCCESS);
+        Mockito.when(appointmentRepository.deleteAppointmentbyLabID(appointment3.getLabId()))
+                .thenReturn(IAppointmentRepository.StorageResult.FAILURE);
+
+        Mockito.when(appointmentRepository.deleteAppointmentbyDoctorID(appointment1.getDoctorId()))
+                .thenReturn(IAppointmentRepository.StorageResult.SUCCESS);
+        Mockito.when(appointmentRepository.deleteAppointmentbyDoctorID(appointment3.getDoctorId()))
+                .thenReturn(IAppointmentRepository.StorageResult.FAILURE);
+
+        Mockito.when(appointmentRepository.deleteAppointmentbyPatientID(appointment1.getPatientId()))
+                .thenReturn(IAppointmentRepository.StorageResult.SUCCESS);
+        Mockito.when(appointmentRepository.deleteAppointmentbyPatientID(appointment4.getPatientId()))
+                .thenReturn(IAppointmentRepository.StorageResult.FAILURE);
+
         appointmentService = new AppointmentService(appointmentRepository);
     }
 
@@ -47,13 +66,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
     }
 
     @Test
-    void deleteAppointmentbyIdTrue(){
+    void cancelAppointmentbyIdTrue(){
         boolean result = appointmentService.cancelAppointment(appointment2.getAppointmentId());
         assertTrue(result);
     }
 
     @Test
-    void deleteAppointmentbyIdFail(){
+    void cancelAppointmentbyIdFail(){
         boolean result = appointmentService.cancelAppointment(appointment3.getAppointmentId());
         assertFalse(result);
     }
@@ -64,9 +83,131 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
         assertTrue(result);
     }
 
+     @Test
+     void isConflictFalse(){
+         boolean result = appointmentService.isAppointmentConflict(appointment4);
+         assertFalse(result);
+     }
+
     @Test
-    void isConflictFalse(){
-        boolean result = appointmentService.isAppointmentConflict(appointment4);
+    void isAppointmentexistsforLabIdTrue(){
+        List<Appointment> appointmentList = new ArrayList<>();
+        appointmentList.add(appointment3);
+        Mockito.when(appointmentRepository.findAppointmentByLabId(appointment3.getLabId()))
+                .thenReturn(appointmentList);
+        boolean result = appointmentService.isAppointmentexistsforLabId(appointment3.getLabId());
+        assertTrue(result);
+    }
+
+    @Test
+    void isAppointmentexistsforLabIdFalse(){
+        List<Appointment> appointmentList = new ArrayList<>();
+//        appointmentList.add(appointment2);
+        Mockito.when(appointmentRepository.findAppointmentByLabId(appointment2.getLabId()))
+                .thenReturn(appointmentList);
+        boolean result = appointmentService.isAppointmentexistsforLabId(appointment2.getLabId());
         assertFalse(result);
     }
+
+    @Test
+    void deleteAppointmentbyLabIdTrue(){
+        List<Appointment> appointmentList = new ArrayList<>();
+        appointmentList.add(appointment1);
+        Mockito.when(appointmentRepository.findAppointmentByLabId(appointment1.getLabId()))
+                .thenReturn(appointmentList);
+
+        boolean result = appointmentService.deleteAppointmentbyLabId(appointment1.getLabId());
+        assertTrue(result);
+    }
+
+    @Test
+    void deleteAppointmentbyLabIdFalse(){
+        List<Appointment> appointmentList = new ArrayList<>();
+        appointmentList.add(appointment3);
+        Mockito.when(appointmentRepository.findAppointmentByLabId(appointment3.getLabId()))
+                .thenReturn(appointmentList);
+
+        boolean result = appointmentService.deleteAppointmentbyLabId(appointment3.getLabId());
+        assertFalse(result);
+    }
+
+    @Test
+     void isAppointmentexistsforPatientIdTrue(){
+        List<Appointment> appointmentList = new ArrayList<>();
+        appointmentList.add(appointment1);
+        Mockito.when(appointmentRepository.findAppointmentByPatientId(appointment1.getLabId()))
+                .thenReturn(appointmentList);
+        boolean result = appointmentService.isAppointmentexistsforPatientId(appointment1.getLabId());
+        assertTrue(result);
+     }
+
+     @Test
+     void isAppointmentexistsforPatientIdFalse(){
+         List<Appointment> appointmentList = new ArrayList<>();
+         Mockito.when(appointmentRepository.findAppointmentByPatientId(appointment3.getLabId()))
+                 .thenReturn(appointmentList);
+         boolean result = appointmentService.isAppointmentexistsforPatientId(appointment3.getLabId());
+         assertFalse(result);
+     }
+
+     @Test
+     void deleteAppointmentbyPatientIdTrue(){
+         List<Appointment> appointmentList = new ArrayList<>();
+         appointmentList.add(appointment1);
+         Mockito.when(appointmentRepository.findAppointmentByPatientId(appointment1.getLabId()))
+                 .thenReturn(appointmentList);
+         boolean result = appointmentService.deleteAppointmentbyPatientId(appointment1.getPatientId());
+         assertTrue(result);
+     }
+
+     @Test
+     void deleteAppointmentbyPatientIdFalse(){
+         List<Appointment> appointmentList = new ArrayList<>();
+         appointmentList.add(appointment4);
+         Mockito.when(appointmentRepository.findAppointmentByPatientId(appointment4.getPatientId()))
+                 .thenReturn(appointmentList);
+         boolean result = appointmentService.deleteAppointmentbyPatientId(appointment4.getPatientId());
+         assertFalse(result);
+     }
+
+     @Test
+     void isAppointmentexistsforDoctorTrue(){
+         List<Appointment> appointmentList = new ArrayList<>();
+         appointmentList.add(appointment3);
+         Mockito.when(appointmentRepository.findAppointmentByDoctorId(appointment3.getLabId()))
+                 .thenReturn(appointmentList);
+         boolean result = appointmentService.isAppointmentexistsforDoctor(appointment3.getLabId());
+         assertTrue(result);
+     }
+
+     @Test
+     void isAppointmentexistsforDoctorFalse(){
+         List<Appointment> appointmentList = new ArrayList<>();
+//         appointmentList.add(appointment4);
+         Mockito.when(appointmentRepository.findAppointmentByDoctorId(appointment4.getLabId()))
+                 .thenReturn(appointmentList);
+         boolean result = appointmentService.isAppointmentexistsforDoctor(appointment4.getLabId());
+         assertFalse(result);
+     }
+
+     @Test
+     void deleteAppointmentbyDoctorIdTrue(){
+         List<Appointment> appointmentList = new ArrayList<>();
+         appointmentList.add(appointment1);
+         Mockito.when(appointmentRepository.findAppointmentByDoctorId(appointment1.getLabId()))
+                 .thenReturn(appointmentList);
+
+         boolean result = appointmentService.deleteAppointmentbyDoctorId(appointment1.getDoctorId());
+         assertTrue(result);
+     }
+
+     @Test
+     void deleteAppointmentbyDoctorIdFalse(){
+         List<Appointment> appointmentList = new ArrayList<>();
+         appointmentList.add(appointment3);
+         Mockito.when(appointmentRepository.findAppointmentByDoctorId(appointment3.getDoctorId()))
+                 .thenReturn(appointmentList);
+         boolean result = appointmentService.deleteAppointmentbyDoctorId(appointment3.getDoctorId());
+         assertFalse(result);
+     }
 }

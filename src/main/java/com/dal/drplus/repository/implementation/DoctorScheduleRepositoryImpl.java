@@ -148,7 +148,8 @@ public class DoctorScheduleRepositoryImpl implements IDoctorScheduleRepository {
             return StorageResult.FAILURE;
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+//            throw new RuntimeException(e);
+        return StorageResult.FAILURE;
         }
     }
 
@@ -168,13 +169,17 @@ public class DoctorScheduleRepositoryImpl implements IDoctorScheduleRepository {
     }
 
     @Override
-    public int deleteAllSchedules() {
+    public StorageResult deleteAllSchedules() {
 
         PreparedStatement statement = null;
         try {
             statement = databaseConfiguration.getDBConnection().prepareStatement("Delete from Doc_schedule");
-            return statement.executeUpdate();
-
+            int result =  statement.executeUpdate();
+            if(result == 1){
+                return IDoctorScheduleRepository.StorageResult.SUCCESS;
+            } else {
+                return IDoctorScheduleRepository.StorageResult.FAILURE;
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

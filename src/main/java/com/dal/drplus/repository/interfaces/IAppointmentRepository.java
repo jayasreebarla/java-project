@@ -24,6 +24,9 @@ public interface IAppointmentRepository {
     IAppointmentRepository.StorageResult deleteAppointmentById(int appointmentId);
     List<Appointment> findAll();
     StorageResult deleteAll();
+    StorageResult deleteAppointmentbyLabID(String labId);
+    StorageResult deleteAppointmentbyPatientID(String patientId);
+    StorageResult deleteAppointmentbyDoctorID(String doctorId);
     StorageResult isAppointmentConflict(String slotDate, String slotTime, String patientId);
     String getPatientIdBySlotId(int slotId);
 }

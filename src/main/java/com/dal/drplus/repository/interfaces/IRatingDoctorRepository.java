@@ -15,9 +15,11 @@ public interface IRatingDoctorRepository {
     StorageResult updateDoctorReview(RatingDoctor ratingDoctor);
     RatingDoctor findDoctorRatingById(int ratingId,String doctorId);
     List<RatingDoctor> findDoctorRatingByDoctorId(String doctorId);
+    List<RatingDoctor> findDoctorRatingByPatientId(String patientId);
     List<String> findDoctorReviewsByDoctorId(String doctorId);
     List<Integer> findDoctorRatingListByDoctorId(String doctorId);
-    StorageResult deleteDoctorRatingById(int ratingId,String doctorId);
+    StorageResult deleteDoctorRatingByDoctorId(String doctorId);
+    StorageResult deleteDoctorRatingByPatientId(String patientId);
     List<RatingDoctor> findAll();
     int deleteAll();
 }
