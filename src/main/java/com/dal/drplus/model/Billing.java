@@ -3,17 +3,16 @@ package com.dal.drplus.model;
 import java.util.Date;
 
 public class Billing {
-    String billId;
+    int billId;
     Date billDate;
-    String billAmount;
+    double billAmount;
     String billDescription;
-    String billStatus;
 
-    public String getBillId() {
+    public int getBillId() {
         return billId;
     }
 
-    public void setBillId(String billId) {
+    public void setBillId(int billId) {
         this.billId = billId;
     }
 
@@ -25,11 +24,11 @@ public class Billing {
         this.billDate = billDate;
     }
 
-    public String getBillAmount() {
+    public double getBillAmount() {
         return billAmount;
     }
 
-    public void setBillAmount(String billAmount) {
+    public void setBillAmount(double billAmount) {
         this.billAmount = billAmount;
     }
 
@@ -39,14 +38,6 @@ public class Billing {
 
     public void setBillDescription(String billDescription) {
         this.billDescription = billDescription;
-    }
-
-    public String getBillStatus() {
-        return billStatus;
-    }
-
-    public void setBillStatus(String billStatus) {
-        this.billStatus = billStatus;
     }
 
 }
