@@ -29,6 +29,16 @@ public class RatingLabServiceTest {
         Mockito.when(ratingLabRepository.saveLabRating(ratingLab1)).thenReturn(IRatingLabRepository.StorageResult.SUCCESS);
         Mockito.when(ratingLabRepository.saveLabRating(ratingLab2)).thenReturn(IRatingLabRepository.StorageResult.FAILURE);
 
+        Mockito.when(ratingLabRepository.deleteLabRatingByLabId(ratingLab1.getLabId()))
+                .thenReturn(IRatingLabRepository.StorageResult.SUCCESS);
+        Mockito.when(ratingLabRepository.deleteLabRatingByLabId(ratingLab2.getLabId()))
+                .thenReturn(IRatingLabRepository.StorageResult.FAILURE);
+
+        Mockito.when(ratingLabRepository.deleteLabRatingByPatientId(ratingLab1.getPatientId()))
+                .thenReturn(IRatingLabRepository.StorageResult.SUCCESS);
+        Mockito.when(ratingLabRepository.deleteLabRatingByPatientId(ratingLab2.getPatientId()))
+                .thenReturn(IRatingLabRepository.StorageResult.FAILURE);
+
         List<Integer> ratingList = new ArrayList<>();
         ratingList.add(5);
         ratingList.add(1);
@@ -82,6 +92,88 @@ public class RatingLabServiceTest {
     void getRating(){
         int result = ratingLabService.getRating("l1");
         assertEquals(3,result);
+    }
+
+    @Test
+    void isLabRatingexistsforLabTrue(){
+        List<RatingLab> ratingLabList = new ArrayList<>();
+        ratingLabList.add(ratingLab1);
+        Mockito.when(ratingLabRepository.findLabRatingByLabId(ratingLab1.getLabId()))
+                .thenReturn(ratingLabList);
+        boolean result = ratingLabService.isLabRatingexistsforLab(ratingLab1.getLabId());
+        assertTrue(result);
+    }
+
+    @Test
+    void isLabRatingexistsforLabFalse(){
+        List<RatingLab> ratingLabList = new ArrayList<>();
+        Mockito.when(ratingLabRepository.findLabRatingByLabId(ratingLab2.getLabId()))
+                .thenReturn(ratingLabList);
+        boolean result = ratingLabService.isLabRatingexistsforLab(ratingLab2.getLabId());
+        assertFalse(result);
+    }
+
+    @Test
+    void deleteLabRatingbyLabIdTrue(){
+        List<RatingLab> ratingLabList = new ArrayList<>();
+        ratingLabList.add(ratingLab1);
+        Mockito.when(ratingLabRepository.findLabRatingByLabId(ratingLab1.getLabId()))
+                .thenReturn(ratingLabList);
+
+        boolean result = ratingLabService.deleteLabRatingbyLabId(ratingLab1.getLabId());
+        assertTrue(result);
+    }
+
+    @Test
+    void deleteLabRatingbyLabIdFalse(){
+        List<RatingLab> ratingLabList = new ArrayList<>();
+        ratingLabList.add(ratingLab2);
+        Mockito.when(ratingLabRepository.findLabRatingByLabId(ratingLab2.getLabId()))
+                .thenReturn(ratingLabList);
+
+        boolean result = ratingLabService.deleteLabRatingbyLabId(ratingLab2.getLabId());
+        assertFalse(result);
+    }
+
+    @Test
+    void isLabRatingexistsforPatientTrue(){
+        List<RatingLab> ratingLabList = new ArrayList<>();
+        ratingLabList.add(ratingLab1);
+        Mockito.when(ratingLabRepository.findLabRatingByLabId(ratingLab1.getPatientId()))
+                .thenReturn(ratingLabList);
+        boolean result = ratingLabService.isLabRatingexistsforLab(ratingLab1.getPatientId());
+        assertTrue(result);
+    }
+
+    @Test
+    void isLabRatingexistsforPatientFalse(){
+        List<RatingLab> ratingLabList = new ArrayList<>();
+        Mockito.when(ratingLabRepository.findLabRatingByLabId(ratingLab2.getPatientId()))
+                .thenReturn(ratingLabList);
+        boolean result = ratingLabService.isLabRatingexistsforLab(ratingLab2.getPatientId());
+        assertFalse(result);
+    }
+
+    @Test
+    void deleteLabRatingbyPatientIdTrue(){
+        List<RatingLab> ratingLabList = new ArrayList<>();
+        ratingLabList.add(ratingLab1);
+        Mockito.when(ratingLabRepository.findLabRatingByLabId(ratingLab1.getPatientId()))
+                .thenReturn(ratingLabList);
+
+        boolean result = ratingLabService.deleteLabRatingbyLabId(ratingLab1.getPatientId());
+        assertTrue(result);
+    }
+
+    @Test
+    void deleteLabRatingbyPatientIdFalse(){
+        List<RatingLab> ratingLabList = new ArrayList<>();
+        ratingLabList.add(ratingLab2);
+        Mockito.when(ratingLabRepository.findLabRatingByLabId(ratingLab2.getPatientId()))
+                .thenReturn(ratingLabList);
+
+        boolean result = ratingLabService.deleteLabRatingbyLabId(ratingLab2.getPatientId());
+        assertFalse(result);
     }
 
 }
