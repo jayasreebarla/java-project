@@ -25,7 +25,7 @@ public class PromotionsRepositoryImpl implements IPromotionsRepository {
     String INSERT_PROMOTION = "INSERT INTO Promotions (promotion_id, promotion_name, promotion_start_date, promotion_end_date,amount_off) VALUES(?,?,?,?,?)";
     String UPDATE_PROMOTION = "UPDATE Promotions SET promotion_name=?, promotion_start_date=?, promotion_end_date=?, amount_off=? WHERE promotion_id=?";
     String FIND_PROMOTION_BY_ID = "SELECT * FROM Promotions WHERE promotion_id=?";
-    String DELETE_PROMOTION_BY_ID = "DELETE FROM Promotions WHERE promotions_id=?";
+    String DELETE_PROMOTION_BY_ID = "DELETE FROM Promotions WHERE promotion_id=?";
     String SELECT_ALL = "SELECT * from Promotions";
     String DELETE_ALL = "DELETE from Promotions";
     public IPromotionsRepository.StorageResult savePromotions(Promotions promotions) {
