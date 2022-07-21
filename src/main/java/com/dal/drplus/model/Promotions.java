@@ -2,18 +2,18 @@ package com.dal.drplus.model;
 
 public class Promotions {
 
-    int promotionId;
+    String promotionId;
     String promotionName;
     String promotionStartDate;
     String promotionEndDate;
-    int amount_off;
+    int amountOff;
 
 
-    public int getPromotionId() {
+    public String getPromotionId() {
         return promotionId;
     }
 
-    public void setPromotionId(int promotionId) {
+    public void setPromotionId(String promotionId) {
         this.promotionId = promotionId;
     }
 
@@ -41,11 +41,11 @@ public class Promotions {
         this.promotionEndDate = promotionEndDate;
     }
 
-    public int getAmount_off() {
-        return amount_off;
+    public int getAmountOff() {
+        return amountOff;
     }
 
-    public void setAmount_off(int amount_off) {
-        this.amount_off = amount_off;
+    public void setAmountOff(int amountOff) {
+        this.amountOff = amountOff;
     }
 }

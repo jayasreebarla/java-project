@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<form action="#" th:action="@{/auth_promotions/add_promotions}" th:object="${promotions}" method="post">
+<form action="#" th:action="@{add_promotions}" th:object="${promotions}" method="post">
     <p>Promotion Id: <input type="text" required="required" th:field="*{promotionId}" /></p>
     <p>Promotion name: <input type="text" required="required" th:field="*{promotionName}" /></p>
     <p>Promotion start date: <input type="number" required="required" th:field="*{promotionStartDate}" /></p>

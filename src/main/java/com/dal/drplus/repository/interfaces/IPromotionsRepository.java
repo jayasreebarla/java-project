@@ -16,7 +16,7 @@ public interface IPromotionsRepository {
 
     Promotions findById(int promotionId);
 
-    StorageResult deleteById(int promotionId);
+    StorageResult deleteById(String promotionId);
 
     List<Promotions> findAll();
 
