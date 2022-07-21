@@ -45,15 +45,28 @@ public class WalletController {
     }
 
     @GetMapping("/add-payment")
-    public String AddMoneyPage(){
+    public String AddMoneyPage(Model model,HttpSession session){
+        Patient currentPatient = (Patient) session.getAttribute("CurrentPatient");
+        String patientEmail = currentPatient.getPatientEmail();
+        double balance = walletService.getBalanceFromWallet(patientEmail);
+        model.addAttribute("balance",Double.toString(balance));
         return "wallet/add-money";
     }
 
     @PostMapping("/add-payment")
-    public String addMoneyToWallet(HttpSession session,@RequestParam("amount") String amount){
+    public RedirectView addMoneyToWallet(HttpSession session,@RequestParam("amount") String amount){
         Patient currentPatient = (Patient) session.getAttribute("CurrentPatient");
         String patientEmail = currentPatient.getPatientEmail();
         walletService.addMoneyToWallet(Double.parseDouble(amount),patientEmail);
+        return new RedirectView("/payment-success");
+    }
+
+    @GetMapping("/payment-success")
+    public String Balance(HttpSession session,Model model){
+        Patient currentPatient = (Patient) session.getAttribute("CurrentPatient");
+        String patientEmail = currentPatient.getPatientEmail();
+        double balance = walletService.getBalanceFromWallet(patientEmail);
+        model.addAttribute("balance",Double.toString(balance));
         return "wallet/payment-success";
     }
 
