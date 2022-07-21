@@ -24,6 +24,13 @@ public class RatingDoctorService {
         }
     }
 
+    public boolean checkPreviousDoctorRatingNotExistsForPatientID(String doctorId, String patientId){
+        if(ratingDoctorRepository.findDoctorRatingByDoctorIdAndPatientID(doctorId, patientId)){
+            return false;
+        }
+        return true;
+    }
+
     public List<String> getReviews(String doctorId){
         return ratingDoctorRepository.findDoctorReviewsByDoctorId(doctorId);
     }
@@ -80,4 +87,5 @@ public class RatingDoctorService {
        }
        return true;
     }
+
 }
