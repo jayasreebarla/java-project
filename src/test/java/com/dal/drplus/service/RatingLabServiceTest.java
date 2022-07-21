@@ -18,8 +18,8 @@ public class RatingLabServiceTest {
 
     private static RatingLabService ratingLabService;
     private static IRatingLabRepository ratingLabRepository;
-    static RatingLab ratingLab1 = new RatingLab('1', "l1", "l1", 5, "abcd");
-    static RatingLab ratingLab2 = new RatingLab('2', "P12", "A1", 5, "abcdef");
+    static RatingLab ratingLab1 = new RatingLab(1, "l1", "l1", 5, "abcd");
+    static RatingLab ratingLab2 = new RatingLab(2, "P12", "A1", 5, "abcdef");
 
     @BeforeAll
     public static void init(){
