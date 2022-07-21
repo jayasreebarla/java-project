@@ -32,11 +32,11 @@ public class PromotionsRepositoryImpl implements IPromotionsRepository {
 
         try {
             PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(INSERT_PROMOTION);
-            statement.setInt(1,promotions.getPromotionId());
+            statement.setString(1,promotions.getPromotionId());
             statement.setString(2,promotions.getPromotionName());
             statement.setString(3,promotions.getPromotionStartDate());
             statement.setString(4,promotions.getPromotionEndDate());
-            statement.setInt(5,promotions.getAmount_off());
+            statement.setInt(5,promotions.getAmountOff());
             int result = statement.executeUpdate();
             if(result==1){
                 return IPromotionsRepository.StorageResult.SUCCESS;
@@ -57,7 +57,7 @@ public class PromotionsRepositoryImpl implements IPromotionsRepository {
             statement.setString(1,promotions.getPromotionName());
             statement.setString(2,promotions.getPromotionStartDate());
             statement.setString(3,promotions.getPromotionEndDate());
-            statement.setInt(4,promotions.getAmount_off());
+            statement.setInt(4,promotions.getAmountOff());
             statement.executeUpdate();
             return IPromotionsRepository.StorageResult.SUCCESS;
         } catch (SQLException e) {
@@ -86,19 +86,19 @@ public class PromotionsRepositoryImpl implements IPromotionsRepository {
 
         Promotions promotions= new Promotions();
         promotions.setPromotionName(rs.getString("promotion_name"));
-        promotions.setPromotionId(rs.getInt("promotion_id"));
-        promotions.setPromotionStartDate(rs.getString("promotions_start_date"));
-        promotions.setPromotionEndDate(rs.getString("promotions_end_date"));
-        promotions.setAmount_off(rs.getInt("promotions_amount_off"));
+        promotions.setPromotionId(rs.getString("promotion_id"));
+        promotions.setPromotionStartDate(rs.getString("promotion_start_date"));
+        promotions.setPromotionEndDate(rs.getString("promotion_end_date"));
+        promotions.setAmountOff(rs.getInt("amount_off"));
         return promotions;
     }
 
     @Override
-    public StorageResult deleteById(int promotion_id) {
+    public StorageResult deleteById(String promotion_id) {
         //return jdbcTemplate.update("DELETE FROM Promotions WHERE promotions_id=?", promotion_id);
         try {
             PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(DELETE_PROMOTION_BY_ID);
-            statement.setInt(1,promotion_id);
+            statement.setString(1,promotion_id);
             int result = statement.executeUpdate();
             if(result == 1){
                 return IPromotionsRepository.StorageResult.SUCCESS;

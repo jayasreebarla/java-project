@@ -7,7 +7,6 @@
 <body>
 <a href="/home">back</a>
 </br>
-<a href="/auth/add_promotions">Add Promotion</a>
 <h2> Promotions List</h2>
 <table class = "table table-striped table-bordered">
     <thead>
@@ -24,13 +23,13 @@
     <tr th:if="${promotions.isEmpty()}">
         <td colspan="2"> No Promotions Available </td>
     </tr>
-    <tr th:each="promotions : ${promotions}">
-        <td><span th:text="${promotions.getPromotionId()}"> Promotion Id </span></td>
-        <td><span th:text="${promotions.getPromotionName()}"> Promotion Name </span></td>
-        <td><span th:text="${promotions.getPromotionStartDate()}"> Promotion Start Date </span></td>
-        <td><span th:text="${promotions.getPromotionEndDate()}"> Promotion End Date </span></td>
-        <td><span th:text="${promotions.getAmountOff()}"> Promotion Amount Off </span></td>
-        <td><a th:href="@{/admin/delete_patient_admin/{id}(id=${Promotions.getPromotionId()})}"><button>Delete Promotion</button></a></td>
+    <tr th:each="promotion : ${promotions}">
+        <td><span th:text="${promotion.getPromotionId()}"> Promotion Id </span></td>
+        <td><span th:text="${promotion.getPromotionName()}"> Promotion Name </span></td>
+        <td><span th:text="${promotion.getPromotionStartDate()}"> Promotion Start Date </span></td>
+        <td><span th:text="${promotion.getPromotionEndDate()}"> Promotion End Date </span></td>
+        <td><span th:text="${promotion.getAmountOff()}"> Promotion Amount Off </span></td>
+        <td><a th:href="@{display_promotions/{id}(id=${promotion.getPromotionId()})}"><button>Claim Promotion</button></a></td>
     </tr>
     </tbody>
 </table>

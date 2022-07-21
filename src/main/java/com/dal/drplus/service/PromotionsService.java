@@ -25,7 +25,7 @@ public class PromotionsService {
       return promotionsRepository.findAll();
    }
 
-   public boolean deletePromotionsbyId(int promotionId){
+   public boolean deletePromotionsbyId(String promotionId){
       System.out.println("promotions service");
       IPromotionsRepository.StorageResult result = promotionsRepository.deleteById(promotionId);
       System.out.println("promotions service res "+result);
@@ -40,4 +40,5 @@ public class PromotionsService {
       Promotions promotions = promotionsRepository.findById(promotion_id);
       return promotions;
    }
+
 }
