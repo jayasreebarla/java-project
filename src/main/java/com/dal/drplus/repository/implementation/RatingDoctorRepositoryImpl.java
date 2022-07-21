@@ -58,6 +58,25 @@ public class RatingDoctorRepositoryImpl implements IRatingDoctorRepository {
 
     }
 
+    public StorageResult updateDoctorReview(RatingDoctor ratingDoctor){
+        try {
+            PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(UPDATE_REVIEW_DOCTOR);
+            statement.setString(1, ratingDoctor.getReview());
+            statement.setInt(2,ratingDoctor.getRatingId());
+            statement.setString(3,ratingDoctor.getDoctorId());
+            int result = statement.executeUpdate();
+            if(result == 1){
+                return StorageResult.SUCCESS;
+            }else{
+                return StorageResult.FAILURE;
+            }
+        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+            return StorageResult.FAILURE;
+        }
+    }
+
+
     @Override
     public StorageResult updateDoctorRating(RatingDoctor ratingDoctor) {
         try {
@@ -76,24 +95,6 @@ public class RatingDoctorRepositoryImpl implements IRatingDoctorRepository {
             return StorageResult.FAILURE;
         }
 
-    }
-
-    public StorageResult updateDoctorReview(RatingDoctor ratingDoctor){
-        try {
-            PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(UPDATE_REVIEW_DOCTOR);
-            statement.setString(1, ratingDoctor.getReview());
-            statement.setInt(2,ratingDoctor.getRatingId());
-            statement.setString(3,ratingDoctor.getDoctorId());
-            int result = statement.executeUpdate();
-            if(result == 1){
-                return StorageResult.SUCCESS;
-            }else{
-                return StorageResult.FAILURE;
-            }
-        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-            return StorageResult.FAILURE;
-        }
     }
 
     @Override

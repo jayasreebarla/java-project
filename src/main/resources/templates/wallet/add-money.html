@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Money To Wallet</title>
+</head>
+<body>
+<form action="#" th:action="@{/add-payment}" method="post">
+    <p>Enter amount to add : <input type="text" required="required" th:name="amount" /></p>
+    <p><input type="submit" value="Submit" />
+</form>
+</body>
+</html>
