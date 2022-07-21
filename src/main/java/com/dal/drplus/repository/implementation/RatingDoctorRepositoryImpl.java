@@ -30,6 +30,7 @@ public class RatingDoctorRepositoryImpl implements IRatingDoctorRepository {
     String UPDATE_REVIEW_DOCTOR = "UPDATE RatingDoctor SET review=? WHERE rating_id=? and doctor_id=?";
     String SELECT_BY_RATING_AND_DOCTOR_ID = "SELECT * FROM RatingDoctor WHERE rating_id=? and doctor_id=?";
     String SELECT_BY_DOCTOR_ID = "SELECT * FROM RatingDoctor WHERE doctor_id=?";
+    String SELECT_BY_DOCTOR_ID_AND_PATIENT_ID = "SELECT * FROM RatingDoctor where doctor_id = ? and patient_id = ?";
     String SELECT_BY_PATIENT_ID = "SELECT * FROM RatingDoctor WHERE patient_id=?";
     String SELECT_REVIEWS_BY_DOCTOR_ID = "SELECT review FROM RatingDoctor WHERE doctor_id=?";
     String SELECT_RATING_BY_DOCTOR_ID = "SELECT doctor_rating FROM RatingDoctor WHERE doctor_id=?";
@@ -115,6 +116,27 @@ public class RatingDoctorRepositoryImpl implements IRatingDoctorRepository {
                 ratingDoctor.setReview(rs.getString("review"));
             }
             return ratingDoctor;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public boolean findDoctorRatingByDoctorIdAndPatientID(String doctorId, String patientId) {
+        PreparedStatement statement = null;
+        try {
+            statement = databaseConfiguration.getDBConnection().prepareStatement(SELECT_BY_DOCTOR_ID_AND_PATIENT_ID);
+            statement.setString(1,doctorId);
+            statement.setString(2,patientId);
+            ResultSet rs = statement.executeQuery();
+            RatingDoctor ratingDoctor = new RatingDoctor();
+
+            if(rs.next()){
+                return true;
+            }
+            else{
+                return false;
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

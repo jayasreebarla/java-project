@@ -13,6 +13,7 @@ public interface IRatingLabRepository {
     StorageResult updateLabRating(RatingLab ratingLab);
     StorageResult updateLabReview(RatingLab ratingLab);
     RatingLab findLabRatingById(int ratingId,String labId);
+    boolean findLabRatingByLabIdAndPatientID(String labId, String patientId);
     List<RatingLab> findLabRatingByLabId(String labId);
     List<RatingLab> findLabRatingByPatientId(String patientId);
     List<String> findLabReviewsByLabId(String labId);

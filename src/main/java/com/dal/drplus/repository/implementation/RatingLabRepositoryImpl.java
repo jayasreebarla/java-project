@@ -1,5 +1,6 @@
 package com.dal.drplus.repository.implementation;
 
+import com.dal.drplus.model.RatingDoctor;
 import com.dal.drplus.model.RatingLab;
 import com.dal.drplus.repository.configuration.DatabaseConfiguration;
 import com.dal.drplus.repository.configuration.DatabaseConfigurationImpl;
@@ -29,6 +30,7 @@ public class RatingLabRepositoryImpl implements IRatingLabRepository {
     String UPDATE_REVIEW_LAB = "UPDATE RatingLab SET review=? WHERE rating_id=? and lab_id=?";
     String SELECT_BY_RATING_AND_LAB_ID = "SELECT * FROM RatingLab WHERE rating_id=? and lab_id=?";
     String SELECT_BY_LAB_ID = "SELECT * FROM RatingLab WHERE lab_id=?";
+    String SELECT_BY_LAB_ID_AND_PATIENT_ID = "SELECT * FROM RatingLab where lab_id = ? and patient_id = ?";
     String SELECT_BY_PATIENT_ID = "SELECT * FROM RatingLab WHERE patient_id=?";
     String SELECT_REVIEWS_BY_LAB_ID = "SELECT review FROM RatingLab WHERE lab_id=?";
     String SELECT_RATING_BY_LAB_ID = "SELECT lab_rating FROM RatingLab WHERE lab_id=?";
@@ -115,6 +117,27 @@ public class RatingLabRepositoryImpl implements IRatingLabRepository {
                 ratingLab.setReview(rs.getString("review"));
             }
             return ratingLab;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public boolean findLabRatingByLabIdAndPatientID(String labId, String patientId) {
+        PreparedStatement statement = null;
+        try {
+            statement = databaseConfiguration.getDBConnection().prepareStatement(SELECT_BY_LAB_ID_AND_PATIENT_ID);
+            statement.setString(1,labId);
+            statement.setString(2,patientId);
+            ResultSet rs = statement.executeQuery();
+            RatingLab ratingLab = new RatingLab();
+
+            if(rs.next()){
+                return true;
+            }
+            else{
+                return false;
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

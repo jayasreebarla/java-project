@@ -6,6 +6,18 @@ public class RatingLab{
     private String labId;
     private int labRating;
     private String review;
+    public RatingLab() {
+    }
+
+    public RatingLab(int ratingId, String patientId, String labId, int labRating, String review) {
+        this.ratingId = ratingId;
+        this.patientId = patientId;
+        this.labId = labId;
+        this.labRating = labRating;
+        this.review = review;
+    }
+
+
 
     public String getReview() {
         return review;

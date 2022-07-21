@@ -22,6 +22,14 @@ public class RatingLabService {
         }
     }
 
+    public boolean checkPreviousLabRatingNotExistsForPatientID(String labId, String patientId){
+        System.out.println(ratingLabRepository.findLabRatingByLabIdAndPatientID(labId, patientId));
+        if(ratingLabRepository.findLabRatingByLabIdAndPatientID(labId, patientId)){
+            return false;
+        }
+        return true;
+    }
+
     public List<String> getReviews(String labId){
         return ratingLabRepository.findLabReviewsByLabId(labId);
     }
