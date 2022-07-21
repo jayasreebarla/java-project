@@ -30,9 +30,12 @@ public class RatingDoctorRepositoryImpl implements IRatingDoctorRepository {
     String UPDATE_REVIEW_DOCTOR = "UPDATE RatingDoctor SET review=? WHERE rating_id=? and doctor_id=?";
     String SELECT_BY_RATING_AND_DOCTOR_ID = "SELECT * FROM RatingDoctor WHERE rating_id=? and doctor_id=?";
     String SELECT_BY_DOCTOR_ID = "SELECT * FROM RatingDoctor WHERE doctor_id=?";
+    String SELECT_BY_DOCTOR_ID_AND_PATIENT_ID = "SELECT * FROM RatingDoctor where doctor_id = ? and patient_id = ?";
+    String SELECT_BY_PATIENT_ID = "SELECT * FROM RatingDoctor WHERE patient_id=?";
     String SELECT_REVIEWS_BY_DOCTOR_ID = "SELECT review FROM RatingDoctor WHERE doctor_id=?";
     String SELECT_RATING_BY_DOCTOR_ID = "SELECT doctor_rating FROM RatingDoctor WHERE doctor_id=?";
-    String DELETE_BY_RATING_AND_DOCTOR_ID = "DELETE FROM RatingDoctor WHERE rating_id=? and doctor_id=?";
+    String DELETE_BY_DOCTOR_ID = "DELETE FROM RatingDoctor WHERE doctor_id=?";
+    String DELETE_BY_PATIENT_ID = "DELETE FROM RatingDoctor WHERE patient_id=?";
     String SELECT_ALL = "SELECT * from RatingDoctor";
     String DELETE_ALL = "DELETE from RatingDoctor";
 
@@ -120,6 +123,27 @@ public class RatingDoctorRepositoryImpl implements IRatingDoctorRepository {
     }
 
     @Override
+    public boolean findDoctorRatingByDoctorIdAndPatientID(String doctorId, String patientId) {
+        PreparedStatement statement = null;
+        try {
+            statement = databaseConfiguration.getDBConnection().prepareStatement(SELECT_BY_DOCTOR_ID_AND_PATIENT_ID);
+            statement.setString(1,doctorId);
+            statement.setString(2,patientId);
+            ResultSet rs = statement.executeQuery();
+            RatingDoctor ratingDoctor = new RatingDoctor();
+
+            if(rs.next()){
+                return true;
+            }
+            else{
+                return false;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
     public List<RatingDoctor> findDoctorRatingByDoctorId(String doctorId) {
         PreparedStatement statement = null;
         List<RatingDoctor> ratingDoctorList = new ArrayList<>();
@@ -133,6 +157,19 @@ public class RatingDoctorRepositoryImpl implements IRatingDoctorRepository {
         }
     }
 
+    @Override
+    public List<RatingDoctor> findDoctorRatingByPatientId(String patientId) {
+        PreparedStatement statement = null;
+        List<RatingDoctor> ratingDoctorList = new ArrayList<>();
+        try {
+            statement = databaseConfiguration.getDBConnection().prepareStatement(SELECT_BY_PATIENT_ID);
+            statement.setString(1,patientId);
+            ResultSet rs = statement.executeQuery();
+            return getRatingDoctor(ratingDoctorList, rs);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @Override
     public List<String> findDoctorReviewsByDoctorId(String doctorId) {
@@ -169,15 +206,37 @@ public class RatingDoctorRepositoryImpl implements IRatingDoctorRepository {
     }
 
     @Override
-    public StorageResult deleteDoctorRatingById(int ratingId, String doctorId) {
+    public StorageResult deleteDoctorRatingByDoctorId(String doctorId) {
         try {
-            PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(DELETE_BY_RATING_AND_DOCTOR_ID);
-            statement.setInt(1,ratingId);
-            statement.setString(2,doctorId);
-            return StorageResult.SUCCESS;
+            PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(DELETE_BY_DOCTOR_ID);
+            statement.setString(1,doctorId);
+            int result  = statement.executeUpdate();
+            if(result == 1) {
+                return StorageResult.SUCCESS;
+            } else {
+                return StorageResult.FAILURE;
+            }
         } catch (SQLException e) {
 //            throw new RuntimeException(e);
             return StorageResult.FAILURE;
+        }
+    }
+
+    @Override
+    public StorageResult deleteDoctorRatingByPatientId(String patientId) {
+        try {
+            PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(DELETE_BY_PATIENT_ID);
+            statement.setString(1,patientId);
+            int result  = statement.executeUpdate();
+            System.out.println("1 "+result);
+            if(result == 1) {
+                return StorageResult.SUCCESS;
+            } else {
+                return StorageResult.FAILURE;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+//            return StorageResult.FAILURE;
         }
     }
 

@@ -20,13 +20,19 @@ public class AdminController {
     private PatientService patientService;
     private DoctorSlotService doctorSlotService;
     private LabSlotService labSlotService;
+    private RatingDoctorService ratingDoctorService;
+    private RatingLabService ratingLabService;
+    private PromotionsService promotionsService;
 
     public AdminController(AppointmentRepositoryImpl appointmentRepository,
                            DoctorRepositoryImpl doctorRepository,
                            PatientRepositoryImpl patientRepository,
                            LabRepositoryImpl labRepository,
                            DoctorScheduleRepositoryImpl doctorScheduleRepository,
-                           LabScheduleRepositoryImpl labScheduleRepository) {
+                           LabScheduleRepositoryImpl labScheduleRepository,
+                           RatingDoctorRepositoryImpl ratingDoctorRepository,
+                           RatingLabRepositoryImpl ratingLabRepository,
+                           PromotionsRepositoryImpl promotionsRepository) {
         this.appointmentService = new AppointmentService(appointmentRepository);
         this.appointmentListService = new AppointmentListService(appointmentRepository);
         this.doctorService = new DoctorService(doctorRepository);
@@ -34,6 +40,9 @@ public class AdminController {
         this.patientService = new PatientService(patientRepository);
         this.doctorSlotService = new DoctorSlotService(doctorScheduleRepository);
         this.labSlotService = new LabSlotService(labScheduleRepository);
+        this.ratingDoctorService = new RatingDoctorService(ratingDoctorRepository);
+        this.ratingLabService = new RatingLabService(ratingLabRepository);
+        this.promotionsService = new PromotionsService(promotionsRepository);
     }
 
     @GetMapping("/appointment_list_admin")
@@ -76,6 +85,23 @@ public class AdminController {
         List<LabSchedule> labSchedulesList = labSlotService.listAllLabSlots();
         model.addAttribute("labSlots",labSchedulesList);
         return "admin/lab_schedule_list_admin";
+    }
+
+    @GetMapping("/promotions_list_admin")
+    public String getPromotionsList(Model model){
+        List<Promotions> promotionsList = promotionsService.listAllPromotions();
+        model.addAttribute("Promotions",promotionsList);
+        return "admin/promotions_list";
+    }
+
+    @GetMapping("/delete_promotion_admin/{id}")
+    public RedirectView cancelPromotionsbyAdmin(@PathVariable String id){
+        boolean result = promotionsService.deletePromotionsbyId(id);
+        if(result == true){
+            return new RedirectView("/admin/promotions_list_admin");
+        } else {
+            return new RedirectView("/admin/error_list");
+        }
     }
 
     @GetMapping("/error_list")
@@ -132,30 +158,63 @@ public class AdminController {
         boolean result = doctorService.deleteDoctorbyId(id);
         System.out.println("delete doctor res"+result);
         if(result == true){
-            return new RedirectView("/admin/doctor_list_admin");
-        }else{
-            return new RedirectView("/admin/error_list");
+            System.out.println("1");
+            boolean result1 = appointmentService.deleteAppointmentbyDoctorId(id);
+            if(result1 == true) {
+                System.out.println("2");
+                boolean result2 = doctorSlotService.deleteSlotbyDoctorId(id);
+                if(result2 == true) {
+                    System.out.println("3");
+                    boolean result3 = ratingDoctorService.deleteDoctorRatingbydoctorid(id);
+                    if(result3 == true) {
+                        System.out.println("4");
+                        return new RedirectView("/admin/doctor_list_admin");
+                    }
+                }
+            }
         }
+        return new RedirectView("/admin/error_list");
     }
 
     @GetMapping("/delete_patient_admin/{id}")
     public RedirectView deletePatientbyAdmin(@PathVariable String id){
         boolean result = patientService.deletePatientById(id);
         if(result == true){
-            return new RedirectView("/admin/patient_list_admin");
-        }else{
-            return new RedirectView("/admin/error_list");
+            System.out.println("1");
+            boolean result1 = appointmentService.deleteAppointmentbyPatientId(id);
+            System.out.println("111 "+result1);
+            if(result1 == true) {
+                System.out.println("2");
+                boolean result2 = ratingDoctorService.deleteDoctorRatingbyPatientId(id);
+                if(result2 == true){
+                    System.out.println("3");
+                    boolean result3 = ratingLabService.deleteLabRatingbyPatientId(id);
+                    if(result3 == true) {
+                        System.out.println("4");
+                        return new RedirectView("/admin/patient_list_admin");
+                    }
+                }
+            }
         }
+        return new RedirectView("/admin/error_list");
     }
 
     @GetMapping("/delete_lab_admin/{id}")
     public RedirectView deleteLabbyadmin(@PathVariable String id){
         boolean result = labService.deleteLabById(id);
         if(result == true){
-            return new RedirectView("/admin/lab_list_admin");
-        }else{
-            return new RedirectView("/admin/error_list");
+            boolean result1 = appointmentService.deleteAppointmentbyLabId(id);
+            if(result1 == true) {
+                boolean result2 = labSlotService.deleteSlotByLabId(id);
+                if(result2 == true) {
+                    boolean result3 = ratingLabService.deleteLabRatingbyLabId(id);
+                    if(result3 == true) {
+                        return new RedirectView("/admin/lab_list_admin");
+                    }
+                }
+            }
         }
+        return new RedirectView("/admin/error_list");
     }
 
     @GetMapping("/delete_doctor_schedule_admin/{id}")

@@ -16,8 +16,8 @@ import java.util.List;
 public class AppointmentRepositoryImpl implements IAppointmentRepository{
 
     String INSERT_APPOINTMENT= "INSERT into Appointment " +
-            "(appointment_id, slot_id, appointment_type, appointment_description, appointment_fee, " +
-            " patient_id, doctor_id, bill_id, lab_id) VALUES (?,?,?,?,?,?,?,?,?)";
+            "(slot_id, appointment_type, appointment_description, appointment_fee, " +
+            " patient_id, doctor_id, bill_id, lab_id) VALUES (?,?,?,?,?,?,?,?)";
 
     String UPDATE_APPOINTMENT = "UPDATE Appointment SET slot_id=?, appointment_type=?, "+
         " appointment_description=?, appointment_fee=?, patient_id=?, doctor_id=?, "+
@@ -92,6 +92,12 @@ public class AppointmentRepositoryImpl implements IAppointmentRepository{
 
     String DELETE_ALL = "DELETE from Appointment";
 
+    String DELETE_APPOINTMENTS_BY_PATIENT_ID = "DELETE from Appointment where patient_id=?";
+
+    String DELETE_APPOINTMENTS_BY_LAB_ID = "DELETE from Appointment where lab_id=?";
+
+    String DELETE_APPOINTMENTS_BY_DOCTOR_ID = "DELETE from Appointment where doctor_id=?";
+
     String SELECT_PATIENT_BY_SLOT_ID_DOCTOR = "SELECT patient_id from Appointment WHERE slot_id=? and appointment_type='DOCTOR' ";
 
     DatabaseConfiguration databaseConfiguration;
@@ -109,16 +115,15 @@ public class AppointmentRepositoryImpl implements IAppointmentRepository{
 
         try {
             PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(INSERT_APPOINTMENT);
-            statement.setInt(1,appointment.getAppointmentId());
-            //slot id logic to be added
-            statement.setInt(2,appointment.getSlotId());
-            statement.setString(3,appointment.getAppointmentType());
-            statement.setString(4,appointment.getAppointmentDescription());
-            statement.setDouble(5,appointment.getAppointmentFee());
-            statement.setString(6,appointment.getPatientId());
-            statement.setString(7,appointment.getDoctorId());
-            statement.setInt(8,appointment.getBillId());
-            statement.setString(9,appointment.getLabId());
+            //statement.setInt(1,appointment.getAppointmentId());
+            statement.setInt(1,appointment.getSlotId());
+            statement.setString(2,appointment.getAppointmentType());
+            statement.setString(3,appointment.getAppointmentDescription());
+            statement.setDouble(4,appointment.getAppointmentFee());
+            statement.setString(5,appointment.getPatientId());
+            statement.setString(6,appointment.getDoctorId());
+            statement.setInt(7,appointment.getBillId());
+            statement.setString(8,appointment.getLabId());
             statement.executeUpdate();
             return IAppointmentRepository.StorageResult.SUCCESS;
         } catch (SQLException e) {
@@ -335,8 +340,64 @@ public class AppointmentRepositoryImpl implements IAppointmentRepository{
     public StorageResult deleteAll() {
         try {
             PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(DELETE_ALL);
-            statement.executeUpdate();
-            return IAppointmentRepository.StorageResult.SUCCESS;
+            int result = statement.executeUpdate();
+            if(result == 1) {
+                return IAppointmentRepository.StorageResult.SUCCESS;
+            } else {
+                return IAppointmentRepository.StorageResult.FAILURE;
+            }
+        } catch (SQLException e) {
+            // throw new RuntimeException(e);
+            return IAppointmentRepository.StorageResult.FAILURE;
+        }
+    }
+
+    @Override
+    public StorageResult deleteAppointmentbyLabID(String labId) {
+        try {
+            PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(DELETE_APPOINTMENTS_BY_LAB_ID);
+            statement.setString(1,labId);
+            int result = statement.executeUpdate();
+            if(result == 1) {
+                return IAppointmentRepository.StorageResult.SUCCESS;
+            } else {
+                return IAppointmentRepository.StorageResult.FAILURE;
+            }
+        } catch (SQLException e) {
+            // throw new RuntimeException(e);
+            return IAppointmentRepository.StorageResult.FAILURE;
+        }
+    }
+
+    @Override
+    public StorageResult deleteAppointmentbyPatientID(String patientId) {
+        try {
+            PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(DELETE_APPOINTMENTS_BY_PATIENT_ID);
+            statement.setString(1,patientId);
+            int result = statement.executeUpdate();
+            System.out.println("33 "+result);
+            if(result == 1) {
+                return IAppointmentRepository.StorageResult.SUCCESS;
+            } else {
+                return IAppointmentRepository.StorageResult.FAILURE;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+//            return IAppointmentRepository.StorageResult.FAILURE;
+        }
+    }
+
+    @Override
+    public StorageResult deleteAppointmentbyDoctorID(String doctorId) {
+        try {
+            PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(DELETE_APPOINTMENTS_BY_DOCTOR_ID);
+            statement.setString(1,doctorId);
+            int result = statement.executeUpdate();
+            if(result == 1) {
+                return IAppointmentRepository.StorageResult.SUCCESS;
+            } else {
+                return IAppointmentRepository.StorageResult.FAILURE;
+            }
         } catch (SQLException e) {
             // throw new RuntimeException(e);
             return IAppointmentRepository.StorageResult.FAILURE;

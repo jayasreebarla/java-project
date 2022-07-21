@@ -9,11 +9,17 @@ public interface IRatingLabRepository {
         SUCCESS,
         FAILURE
     }
-    int saveLabRating(RatingLab ratingLab);
-    int updateLabRating(RatingLab ratingLab);
-    RatingLab findLabRatingById(String ratingId,String labId);
+    StorageResult saveLabRating(RatingLab ratingLab);
+    StorageResult updateLabRating(RatingLab ratingLab);
+    StorageResult updateLabReview(RatingLab ratingLab);
+    RatingLab findLabRatingById(int ratingId,String labId);
+    boolean findLabRatingByLabIdAndPatientID(String labId, String patientId);
     List<RatingLab> findLabRatingByLabId(String labId);
-    int deleteLabRatingById(String ratingId,String labId);
+    List<RatingLab> findLabRatingByPatientId(String patientId);
+    List<String> findLabReviewsByLabId(String labId);
+    List<Integer> findLabRatingListByLabId(String labId);
+    StorageResult deleteLabRatingByLabId(String labId);
+    StorageResult deleteLabRatingByPatientId(String patientId);
     List<RatingLab> findAll();
     int deleteAll();
 }

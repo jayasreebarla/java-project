@@ -1,5 +1,6 @@
 package com.dal.drplus.service;
 
+import com.dal.drplus.model.DoctorSchedule;
 import com.dal.drplus.model.Lab;
 import com.dal.drplus.model.LabSchedule;
 import com.dal.drplus.repository.implementation.LabRepositoryImpl;
@@ -93,6 +94,28 @@ public class LabSlotServiceTest {
 
         List<LabSchedule> doctors_result = labSlotService.listAllLabSlots();
         assertEquals(0,doctors_result.size());
+    }
+
+    @Test
+    void deleteSlotByLabIdTrue(){
+        List<LabSchedule> labScheduleList = new ArrayList<>();
+        labScheduleList.add(labSchedule);
+
+        Mockito.when(labScheduleRepository.findScheduleByLabID(labSchedule.getLabId()))
+                .thenReturn(labScheduleList);
+        boolean result = labSlotService.deleteSlotByLabId(labSchedule.getLabId());
+        assertTrue(result);
+    }
+
+    @Test
+    void deleteSlotByLabIdFalse(){
+        List<LabSchedule> labScheduleList = new ArrayList<>();
+        labScheduleList.add(labSchedule1);
+
+        Mockito.when(labScheduleRepository.findScheduleByLabID(labSchedule1.getLabId()))
+                .thenReturn(labScheduleList);
+        boolean result = labSlotService.deleteSlotByLabId(labSchedule1.getLabId());
+        assertFalse(result);
     }
 }
 

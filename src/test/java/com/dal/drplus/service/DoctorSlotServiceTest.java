@@ -94,6 +94,28 @@ public class DoctorSlotServiceTest {
         List<DoctorSchedule> doctors_result = doctorSlotService.listAllDoctorSlots();
         assertEquals(0,doctors_result.size());
     }
+
+    @Test
+    void deleteSlotbyDoctorIdTrue(){
+        List<DoctorSchedule> doctorScheduleList = new ArrayList<>();
+        doctorScheduleList.add(doctorSchedule);
+
+        Mockito.when(doctorScheduleRepository.findScheduleByDoctorID(doctorSchedule.getDoctorId()))
+                .thenReturn(doctorScheduleList);
+        boolean result = doctorSlotService.deleteSlotbyDoctorId(doctorSchedule.getDoctorId());
+        assertTrue(result);
+    }
+
+    @Test
+    void deleteSlotbyDoctorIdFalse(){
+        List<DoctorSchedule> doctorScheduleList = new ArrayList<>();
+        doctorScheduleList.add(doctorSchedule1);
+
+        Mockito.when(doctorScheduleRepository.findScheduleByDoctorID(doctorSchedule1.getDoctorId()))
+                .thenReturn(doctorScheduleList);
+        boolean result = doctorSlotService.deleteSlotbyDoctorId(doctorSchedule1.getDoctorId());
+        assertFalse(result);
+    }
 }
 
 

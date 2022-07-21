@@ -10,7 +10,7 @@ public interface ILabScheduleRepository {
         FAILURE
     }
     public StorageResult saveLabSchedule(LabSchedule labSchedule);
-    public int updateLabSchedule(LabSchedule labSchedule);
+    public StorageResult updateLabSchedule(LabSchedule labSchedule);
     public List<LabSchedule> findScheduleByLabID(String id);
     public List<LabSchedule> findAll();
     public LabSchedule findScheduleBySlotID(String id);

@@ -24,6 +24,13 @@ public class RatingDoctorService {
         }
     }
 
+    public boolean checkPreviousDoctorRatingNotExistsForPatientID(String doctorId, String patientId){
+        if(ratingDoctorRepository.findDoctorRatingByDoctorIdAndPatientID(doctorId, patientId)){
+            return false;
+        }
+        return true;
+    }
+
     public List<String> getReviews(String doctorId){
         return ratingDoctorRepository.findDoctorReviewsByDoctorId(doctorId);
     }
@@ -38,4 +45,47 @@ public class RatingDoctorService {
         int average_rating = total_sum/ratings.size();
         return average_rating;
     }
+
+    public boolean isDoctorRatingexistsforDoctor(String doctorId){
+        List<RatingDoctor> ratingDoctorList = ratingDoctorRepository.findDoctorRatingByDoctorId(doctorId);
+        if(ratingDoctorList.isEmpty()){
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public boolean deleteDoctorRatingbydoctorid(String doctorId){
+        if(isDoctorRatingexistsforDoctor(doctorId)){
+            IRatingDoctorRepository.StorageResult result = ratingDoctorRepository.deleteDoctorRatingByDoctorId(doctorId);
+            if(IRatingDoctorRepository.StorageResult.SUCCESS.equals(result)){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean isDoctorRatingexistsforPatient(String patientId){
+        List<RatingDoctor> ratingDoctorList = ratingDoctorRepository.findDoctorRatingByPatientId(patientId);
+        if(ratingDoctorList.isEmpty()){
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public boolean deleteDoctorRatingbyPatientId(String patientId){
+       if(isDoctorRatingexistsforPatient(patientId)) {
+           IRatingDoctorRepository.StorageResult result = ratingDoctorRepository.deleteDoctorRatingByPatientId(patientId);
+           if (IRatingDoctorRepository.StorageResult.SUCCESS.equals(result)) {
+               return true;
+           } else {
+               return false;
+           }
+       }
+       return true;
+    }
+
 }

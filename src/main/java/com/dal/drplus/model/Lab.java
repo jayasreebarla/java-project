@@ -20,6 +20,18 @@ public class Lab {
 
     private double labFee;
 
+   public Lab(){}
+
+    public Lab(String labId, String labPersonName, String labPassword, String labEmailId, String labAddress, String labContactInfo, String labPincode) {
+    this.labId = labId;
+    this.labPersonName = labPersonName;
+    this.labPassword = labPassword;
+    this.labEmailId = labEmailId;
+    this.labAddress = labAddress;
+    this.labContactInfo = labContactInfo;
+    this.labPincode = labPincode;
+   }
+
     public String getLabId() {return labId;}
     public void setLabId(String labId) {this.labId = labId;}
     public String getLabPersonName() {return labPersonName;}
