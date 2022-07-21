@@ -115,7 +115,7 @@ public class AppointmentRepositoryImpl implements IAppointmentRepository{
 
         try {
             PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(INSERT_APPOINTMENT);
-//            statement.setInt(1,appointment.getAppointmentId());
+            //statement.setInt(1,appointment.getAppointmentId());
             statement.setInt(1,appointment.getSlotId());
             statement.setString(2,appointment.getAppointmentType());
             statement.setString(3,appointment.getAppointmentDescription());

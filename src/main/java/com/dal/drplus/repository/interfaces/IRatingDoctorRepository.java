@@ -14,6 +14,7 @@ public interface IRatingDoctorRepository {
     StorageResult updateDoctorRating(RatingDoctor ratingDoctor);
     StorageResult updateDoctorReview(RatingDoctor ratingDoctor);
     RatingDoctor findDoctorRatingById(int ratingId,String doctorId);
+    boolean findDoctorRatingByDoctorIdAndPatientID(String doctorId, String patientId);
     List<RatingDoctor> findDoctorRatingByDoctorId(String doctorId);
     List<RatingDoctor> findDoctorRatingByPatientId(String patientId);
     List<String> findDoctorReviewsByDoctorId(String doctorId);
