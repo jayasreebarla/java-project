@@ -25,11 +25,16 @@ public class AppointmentController {
     private AppointmentListService appointmentListService;
     private DoctorSlotService doctorSlotService;
     private DoctorService doctorService;
+    private PatientService patientService;
     private LabService labService;
     private LabSlotService labSlotService;
     private BillService billService;
+
+    private WalletService walletService;
+
     public AppointmentController(AppointmentRepositoryImpl appointmentRepository,
                                  DoctorRepositoryImpl doctorRepository,
+                                 PatientRepositoryImpl patientRepository,
                                  BillRepositoryImpl billRepository,
                                  WalletRepositoryImpl walletRepository,
                                  LabRepositoryImpl labRepository,
@@ -38,7 +43,9 @@ public class AppointmentController {
         this.appointmentService = new AppointmentService(appointmentRepository);
         this.appointmentListService = new AppointmentListService(appointmentRepository);
         this.doctorService = new DoctorService(doctorRepository);
+        this.patientService = new PatientService(patientRepository);
         this.billService = new BillService(billRepository);
+        this.walletService = new WalletService(walletRepository);
         this.labService = new LabService(labRepository);
         this.doctorSlotService = new DoctorSlotService(doctorScheduleRepository);
         this.labSlotService = new LabSlotService(labScheduleRepository);
@@ -135,34 +142,62 @@ public class AppointmentController {
         return "appointment/error";
     }
 
-    @GetMapping("/cancel_appointment/{id}")
-    public RedirectView cancelAppointment(@PathVariable int id){
+    @GetMapping("/cancel_appointment/{id}/{slotId}")
+    public RedirectView cancelAppointment(HttpSession session, @PathVariable("id") int id, @PathVariable("slotId") int slotId){
 
+
+        Patient currentPatient = (Patient) session.getAttribute("CurrentPatient");
+        System.out.println("slotId: "+slotId);
+        Appointment appointment = appointmentService.findAppointmentbyId(id);
+        double amountToBeCredited = appointment.getAppointmentFee();
         boolean result = appointmentService.cancelAppointment(id);
+
         if(result == true){
+            doctorSlotService.updateSlotStatus(false, slotId);
+            walletService.addMoneyToWallet(amountToBeCredited, currentPatient.getPatientEmail());
             return new RedirectView("/appointment_list");
         }else{
             return new RedirectView("/error_appointment");
         }
     }
 
-    @GetMapping("/cancel_appointment_doc/{id}")
-    public String cancelAppointmentbyDoc(@PathVariable int id){
+    @GetMapping("/cancel_appointment_doc/{id}/{slotId}")
+    public RedirectView cancelAppointmentbyDoc(@PathVariable("id") int id, @PathVariable("slotId") int slotId){
+        System.out.println("slotId: "+slotId);
+        Appointment appointment = appointmentService.findAppointmentbyId(id);
+        String patientId = appointment.getPatientId();
+        double amountToBeCredited = appointment.getAppointmentFee();
+        Patient patient = patientService.getPatientById(patientId);
+
         boolean result = appointmentService.cancelAppointment(id);
+
+
         if(result == true){
-            return "doctor/doctor_home";
-        }else{
-            return "appointment/error";
+            doctorSlotService.updateSlotStatus(false, slotId);
+            walletService.addMoneyToWallet(amountToBeCredited,patient.getPatientEmail());
+            return new RedirectView("/auth_doctor/doctor_home");
+        }
+        else{
+            return new RedirectView("/error_appointment");
         }
     }
 
-    @GetMapping("/cancel_appointment_lab/{id}")
-    public String cancelAppointmentbyLab(@PathVariable int id){
+    @GetMapping("/cancel_appointment_lab/{id}/{slotId}")
+    public RedirectView cancelAppointmentbyLab(@PathVariable("id") int id, @PathVariable("slotId") int slotId){
+        System.out.println("slotId: "+slotId);
+        Appointment appointment = appointmentService.findAppointmentbyId(id);
+        String patientId = appointment.getPatientId();
+        double amountToBeCredited = appointment.getAppointmentFee();
+        Patient patient = patientService.getPatientById(patientId);
+
         boolean result = appointmentService.cancelAppointment(id);
+
         if(result == true){
-            return "lab/lab_home";
+            labSlotService.updateSlotStatus(false, slotId);
+            walletService.addMoneyToWallet(amountToBeCredited,patient.getPatientEmail());
+            return new RedirectView("/auth_lab/lab_home");
         }else{
-            return "appointment/error";
+            return new RedirectView("/error_appointment");
         }
     }
 
