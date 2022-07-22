@@ -14,7 +14,7 @@ public interface IPromotionsRepository {
 
     StorageResult updatePromotions(Promotions promotions);
 
-    Promotions findById(int promotionId);
+    Promotions findById(String promotionId);
 
     StorageResult deleteById(String promotionId);
 

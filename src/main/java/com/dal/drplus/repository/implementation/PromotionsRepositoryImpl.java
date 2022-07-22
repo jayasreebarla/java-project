@@ -67,11 +67,11 @@ public class PromotionsRepositoryImpl implements IPromotionsRepository {
     }
 
     @Override
-    public Promotions findById(int promotion_id) {
+    public Promotions findById(String promotionId) {
         Promotions promotions = null;
         try {
             PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(FIND_PROMOTION_BY_ID);
-            statement.setInt(1,promotion_id);
+            statement.setString(1,promotionId);
             ResultSet rs = statement.executeQuery();
             while (rs.next()){
                 promotions = createPromotions(rs);

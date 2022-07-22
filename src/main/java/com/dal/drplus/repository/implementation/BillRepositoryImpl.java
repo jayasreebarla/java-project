@@ -17,6 +17,7 @@ import java.time.format.DateTimeFormatter;
 public class BillRepositoryImpl implements IBillRepository {
     String INSERT_BILL = "INSERT INTO Bill (bill_date,bill_amount,bill_description) VALUES(?,?,?)";
     String GET_AMOUNT_BILL = "SELECT bill_amount FROM Bill where bill_id=?";
+    String UPADTE_BILL = "UPDATE Bill SET bill_amount = ? where bill_id=?";
 
     String GET_BILL = "SELECT * FROM Bill where  bill_id=?";
 
@@ -66,6 +67,23 @@ public class BillRepositoryImpl implements IBillRepository {
             throw new RuntimeException(e);
         }
         return amount;
+    }
+
+    @Override
+    public StorageResult UpdateBillAmount(int billId,double amount){
+        try {
+            PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(UPADTE_BILL);
+            statement.setDouble(1,amount);
+            statement.setInt(2,billId);
+            if(statement.executeUpdate() == 1){
+                return StorageResult.SUCCESS;
+            }else{
+                return StorageResult.FAILURE;
+            }
+        } catch (SQLException e) {
+            //throw new RuntimeException(e);
+            return StorageResult.FAILURE;
+        }
     }
 
     @Override

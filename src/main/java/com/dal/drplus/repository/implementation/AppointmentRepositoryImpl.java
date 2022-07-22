@@ -4,6 +4,7 @@ import com.dal.drplus.model.Appointment;
 import com.dal.drplus.repository.configuration.DatabaseConfiguration;
 import com.dal.drplus.repository.configuration.DatabaseConfigurationImpl;
 import com.dal.drplus.repository.interfaces.IAppointmentRepository;
+import com.dal.drplus.repository.interfaces.IBillRepository;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
@@ -100,6 +101,7 @@ public class AppointmentRepositoryImpl implements IAppointmentRepository{
 
     String SELECT_PATIENT_BY_SLOT_ID_DOCTOR = "SELECT patient_id from Appointment WHERE slot_id=? and appointment_type='DOCTOR' ";
 
+    String UPDATE_APPOINTMENT_FEE_BY_BILL_ID = "UPDATE Appointment SET appointment_fee=? WHERE bill_id=?";
     DatabaseConfiguration databaseConfiguration;
 
     public AppointmentRepositoryImpl() {
@@ -444,6 +446,24 @@ public class AppointmentRepositoryImpl implements IAppointmentRepository{
             throw new RuntimeException(e);
         }
         return patientId;
+    }
+
+    @Override
+    public StorageResult updateAppointmentFee(int billId,double amount){
+        try {
+            PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(UPDATE_APPOINTMENT_FEE_BY_BILL_ID);
+            statement.setDouble(1,amount);
+            statement.setInt(2,billId);
+            if(statement.executeUpdate() == 1){
+                return IAppointmentRepository.StorageResult.SUCCESS;
+            }else{
+                return IAppointmentRepository.StorageResult.FAILURE;
+            }
+        } catch (SQLException e) {
+            //throw new RuntimeException(e);
+            return IAppointmentRepository.StorageResult.FAILURE;
+        }
+
     }
 
     private Appointment createAppointment(ResultSet rs) throws SQLException {

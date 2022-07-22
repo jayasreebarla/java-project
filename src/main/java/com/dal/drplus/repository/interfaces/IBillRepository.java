@@ -12,4 +12,5 @@ public interface IBillRepository {
     int insertBill(double amount,String description);
     double getBillAmount(int billId);
     Billing getBill(int billId);
+    StorageResult UpdateBillAmount(int billId,double amount);
 }

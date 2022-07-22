@@ -110,4 +110,13 @@ public class AppointmentService {
         }
         return true;
     }
+
+    public boolean updateAppointmentByBillId(int billId,double amount){
+        IAppointmentRepository.StorageResult result = appointmentRepository.updateAppointmentFee(billId,amount);
+        if(result.equals(IAppointmentRepository.StorageResult.SUCCESS)){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
