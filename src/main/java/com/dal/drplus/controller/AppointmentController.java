@@ -54,17 +54,17 @@ public class AppointmentController {
     }
 
     @GetMapping("/doctorSlot/{slotId}/{doctorId}")
-    public RedirectView bookAppointment(Model model, HttpSession session, @PathVariable("slotId") String slotId, @PathVariable("doctorId") String doctorId, RedirectAttributes attributes){
-
+    public RedirectView bookAppointment(Model model, HttpSession session, @PathVariable("slotId") String slotId, @PathVariable("doctorId") String doctorId,RedirectAttributes attributes){
         Appointment appointment = new Appointment();
         Patient currentPatient = (Patient) session.getAttribute("CurrentPatient");
         Doctor doctor = doctorService.getDoctorById(doctorId);
-        int billId = billService.generateBill(doctor.getDoctorFee(),"DOCTOR");
+        double billAmount = doctor.getDoctorFee();
+        int billId = billService.generateBill(billAmount,"DOCTOR");
         //double billAmount = doctor.getDoctorFee();
         appointment.setSlotId(Integer.parseInt(slotId));
         appointment.setAppointmentType("DOCTOR");
         appointment.setAppointmentDescription("");
-        appointment.setAppointmentFee(doctor.getDoctorFee());
+        appointment.setAppointmentFee(billAmount);
         appointment.setPatientId(currentPatient.getPatientId());
         appointment.setDoctorId(doctorId);
         appointment.setBillId(billId);
@@ -83,8 +83,7 @@ public class AppointmentController {
     }
 
     @GetMapping("/labSlot/{slotId}/{labId}")
-    public RedirectView bookAppointmentForLab(Model model, HttpSession session, @PathVariable("slotId") String slotId, @PathVariable("labId") String labId, RedirectAttributes attributes){
-
+    public RedirectView bookAppointmentForLab(Model model, HttpSession session, @PathVariable("slotId") String slotId, @PathVariable("labId") String labId,RedirectAttributes attributes){
         Appointment appointment = new Appointment();
         Patient currentPatient = (Patient) session.getAttribute("CurrentPatient");
         Lab lab = labService.getLabById(labId);
@@ -93,7 +92,7 @@ public class AppointmentController {
         appointment.setSlotId(Integer.parseInt(slotId));
         appointment.setAppointmentType("LAB");
         appointment.setAppointmentDescription("");
-        appointment.setAppointmentFee(lab.getLabFee());
+        appointment.setAppointmentFee(billAmount);
         appointment.setPatientId(currentPatient.getPatientId());
         appointment.setDoctorId("");
         appointment.setBillId(billId);

@@ -30,6 +30,9 @@ public class BillServiceTest {
         Mockito.when(billRepository.getBillAmount(1)).thenReturn(34.0);
         Mockito.when(billRepository.getBill(1)).thenReturn(bill_initial);
         Mockito.when(billRepository.getBill(2)).thenReturn(null);
+        Mockito.when(billRepository.UpdateBillAmount(1,34)).thenReturn(IBillRepository.StorageResult.SUCCESS);
+        Mockito.when(billRepository.UpdateBillAmount(2,34)).thenReturn(IBillRepository.StorageResult.FAILURE);
+
     }
 
     @Test
@@ -53,6 +56,18 @@ public class BillServiceTest {
     void getBillFailure(){
         Billing bill = billService.getBill(2);
         assertNull(bill);
+    }
+
+    @Test
+    void updateBillTrue(){
+        boolean result = billService.updateBill(1,34);
+        assertTrue(result);
+    }
+
+    @Test
+    void updateBillFalse(){
+        boolean result = billService.updateBill(2,34);
+        assertFalse(result);
     }
 
 

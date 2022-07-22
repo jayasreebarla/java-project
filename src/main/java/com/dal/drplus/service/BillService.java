@@ -24,4 +24,13 @@ public class BillService {
     public Billing getBill(int billId){
         return billRepository.getBill(billId);
     }
+
+    public boolean updateBill(int id,double amount){
+        IBillRepository.StorageResult result = billRepository.UpdateBillAmount(id,amount);
+        if(result.equals(IBillRepository.StorageResult.SUCCESS)){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

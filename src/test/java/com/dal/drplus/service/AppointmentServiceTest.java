@@ -56,6 +56,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
                 .thenReturn(IAppointmentRepository.StorageResult.SUCCESS);
         Mockito.when(appointmentRepository.updateSlotId(slotId2,appointment2.getAppointmentId()))
                 .thenReturn(IAppointmentRepository.StorageResult.FAILURE);
+        Mockito.when(appointmentRepository.updateAppointmentFee(1,34)).thenReturn(IAppointmentRepository.StorageResult.SUCCESS);
+        Mockito.when(appointmentRepository.updateAppointmentFee(2,34)).thenReturn(IAppointmentRepository.StorageResult.FAILURE);
 
         appointmentService = new AppointmentService(appointmentRepository);
     }
@@ -227,6 +229,18 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
      @Test
      void rescheduleAppointmentFalse(){
          boolean result = appointmentService.rescheduleAppointment(slotId2, appointment2.getAppointmentId());
+         assertFalse(result);
+     }
+
+     @Test
+     void updateAppointmentByBillIdTrue(){
+        boolean result = appointmentService.updateAppointmentByBillId(1,34);
+        assertTrue(result);
+     }
+
+     @Test
+     void updateAppointmentByBillIdfalse(){
+         boolean result = appointmentService.updateAppointmentByBillId(2,34);
          assertFalse(result);
      }
 }

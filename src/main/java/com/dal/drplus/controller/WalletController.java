@@ -40,8 +40,9 @@ public class WalletController {
         double billAmount = bill_process.getBillAmount();
         walletService.addMoneyToWallet(billAmount,patientEmail);
         System.out.println("Post mapping bill amount "+billAmount);
-        attributes.addFlashAttribute("bill",bill_process);
-        return new RedirectView("/payment");
+        attributes.addFlashAttribute("billFinalAmount",billAmount);
+//        return new RedirectView("/payment");
+        return new RedirectView("/make-confirm-payment");
     }
 
     @GetMapping("/add-payment")

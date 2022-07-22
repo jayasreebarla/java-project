@@ -30,5 +30,6 @@ public interface IAppointmentRepository {
     StorageResult deleteAppointmentbyDoctorID(String doctorId);
     StorageResult isAppointmentConflict(String slotDate, String slotTime, String patientId);
     String getPatientIdBySlotId(int slotId);
+    StorageResult updateAppointmentFee(int billId,double amount);
 
 }
