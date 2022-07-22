@@ -23,16 +23,25 @@ public class AppointmentController {
 
     private AppointmentService appointmentService;
     private AppointmentListService appointmentListService;
-
+    private DoctorSlotService doctorSlotService;
     private DoctorService doctorService;
     private LabService labService;
+    private LabSlotService labSlotService;
     private BillService billService;
-    public AppointmentController(AppointmentRepositoryImpl appointmentRepository, DoctorRepositoryImpl doctorRepository, BillRepositoryImpl billRepository, WalletRepositoryImpl walletRepository, LabRepositoryImpl labRepository) {
+    public AppointmentController(AppointmentRepositoryImpl appointmentRepository,
+                                 DoctorRepositoryImpl doctorRepository,
+                                 BillRepositoryImpl billRepository,
+                                 WalletRepositoryImpl walletRepository,
+                                 LabRepositoryImpl labRepository,
+                                 DoctorScheduleRepositoryImpl doctorScheduleRepository,
+                                 LabScheduleRepositoryImpl labScheduleRepository) {
         this.appointmentService = new AppointmentService(appointmentRepository);
         this.appointmentListService = new AppointmentListService(appointmentRepository);
         this.doctorService = new DoctorService(doctorRepository);
         this.billService = new BillService(billRepository);
         this.labService = new LabService(labRepository);
+        this.doctorSlotService = new DoctorSlotService(doctorScheduleRepository);
+        this.labSlotService = new LabSlotService(labScheduleRepository);
     }
 
     @GetMapping("/appointment_list")
@@ -63,7 +72,7 @@ public class AppointmentController {
 
         boolean result = appointmentService.bookAppointment(appointment);
         if(result == true){
-            //mark doctor slot booked
+            doctorSlotService.updateSlotStatus(true, Integer.parseInt(slotId));
         }
         //return "appointment/appointment_booked";
 //        attributes.addFlashAttribute("billAmount",billAmount);
@@ -84,7 +93,7 @@ public class AppointmentController {
         appointment.setSlotId(Integer.parseInt(slotId));
         appointment.setAppointmentType("LAB");
         appointment.setAppointmentDescription("");
-        appointment.setAppointmentFee(0);
+        appointment.setAppointmentFee(lab.getLabFee());
         appointment.setPatientId(currentPatient.getPatientId());
         appointment.setDoctorId("");
         appointment.setBillId(billId);
@@ -92,7 +101,7 @@ public class AppointmentController {
 
         boolean result = appointmentService.bookAppointment(appointment);
         if(result == true){
-            //mark lab slot booked
+            labSlotService.updateSlotStatus(true, Integer.parseInt(slotId));
         }
 //        attributes.addFlashAttribute("billAmount",billAmount);
 //        System.out.println("bill amount in appointment controller"+billAmount);

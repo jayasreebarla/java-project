@@ -14,9 +14,11 @@ public interface IDoctorScheduleRepository {
     public List<DoctorSchedule> findScheduleByDoctorID(String id);
     public List<DoctorSchedule> findAll();
     public DoctorSchedule findScheduleBySlotID(int id);
+    public List<DoctorSchedule> listUnbookedSchedulesbyDoctorID(String doctorId);
+    public StorageResult updateSlotStatus(boolean status, int slotId);
     public StorageResult deleteScheduleByDoctorID(String id);
     public StorageResult deleteScheduleBySlotID(int id);
     public StorageResult deleteAllSchedules();
-
     public List<Integer> getAllSlotIds(String slotDate);
+
 }
