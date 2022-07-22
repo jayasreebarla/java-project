@@ -23,8 +23,10 @@ public class AppointmentRepositoryImpl implements IAppointmentRepository{
         " appointment_description=?, appointment_fee=?, patient_id=?, doctor_id=?, "+
             " bill_id=?, lab_id=? where appointment_id=? ";
 
+    String UPDATE_APPOINTMENT_SLOT_ID = "UPDATE Appointment set slot_id = ? where appointment_id = ?";
+
     String SELECT_APPOINTMENT_BY_ID = "SELECT appointment_id, appointment_description, appointment_type, "+
-            " appointment_fee, patient_id, bill_id, lab_id, doctor_id, "+
+            " appointment_fee, patient_id, bill_id, lab_id, doctor_id, slot_id, "+
             " case when appointment_type = 'DOCTOR' then (select slot_date from Doc_schedule D where D.slot_id=A.slot_id )"+
             " else (select slot_date from Lab_schedule L where L.slot_id=A.slot_id)  end as slot_date ,"+
             " case when appointment_type = 'DOCTOR' then (select slot_timing from Doc_schedule D where D.slot_id=A.slot_id)"+
@@ -124,6 +126,24 @@ public class AppointmentRepositoryImpl implements IAppointmentRepository{
     }
 
     @Override
+    public StorageResult updateSlotId(int slotId, int appointmentId) {
+        try {
+            PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(UPDATE_APPOINTMENT_SLOT_ID);
+            statement.setInt(1,slotId);
+            statement.setInt(2,appointmentId);
+            int result = statement.executeUpdate();
+            if(result == 1) {
+                return IAppointmentRepository.StorageResult.SUCCESS;
+            } else {
+                return IAppointmentRepository.StorageResult.FAILURE;
+            }
+        } catch (SQLException e) {
+            // throw new RuntimeException(e);
+            return IAppointmentRepository.StorageResult.FAILURE;
+        }
+    }
+
+    @Override
     public StorageResult updateAppointment(Appointment appointment) {
         try {
             PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(UPDATE_APPOINTMENT);
@@ -146,11 +166,11 @@ public class AppointmentRepositoryImpl implements IAppointmentRepository{
     }
 
     @Override
-    public Appointment findAppointmentById(String appointmentId) {
+    public Appointment findAppointmentById(int appointmentId) {
         Appointment appointment = null;
         try {
             PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(SELECT_APPOINTMENT_BY_ID);
-            statement.setString(1,appointmentId);
+            statement.setInt(1,appointmentId);
             ResultSet rs = statement.executeQuery();
             while (rs.next()){
                 appointment = createAppointment(rs);

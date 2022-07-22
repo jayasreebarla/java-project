@@ -109,6 +109,28 @@ public class AppointmentController {
         return new RedirectView("/payment");
     }
 
+    @GetMapping("/rescheduleDoctorSlot/{slotId}/{appointmentId}")
+    public RedirectView rescheduleDoctorSlot(Model model, @PathVariable("slotId") int slotId, @PathVariable("appointmentId") int appointmentId){
+        Appointment appointment = appointmentService.findAppointmentbyId(appointmentId);
+        int previousSlotId = appointment.getSlotId();
+        boolean res = doctorSlotService.updateSlotStatus(false,previousSlotId);
+        boolean res1 = appointmentService.rescheduleAppointment(slotId,appointmentId);
+        boolean res2 = doctorSlotService.updateSlotStatus(true,slotId);
+        System.out.println(res+" "+res1+" "+res2);
+        return new RedirectView("/appointment_booked_page");
+    }
+
+    @GetMapping("/rescheduleLabSlot/{slotId}/{appointmentId}")
+    public RedirectView rescheduleLabSlot(Model model, @PathVariable("slotId") int slotId, @PathVariable("appointmentId") int appointmentId){
+        Appointment appointment = appointmentService.findAppointmentbyId(appointmentId);
+        int previousSlotId = appointment.getSlotId();
+        boolean res = labSlotService.updateSlotStatus(false,previousSlotId);
+        boolean res1 = appointmentService.rescheduleAppointment(slotId,appointmentId);
+        boolean res2 = labSlotService.updateSlotStatus(true,slotId);
+        System.out.println(res+" "+res1+" "+res2);
+        return new RedirectView("/appointment_booked_page");
+    }
+
     @GetMapping("/error_appointment")
     public String errorPage(){
         return "appointment/error";
