@@ -8,6 +8,7 @@ import com.dal.drplus.repository.implementation.DoctorRepositoryImpl;
 import com.dal.drplus.service.AppointmentListService;
 import com.dal.drplus.service.DoctorLoginSignupService;
 import com.dal.drplus.service.DoctorService;
+import com.dal.drplus.service.PasswordEncryptionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -24,11 +25,13 @@ public class  DoctorLoginSignupController {
     private DoctorLoginSignupService loginSignupService;
     private AppointmentListService appointmentListService;
     private DoctorService doctorService;
+    private PasswordEncryptionService passwordEncryptionService;
 
     public DoctorLoginSignupController(DoctorRepositoryImpl doctorRepository, AppointmentRepositoryImpl appointmentRepository) {
         this.loginSignupService = new DoctorLoginSignupService(doctorRepository);
         this.doctorService = new DoctorService(doctorRepository);
         this.appointmentListService = new AppointmentListService(appointmentRepository);
+        this.passwordEncryptionService = new PasswordEncryptionService();
     }
 
     @GetMapping("/doctor_signup")
@@ -41,12 +44,15 @@ public class  DoctorLoginSignupController {
     public RedirectView RegisterDoctor(HttpSession session, @ModelAttribute Doctor doctor, @RequestParam(value = "confirmDoctorPassword") String confirmPassword){
         System.out.println(doctor.toString());
         System.out.println("confirmPassword"+confirmPassword);
+        doctor.setDoctorPassword(passwordEncryptionService.hashPassword(doctor.getDoctorPassword()));
+        confirmPassword = passwordEncryptionService.hashPassword(confirmPassword);
+
         boolean result = loginSignupService.registerDoctor(doctor,confirmPassword);
         String type = String.valueOf(session.getAttribute("Type"));
         if(type.equals("A")){
             return new RedirectView("/admin/doctor_list_admin");
         }
-        return new RedirectView("/doctor_login");
+        return new RedirectView("/auth_doctor/doctor_login");
     }
 
     @GetMapping("/doctor_login")
@@ -58,6 +64,7 @@ public class  DoctorLoginSignupController {
     public String LoginDoctor(HttpSession session, @RequestParam(value="doctorId") String doctorId,@RequestParam(value="doctorPassword") String password, Model model){
         System.out.println(doctorId+"doctorId");
         System.out.println(password+"password");
+        password = passwordEncryptionService.hashPassword(password);
         boolean isCredentialsValid;
         isCredentialsValid = loginSignupService.isDoctorCredentialValid(doctorId,password);
         System.out.println(isCredentialsValid+" iscredentialValid");

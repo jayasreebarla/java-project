@@ -7,6 +7,7 @@ import com.dal.drplus.repository.implementation.LabRepositoryImpl;
 import com.dal.drplus.service.AppointmentListService;
 import com.dal.drplus.service.LabLoginSignupService;
 import com.dal.drplus.service.LabService;
+import com.dal.drplus.service.PasswordEncryptionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,14 +23,15 @@ import java.util.List;
 public class LabLoginSignupController {
     private LabLoginSignupService loginSignupService;
     private LabService labService;
+    private PasswordEncryptionService passwordEncryptionService;
 
     private AppointmentListService appointmentListService;
     public LabLoginSignupController(LabRepositoryImpl labRepository, AppointmentRepositoryImpl appointmentRepository)
     {
-
         this.loginSignupService = new LabLoginSignupService(labRepository);
         this.labService =new LabService(labRepository);
         this.appointmentListService = new AppointmentListService(appointmentRepository);
+        this.passwordEncryptionService = new PasswordEncryptionService();
     }
 
     @GetMapping("/lab_signup")
@@ -41,12 +43,14 @@ public class LabLoginSignupController {
     @PostMapping("/lab_signup")
     public RedirectView RegisterLab(HttpSession session, @ModelAttribute Lab lab){
         System.out.println("LAB SIGNUP"+lab.getLabId()+lab.getLabPassword()+lab.getLabAddress()+lab.getLabEmailId()+lab.getLabPincode()+lab.getLabContactInfo()+lab.getLabPersonName());
+        lab.setLabPassword(passwordEncryptionService.hashPassword(lab.getLabPassword()));
+
         boolean result = loginSignupService.registerLab(lab);
         String type = String.valueOf(session.getAttribute("Type"));
         if(type.equals("A")){
             return new RedirectView("/admin/lab_list_admin");
         }
-        return new RedirectView("/lab_login");
+        return new RedirectView("/auth_lab/lab_login");
     }
 
     @GetMapping("/lab_login")
@@ -58,6 +62,7 @@ public class LabLoginSignupController {
     public RedirectView LoginLab(HttpSession session,@RequestParam(value="labId") String labId, @RequestParam(value="labPassword") String labPassword, Model model){
         System.out.println(labId+"labId");
         System.out.println(labPassword+"labPassword");
+        labPassword = passwordEncryptionService.hashPassword(labPassword);
         boolean isCredentialsValid;
         isCredentialsValid = loginSignupService.isLabCredentialValid(labId,labPassword);
         System.out.println(isCredentialsValid+"iscredentialValid");
