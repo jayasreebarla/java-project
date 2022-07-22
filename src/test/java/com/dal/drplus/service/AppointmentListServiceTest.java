@@ -25,9 +25,6 @@ public class AppointmentListServiceTest {
     @BeforeAll
     public static void init(){
         appointmentRepository = Mockito.mock(AppointmentRepositoryImpl.class);
-
-
-
         appointmentListService = new AppointmentListService(appointmentRepository);
     }
 
