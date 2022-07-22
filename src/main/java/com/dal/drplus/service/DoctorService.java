@@ -4,6 +4,9 @@ import com.dal.drplus.model.Doctor;
 import com.dal.drplus.repository.interfaces.IAppointmentRepository;
 import com.dal.drplus.repository.interfaces.IDoctorRepository;
 
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 
 public class DoctorService {
@@ -36,4 +39,17 @@ public class DoctorService {
         Doctor doctor = doctorRepository.findDoctorById(doctorId);
         return doctor;
     }
+
+    public List<Doctor> sortDoctorList(List<Doctor> unsortedList) {
+        List<Doctor> listToSort = unsortedList;
+        Collections.sort(listToSort, new Comparator<Doctor>() {
+            @Override
+            public int compare(Doctor o1, Doctor o2) {
+                return o2.getDoctorRating()- o1.getDoctorRating();
+            }
+        });
+
+       return listToSort;
+    }
 }
+

@@ -2,6 +2,7 @@ package com.dal.drplus.controller;
 
 import com.dal.drplus.model.Patient;
 import com.dal.drplus.repository.implementation.PatientRepositoryImpl;
+import com.dal.drplus.service.PasswordEncryptionService;
 import com.dal.drplus.service.PatientLoginSignupService;
 import com.dal.drplus.service.PatientService;
 import org.springframework.stereotype.Controller;
@@ -18,10 +19,12 @@ public class PatientLoginSignupController {
 
     private PatientLoginSignupService loginSignupService;
     private PatientService patientService;
+    private PasswordEncryptionService passwordEncryptionService;
 
     public PatientLoginSignupController(PatientRepositoryImpl patientRepository) {
         this.loginSignupService = new PatientLoginSignupService(patientRepository);
         this.patientService =new PatientService(patientRepository);
+        this.passwordEncryptionService = new PasswordEncryptionService();
     }
 
     @GetMapping("/patient_signup")
@@ -34,6 +37,8 @@ public class PatientLoginSignupController {
     public RedirectView RegisterPatient(HttpSession session, @ModelAttribute Patient patient, @RequestParam(value = "confirmPatientPassword") String confirmPassword){
         System.out.println(patient.toString());
         System.out.println("confirmPassword"+confirmPassword);
+        patient.setPatientPassword(passwordEncryptionService.hashPassword(patient.getPatientPassword()));
+        confirmPassword = passwordEncryptionService.hashPassword(confirmPassword);
         boolean result = loginSignupService.registerPatient(patient,confirmPassword);
         String type = String.valueOf(session.getAttribute("Type"));
         if(type.equals("A")){
@@ -51,6 +56,7 @@ public class PatientLoginSignupController {
     public RedirectView LoginPatient(HttpSession session, @RequestParam(value="patientId") String patientId, @RequestParam(value="patientPassword") String password){
         System.out.println(patientId+"patientId");
         System.out.println(password+"password");
+        password = passwordEncryptionService.hashPassword(password);
         boolean isCredentialsValid;
         isCredentialsValid = loginSignupService.isPatientCredentialValid(patientId,password);
         System.out.println(isCredentialsValid+"iscredentialValid");

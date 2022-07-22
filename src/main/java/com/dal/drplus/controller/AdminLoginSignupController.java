@@ -4,6 +4,7 @@ import com.dal.drplus.model.Admin;
 import com.dal.drplus.repository.implementation.AdminRepositoryImpl;
 import com.dal.drplus.service.AdminLoginSignupService;
 import com.dal.drplus.service.AdminService;
+import com.dal.drplus.service.PasswordEncryptionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,10 +19,12 @@ public class AdminLoginSignupController {
 
     private AdminLoginSignupService loginSignupService;
     private AdminService adminService;
+    private PasswordEncryptionService passwordEncryptionService;
 
     public AdminLoginSignupController(AdminRepositoryImpl adminRepository) {
         this.loginSignupService = new AdminLoginSignupService(adminRepository);
         this.adminService =new AdminService(adminRepository);
+        this.passwordEncryptionService = new PasswordEncryptionService();
     }
 
     @GetMapping("/admin_signup")
@@ -36,6 +39,11 @@ public class AdminLoginSignupController {
         System.out.println("admin pas"+admin.getAdminPassword());
         System.out.println("admin ak"+admin.getAdminAccessKey());
         System.out.println("confirmPassword"+confirmPassword);
+        admin.setAdminPassword(passwordEncryptionService.hashPassword(admin.getAdminPassword()));
+        confirmPassword = passwordEncryptionService.hashPassword(confirmPassword);
+
+        System.out.println("HASH admin pas"+admin.getAdminPassword());
+        System.out.println("HASH confirmPassword"+confirmPassword);
         boolean result = loginSignupService.registerAdmin(admin,confirmPassword);
         return "admin/login";
     }
@@ -48,7 +56,9 @@ public class AdminLoginSignupController {
     @PostMapping("/admin_login")
     public RedirectView loginAdmin(HttpSession session, @RequestParam(value="adminId") String adminId, @RequestParam(value="adminPassword") String password){
         System.out.println(adminId+"adminId");
-        System.out.println(password+"password");
+        System.out.println(password+" password");
+        password = passwordEncryptionService.hashPassword(password);
+        System.out.println(password+" hashed password");
         boolean isCredentialsValid;
         isCredentialsValid = loginSignupService.isAdminCredentialValid(adminId,password);
         System.out.println(isCredentialsValid+"iscredentialValid");

@@ -23,16 +23,25 @@ public class AppointmentController {
 
     private AppointmentService appointmentService;
     private AppointmentListService appointmentListService;
-
+    private DoctorSlotService doctorSlotService;
     private DoctorService doctorService;
     private LabService labService;
+    private LabSlotService labSlotService;
     private BillService billService;
-    public AppointmentController(AppointmentRepositoryImpl appointmentRepository, DoctorRepositoryImpl doctorRepository, BillRepositoryImpl billRepository, WalletRepositoryImpl walletRepository, LabRepositoryImpl labRepository) {
+    public AppointmentController(AppointmentRepositoryImpl appointmentRepository,
+                                 DoctorRepositoryImpl doctorRepository,
+                                 BillRepositoryImpl billRepository,
+                                 WalletRepositoryImpl walletRepository,
+                                 LabRepositoryImpl labRepository,
+                                 DoctorScheduleRepositoryImpl doctorScheduleRepository,
+                                 LabScheduleRepositoryImpl labScheduleRepository) {
         this.appointmentService = new AppointmentService(appointmentRepository);
         this.appointmentListService = new AppointmentListService(appointmentRepository);
         this.doctorService = new DoctorService(doctorRepository);
         this.billService = new BillService(billRepository);
         this.labService = new LabService(labRepository);
+        this.doctorSlotService = new DoctorSlotService(doctorScheduleRepository);
+        this.labSlotService = new LabSlotService(labScheduleRepository);
     }
 
     @GetMapping("/appointment_list")
@@ -63,7 +72,7 @@ public class AppointmentController {
 
         boolean result = appointmentService.bookAppointment(appointment);
         if(result == true){
-            //mark doctor slot booked
+            doctorSlotService.updateSlotStatus(true, Integer.parseInt(slotId));
         }
         //return "appointment/appointment_booked";
 //        attributes.addFlashAttribute("billAmount",billAmount);
@@ -78,8 +87,8 @@ public class AppointmentController {
         Appointment appointment = new Appointment();
         Patient currentPatient = (Patient) session.getAttribute("CurrentPatient");
         Lab lab = labService.getLabById(labId);
-        double billAmount = lab.getLabFee();
         int billId = billService.generateBill(lab.getLabFee(),"LAB");
+        double billAmount = lab.getLabFee();
         appointment.setSlotId(Integer.parseInt(slotId));
         appointment.setAppointmentType("LAB");
         appointment.setAppointmentDescription("");
@@ -91,12 +100,34 @@ public class AppointmentController {
 
         boolean result = appointmentService.bookAppointment(appointment);
         if(result == true){
-            //mark lab slot booked
+            labSlotService.updateSlotStatus(true, Integer.parseInt(slotId));
         }
 //        attributes.addFlashAttribute("billAmount",billAmount);
 //        System.out.println("bill amount in appointment controller"+billAmount);
         attributes.addFlashAttribute("bill",billService.getBill(billId));
         return new RedirectView("/payment");
+    }
+
+    @GetMapping("/rescheduleDoctorSlot/{slotId}/{appointmentId}")
+    public RedirectView rescheduleDoctorSlot(Model model, @PathVariable("slotId") int slotId, @PathVariable("appointmentId") int appointmentId){
+        Appointment appointment = appointmentService.findAppointmentbyId(appointmentId);
+        int previousSlotId = appointment.getSlotId();
+        boolean res = doctorSlotService.updateSlotStatus(false,previousSlotId);
+        boolean res1 = appointmentService.rescheduleAppointment(slotId,appointmentId);
+        boolean res2 = doctorSlotService.updateSlotStatus(true,slotId);
+        System.out.println(res+" "+res1+" "+res2);
+        return new RedirectView("/appointment_booked_page");
+    }
+
+    @GetMapping("/rescheduleLabSlot/{slotId}/{appointmentId}")
+    public RedirectView rescheduleLabSlot(Model model, @PathVariable("slotId") int slotId, @PathVariable("appointmentId") int appointmentId){
+        Appointment appointment = appointmentService.findAppointmentbyId(appointmentId);
+        int previousSlotId = appointment.getSlotId();
+        boolean res = labSlotService.updateSlotStatus(false,previousSlotId);
+        boolean res1 = appointmentService.rescheduleAppointment(slotId,appointmentId);
+        boolean res2 = labSlotService.updateSlotStatus(true,slotId);
+        System.out.println(res+" "+res1+" "+res2);
+        return new RedirectView("/appointment_booked_page");
     }
 
     @GetMapping("/error_appointment")

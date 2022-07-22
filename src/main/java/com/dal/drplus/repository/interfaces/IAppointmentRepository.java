@@ -13,7 +13,7 @@ public interface IAppointmentRepository {
 
     IAppointmentRepository.StorageResult saveAppointment(Appointment appointment);
     IAppointmentRepository.StorageResult updateAppointment(Appointment appointment);
-    Appointment findAppointmentById(String appointmentId);
+    Appointment findAppointmentById(int appointmentId);
     List<Appointment> findAppointmentByDoctorId(String doctorId);
     List<Appointment> findAppointmentByLabId(String labId);
     List<Appointment> findAppointmentByPatientId(String patientId);
@@ -25,9 +25,11 @@ public interface IAppointmentRepository {
     List<Appointment> findAll();
     StorageResult deleteAll();
     StorageResult deleteAppointmentbyLabID(String labId);
+    StorageResult updateSlotId(int slotId, int appointmentId);
     StorageResult deleteAppointmentbyPatientID(String patientId);
     StorageResult deleteAppointmentbyDoctorID(String doctorId);
     StorageResult isAppointmentConflict(String slotDate, String slotTime, String patientId);
     String getPatientIdBySlotId(int slotId);
     StorageResult updateAppointmentFee(int billId,double amount);
+
 }

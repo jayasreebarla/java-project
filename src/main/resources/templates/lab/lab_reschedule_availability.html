@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Lab Reschedule Availability</title>
+</head>
+<body>
+Reschedule Appointment Id : <p th:text="${appointment.getAppointmentId()}">
+<h2> Lab Availability List: </h2>
+<table class = "table table-striped table-bordered">
+    <thead>
+    <tr>
+        <th> Slot Id </th>
+        <th> Slot Timing </th>
+        <th> Slot date </th>
+        <th> Actions </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${labSlots.isEmpty()}">
+        <td colspan="2"> No Slots Available </td>
+    </tr>
+
+    <tr th:each="labSlot : ${labSlots}">
+        <td><span th:text="${labSlot.slotId}"> Slot Id </span></td>
+        <td><span th:text="${labSlot.slotDate}"> Slot Date </span></td>
+        <td><span th:text="${labSlot.slotTiming}"> Slot Timing </span></td>
+        <td><a th:href = "@{/rescheduleLabSlot/{slotId}/{appointmentId}(slotId=${labSlot.slotId},appointmentId=${appointment.getAppointmentId()})}"
+               class = "btn btn-primary">Reschedule Appointment</a></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

@@ -19,6 +19,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
     static Appointment appointment2 = new Appointment(7,"2022-07-17","10:00-11:00","",200,"p1","d1",1,2,"","DOCTOR");
     static Appointment appointment3 = new Appointment(101,"2022-07-17","02:00-04:00","",200,"p1","",1,2,"l1","LAB");
     static Appointment appointment4 = new Appointment(102,"2022-07-18","02:00-04:00","",200,"p2","",1,2,"l1","LAB");
+    static int slotId1 = 20;
+    static int slotId2 = 30;
 
     private static AppointmentService appointmentService;
     private static IAppointmentRepository appointmentRepository;
@@ -48,6 +50,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
         Mockito.when(appointmentRepository.deleteAppointmentbyPatientID(appointment1.getPatientId()))
                 .thenReturn(IAppointmentRepository.StorageResult.SUCCESS);
         Mockito.when(appointmentRepository.deleteAppointmentbyPatientID(appointment4.getPatientId()))
+                .thenReturn(IAppointmentRepository.StorageResult.FAILURE);
+
+        Mockito.when(appointmentRepository.updateSlotId(slotId1,appointment1.getAppointmentId()))
+                .thenReturn(IAppointmentRepository.StorageResult.SUCCESS);
+        Mockito.when(appointmentRepository.updateSlotId(slotId2,appointment2.getAppointmentId()))
                 .thenReturn(IAppointmentRepository.StorageResult.FAILURE);
         Mockito.when(appointmentRepository.updateAppointmentFee(1,34)).thenReturn(IAppointmentRepository.StorageResult.SUCCESS);
         Mockito.when(appointmentRepository.updateAppointmentFee(2,34)).thenReturn(IAppointmentRepository.StorageResult.FAILURE);
@@ -210,6 +217,18 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
          Mockito.when(appointmentRepository.findAppointmentByDoctorId(appointment3.getDoctorId()))
                  .thenReturn(appointmentList);
          boolean result = appointmentService.deleteAppointmentbyDoctorId(appointment3.getDoctorId());
+         assertFalse(result);
+     }
+
+     @Test
+     void rescheduleAppointmentTrue(){
+        boolean result = appointmentService.rescheduleAppointment(slotId1, appointment1.getAppointmentId());
+        assertTrue(result);
+     }
+
+     @Test
+     void rescheduleAppointmentFalse(){
+         boolean result = appointmentService.rescheduleAppointment(slotId2, appointment2.getAppointmentId());
          assertFalse(result);
      }
 

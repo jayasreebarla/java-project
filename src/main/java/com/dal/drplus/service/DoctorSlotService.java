@@ -18,6 +18,19 @@ public class DoctorSlotService {
         return doctorScheduleRepository.findScheduleByDoctorID(doctorId);
     }
 
+    public List<DoctorSchedule> filterUnbookedSlotOnDoctorId(String doctorId){
+        return doctorScheduleRepository.listUnbookedSchedulesbyDoctorID(doctorId);
+    }
+
+    public boolean updateSlotStatus(boolean status, int slotId){
+        IDoctorScheduleRepository.StorageResult result = doctorScheduleRepository.updateSlotStatus(status, slotId);
+        if(result.equals(IDoctorScheduleRepository.StorageResult.SUCCESS)){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public List<DoctorSchedule> listAllDoctorSlots(){
         return doctorScheduleRepository.findAll();
     }
