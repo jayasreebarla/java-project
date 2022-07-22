@@ -22,6 +22,9 @@ public class LabSlotService {
         return labScheduleRepository.findScheduleByLabID(labId);
     }
 
+    public List<LabSchedule> filterUnbookedSlotOnLabId(String labId){
+        return labScheduleRepository.listUnbookedSlotsbyLabId(labId);
+    }
     public boolean addLabSlot(LabSchedule labSchedule){
         labSchedule.setStatus(false);
         ILabScheduleRepository.StorageResult result = labScheduleRepository.saveLabSchedule(labSchedule);
@@ -32,6 +35,14 @@ public class LabSlotService {
         }
     }
 
+    public boolean updateSlotStatus(boolean status, int slotId){
+        ILabScheduleRepository.StorageResult result = labScheduleRepository.updateSlotStatus(status, slotId);
+        if(result.equals(ILabScheduleRepository.StorageResult.SUCCESS)){
+            return true;
+        } else {
+            return false;
+        }
+    }
     public boolean deleteSlotById(int slotId){
         ILabScheduleRepository.StorageResult result = labScheduleRepository.deleteScheduleBySlotID(slotId);
         if(result.equals(ILabScheduleRepository.StorageResult.SUCCESS)){
