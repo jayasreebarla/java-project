@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <style>
+        table, th, td {
+            border: 1px solid;
+        }
+    </style>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th> Appointment Id </th>
+        <th> Slot Id </th>
+        <th> Appointment Type </th>
+        <th> Appointment Description </th>
+        <th> Appointment Fee </th>
+        <th> Patient Id </th>
+        <th> Doctor Id </th>
+        <th> Bill Id </th>
+        <th> Lab Id </th>
+        <th> Slot Date </th>
+        <th> Slot Time </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${notifications.isEmpty()}">
+        <td colspan="2"> No Appointments Available </td>
+    </tr>
+    <tr th:each="notification : ${notifications}">
+        <td><span th:text="${notification.getAppointmentId()}"> Appointment Id </span></td>
+        <td><span th:text="${notification.getAppointmentDate()}"> Slot Id </span></td>
+        <td><span th:text="${notification.getAppointmentTime()}"> Appointment Type </span></td>
+        <td><span th:text="${notification.getAppointmentDescription()}"> Appointment Description </span></td>
+        <td><span th:text="${notification.getAppointmentType()}">  Appointment Fee </span></td>
+        <td><span th:text="${notification.getDoctorId()}">Patient Id </span></td>
+        <td><span th:text="${notification.getLabId()}"> Doctor Id </span></td>
+        <td><span th:text="${notification.getBillId()}"> Bill Id </span></td>
+        <td><span th:text="${notification.getBillId()}"> Lab Id </span></td>
+        <td><span th:text="${notification.getBillId()}"> Slot Date </span></td>
+        <td><span th:text="${notification.getBillId()}"> Slot Time </span></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
