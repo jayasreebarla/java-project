@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirm Payment</title>
+</head>
+<body>
+<form action="#" th:action="@{/payment}" method="post">
+    Bill : <p th:text="${billAmount}" th:object="${billAmount}">
+    <p><input type="submit" value="Submit" />
+</form>
+</body>
+</html>

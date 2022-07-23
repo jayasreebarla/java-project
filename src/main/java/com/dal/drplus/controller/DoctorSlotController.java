@@ -1,12 +1,17 @@
 package com.dal.drplus.controller;
 
+import com.dal.drplus.model.Appointment;
 import com.dal.drplus.model.DoctorSchedule;
+import com.dal.drplus.model.LabSchedule;
+import com.dal.drplus.repository.implementation.AppointmentRepositoryImpl;
 import com.dal.drplus.repository.implementation.DoctorScheduleRepositoryImpl;
+import com.dal.drplus.service.AppointmentService;
 import com.dal.drplus.service.DoctorSlotService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.print.Doc;
@@ -18,9 +23,12 @@ import java.util.List;
 public class DoctorSlotController {
 
     private DoctorSlotService doctorSlotService;
+    private AppointmentService appointmentService;
 
-    public DoctorSlotController(DoctorScheduleRepositoryImpl doctorScheduleRepository) {
+    public DoctorSlotController(DoctorScheduleRepositoryImpl doctorScheduleRepository,
+                                AppointmentRepositoryImpl appointmentRepository) {
         this.doctorSlotService = new DoctorSlotService(doctorScheduleRepository);
+        this.appointmentService = new AppointmentService(appointmentRepository);
     }
 
     @GetMapping("/doctor/{doctorId}")
@@ -29,6 +37,16 @@ public class DoctorSlotController {
         List<DoctorSchedule> doctorScheduleList = doctorSlotService.filterSlotOnDoctorId(doctorId);
         model.addAttribute("doctorSlots",doctorScheduleList);
         return "doctor/doctor_availability";
+    }
+
+    @GetMapping("/doctor_reschedule/{appointmentId}")
+    public String listRescheduleSlotOnDoctorId(Model model, @PathVariable("appointmentId") int appointmentId){
+        System.out.println("appointmentId: "+appointmentId);
+        Appointment appointment = appointmentService.findAppointmentbyId(appointmentId);
+        List<DoctorSchedule> doctorScheduleList = doctorSlotService.filterUnbookedSlotOnDoctorId(appointment.getDoctorId());
+        model.addAttribute("doctorSlots",doctorScheduleList);
+        model.addAttribute("appointment",appointment);
+        return "doctor/doctor_reschedule_availability";
     }
 }
 

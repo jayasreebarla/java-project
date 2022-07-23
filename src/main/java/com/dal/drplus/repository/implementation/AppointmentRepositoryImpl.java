@@ -4,6 +4,7 @@ import com.dal.drplus.model.Appointment;
 import com.dal.drplus.repository.configuration.DatabaseConfiguration;
 import com.dal.drplus.repository.configuration.DatabaseConfigurationImpl;
 import com.dal.drplus.repository.interfaces.IAppointmentRepository;
+import com.dal.drplus.repository.interfaces.IBillRepository;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
@@ -23,8 +24,10 @@ public class AppointmentRepositoryImpl implements IAppointmentRepository{
         " appointment_description=?, appointment_fee=?, patient_id=?, doctor_id=?, "+
             " bill_id=?, lab_id=? where appointment_id=? ";
 
+    String UPDATE_APPOINTMENT_SLOT_ID = "UPDATE Appointment set slot_id = ? where appointment_id = ?";
+
     String SELECT_APPOINTMENT_BY_ID = "SELECT appointment_id, appointment_description, appointment_type, "+
-            " appointment_fee, patient_id, bill_id, lab_id, doctor_id, "+
+            " appointment_fee, patient_id, bill_id, lab_id, doctor_id, slot_id, "+
             " case when appointment_type = 'DOCTOR' then (select slot_date from Doc_schedule D where D.slot_id=A.slot_id )"+
             " else (select slot_date from Lab_schedule L where L.slot_id=A.slot_id)  end as slot_date ,"+
             " case when appointment_type = 'DOCTOR' then (select slot_timing from Doc_schedule D where D.slot_id=A.slot_id)"+
@@ -50,15 +53,11 @@ public class AppointmentRepositoryImpl implements IAppointmentRepository{
             " appointment_fee, patient_id, bill_id, Appointment.lab_id, doctor_id, slot_timing, slot_date, Appointment.slot_id FROM Appointment, Lab_schedule"+
             " WHERE Appointment.slot_id = Lab_schedule.slot_id and Appointment.lab_id=?";
 
-    String SELECT_APPOINTMENT_BY_PATIENT_ID_N_DATE = "SELECT appointment_id, appointment_description, appointment_type, "+
-            " appointment_fee, patient_id, bill_id, lab_id, doctor_id, "+
-            " case when appointment_type = 'DOCTOR' then "+
-            "(select slot_date from Doc_schedule D where D.slot_id=A.slot_id and slot_date=?) "+
-            " else (select slot_date from Lab_schedule L where L.slot_id=A.slot_id and slot_date=?)  end as slot_date ,"+
-            " case when appointment_type = 'DOCTOR' then "+
-            "(select slot_timing from Doc_schedule D where D.slot_id=A.slot_id and slot_date=?) "+
-            " else (select slot_timing from Lab_schedule L where L.slot_id=A.slot_id and slot_date=?)  end as slot_timing"+
-            " FROM Appointment A WHERE patient_id=? ";
+    String SELECT_APPOINTMENT_BY_PATIENT_ID_N_DATE = "(select b.*, a.slot_date, a.slot_timing from Doc_schedule a, Appointment b "+
+            " where slot_date=? and b.slot_id = a.slot_id and b.appointment_type='DOCTOR' and b.patient_id=?) union "+
+            " (select b.*, a.slot_date, a.slot_timing from Lab_schedule a, Appointment b where slot_date=? "+
+            " and b.slot_id = a.slot_id and b.appointment_type='LAB' and b.patient_id=?)" +
+            "";
 
     String SELECT_APPOINTMENT_BY_DOCTOR_ID_N_DATE = "SELECT appointment_id, appointment_description, appointment_type, "+
             " appointment_fee, patient_id, bill_id, lab_id, doctor_id, slot_timing, slot_date  FROM Appointment, Doc_schedule"+
@@ -68,15 +67,10 @@ public class AppointmentRepositoryImpl implements IAppointmentRepository{
             " appointment_fee, patient_id, bill_id, lab_id, doctor_id, slot_timing, slot_date  FROM Appointment, Lab_schedule"+
             " WHERE Appointment.slot_id = Lab_schedule.slot_id and lab_id=? and slot_date=?";
 
-    String SELECT_APPOINTMENT_BY_DATE = "SELECT appointment_id, appointment_description, appointment_type, "+
-            " appointment_fee, patient_id, bill_id, lab_id, doctor_id, "+
-            " case when appointment_type = 'DOCTOR' then "+
-            "(select slot_date from Doc_schedule D where D.slot_id=A.slot_id and slot_date=?)"+
-            " else (select slot_date from Lab_schedule L where L.slot_id=A.slot_id and slot_date=?)  end as slot_date,"+
-            " case when appointment_type = 'DOCTOR' then "+
-            "(select slot_timing from Doc_schedule D where D.slot_id=A.slot_id and slot_date=?)"+
-            " else (select slot_timing from Lab_schedule L where L.slot_id=A.slot_id and slot_date=?)  end as slot_timing"+
-            " FROM Appointment A";
+    String SELECT_APPOINTMENT_BY_DATE = "(select b.*, a.slot_date, a.slot_timing from Doc_schedule a, Appointment b "+
+            " where slot_date=? and b.slot_id = a.slot_id and b.appointment_type='DOCTOR') union "+
+            " (select b.*, a.slot_date, a.slot_timing from Lab_schedule a, Appointment b where slot_date=? "+
+            " and b.slot_id = a.slot_id and b.appointment_type='LAB')";
 
     String DELETE_APPOINTMENT_BY_ID = "DELETE from Appointment where appointment_id=? ";
 
@@ -100,6 +94,7 @@ public class AppointmentRepositoryImpl implements IAppointmentRepository{
 
     String SELECT_PATIENT_BY_SLOT_ID_DOCTOR = "SELECT patient_id from Appointment WHERE slot_id=? and appointment_type='DOCTOR' ";
 
+    String UPDATE_APPOINTMENT_FEE_BY_BILL_ID = "UPDATE Appointment SET appointment_fee=? WHERE bill_id=?";
     DatabaseConfiguration databaseConfiguration;
 
     public AppointmentRepositoryImpl() {
@@ -133,6 +128,24 @@ public class AppointmentRepositoryImpl implements IAppointmentRepository{
     }
 
     @Override
+    public StorageResult updateSlotId(int slotId, int appointmentId) {
+        try {
+            PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(UPDATE_APPOINTMENT_SLOT_ID);
+            statement.setInt(1,slotId);
+            statement.setInt(2,appointmentId);
+            int result = statement.executeUpdate();
+            if(result == 1) {
+                return IAppointmentRepository.StorageResult.SUCCESS;
+            } else {
+                return IAppointmentRepository.StorageResult.FAILURE;
+            }
+        } catch (SQLException e) {
+            // throw new RuntimeException(e);
+            return IAppointmentRepository.StorageResult.FAILURE;
+        }
+    }
+
+    @Override
     public StorageResult updateAppointment(Appointment appointment) {
         try {
             PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(UPDATE_APPOINTMENT);
@@ -155,11 +168,11 @@ public class AppointmentRepositoryImpl implements IAppointmentRepository{
     }
 
     @Override
-    public Appointment findAppointmentById(String appointmentId) {
+    public Appointment findAppointmentById(int appointmentId) {
         Appointment appointment = null;
         try {
             PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(SELECT_APPOINTMENT_BY_ID);
-            statement.setString(1,appointmentId);
+            statement.setInt(1,appointmentId);
             ResultSet rs = statement.executeQuery();
             while (rs.next()){
                 appointment = createAppointment(rs);
@@ -249,10 +262,9 @@ public class AppointmentRepositoryImpl implements IAppointmentRepository{
         try {
             PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(SELECT_APPOINTMENT_BY_PATIENT_ID_N_DATE);
             statement.setString(1,date);
-            statement.setString(2,date);
+            statement.setString(2,patientId);
             statement.setString(3,date);
-            statement.setString(4,date);
-            statement.setString(5,patientId);
+            statement.setString(4,patientId);
 
             ResultSet rs = statement.executeQuery();
             while (rs.next()){
@@ -292,8 +304,6 @@ public class AppointmentRepositoryImpl implements IAppointmentRepository{
             PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(SELECT_APPOINTMENT_BY_DATE);
             statement.setString(1,date);
             statement.setString(2,date);
-            statement.setString(3,date);
-            statement.setString(4,date);
             ResultSet rs = statement.executeQuery();
             while (rs.next()){
                 Appointment appointment = null;
@@ -444,6 +454,24 @@ public class AppointmentRepositoryImpl implements IAppointmentRepository{
             throw new RuntimeException(e);
         }
         return patientId;
+    }
+
+    @Override
+    public StorageResult updateAppointmentFee(int billId,double amount){
+        try {
+            PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(UPDATE_APPOINTMENT_FEE_BY_BILL_ID);
+            statement.setDouble(1,amount);
+            statement.setInt(2,billId);
+            if(statement.executeUpdate() == 1){
+                return IAppointmentRepository.StorageResult.SUCCESS;
+            }else{
+                return IAppointmentRepository.StorageResult.FAILURE;
+            }
+        } catch (SQLException e) {
+            //throw new RuntimeException(e);
+            return IAppointmentRepository.StorageResult.FAILURE;
+        }
+
     }
 
     private Appointment createAppointment(ResultSet rs) throws SQLException {

@@ -19,6 +19,10 @@ public class LabScheduleRepositoryImpl implements ILabScheduleRepository {
     String UPDATE_LAB_SCHEDULE = "UPDATE Lab_schedule SET slot_timing=?,slot_date=?,lab_id=?,status=? WHERE slot_id=?";
     String FIND_SCHEDULE_BY_LAB_ID = "SELECT * FROM Lab_schedule WHERE lab_id=?";
     String FIND_SCHEDULE_BY_SLOT_ID = "SELECT * FROM Lab_schedule WHERE slot_id=?";
+
+    String LIST_UNBOOKED_SLOT_SCHEDULES_BY_LAB_ID = "SELECT * FROM Lab_schedule WHERE lab_id=? "+
+            " and status=false and slot_date>sysdate()";
+    String UPDATE_SLOT_STATUS = "Update Lab_schedule set status = ? where slot_id = ?";
     String DELETE_SCHEDULE_BY_LAB_ID = "DELETE FROM Lab_schedule WHERE lab_id=?";
     String DELETE_SCHEDULE_BY_SLOT_ID = "DELETE FROM Lab_schedule WHERE slot_id=?";
     String DELETE_ALL = "DELETE FROM Lab_schedule";
@@ -42,8 +46,8 @@ public class LabScheduleRepositoryImpl implements ILabScheduleRepository {
         try {
             PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(INSERT_LAB_SCHEDULE);
 //            statement.setString(1,labSchedule.getSlotTiming());
-            statement.setString(1, labSchedule.getSlotDate());
-            statement.setString(2, labSchedule.getSlotTiming());
+            statement.setString(2, labSchedule.getSlotDate());
+            statement.setString(1, labSchedule.getSlotTiming());
             statement.setString(3,labSchedule.getLabId());
             statement.setBoolean(4,labSchedule.getStatus());
             statement.executeUpdate();
@@ -119,6 +123,41 @@ public class LabScheduleRepositoryImpl implements ILabScheduleRepository {
             return labSchedule;
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public List<LabSchedule> listUnbookedSlotsbyLabId(String labId) {
+        List<LabSchedule> labScheduleList = new ArrayList<>();
+        try {
+            PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(LIST_UNBOOKED_SLOT_SCHEDULES_BY_LAB_ID);
+            statement.setString(1,labId);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()){
+                labScheduleList.add(createLabSchedule(rs));
+            }
+            return labScheduleList;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public StorageResult updateSlotStatus(boolean status, int slotId) {
+        PreparedStatement statement = null;
+        try {
+            statement = databaseConfiguration.getDBConnection().prepareStatement(UPDATE_SLOT_STATUS);
+            statement.setBoolean(1,status);
+            statement.setInt(2,slotId);
+            int result = statement.executeUpdate();
+            if(result == 1){
+                return StorageResult.SUCCESS;
+            }
+            return StorageResult.FAILURE;
+
+        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+            return StorageResult.FAILURE;
         }
     }
 

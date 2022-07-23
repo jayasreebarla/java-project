@@ -169,6 +169,51 @@ public class DoctorScheduleRepositoryImpl implements IDoctorScheduleRepository {
     }
 
     @Override
+    public List<DoctorSchedule> listUnbookedSchedulesbyDoctorID(String doctorId) {
+        List<DoctorSchedule> doctorScheduleList = new ArrayList<>();
+        PreparedStatement statement = null;
+        String SELECT_UNBOOKED_SLOTS_BY_DOCTOR_ID = "Select * from Doc_schedule where doctor_id = ? "+
+                "and status=false and slot_date>sysdate()";
+
+        try {
+            statement = databaseConfiguration.getDBConnection().prepareStatement(SELECT_UNBOOKED_SLOTS_BY_DOCTOR_ID);
+            statement.setString(1, doctorId);
+            ResultSet rs = statement.executeQuery();
+            while(rs.next()) {
+                DoctorSchedule doctorSchedule = new DoctorSchedule();
+                doctorSchedule.setSlotId(rs.getInt("slot_id"));
+                doctorSchedule.setSlotTiming(rs.getString("slot_timing"));
+                doctorSchedule.setSlotDate(rs.getString("slot_date"));
+                doctorSchedule.setDoctorId(rs.getString("doctor_id"));
+                doctorSchedule.setStatus(rs.getBoolean("status"));
+                doctorScheduleList.add(doctorSchedule);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return doctorScheduleList;
+    }
+
+    @Override
+    public StorageResult updateSlotStatus(boolean status, int slotId) {
+        PreparedStatement statement = null;
+        try {
+            statement = databaseConfiguration.getDBConnection().prepareStatement("Update Doc_schedule set status = ? where slot_id = ?");
+            statement.setBoolean(1,true);
+            statement.setInt(2,slotId);
+            int result = statement.executeUpdate();
+            if(result == 1) {
+                return StorageResult.SUCCESS;
+            } else {
+                return StorageResult.FAILURE;
+            }
+        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+            return StorageResult.FAILURE;
+        }
+    }
+
+    @Override
     public StorageResult deleteAllSchedules() {
 
         PreparedStatement statement = null;

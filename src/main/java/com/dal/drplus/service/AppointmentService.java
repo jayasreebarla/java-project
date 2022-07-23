@@ -23,6 +23,19 @@ public class AppointmentService {
         }
     }
 
+    public Appointment findAppointmentbyId(int appointmentId){
+        return appointmentRepository.findAppointmentById(appointmentId);
+    }
+
+    public boolean rescheduleAppointment(int slotId, int appointmentId) {
+        IAppointmentRepository.StorageResult result = appointmentRepository.updateSlotId(slotId, appointmentId);
+        if(IAppointmentRepository.StorageResult.SUCCESS.equals(result)){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public boolean bookAppointment(Appointment appointment) {
         IAppointmentRepository.StorageResult result = appointmentRepository.saveAppointment(appointment);
         if(IAppointmentRepository.StorageResult.SUCCESS.equals(result)){
@@ -109,5 +122,14 @@ public class AppointmentService {
             }
         }
         return true;
+    }
+
+    public boolean updateAppointmentByBillId(int billId,double amount){
+        IAppointmentRepository.StorageResult result = appointmentRepository.updateAppointmentFee(billId,amount);
+        if(result.equals(IAppointmentRepository.StorageResult.SUCCESS)){
+            return true;
+        }else{
+            return false;
+        }
     }
 }

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Payment Page</title>
+</head>
+<body>
+Make Payment
+<form action="#" th:action="@{/confirm-payment}" method="post">
+    <p>Promotion : <input type="text" th:name="promotion" /></p>
+    <p><input type="submit" value="Submit" />
+</form>
+</body>
+</html>

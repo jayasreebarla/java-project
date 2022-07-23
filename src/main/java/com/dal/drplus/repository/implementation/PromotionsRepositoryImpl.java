@@ -25,7 +25,7 @@ public class PromotionsRepositoryImpl implements IPromotionsRepository {
     String INSERT_PROMOTION = "INSERT INTO Promotions (promotion_id, promotion_name, promotion_start_date, promotion_end_date,amount_off) VALUES(?,?,?,?,?)";
     String UPDATE_PROMOTION = "UPDATE Promotions SET promotion_name=?, promotion_start_date=?, promotion_end_date=?, amount_off=? WHERE promotion_id=?";
     String FIND_PROMOTION_BY_ID = "SELECT * FROM Promotions WHERE promotion_id=?";
-    String DELETE_PROMOTION_BY_ID = "DELETE FROM Promotions WHERE promotions_id=?";
+    String DELETE_PROMOTION_BY_ID = "DELETE FROM Promotions WHERE promotion_id=?";
     String SELECT_ALL = "SELECT * from Promotions";
     String DELETE_ALL = "DELETE from Promotions";
     public IPromotionsRepository.StorageResult savePromotions(Promotions promotions) {
@@ -67,11 +67,11 @@ public class PromotionsRepositoryImpl implements IPromotionsRepository {
     }
 
     @Override
-    public Promotions findById(int promotion_id) {
+    public Promotions findById(String promotionId) {
         Promotions promotions = null;
         try {
             PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(FIND_PROMOTION_BY_ID);
-            statement.setInt(1,promotion_id);
+            statement.setString(1,promotionId);
             ResultSet rs = statement.executeQuery();
             while (rs.next()){
                 promotions = createPromotions(rs);

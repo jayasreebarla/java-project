@@ -1,8 +1,6 @@
 package com.dal.drplus.controller;
 
-import com.dal.drplus.model.Patient;
-import com.dal.drplus.model.RatingDoctor;
-import com.dal.drplus.model.RatingLab;
+import com.dal.drplus.model.*;
 import com.dal.drplus.repository.implementation.RatingDoctorRepositoryImpl;
 import com.dal.drplus.repository.implementation.RatingLabRepositoryImpl;
 import com.dal.drplus.service.RatingDoctorService;
@@ -12,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 public class RatingController {
@@ -94,5 +93,4 @@ public class RatingController {
         System.out.println("rating save result"+result);
         return "Rating/rating_successful";
     }
-
 }

@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class LabSlotServiceTest {
 
-    static LabSchedule labSchedule = new LabSchedule(1, "10:00 - 12:00", "2022-07-17", "l1", true );
+    static LabSchedule labSchedule = new LabSchedule(1, "10:00 - 12:00", "2022-07-17", "l1", false );
     static LabSchedule labSchedule1 = new LabSchedule(2, "12:00 - 2:00", "2022-08-11", "l2",true);
     static LabSchedule labSchedule2 = new LabSchedule(3, "3:00 - 1:00", "2022-09-11", "l3",true);
 
@@ -32,9 +32,15 @@ public class LabSlotServiceTest {
 
         Mockito.when(labScheduleRepository.deleteScheduleBySlotID(24)).thenReturn(ILabScheduleRepository.StorageResult.FAILURE);
         Mockito.when(labScheduleRepository.deleteScheduleBySlotID(3)).thenReturn(ILabScheduleRepository.StorageResult.SUCCESS);
-        Mockito.when(labScheduleRepository.deleteScheduleByLabID(labSchedule.getLabId())).thenReturn(ILabScheduleRepository.StorageResult.SUCCESS);
-        Mockito.when(labScheduleRepository.deleteScheduleByLabID(labSchedule1.getLabId())).thenReturn(ILabScheduleRepository.StorageResult.FAILURE);
+        Mockito.when(labScheduleRepository.deleteScheduleByLabID(labSchedule.getLabId()))
+                .thenReturn(ILabScheduleRepository.StorageResult.SUCCESS);
+        Mockito.when(labScheduleRepository.deleteScheduleByLabID(labSchedule1.getLabId()))
+                .thenReturn(ILabScheduleRepository.StorageResult.FAILURE);
 
+        Mockito.when(labScheduleRepository.updateSlotStatus(true,labSchedule.getSlotId()))
+                .thenReturn(ILabScheduleRepository.StorageResult.SUCCESS);
+        Mockito.when(labScheduleRepository.updateSlotStatus(false,labSchedule1.getSlotId()))
+                .thenReturn(ILabScheduleRepository.StorageResult.FAILURE);
         labSlotService = new LabSlotService(labScheduleRepository);
     }
 
@@ -97,6 +103,20 @@ public class LabSlotServiceTest {
     }
 
     @Test
+    void listAllUnbookedLabSchedulebyLabId(){
+        List<LabSchedule> labScheduleList = new ArrayList<>();
+        labScheduleList.add(labSchedule);
+
+        Mockito.when(labScheduleRepository.listUnbookedSlotsbyLabId(labSchedule.getLabId()))
+                .thenReturn(labScheduleList);
+
+        List<LabSchedule> labSchedules = labSlotService.filterUnbookedSlotOnLabId(labSchedule.getLabId());
+        List<LabSchedule> expectLabSchedules = new ArrayList<>();
+        expectLabSchedules.add(labSchedule);
+        assertIterableEquals(expectLabSchedules, labSchedules);
+    }
+
+    @Test
     void deleteSlotByLabIdTrue(){
         List<LabSchedule> labScheduleList = new ArrayList<>();
         labScheduleList.add(labSchedule);
@@ -115,6 +135,18 @@ public class LabSlotServiceTest {
         Mockito.when(labScheduleRepository.findScheduleByLabID(labSchedule1.getLabId()))
                 .thenReturn(labScheduleList);
         boolean result = labSlotService.deleteSlotByLabId(labSchedule1.getLabId());
+        assertFalse(result);
+    }
+
+    @Test
+    void updateSlotStatusTrue(){
+        boolean result = labSlotService.updateSlotStatus(true, labSchedule.getSlotId());
+        assertTrue(result);
+    }
+
+    @Test
+    void updateSlotStatusFalse(){
+        boolean result = labSlotService.updateSlotStatus(false, labSchedule1.getSlotId());
         assertFalse(result);
     }
 }

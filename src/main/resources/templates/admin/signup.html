@@ -8,8 +8,8 @@
 
 <form action="#" th:action="@{/auth_admin/admin_signup}" th:object="${admin}" method="post">
   <p>Admin ID: <input type="text" required="required" th:field="*{adminId}" /></p>
-  <p>Admin Password : <input type="text" required="required" th:field="*{adminPassword}" /></p>
-  <p>Admin Confirm Password : <input type="text" required="required" th:name="confirmAdminPassword" /></p>
+  <p>Admin Password : <input type="password" required="required" th:field="*{adminPassword}" /></p>
+  <p>Admin Confirm Password : <input type="password" required="required" th:name="confirmAdminPassword" /></p>
   <p>Admin AccessKey: <input type="text" required="required" th:field="*{adminAccessKey}" /></p>
   <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
 </form>

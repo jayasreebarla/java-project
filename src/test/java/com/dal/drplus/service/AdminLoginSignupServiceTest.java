@@ -58,6 +58,7 @@ public class AdminLoginSignupServiceTest {
     @Test
     void isAdminCredsInvalid(){
         boolean result = adminLoginSignupService.isAdminCredentialValid(admin.getAdminId(), admin1.getAdminPassword());
+        assertFalse(result);
     }
 
 

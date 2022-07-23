@@ -23,6 +23,7 @@ public class AdminController {
     private LabSlotService labSlotService;
     private RatingDoctorService ratingDoctorService;
     private RatingLabService ratingLabService;
+    private PromotionsService promotionsService;
 
     public AdminController(AppointmentRepositoryImpl appointmentRepository,
                            DoctorRepositoryImpl doctorRepository,
@@ -31,7 +32,8 @@ public class AdminController {
                            DoctorScheduleRepositoryImpl doctorScheduleRepository,
                            LabScheduleRepositoryImpl labScheduleRepository,
                            RatingDoctorRepositoryImpl ratingDoctorRepository,
-                           RatingLabRepositoryImpl ratingLabRepository ) {
+                           RatingLabRepositoryImpl ratingLabRepository,
+                           PromotionsRepositoryImpl promotionsRepository) {
         this.appointmentService = new AppointmentService(appointmentRepository);
         this.appointmentListService = new AppointmentListService(appointmentRepository);
         this.doctorService = new DoctorService(doctorRepository);
@@ -41,6 +43,7 @@ public class AdminController {
         this.labSlotService = new LabSlotService(labScheduleRepository);
         this.ratingDoctorService = new RatingDoctorService(ratingDoctorRepository);
         this.ratingLabService = new RatingLabService(ratingLabRepository);
+        this.promotionsService = new PromotionsService(promotionsRepository);
     }
 
     @GetMapping("/appointment_list_admin")
@@ -87,6 +90,23 @@ public class AdminController {
         List<LabSchedule> labSchedulesList = labSlotService.listAllLabSlots();
         model.addAttribute("labSlots",labSchedulesList);
         return "admin/lab_schedule_list_admin";
+    }
+
+    @GetMapping("/promotions_list_admin")
+    public String getPromotionsList(Model model){
+        List<Promotions> promotionsList = promotionsService.listAllPromotions();
+        model.addAttribute("Promotions",promotionsList);
+        return "admin/promotions_list";
+    }
+
+    @GetMapping("/delete_promotion_admin/{id}")
+    public RedirectView cancelPromotionsbyAdmin(@PathVariable String id){
+        boolean result = promotionsService.deletePromotionsbyId(id);
+        if(result == true){
+            return new RedirectView("/admin/promotions_list_admin");
+        } else {
+            return new RedirectView("/admin/error_list");
+        }
     }
 
     @GetMapping("/error_list")
