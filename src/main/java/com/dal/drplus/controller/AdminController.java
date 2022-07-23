@@ -3,6 +3,7 @@ package com.dal.drplus.controller;
 import com.dal.drplus.model.*;
 import com.dal.drplus.repository.implementation.*;
 import com.dal.drplus.service.*;
+import com.dal.drplus.service.interfaces.NotificationsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -44,8 +45,12 @@ public class AdminController {
 
     @GetMapping("/appointment_list_admin")
     public String getAppointmentList(Model model){
-        List<Appointment> appointmentList = appointmentListService.listAppointmentAll();
+        NotificationsService notificationsService = new NotificationsService();
+        //List<Appointment> appointmentList = appointmentListService.listAppointmentAll();
+        List<Appointment> appointmentList = notificationsService.NotifyPatient("P12");
         model.addAttribute("appointments",appointmentList);
+
+        /////////////////////////
         return "admin/appointments_list_admin";
     }
 

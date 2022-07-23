@@ -18,8 +18,8 @@ public class DrPlusApplication {
 		SpringApplication.run(DrPlusApplication.class, args);
 		DatabaseConfiguration db = new DatabaseConfigurationImpl();
 		db.getDBConnection();
-		MailController controller = new MailController();
-		controller.triggerMailService();
+		//MailController controller = new MailController();
+		//controller.triggerMailService();
 	}
 
 }
