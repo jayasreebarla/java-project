@@ -30,11 +30,14 @@ public class NotificationsRepositoryImpl implements INotificationRepository {
             " (select b.*, a.slot_date, a.slot_timing from Lab_schedule a, Appointment b where slot_date=? "+
             " and b.slot_id = a.slot_id and b.appointment_type='LAB' and b.patient_id=?)";
 
-    String NOTIFICATION_DOCTOR = "(select a.*, b.* from Doc_schedule a, Appointment b "+"where slot_date= ? "
-    +"and b.slot_id = a.slot_id and b.doctor_id= ?)";
+//    String NOTIFICATION_DOCTOR = "(select a.*, b.* from Doc_schedule a, Appointment b "+"where slot_date= ? "
+//    +"and b.slot_id = a.slot_id and b.doctor_id= ?)";
 
-    String NOTIFICATION_LAB = "(select a.*, b.* from Lab_schedule a, Appointment b where "+ "slot_date= ?"
-          +"  and b.slot_id = a.slot_id and b.lab_id= ?)";
+    String NOTIFICATION_DOCTOR = "( select a.*, b.appointment_id, b.patient_id from Doc_schedule a, Appointment b where slot_date= ? " + " and b.slot_id = a.slot_id and b.doctor_id= ? and b.appointment_type = 'DOCTOR')";
+
+//    String NOTIFICATION_LAB = "(select a.*, b.* from Lab_schedule a, Appointment b where "+ "slot_date= ?"
+//          +"  and b.slot_id = a.slot_id and b.lab_id= ?)";
+String NOTIFICATION_LAB =  "(select a.*, b.* from Lab_schedule a, Appointment b where slot_date= ? and b.slot_id = a.slot_id and b.lab_id= ? and b.appointment_type = 'LAB')";
 
     public NotificationsRepositoryImpl() {
         this.databaseConfiguration = dbConfig();
