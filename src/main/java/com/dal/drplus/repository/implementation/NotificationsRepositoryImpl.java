@@ -30,17 +30,17 @@ public class NotificationsRepositoryImpl implements INotificationRepository {
             " (select b.*, a.slot_date, a.slot_timing from Lab_schedule a, Appointment b where slot_date=? "+
             " and b.slot_id = a.slot_id and b.appointment_type='LAB' and b.patient_id=?)";
 
-    String NOTIFICATION_DOCTOR = "(select a.*, b.appointment_id, b.patient_id from Doc_schedule a, Appointment b "+"where slot_date= ? "
-    +"and b.slot_id = a.slot_id and b.doctor_id='A1')";
+    String NOTIFICATION_DOCTOR = "(select a.*, b.* from Doc_schedule a, Appointment b "+"where slot_date= ? "
+    +"and b.slot_id = a.slot_id and b.doctor_id= ?)";
 
-    String NOTIFICATION_LAB = "(select a.*, b.patient from Lab_schedule a, Appointment b where "+ "slot_date='2022-08-01'"
-          +"  and b.slot_id = a.slot_id and b.lab_id='A')";
+    String NOTIFICATION_LAB = "(select a.*, b.* from Lab_schedule a, Appointment b where "+ "slot_date= ?"
+          +"  and b.slot_id = a.slot_id and b.lab_id= ?)";
 
     public NotificationsRepositoryImpl() {
         this.databaseConfiguration = dbConfig();
     }
 
-    public List<Appointment> NotifyPatient(String patientId)
+    public List<Appointment> notifyPatient(String patientId)
     {
         List<Appointment> appointmentList = new ArrayList();
 
@@ -56,9 +56,11 @@ public class NotificationsRepositoryImpl implements INotificationRepository {
                 statement.setString(4,patientId);
                 ResultSet rs = statement.executeQuery();
                 while (rs.next()) {
-                    Appointment appointment = null;
+                    Appointment appointment;
                     appointment = createAppointment(rs);
-                    appointmentList.add(appointment);
+                    if(appointment!=null){
+                        appointmentList.add(appointment);
+                    }
                 }
             }
             return appointmentList;
@@ -67,7 +69,7 @@ public class NotificationsRepositoryImpl implements INotificationRepository {
         }
     }
 
-    public List<Appointment> NotifyDoctor(String doctorId)
+    public List<Appointment> notifyDoctor(String doctorId)
     {
         List<Appointment> appointmentList = new ArrayList();
 
@@ -79,11 +81,9 @@ public class NotificationsRepositoryImpl implements INotificationRepository {
                 PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(NOTIFICATION_DOCTOR);
                 statement.setString(1,nextAppDate);
                 statement.setString(2,doctorId);
-                statement.setString(3,nextAppDate);
-                statement.setString(4,doctorId);
                 ResultSet rs = statement.executeQuery();
                 while (rs.next()) {
-                    Appointment appointment = null;
+                    Appointment appointment;
                     appointment = createAppointment(rs);
                     appointmentList.add(appointment);
                 }
@@ -94,9 +94,10 @@ public class NotificationsRepositoryImpl implements INotificationRepository {
         }
     }
 
-    public List<Appointment> NotifyLab(String labId)
+
+    public List<Appointment> notifyLab(String labId)
     {
-        List<Appointment> appointmentList = new ArrayList();
+        List<Appointment> appointmentList = new ArrayList<>();
 
         try {
             for (int i =0; i<3; i++) {
@@ -106,11 +107,9 @@ public class NotificationsRepositoryImpl implements INotificationRepository {
                 PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(NOTIFICATION_LAB);
                 statement.setString(1,nextAppDate);
                 statement.setString(2,labId);
-                statement.setString(3,nextAppDate);
-                statement.setString(4,labId);
                 ResultSet rs = statement.executeQuery();
                 while (rs.next()) {
-                    Appointment appointment = null;
+                    Appointment appointment;
                     appointment = createAppointment(rs);
                     appointmentList.add(appointment);
                 }

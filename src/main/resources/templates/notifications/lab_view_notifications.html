@@ -23,18 +23,18 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:if="${appointments.isEmpty()}">
+    <tr th:if="${notifications.isEmpty()}">
         <td colspan="2"> No Appointments Available </td>
     </tr>
-    <tr th:each="appointment : ${appointments}">
-        <td><span th:text="${appointment.getAppointmentId()}"> Appointment Id </span></td>
-        <td><span th:text="${appointment.getAppointmentDate()}"> Appointment Date </span></td>
-        <td><span th:text="${appointment.getAppointmentTime()}"> Appointment Time </span></td>
-        <td><span th:text="${appointment.getAppointmentDescription()}"> Appointment Description </span></td>
-        <td><span th:text="${appointment.getAppointmentType()}"> Appointment Type </span></td>
-        <td><span th:text="${appointment.getDoctorId()}"> Doctor Id </span></td>
-        <td><span th:text="${appointment.getLabId()}"> Lab Id </span></td>
-        <td><span th:text="${appointment.getBillId()}"> Bill Id </span></td>
+    <tr th:each="notification : ${notifications}">
+        <td><span th:text="${notification.getAppointmentId()}"> Appointment Id </span></td>
+        <td><span th:text="${notification.getAppointmentDate()}"> Appointment Date </span></td>
+        <td><span th:text="${notification.getAppointmentTime()}"> Appointment Time </span></td>
+        <td><span th:text="${notification.getAppointmentDescription()}"> Appointment Description </span></td>
+        <td><span th:text="${notification.getAppointmentType()}"> Appointment Type </span></td>
+        <td><span th:text="${notification.getDoctorId()}"> Doctor Id </span></td>
+        <td><span th:text="${notification.getLabId()}"> Lab Id </span></td>
+        <td><span th:text="${notification.getBillId()}"> Bill Id </span></td>
     </tr>
     </tbody>
 </table>

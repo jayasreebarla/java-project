@@ -25,10 +25,10 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:if="${notifiations.isEmpty()}">
+    <tr th:if="${notifications.isEmpty()}">
         <td colspan="2"> No Appointments Available </td>
     </tr>
-    <tr th:each="notification : ${notifiations}">
+    <tr th:each="notification : ${notifications}">
         <td><span th:text="${notification.getAppointmentId()}"> Appointment Id </span></td>
         <td><span th:text="${notification.getAppointmentDate()}"> Slot Id </span></td>
         <td><span th:text="${notification.getAppointmentTime()}"> Appointment Type </span></td>
