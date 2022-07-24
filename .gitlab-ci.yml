@@ -21,12 +21,12 @@ test:
   tags:
     - dalfcs_docker_kvm
   image: gradle:latest
+  script: 
+    - ./gradlew check
   artifacts:
     when: always
     reports:
       junit: build/test-results/test/**/TEST-*.xml
-  script: 
-    - ./gradlew check
 
 deploy-test:
   type: deploy
