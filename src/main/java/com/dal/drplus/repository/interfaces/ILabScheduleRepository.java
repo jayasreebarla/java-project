@@ -1,6 +1,6 @@
 package com.dal.drplus.repository.interfaces;
 
-import com.dal.drplus.model.LabSchedule;
+import com.dal.drplus.model.entity.LabSchedule;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package com.dal.drplus.controller;
 
-import com.dal.drplus.model.Prescription;
+import com.dal.drplus.model.entity.Prescription;
 import com.dal.drplus.repository.implementation.PrescriptionRepositoryImpl;
 import com.dal.drplus.service.PrescriptionService;
 import org.springframework.stereotype.Controller;

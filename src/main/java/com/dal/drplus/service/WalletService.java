@@ -1,6 +1,6 @@
 package com.dal.drplus.service;
 
-import com.dal.drplus.model.Wallet;
+import com.dal.drplus.model.entity.Wallet;
 import com.dal.drplus.repository.interfaces.IWalletRepository;
 
 public class WalletService {

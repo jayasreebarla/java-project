@@ -1,6 +1,6 @@
 package com.dal.drplus.repository.interfaces;
 
-import com.dal.drplus.model.Wallet;
+import com.dal.drplus.model.entity.Wallet;
 
 public interface IWalletRepository {
     enum StorageResult{

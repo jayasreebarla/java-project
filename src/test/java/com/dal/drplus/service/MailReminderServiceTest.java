@@ -1,6 +1,6 @@
 package com.dal.drplus.service;
 
-import com.dal.drplus.model.Patient;
+import com.dal.drplus.model.entity.Patient;
 import com.dal.drplus.repository.implementation.*;
 import com.dal.drplus.repository.interfaces.IAppointmentRepository;
 import com.dal.drplus.repository.interfaces.IDoctorScheduleRepository;
@@ -8,7 +8,6 @@ import com.dal.drplus.repository.interfaces.ILabScheduleRepository;
 import com.dal.drplus.repository.interfaces.IPatientRepository;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.ArrayList;

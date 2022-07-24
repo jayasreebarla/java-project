@@ -1,5 +1,5 @@
 package com.dal.drplus.service;
-import com.dal.drplus.model.Promotions;
+import com.dal.drplus.model.entity.Promotions;
 
 import com.dal.drplus.repository.interfaces.IPromotionsRepository;
 

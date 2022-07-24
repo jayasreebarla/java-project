@@ -1,6 +1,7 @@
 package com.dal.drplus.service;
 
-import com.dal.drplus.model.Doctor;
+import com.dal.drplus.model.IEntity.IDoctor;
+import com.dal.drplus.model.entity.Doctor;
 import com.dal.drplus.repository.implementation.DoctorRepositoryImpl;
 import com.dal.drplus.repository.interfaces.IDoctorRepository;
 import org.junit.jupiter.api.BeforeAll;
@@ -110,13 +111,13 @@ public class DoctorServiceTest {
 
     @Test
     void getDoctorByIdWhenIdExists(){
-        Doctor doctor_result = doctorService.getDoctorById(doctor1.getDoctorId());
+        IDoctor doctor_result = doctorService.getDoctorById(doctor1.getDoctorId());
         assertEquals(doctor1,doctor_result);
     }
 
     @Test
     void getDoctorByIdWhenIdNotExists(){
-        Doctor doctor_result = doctorService.getDoctorById(doctor2.getDoctorId());
+        IDoctor doctor_result = doctorService.getDoctorById(doctor2.getDoctorId());
         assertNull(doctor_result);
     }
 

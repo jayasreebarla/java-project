@@ -1,6 +1,6 @@
 package com.dal.drplus.service;
 
-import com.dal.drplus.model.Patient;
+import com.dal.drplus.model.entity.Patient;
 import com.dal.drplus.repository.implementation.PatientRepositoryImpl;
 import com.dal.drplus.repository.interfaces.IPatientRepository;
 import org.junit.jupiter.api.BeforeAll;

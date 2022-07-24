@@ -1,8 +1,9 @@
 package com.dal.drplus.controller;
 
-import com.dal.drplus.model.Appointment;
-import com.dal.drplus.model.Doctor;
-import com.dal.drplus.model.Patient;
+import com.dal.drplus.model.IEntity.IDoctor;
+import com.dal.drplus.model.entity.Appointment;
+import com.dal.drplus.model.entity.Doctor;
+import com.dal.drplus.model.factory.ModelFactory;
 import com.dal.drplus.repository.implementation.AppointmentRepositoryImpl;
 import com.dal.drplus.repository.implementation.DoctorRepositoryImpl;
 import com.dal.drplus.service.AppointmentListService;
@@ -36,12 +37,15 @@ public class  DoctorLoginSignupController {
 
     @GetMapping("/doctor_signup")
     public String SignUp(Model model){
-        model.addAttribute("doctor",new Doctor());
+        //model.addAttribute("doctor",new Doctor());
+        model.addAttribute("doctor", (Doctor)ModelFactory.instance().createDoctor());
+
         return "doctor/signup";
     }
 
     @PostMapping("/doctor_signup")
     public RedirectView RegisterDoctor(HttpSession session, @ModelAttribute Doctor doctor, @RequestParam(value = "confirmDoctorPassword") String confirmPassword){
+
         System.out.println(doctor.toString());
         System.out.println("confirmPassword"+confirmPassword);
         doctor.setDoctorPassword(passwordEncryptionService.hashPassword(doctor.getDoctorPassword()));
@@ -70,7 +74,8 @@ public class  DoctorLoginSignupController {
         System.out.println(isCredentialsValid+" iscredentialValid");
         if(isCredentialsValid){
             System.out.println("inside if");
-            Doctor doctor = doctorService.getDoctorById(doctorId);
+            IDoctor doctor = doctorService.getDoctorById(doctorId);
+            System.out.println("Doctor improvement"+doctor.getDoctorId());
             session.setAttribute("CurrentDoctor",doctor);
             session.setAttribute("Type","D");
             List<Appointment> appointmentList = appointmentListService.listAppointmentbyDoctor(doctorId);
@@ -84,7 +89,7 @@ public class  DoctorLoginSignupController {
 
     @GetMapping("/doctor_home")
     public String DoctorHome(HttpSession session, Model model){
-        Doctor currentDoctor= (Doctor) session.getAttribute("CurrentDoctor");
+        IDoctor currentDoctor= (Doctor) session.getAttribute("CurrentDoctor");
         System.out.println("current Doctor Id inside doctor login signup controller"+currentDoctor.getDoctorId());
         List<Appointment> appointmentList = appointmentListService.listAppointmentbyDoctor(currentDoctor.getDoctorId());
         model.addAttribute("appointments",appointmentList);

@@ -1,11 +1,10 @@
 package com.dal.drplus.service;
 
-import com.dal.drplus.model.RatingLab;
+import com.dal.drplus.model.entity.RatingLab;
 import com.dal.drplus.repository.implementation.RatingLabRepositoryImpl;
 import com.dal.drplus.repository.interfaces.IRatingLabRepository;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;

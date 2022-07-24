@@ -1,6 +1,6 @@
 package com.dal.drplus.repository.interfaces;
 
-import com.dal.drplus.model.Payment;
+import com.dal.drplus.model.entity.Payment;
 
 public interface IPaymentRepository {
 

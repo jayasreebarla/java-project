@@ -1,28 +1,27 @@
-package com.dal.drplus.model;
+package com.dal.drplus.model.entity;
 
-public class DoctorSchedule {
+public class LabSchedule {
     private int slotId;
     private String slotTiming;
     private String slotDate;
-    private String doctorId;
+    private String labId;
     private Boolean status;
 
-    public DoctorSchedule(int slotId, String slotTiming, String slotDate, String doctorId, Boolean status){
+    public LabSchedule(int slotId, String slotTiming, String slotDate, String doctorId, Boolean status){
         this.slotId = slotId;
         this.slotTiming = slotTiming;
         this.slotDate = slotDate;
-        this.doctorId = doctorId;
+        this.labId = doctorId;
         this.status = status;
     }
 
-    public DoctorSchedule(){
+    public LabSchedule(){
         this.slotId = 0;
         this.slotTiming = null;
         this.slotDate = null;
-        this.doctorId = null;
+        this.labId = null;
         this.status = null;
     }
-
     public int getSlotId() {
         return slotId;
     }
@@ -47,12 +46,12 @@ public class DoctorSchedule {
         this.slotDate = slotDate;
     }
 
-    public String getDoctorId() {
-        return doctorId;
+    public String getLabId() {
+        return labId;
     }
 
-    public void setDoctorId(String doctorId) {
-        this.doctorId = doctorId;
+    public void setLabId(String labId) {
+        this.labId = labId;
     }
 
     public Boolean getStatus() {

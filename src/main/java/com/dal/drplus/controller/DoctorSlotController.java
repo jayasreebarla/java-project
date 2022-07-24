@@ -1,8 +1,7 @@
 package com.dal.drplus.controller;
 
-import com.dal.drplus.model.Appointment;
-import com.dal.drplus.model.DoctorSchedule;
-import com.dal.drplus.model.LabSchedule;
+import com.dal.drplus.model.entity.Appointment;
+import com.dal.drplus.model.entity.DoctorSchedule;
 import com.dal.drplus.repository.implementation.AppointmentRepositoryImpl;
 import com.dal.drplus.repository.implementation.DoctorScheduleRepositoryImpl;
 import com.dal.drplus.service.AppointmentService;
@@ -11,11 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.print.Doc;
-import java.util.ArrayList;
 import java.util.List;
 
 

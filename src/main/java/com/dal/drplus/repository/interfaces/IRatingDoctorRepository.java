@@ -1,6 +1,6 @@
 package com.dal.drplus.repository.interfaces;
 
-import com.dal.drplus.model.RatingDoctor;
+import com.dal.drplus.model.entity.RatingDoctor;
 
 import java.util.List;
 

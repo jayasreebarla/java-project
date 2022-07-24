@@ -1,7 +1,6 @@
 package com.dal.drplus.controller;
 
-import com.dal.drplus.model.Doctor;
-import com.dal.drplus.model.DoctorSchedule;
+import com.dal.drplus.model.entity.Doctor;
 import com.dal.drplus.repository.implementation.DoctorRepositoryImpl;
 import com.dal.drplus.repository.implementation.DoctorScheduleRepositoryImpl;
 import com.dal.drplus.repository.implementation.RatingDoctorRepositoryImpl;
@@ -11,12 +10,8 @@ import com.dal.drplus.service.RatingDoctorService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.print.Doc;
 import java.util.*;
 
 @Controller

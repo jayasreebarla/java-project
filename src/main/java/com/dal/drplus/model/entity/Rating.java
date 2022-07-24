@@ -1,4 +1,4 @@
-package com.dal.drplus.model;
+package com.dal.drplus.model.entity;
 
 public abstract class Rating {
     private int ratingId;

@@ -1,6 +1,6 @@
 package com.dal.drplus.repository.interfaces;
 
-import com.dal.drplus.model.Billing;
+import com.dal.drplus.model.entity.Billing;
 
 public interface IBillRepository {
 

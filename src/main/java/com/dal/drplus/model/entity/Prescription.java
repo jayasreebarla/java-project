@@ -1,4 +1,4 @@
-package com.dal.drplus.model;
+package com.dal.drplus.model.entity;
 
 public class Prescription {
     int prescriptionId;

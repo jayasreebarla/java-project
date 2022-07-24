@@ -1,6 +1,6 @@
 package com.dal.drplus.repository.implementation;
 
-import com.dal.drplus.model.Billing;
+import com.dal.drplus.model.entity.Billing;
 import com.dal.drplus.repository.configuration.DatabaseConfiguration;
 import com.dal.drplus.repository.configuration.DatabaseConfigurationImpl;
 import com.dal.drplus.repository.interfaces.IBillRepository;

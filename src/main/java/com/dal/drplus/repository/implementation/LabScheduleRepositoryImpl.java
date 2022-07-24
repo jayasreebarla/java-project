@@ -1,6 +1,6 @@
 package com.dal.drplus.repository.implementation;
 
-import com.dal.drplus.model.LabSchedule;
+import com.dal.drplus.model.entity.LabSchedule;
 import com.dal.drplus.repository.configuration.DatabaseConfiguration;
 import com.dal.drplus.repository.configuration.DatabaseConfigurationImpl;
 import com.dal.drplus.repository.interfaces.ILabScheduleRepository;

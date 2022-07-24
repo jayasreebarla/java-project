@@ -1,6 +1,6 @@
 package com.dal.drplus.repository.interfaces;
 
-import com.dal.drplus.model.Admin;
+import com.dal.drplus.model.entity.Admin;
 
 import java.sql.SQLException;
 

@@ -1,29 +1,29 @@
-package com.dal.drplus.model;
+package com.dal.drplus.model.entity;
 
-public class Doctor {
-    private String doctorId;
-    private String doctorName;
-    private String doctorPassword;
-    private String doctorEmail;
-    private String doctorPhoneNo;
-    private String doctorGender;
-    private int doctorAge;
-    private String doctorCredentials;
-    private String doctorSpecialization;
-    private String doctorClinicAddress;
-    private String doctorPincode;
-    private int doctorRating;
-    private double doctorFee;
+import com.dal.drplus.model.Builder.DoctorBuilder;
+import com.dal.drplus.model.IBuilder.IDoctorBuilder;
+import com.dal.drplus.model.IEntity.IDoctor;
+import org.springframework.context.annotation.Bean;
 
-    public double getDoctorFee() {
-        return doctorFee;
-    }
+public class Doctor extends IDoctor {
 
-    public void setDoctorFee(double doctorFee) {
-        this.doctorFee = doctorFee;
-    }
 
     public Doctor() {
+    }
+    public Doctor(DoctorBuilder builder){
+        this.doctorId = builder.getDoctorId();
+        this.doctorName = builder.getDoctorName();
+        this.doctorPassword = builder.getDoctorPassword();
+        this.doctorEmail = builder.getDoctorEmail();
+        this.doctorPhoneNo = builder.getDoctorPhoneNo();
+        this.doctorGender = builder.getDoctorGender();
+        this.doctorAge = builder.getDoctorAge();
+        this.doctorCredentials = builder.getDoctorCredentials();
+        this.doctorSpecialization = builder.getDoctorSpecialization();
+        this.doctorClinicAddress = builder.getDoctorClinicAddress();
+        this.doctorPincode = builder.getDoctorPincode();
+        this.doctorFee = builder.getDoctorFee();
+
     }
 
     public Doctor(String doctorId, String doctorName, String doctorPassword, String doctorEmail, String doctorPhoneNo, String doctorGender, int doctorAge, String doctorCredentials, String doctorSpecialization, String doctorClinicAddress, String doctorPincode, double doctorFee) {
@@ -41,8 +41,9 @@ public class Doctor {
         this.doctorFee = doctorFee;
     }
 
+    @Override
     public String getDoctorId() {
-        return doctorId;
+        return this.doctorId;
     }
 
     public void setDoctorId(String doctorId) {
@@ -50,7 +51,7 @@ public class Doctor {
     }
 
     public String getDoctorName() {
-        return doctorName;
+        return this.doctorName;
     }
 
     public void setDoctorName(String doctorName) {
@@ -58,7 +59,7 @@ public class Doctor {
     }
 
     public String getDoctorPassword() {
-        return doctorPassword;
+        return this.doctorPassword;
     }
 
     public void setDoctorPassword(String doctorPassword) {
@@ -66,7 +67,7 @@ public class Doctor {
     }
 
     public String getDoctorEmail() {
-        return doctorEmail;
+        return this.doctorEmail;
     }
 
     public void setDoctorEmail(String doctorEmail) {
@@ -74,7 +75,7 @@ public class Doctor {
     }
 
     public String getDoctorPhoneNo() {
-        return doctorPhoneNo;
+        return this.doctorPhoneNo;
     }
 
     public void setDoctorPhoneNo(String doctorPhoneNo) {
@@ -82,7 +83,7 @@ public class Doctor {
     }
 
     public String getDoctorGender() {
-        return doctorGender;
+        return this.doctorGender;
     }
 
     public void setDoctorGender(String doctorGender) {
@@ -90,7 +91,7 @@ public class Doctor {
     }
 
     public int getDoctorAge() {
-        return doctorAge;
+        return this.doctorAge;
     }
 
     public void setDoctorAge(int doctorAge) {
@@ -98,7 +99,7 @@ public class Doctor {
     }
 
     public String getDoctorCredentials() {
-        return doctorCredentials;
+        return this.doctorCredentials;
     }
 
     public void setDoctorCredentials(String doctorCredentials) {
@@ -106,7 +107,7 @@ public class Doctor {
     }
 
     public String getDoctorSpecialization() {
-        return doctorSpecialization;
+        return this.doctorSpecialization;
     }
 
     public void setDoctorSpecialization(String doctorSpecialization) {
@@ -114,7 +115,7 @@ public class Doctor {
     }
 
     public String getDoctorClinicAddress() {
-        return doctorClinicAddress;
+        return this.doctorClinicAddress;
     }
 
     public void setDoctorClinicAddress(String doctorClinicAddress) {
@@ -122,7 +123,7 @@ public class Doctor {
     }
 
     public String getDoctorPincode() {
-        return doctorPincode;
+        return this.doctorPincode;
     }
 
     public void setDoctorPincode(String doctorPincode) {
@@ -130,12 +131,19 @@ public class Doctor {
     }
 
     public int getDoctorRating() {
-        return doctorRating;
+        return this.doctorRating;
     }
 
     public void setDoctorRating(int doctorRating) {
         this.doctorRating = doctorRating;
     }
 
+    public double getDoctorFee() {
+        return this.doctorFee;
+    }
+
+    public void setDoctorFee(double doctorFee) {
+        this.doctorFee = doctorFee;
+    }
 
 }

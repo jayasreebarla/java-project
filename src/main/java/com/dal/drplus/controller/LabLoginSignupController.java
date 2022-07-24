@@ -1,7 +1,6 @@
 package com.dal.drplus.controller;
-import com.dal.drplus.model.Appointment;
-import com.dal.drplus.model.Doctor;
-import com.dal.drplus.model.Lab;
+import com.dal.drplus.model.entity.Appointment;
+import com.dal.drplus.model.entity.Lab;
 import com.dal.drplus.repository.implementation.AppointmentRepositoryImpl;
 import com.dal.drplus.repository.implementation.LabRepositoryImpl;
 import com.dal.drplus.service.AppointmentListService;

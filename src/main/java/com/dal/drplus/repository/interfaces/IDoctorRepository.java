@@ -1,9 +1,8 @@
 package com.dal.drplus.repository.interfaces;
 
-import com.dal.drplus.model.Doctor;
+import com.dal.drplus.model.IEntity.IDoctor;
+import com.dal.drplus.model.entity.Doctor;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
 
 public interface IDoctorRepository {
@@ -13,7 +12,7 @@ public interface IDoctorRepository {
         FAILURE
     }
 
-    public StorageResult saveDoctor(Doctor doctor);
+    public StorageResult saveDoctor(IDoctor doctor);
     public StorageResult updateDoctor(Doctor doctor);
     public Doctor findDoctorById(String id);
     public List<Doctor> findAllDoctors();

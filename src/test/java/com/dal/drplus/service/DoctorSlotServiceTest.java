@@ -1,10 +1,7 @@
 package com.dal.drplus.service;
 
-import com.dal.drplus.model.Doctor;
-import com.dal.drplus.model.DoctorSchedule;
-import com.dal.drplus.repository.implementation.DoctorRepositoryImpl;
+import com.dal.drplus.model.entity.DoctorSchedule;
 import com.dal.drplus.repository.implementation.DoctorScheduleRepositoryImpl;
-import com.dal.drplus.repository.interfaces.IDoctorRepository;
 import com.dal.drplus.repository.interfaces.IDoctorScheduleRepository;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

@@ -1,6 +1,6 @@
 package com.dal.drplus.service;
 
-import com.dal.drplus.model.Admin;
+import com.dal.drplus.model.entity.Admin;
 import com.dal.drplus.repository.implementation.AdminRepositoryImpl;
 import com.dal.drplus.repository.interfaces.IAdminRepository;
 import org.junit.jupiter.api.BeforeAll;

@@ -1,6 +1,6 @@
 package com.dal.drplus.repository.implementation;
 
-import com.dal.drplus.model.Payment;
+import com.dal.drplus.model.entity.Payment;
 import com.dal.drplus.repository.interfaces.IPaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;

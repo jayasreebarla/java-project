@@ -1,6 +1,6 @@
 package com.dal.drplus.controller;
 
-import com.dal.drplus.model.*;
+import com.dal.drplus.model.entity.*;
 import com.dal.drplus.repository.implementation.*;
 import com.dal.drplus.service.*;
 import org.springframework.stereotype.Controller;
