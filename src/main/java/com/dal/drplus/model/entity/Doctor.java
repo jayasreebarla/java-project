@@ -1,12 +1,9 @@
 package com.dal.drplus.model.entity;
 
 import com.dal.drplus.model.Builder.DoctorBuilder;
-import com.dal.drplus.model.IBuilder.IDoctorBuilder;
 import com.dal.drplus.model.IEntity.IDoctor;
-import org.springframework.context.annotation.Bean;
 
 public class Doctor extends IDoctor {
-
 
     public Doctor() {
     }

@@ -1,7 +1,5 @@
 package com.dal.drplus.model.IEntity;
 
-import com.dal.drplus.model.IBuilder.IDoctorBuilder;
-
 public abstract class IDoctor {
     protected String doctorId;
     protected String doctorName;

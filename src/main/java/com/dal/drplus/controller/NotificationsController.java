@@ -1,6 +1,6 @@
 package com.dal.drplus.controller;
-import com.dal.drplus.model.Appointment;
-import com.dal.drplus.model.Lab;
+import com.dal.drplus.model.entity.Appointment;
+import com.dal.drplus.model.entity.Lab;
 import com.dal.drplus.repository.implementation.NotificationsRepositoryImpl;
 import com.dal.drplus.service.interfaces.NotificationsService;
 import org.springframework.stereotype.Controller;
