@@ -53,7 +53,7 @@ public class AdminController {
     public String getAppointmentList(Model model){
 //        NotificationsService notificationsService = new NotificationsService();
         //List<Appointment> appointmentList = appointmentListService.listAppointmentAll();
-        List<Appointment> appointmentList = notificationsService.NotifyPatient("P12");
+        List<Appointment> appointmentList = notificationsService.notifyPatient("P12");
         model.addAttribute("appointments",appointmentList);
 
         /////////////////////////

@@ -32,14 +32,14 @@ public class NotificationsService {
 //                    " and b.slot_id = a.slot_id and b.appointment_type='LAB' and b.patient_id=?)";
 
 
-    public List<Appointment> NotifyPatient(String patientId) {
+    public List<Appointment> notifyPatient(String patientId) {
         return notificationRepository.notifyPatient(patientId);
     }
 
-    public List<Appointment> NotifyDoctor(String doctorId) {
+    public List<Appointment> notifyDoctor(String doctorId) {
         return notificationRepository.notifyDoctor(doctorId);
     }
-    public List<Appointment> NotifyLab(String labId) {
+    public List<Appointment> notifyLab(String labId) {
         return notificationRepository.notifyLab(labId);
     }
 
