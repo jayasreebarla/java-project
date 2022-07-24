@@ -21,6 +21,10 @@ test:
   tags:
     - dalfcs_docker_kvm
   image: gradle:latest
+  artifacts:
+    when: always
+    reports:
+      junit: build/test-results/test/**/TEST-*.xml
   script: 
     - ./gradlew check
 
