@@ -1,6 +1,6 @@
 package com.dal.drplus.service;
 
-import com.dal.drplus.model.Wallet;
+import com.dal.drplus.model.entity.Wallet;
 import com.dal.drplus.repository.implementation.WalletRepositoryImpl;
 import com.dal.drplus.repository.interfaces.IWalletRepository;
 import org.junit.jupiter.api.BeforeAll;

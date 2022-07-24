@@ -1,6 +1,6 @@
 package com.dal.drplus.repository.interfaces;
 
-import com.dal.drplus.model.Prescription;
+import com.dal.drplus.model.entity.Prescription;
 
 import java.io.FileNotFoundException;
 import java.util.List;

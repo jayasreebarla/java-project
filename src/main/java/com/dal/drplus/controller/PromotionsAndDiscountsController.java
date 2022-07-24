@@ -1,6 +1,6 @@
 package com.dal.drplus.controller;
 
-import com.dal.drplus.model.Promotions;
+import com.dal.drplus.model.entity.Promotions;
 import com.dal.drplus.repository.implementation.PromotionsRepositoryImpl;
 import com.dal.drplus.service.PromotionsService;
 import org.springframework.stereotype.Controller;
@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;

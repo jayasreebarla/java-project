@@ -1,10 +1,9 @@
 package com.dal.drplus.repository.implementation;
 
-import com.dal.drplus.model.RatingDoctor;
+import com.dal.drplus.model.entity.RatingDoctor;
 import com.dal.drplus.repository.configuration.DatabaseConfiguration;
 import com.dal.drplus.repository.configuration.DatabaseConfigurationImpl;
 import com.dal.drplus.repository.interfaces.IRatingDoctorRepository;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;

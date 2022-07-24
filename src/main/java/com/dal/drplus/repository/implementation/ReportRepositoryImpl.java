@@ -1,12 +1,11 @@
 package com.dal.drplus.repository.implementation;
 
-import com.dal.drplus.model.Report;
+import com.dal.drplus.model.entity.Report;
 import com.dal.drplus.repository.configuration.DatabaseConfiguration;
 import com.dal.drplus.repository.configuration.DatabaseConfigurationImpl;
 import com.dal.drplus.repository.interfaces.IReportRepository;
 import org.springframework.stereotype.Repository;
 
-import javax.servlet.http.HttpSession;
 import javax.sql.rowset.serial.SerialBlob;
 import java.sql.Blob;
 import java.sql.PreparedStatement;

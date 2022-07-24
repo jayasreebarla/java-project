@@ -1,6 +1,6 @@
 package com.dal.drplus.service;
 
-import com.dal.drplus.model.Patient;
+import com.dal.drplus.model.entity.Patient;
 import com.dal.drplus.repository.interfaces.IPatientRepository;
 
 public class PatientLoginSignupService {

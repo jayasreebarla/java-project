@@ -1,6 +1,7 @@
 package com.dal.drplus.service;
 
-import com.dal.drplus.model.Doctor;
+import com.dal.drplus.model.IEntity.IDoctor;
+import com.dal.drplus.model.entity.Doctor;
 import com.dal.drplus.repository.interfaces.IDoctorRepository;
 
 public class DoctorLoginSignupService {
@@ -11,7 +12,7 @@ public class DoctorLoginSignupService {
         this.doctorRepository = doctorRepository;
     }
 
-    public boolean registerDoctor(Doctor doctor, String confirmPassword){
+    public boolean registerDoctor(IDoctor doctor, String confirmPassword){
         if(confirmPassword.equals(doctor.getDoctorPassword())){
             IDoctorRepository.StorageResult result = doctorRepository.saveDoctor(doctor);
             if(result == IDoctorRepository.StorageResult.SUCCESS){

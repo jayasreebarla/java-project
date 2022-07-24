@@ -1,6 +1,6 @@
 package com.dal.drplus.service;
 
-import com.dal.drplus.model.Report;
+import com.dal.drplus.model.entity.Report;
 import com.dal.drplus.repository.interfaces.IReportRepository;
 
 import java.io.FileNotFoundException;

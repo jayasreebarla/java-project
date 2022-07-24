@@ -1,6 +1,9 @@
 package com.dal.drplus.controller;
 
-import com.dal.drplus.model.*;
+
+import com.dal.drplus.model.entity.Patient;
+import com.dal.drplus.model.entity.RatingDoctor;
+import com.dal.drplus.model.entity.RatingLab;
 import com.dal.drplus.repository.implementation.RatingDoctorRepositoryImpl;
 import com.dal.drplus.repository.implementation.RatingLabRepositoryImpl;
 import com.dal.drplus.service.RatingDoctorService;
@@ -10,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 @Controller
 public class RatingController {

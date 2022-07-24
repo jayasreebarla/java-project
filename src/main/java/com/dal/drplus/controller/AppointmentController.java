@@ -1,21 +1,20 @@
 package com.dal.drplus.controller;
 
-import com.dal.drplus.model.*;
+
+import com.dal.drplus.model.IEntity.IDoctor;
+import com.dal.drplus.model.entity.Appointment;
+import com.dal.drplus.model.entity.Lab;
+import com.dal.drplus.model.entity.Patient;
 import com.dal.drplus.repository.implementation.*;
-import com.dal.drplus.repository.interfaces.IAppointmentRepository;
 import com.dal.drplus.service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
-import javax.print.Doc;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -64,7 +63,7 @@ public class AppointmentController {
     public RedirectView bookAppointment(Model model, HttpSession session, @PathVariable("slotId") String slotId, @PathVariable("doctorId") String doctorId,RedirectAttributes attributes){
         Appointment appointment = new Appointment();
         Patient currentPatient = (Patient) session.getAttribute("CurrentPatient");
-        Doctor doctor = doctorService.getDoctorById(doctorId);
+        IDoctor doctor = doctorService.getDoctorById(doctorId);
         double billAmount = doctor.getDoctorFee();
         int billId = billService.generateBill(billAmount,"DOCTOR");
         //double billAmount = doctor.getDoctorFee();

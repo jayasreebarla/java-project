@@ -1,12 +1,9 @@
 package com.dal.drplus.repository.implementation;
 
-import com.dal.drplus.model.Doctor;
-import com.dal.drplus.model.Lab;
-import com.dal.drplus.model.Patient;
+import com.dal.drplus.model.entity.Lab;
 import com.dal.drplus.repository.configuration.DatabaseConfiguration;
 import com.dal.drplus.repository.configuration.DatabaseConfigurationImpl;
 import com.dal.drplus.repository.interfaces.ILabRepository;
-import com.dal.drplus.repository.interfaces.IPatientRepository;
 import org.springframework.stereotype.Repository;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

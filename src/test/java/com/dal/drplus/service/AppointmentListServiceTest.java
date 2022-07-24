@@ -1,6 +1,6 @@
 package com.dal.drplus.service;
 
-import com.dal.drplus.model.Appointment;
+import com.dal.drplus.model.entity.Appointment;
 import com.dal.drplus.repository.implementation.AppointmentRepositoryImpl;
 import com.dal.drplus.repository.interfaces.IAppointmentRepository;
 import org.junit.jupiter.api.BeforeAll;

@@ -1,6 +1,6 @@
 package com.dal.drplus.repository.interfaces;
 
-import com.dal.drplus.model.DoctorSchedule;
+import com.dal.drplus.model.entity.DoctorSchedule;
 
 import java.util.List;
 

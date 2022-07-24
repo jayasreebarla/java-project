@@ -1,7 +1,6 @@
 package com.dal.drplus.repository.implementation;
 
-import com.dal.drplus.model.RatingDoctor;
-import com.dal.drplus.model.RatingLab;
+import com.dal.drplus.model.entity.RatingLab;
 import com.dal.drplus.repository.configuration.DatabaseConfiguration;
 import com.dal.drplus.repository.configuration.DatabaseConfigurationImpl;
 import com.dal.drplus.repository.interfaces.IRatingLabRepository;

@@ -1,8 +1,7 @@
 package com.dal.drplus.controller;
 
-import com.dal.drplus.model.Appointment;
-import com.dal.drplus.model.Billing;
-import com.dal.drplus.model.Patient;
+import com.dal.drplus.model.entity.Billing;
+import com.dal.drplus.model.entity.Patient;
 import com.dal.drplus.repository.implementation.AppointmentRepositoryImpl;
 import com.dal.drplus.repository.implementation.BillRepositoryImpl;
 import com.dal.drplus.repository.implementation.PromotionsRepositoryImpl;

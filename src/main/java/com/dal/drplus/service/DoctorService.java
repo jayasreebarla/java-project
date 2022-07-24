@@ -1,12 +1,11 @@
 package com.dal.drplus.service;
 
-import com.dal.drplus.model.Doctor;
-import com.dal.drplus.repository.interfaces.IAppointmentRepository;
+import com.dal.drplus.model.IEntity.IDoctor;
+import com.dal.drplus.model.entity.Doctor;
 import com.dal.drplus.repository.interfaces.IDoctorRepository;
 
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Iterator;
 import java.util.List;
 
 public class DoctorService {
@@ -35,8 +34,8 @@ public class DoctorService {
         return doctorRepository.findAllDoctorsBySpecializationAndPincode(doctorSpecialization,doctorPincode);
     }
 
-    public Doctor getDoctorById(String doctorId){
-        Doctor doctor = doctorRepository.findDoctorById(doctorId);
+    public IDoctor getDoctorById(String doctorId){
+        IDoctor doctor = doctorRepository.findDoctorById(doctorId);
         return doctor;
     }
 

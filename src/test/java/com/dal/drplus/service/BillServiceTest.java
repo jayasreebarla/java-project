@@ -1,14 +1,12 @@
 package com.dal.drplus.service;
 
-import com.dal.drplus.model.Billing;
+import com.dal.drplus.model.entity.Billing;
 import com.dal.drplus.repository.implementation.BillRepositoryImpl;
 import com.dal.drplus.repository.interfaces.IBillRepository;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BillServiceTest {

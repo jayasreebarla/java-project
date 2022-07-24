@@ -1,12 +1,11 @@
 package com.dal.drplus.controller;
 
-import com.dal.drplus.model.Lab;
+import com.dal.drplus.model.entity.Lab;
 import com.dal.drplus.repository.implementation.LabRepositoryImpl;
 import com.dal.drplus.service.LabService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;

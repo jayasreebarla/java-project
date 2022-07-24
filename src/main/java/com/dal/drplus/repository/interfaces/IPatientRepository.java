@@ -1,6 +1,6 @@
 package com.dal.drplus.repository.interfaces;
 
-import com.dal.drplus.model.Patient;
+import com.dal.drplus.model.entity.Patient;
 
 import java.util.List;
 

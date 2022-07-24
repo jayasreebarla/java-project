@@ -1,6 +1,6 @@
 package com.dal.drplus.repository.interfaces;
 
-import com.dal.drplus.model.Lab;
+import com.dal.drplus.model.entity.Lab;
 
 import java.util.List;
 

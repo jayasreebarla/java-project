@@ -1,6 +1,6 @@
 package com.dal.drplus.service;
 
-import com.dal.drplus.model.RatingDoctor;
+import com.dal.drplus.model.entity.RatingDoctor;
 import com.dal.drplus.repository.interfaces.IRatingDoctorRepository;
 
 import java.util.List;

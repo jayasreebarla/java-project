@@ -1,5 +1,5 @@
 package com.dal.drplus.controller;
-import com.dal.drplus.model.Report;
+import com.dal.drplus.model.entity.Report;
 import com.dal.drplus.repository.implementation.ReportRepositoryImpl;
 import com.dal.drplus.service.ReportService;
 import org.springframework.stereotype.Controller;

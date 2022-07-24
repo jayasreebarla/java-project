@@ -1,7 +1,7 @@
 package com.dal.drplus.service;
 
 
-import com.dal.drplus.model.Lab;
+import com.dal.drplus.model.entity.Lab;
 import com.dal.drplus.repository.implementation.LabRepositoryImpl;
 import com.dal.drplus.repository.interfaces.ILabRepository;
 import org.junit.jupiter.api.BeforeAll;

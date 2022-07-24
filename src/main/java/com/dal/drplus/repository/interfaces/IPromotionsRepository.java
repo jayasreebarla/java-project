@@ -1,7 +1,7 @@
 package com.dal.drplus.repository.interfaces;
 
 
-import com.dal.drplus.model.Promotions;
+import com.dal.drplus.model.entity.Promotions;
 
 import java.util.List;
 

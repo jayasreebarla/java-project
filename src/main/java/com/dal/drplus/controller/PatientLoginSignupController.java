@@ -1,6 +1,6 @@
 package com.dal.drplus.controller;
 
-import com.dal.drplus.model.Patient;
+import com.dal.drplus.model.entity.Patient;
 import com.dal.drplus.repository.implementation.PatientRepositoryImpl;
 import com.dal.drplus.service.PasswordEncryptionService;
 import com.dal.drplus.service.PatientLoginSignupService;

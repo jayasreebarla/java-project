@@ -1,6 +1,6 @@
 package com.dal.drplus.service;
 
-import com.dal.drplus.model.Patient;
+import com.dal.drplus.model.entity.Patient;
 import com.dal.drplus.repository.interfaces.IAppointmentRepository;
 import com.dal.drplus.repository.interfaces.IDoctorScheduleRepository;
 import com.dal.drplus.repository.interfaces.ILabScheduleRepository;

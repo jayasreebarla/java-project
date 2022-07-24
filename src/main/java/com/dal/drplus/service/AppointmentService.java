@@ -1,5 +1,5 @@
 package com.dal.drplus.service;
-import com.dal.drplus.model.Appointment;
+import com.dal.drplus.model.entity.Appointment;
 import com.dal.drplus.repository.interfaces.IAppointmentRepository;
 
 import java.util.List;

@@ -1,10 +1,11 @@
 package com.dal.drplus.repository.implementation;
 
-import com.dal.drplus.model.Doctor;
+import com.dal.drplus.model.Builder.DoctorBuilder;
+import com.dal.drplus.model.IEntity.IDoctor;
+import com.dal.drplus.model.entity.Doctor;
 import com.dal.drplus.repository.configuration.DatabaseConfiguration;
 import com.dal.drplus.repository.configuration.DatabaseConfigurationImpl;
 import com.dal.drplus.repository.interfaces.IDoctorRepository;
-import com.dal.drplus.repository.interfaces.IPatientRepository;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -24,7 +25,7 @@ public class DoctorRepositoryImpl implements IDoctorRepository {
     }
 
     @Override
-    public StorageResult saveDoctor(Doctor doctor) {
+    public StorageResult saveDoctor(IDoctor doctor) {
 
         PreparedStatement statement = null;
         try {
@@ -84,20 +85,37 @@ public class DoctorRepositoryImpl implements IDoctorRepository {
             statement = databaseConfiguration.getDBConnection().prepareStatement("Select * from Doctor where doctor_id = ?");
             statement.setString(1,id);
             ResultSet rs = statement.executeQuery();
+            DoctorBuilder buider=new DoctorBuilder();
             while(rs.next()) {
                 System.out.println("inside rs");
-                doctorObject.setDoctorId(rs.getString("doctor_id"));
-                doctorObject.setDoctorName(rs.getString("doctor_name"));
-                doctorObject.setDoctorPassword(rs.getString("doctor_password"));
-                doctorObject.setDoctorEmail(rs.getString("doctor_email"));
-                doctorObject.setDoctorPhoneNo(rs.getString("doctor_phone"));
-                doctorObject.setDoctorGender(rs.getString("doctor_gender"));
-                doctorObject.setDoctorAge(rs.getInt("doctor_age"));
-                doctorObject.setDoctorCredentials(rs.getString("doctor_credentials"));
-                doctorObject.setDoctorSpecialization(rs.getString("doctor_specialization"));
-                doctorObject.setDoctorClinicAddress(rs.getString("doctor_clinic_address"));
-                doctorObject.setDoctorPincode(rs.getString("doctor_pincode"));
-                doctorObject.setDoctorFee(rs.getDouble("doctor_fee"));
+
+                doctorObject=buider
+                .addDoctorId(rs.getString("doctor_id"))
+                .addDoctorName(rs.getString("doctor_name"))
+                .addDoctorPassword(rs.getString("doctor_password"))
+                .addDoctorEmail(rs.getString("doctor_email"))
+                .addDoctorPhoneNo(rs.getString("doctor_phone"))
+                .addDoctorGender(rs.getString("doctor_gender"))
+                .addDoctorAge(rs.getInt("doctor_age"))
+                .addDoctorCredentials(rs.getString("doctor_credentials"))
+                .addDoctorSpecialization(rs.getString("doctor_specialization"))
+                .addDoctorClinicAddress(rs.getString("doctor_clinic_address"))
+                .addDoctorPincode(rs.getString("doctor_pincode"))
+                .addDoctorFee(rs.getDouble("doctor_fee")).build();
+
+
+//                doctorObject.setDoctorId(rs.getString("doctor_id"));
+//                doctorObject.setDoctorName(rs.getString("doctor_name"));
+//                doctorObject.setDoctorPassword(rs.getString("doctor_password"));
+//                doctorObject.setDoctorEmail(rs.getString("doctor_email"));
+//                doctorObject.setDoctorPhoneNo(rs.getString("doctor_phone"));
+//                doctorObject.setDoctorGender(rs.getString("doctor_gender"));
+//                doctorObject.setDoctorAge(rs.getInt("doctor_age"));
+//                doctorObject.setDoctorCredentials(rs.getString("doctor_credentials"));
+//                doctorObject.setDoctorSpecialization(rs.getString("doctor_specialization"));
+//                doctorObject.setDoctorClinicAddress(rs.getString("doctor_clinic_address"));
+//                doctorObject.setDoctorPincode(rs.getString("doctor_pincode"));
+//                doctorObject.setDoctorFee(rs.getDouble("doctor_fee"));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

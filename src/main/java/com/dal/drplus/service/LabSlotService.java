@@ -1,8 +1,6 @@
 package com.dal.drplus.service;
 
-import com.dal.drplus.model.Lab;
-import com.dal.drplus.model.LabSchedule;
-import com.dal.drplus.repository.interfaces.IDoctorScheduleRepository;
+import com.dal.drplus.model.entity.LabSchedule;
 import com.dal.drplus.repository.interfaces.ILabScheduleRepository;
 
 import java.util.List;

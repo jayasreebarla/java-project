@@ -1,10 +1,7 @@
 package com.dal.drplus.service;
 
-import com.dal.drplus.model.Doctor;
-import com.dal.drplus.model.Lab;
-import com.dal.drplus.model.Patient;
+import com.dal.drplus.model.entity.Lab;
 import com.dal.drplus.repository.interfaces.ILabRepository;
-import com.dal.drplus.repository.interfaces.IPatientRepository;
 
 import java.util.List;
 
