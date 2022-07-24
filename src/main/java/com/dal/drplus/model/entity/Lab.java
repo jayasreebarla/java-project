@@ -9,18 +9,16 @@ public class Lab {
     private String labAddress;
     private String labContactInfo;
     private String labPincode;
+    private double labFee;
 
     public double getLabFee() {
         return labFee;
     }
-
     public void setLabFee(double labFee) {
         this.labFee = labFee;
     }
 
-    private double labFee;
-
-   public Lab(){}
+    public Lab(){}
 
     public Lab(String labId, String labPersonName, String labPassword, String labEmailId, String labAddress, String labContactInfo, String labPincode) {
     this.labId = labId;

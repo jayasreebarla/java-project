@@ -3,6 +3,7 @@ package com.dal.drplus.controller;
 import com.dal.drplus.model.entity.*;
 import com.dal.drplus.repository.implementation.*;
 import com.dal.drplus.service.*;
+import com.dal.drplus.service.interfaces.NotificationsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,8 @@ public class AdminController {
     private RatingLabService ratingLabService;
     private PromotionsService promotionsService;
 
+    private NotificationsService notificationsService;
+
     public AdminController(AppointmentRepositoryImpl appointmentRepository,
                            DoctorRepositoryImpl doctorRepository,
                            PatientRepositoryImpl patientRepository,
@@ -32,7 +35,7 @@ public class AdminController {
                            LabScheduleRepositoryImpl labScheduleRepository,
                            RatingDoctorRepositoryImpl ratingDoctorRepository,
                            RatingLabRepositoryImpl ratingLabRepository,
-                           PromotionsRepositoryImpl promotionsRepository) {
+                           PromotionsRepositoryImpl promotionsRepository,NotificationsRepositoryImpl notificationsRepository) {
         this.appointmentService = new AppointmentService(appointmentRepository);
         this.appointmentListService = new AppointmentListService(appointmentRepository);
         this.doctorService = new DoctorService(doctorRepository);
@@ -43,12 +46,17 @@ public class AdminController {
         this.ratingDoctorService = new RatingDoctorService(ratingDoctorRepository);
         this.ratingLabService = new RatingLabService(ratingLabRepository);
         this.promotionsService = new PromotionsService(promotionsRepository);
+        this.notificationsService = new NotificationsService(notificationsRepository);
     }
 
     @GetMapping("/appointment_list_admin")
     public String getAppointmentList(Model model){
-        List<Appointment> appointmentList = appointmentListService.listAppointmentAll();
+//        NotificationsService notificationsService = new NotificationsService();
+        //List<Appointment> appointmentList = appointmentListService.listAppointmentAll();
+        List<Appointment> appointmentList = notificationsService.notifyPatient("P12");
         model.addAttribute("appointments",appointmentList);
+
+        /////////////////////////
         return "admin/appointments_list_admin";
     }
 

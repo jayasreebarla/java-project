@@ -10,15 +10,28 @@
     <p>Doctor Id: <input type="text" required="required" th:field="*{doctorId}" /></p>
     <p>Doctor Full name: <input type="text" required="required" th:field="*{doctorName}" /></p>
     <p>Doctor Age: <input type="number" required="required" th:field="*{doctorAge}" /></p>
-    <p>Doctor Gender: <input type="text" required="required" th:field="*{doctorGender}" /></p>
+    <!--p>Doctor Gender: <input type="text" required="required" th:field="*{doctorGender}" /></p-->
+    <p>Doctor Gender: <select required="required" th:field="*{doctorGender}">
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Others">Others</option>
+    </select></p>
     <p>Doctor Email: <input type="text" required="required" th:field="*{doctorEmail}" /></p>
     <p>Doctor Phone No. : <input type="text" required="required" th:field="*{doctorPhoneNo}" /></p>
     <p>Doctor Password : <input type="password" required="required" th:field="*{doctorPassword}" /></p>
     <p>Doctor Confirm Password : <input type="password" required="required" th:name="confirmDoctorPassword" /></p>
-    <p>Doctor Specilization: <input type="text" required="required" th:field="*{doctorSpecialization}" /></p>
+    <!--p>Doctor Specilization: <input type="text" required="required" th:field="*{doctorSpecialization}" /></p-->
+    <p>Doctor Specialization: <select required="required" th:field="*{doctorSpecialization}">
+        <option value="Cardiologist">Cardiologist</option>
+        <option value="Ophthalmologist">Ophthalmologist</option>
+        <option value="Dermatologist">Dermatologist</option>
+        <option value="Gynaecologist">Gynaecologist</option>
+        <option value="Orthopedic">Orthopedic</option>
+    </select></p>
     <p>Doctor Credentials: <input type="text" required="required" th:field="*{doctorCredentials}" /></p>
     <p>Doctor Clinic Address: <input type="text" required="required" th:field="*{doctorClinicAddress}" /></p>
     <p>Doctor Pincode: <input type="text" required="required" th:field="*{doctorPincode}" /></p>
+    <p>Doctor Fees: <input type="number" required="required" th:field="*{doctorFee}" /></p>
     <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
 </form>
 

@@ -22,7 +22,6 @@ public class MailReminderService implements MailService {
     ILabScheduleRepository labScheduleRepository;
     IDoctorScheduleRepository doctorScheduleRepository;
     IPatientRepository patientRepository;
-
     IAppointmentRepository appointmentRepository;
 
     public MailReminderService(ILabScheduleRepository labScheduleRepository, IDoctorScheduleRepository doctorScheduleRepository,IAppointmentRepository appointmentRepository,IPatientRepository patientRepository) {

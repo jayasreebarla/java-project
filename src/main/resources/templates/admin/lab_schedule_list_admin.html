@@ -30,7 +30,7 @@
         <td><span th:text="${labSlot.getSlotTiming()}"> Slot Timing </span></td>
         <td><span th:text="${labSlot.getLabId()}"> Lab Id </span></td>
         <td><span th:text="${labSlot.getStatus()}"> Status </span></td>
-        <td><a th:href="@{/admin/delete_lab_schedule_admin/{id}(id=${labSlot.getSlotId()})}"><button>Delete Slot</button></a></td>
+        <td th:if="${labSlot.getStatus() == false}"><a th:href="@{/admin/delete_lab_schedule_admin/{id}(id=${labSlot.getSlotId()})}"><button>Delete Slot</button></a></td>
     </tr>
     </tbody>
 </table>
