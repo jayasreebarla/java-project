@@ -1,7 +1,6 @@
 package com.dal.drplus.controller;
 import com.dal.drplus.model.Appointment;
 import com.dal.drplus.model.Lab;
-import com.dal.drplus.model.Patient;
 import com.dal.drplus.repository.implementation.NotificationsRepositoryImpl;
 import com.dal.drplus.service.interfaces.NotificationsService;
 import org.springframework.stereotype.Controller;
@@ -19,7 +18,7 @@ public class NotificationsController {
     }
     @GetMapping("/notification_patient")
     public String notifyPatient(Model model){
-        List<Appointment> appointmentList = notificationsService.NotifyPatient("P12");
+        List<Appointment> appointmentList = notificationsService.notifyPatient("P12");
         model.addAttribute("notifications",appointmentList);
 //        return "admin/appointments_list_admin";
         return "notifications/patient_view_notifications";
@@ -27,7 +26,7 @@ public class NotificationsController {
 
     @GetMapping("/notification_doctor")
     public String notifyDoctor(Model model){
-        List<Appointment> appointmentList = notificationsService.NotifyDoctor("P12");
+        List<Appointment> appointmentList = notificationsService.notifyDoctor("P12");
         model.addAttribute("notifications",appointmentList);
 //        return "admin/appointments_list_admin";
         return "notifications/doctor_view_notifications";
@@ -36,7 +35,7 @@ public class NotificationsController {
     @GetMapping("/notification_lab")
     public String notifyLab(HttpSession httpSession, Model model){
         Lab currentLab = (Lab) httpSession.getAttribute("CurrentLab");
-        List<Appointment> appointmentList = notificationsService.NotifyLab(currentLab.getLabId());
+        List<Appointment> appointmentList = notificationsService.notifyLab(currentLab.getLabId());
         model.addAttribute("notifications",appointmentList);
 //        return "admin/appointments_list_admin";
         return "notifications/lab_view_notifications";
