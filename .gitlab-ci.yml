@@ -23,10 +23,6 @@ test:
   image: gradle:latest
   script: 
     - ./gradlew check
-  artifacts:
-    when: always
-    reports:
-      junit: build/test-results/test/binary/TEST-*.xml
 
 deploy-test:
   type: deploy
