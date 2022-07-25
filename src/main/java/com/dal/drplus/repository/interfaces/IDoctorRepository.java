@@ -14,7 +14,7 @@ public interface IDoctorRepository {
 
     public StorageResult saveDoctor(IDoctor doctor);
     public StorageResult updateDoctor(Doctor doctor);
-    public Doctor findDoctorById(String id);
+    public IDoctor findDoctorById(String id);
     public List<Doctor> findAllDoctors();
     public String getDoctorPasswordById(String doctorId);
     public List<Doctor> findAllDoctorsBySpecialization(String specialization);
