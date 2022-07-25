@@ -29,7 +29,7 @@ public class DoctorSlotController {
     @GetMapping("/doctor/{doctorId}")
     public String filterSlotOnDoctorId(Model model, @PathVariable("doctorId") String doctorId){
         System.out.println("doctor"+doctorId);
-        List<DoctorSchedule> doctorScheduleList = doctorSlotService.filterSlotOnDoctorId(doctorId);
+        List<DoctorSchedule> doctorScheduleList = doctorSlotService.filterUnbookedSlotOnDoctorId(doctorId);
         model.addAttribute("doctorSlots",doctorScheduleList);
         return "doctor/doctor_availability";
     }

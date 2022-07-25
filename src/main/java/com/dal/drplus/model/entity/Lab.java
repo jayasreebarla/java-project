@@ -10,6 +10,15 @@ public class Lab {
     private String labContactInfo;
     private String labPincode;
     private double labFee;
+    private int labRating;
+
+    public int getLabRating() {
+        return labRating;
+    }
+
+    public void setLabRating(int labRating) {
+        this.labRating = labRating;
+    }
 
     public double getLabFee() {
         return labFee;

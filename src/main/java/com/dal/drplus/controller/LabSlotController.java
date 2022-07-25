@@ -26,7 +26,7 @@ public class LabSlotController {
     @GetMapping("/lab/{labId}")
     public String filterSlotOnLabId(Model model, @PathVariable("labId") String labId){
         System.out.println("lab: "+labId);
-        List<LabSchedule> labScheduleList = labSlotService.filterSlotOnLabId(labId);
+        List<LabSchedule> labScheduleList = labSlotService.filterUnbookedSlotOnLabId(labId);
         model.addAttribute("labSlots",labScheduleList);
         return "lab/lab_availability";
     }

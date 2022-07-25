@@ -51,12 +51,8 @@ public class AdminController {
 
     @GetMapping("/appointment_list_admin")
     public String getAppointmentList(Model model){
-//        NotificationsService notificationsService = new NotificationsService();
-        //List<Appointment> appointmentList = appointmentListService.listAppointmentAll();
-        List<Appointment> appointmentList = notificationsService.notifyPatient("P12");
+        List<Appointment> appointmentList = appointmentListService.listAppointmentAll();
         model.addAttribute("appointments",appointmentList);
-
-        /////////////////////////
         return "admin/appointments_list_admin";
     }
 

@@ -79,9 +79,10 @@ public class AppointmentRepositoryImpl implements IAppointmentRepository{
             " or (a.slot_id=l.slot_id and a.appointment_type='LAB' and l.slot_date=? and l.slot_timing=?)" +
             " and patient_id=?";
 
-    String SELECT_ALL = "SELECT * from Appointment a, Doc_schedule d, Lab_schedule l" +
-            " where (a.slot_id=d.slot_id and a.appointment_type='DOCTOR') " +
-            " or (a.slot_id=l.slot_id and a.appointment_type='LAB')" ;
+    String SELECT_ALL = "(select b.*, a.slot_date, a.slot_timing from Doc_schedule a, Appointment b" +
+            " where b.slot_id = a.slot_id and b.appointment_type='DOCTOR' ) union " +
+            " (select b.*, a.slot_date, a.slot_timing from Lab_schedule a, Appointment b where " +
+            " b.slot_id = a.slot_id and b.appointment_type='LAB')" ;
 
     String DELETE_ALL = "DELETE from Appointment";
 

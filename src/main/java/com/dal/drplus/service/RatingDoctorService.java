@@ -38,11 +38,14 @@ public class RatingDoctorService {
     public int getRating(String doctorId){
         List<Integer> ratings = ratingDoctorRepository.findDoctorRatingListByDoctorId(doctorId);
         int total_sum=0;
+        int average_rating = 0;
         for (Integer rating:ratings) {
             total_sum+=rating;
         }
 
-        int average_rating = total_sum/ratings.size();
+        if(ratings.size()>0) {
+            average_rating = total_sum / ratings.size();
+        }
         return average_rating;
     }
 
