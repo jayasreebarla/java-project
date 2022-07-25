@@ -33,7 +33,6 @@ public class ModelFactory implements IModelFactory{
     public IDoctorBuilder createDoctorBuilder(){
         return new DoctorBuilder();
     }
-    public Doctor createDoctorBuilder(DoctorBuilder builder){return new Doctor(builder);}
 
     @Override
     public IPatient createPatient() {

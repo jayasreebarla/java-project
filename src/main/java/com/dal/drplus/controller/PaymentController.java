@@ -52,7 +52,12 @@ public class PaymentController {
 
     @PostMapping("/confirm-payment")
     public RedirectView paymentConfirmation( @RequestParam("promotion") String promoCode,RedirectAttributes attributes, HttpSession session,Model model){
-        int discount = promotionsService.validatePromotionAndGetDiscountAmount(promoCode);
+        int discount;
+        if(promoCode.equals("")){
+            discount=0;
+        }else{
+            discount = promotionsService.validatePromotionAndGetDiscountAmount(promoCode);
+        }
         System.out.println("discount"+discount);
         double billAmount = bill_process.getBillAmount();;
         double billFinalAmount = billAmount-discount;

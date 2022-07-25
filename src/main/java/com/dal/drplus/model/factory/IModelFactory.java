@@ -9,7 +9,6 @@ public interface IModelFactory {
     public IDoctor createDoctorUsingBuilder(IDoctorBuilder builder);
 
     public IDoctorBuilder createDoctorBuilder();
-    public IDoctor createDoctorBuilder(DoctorBuilder builder);
 
     public IPatient createPatient();
     public IPatient createPatientBuilder(PatientBuilder builder);
