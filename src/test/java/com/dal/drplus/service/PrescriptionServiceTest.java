@@ -44,16 +44,12 @@ public class PrescriptionServiceTest {
             Assertions.assertEquals(prescription, prescriptionService.downloadPrescription(1));
     }
 
+
+    @Test
     public void downloadPrescriptionFail(){
-
+        Mockito.when(prescriptionRepository.findById(1)).thenReturn(prescription);
+        Assertions.assertNotEquals(prescription, prescriptionService.downloadPrescription(10));
     }
 
-    public void deletePrescriptionPass(){
-
-    }
-
-    public void deletePrescriptionFail(){
-
-    }
 
 }
