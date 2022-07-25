@@ -96,7 +96,6 @@ public class DoctorBuilder{
         this.doctorFee=fee;
         return this;
     }
-
     
     public Doctor build() {
        Doctor doctor = ModelFactory.instance().createDoctorBuilder(this);

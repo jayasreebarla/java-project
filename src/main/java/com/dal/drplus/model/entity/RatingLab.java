@@ -1,6 +1,9 @@
 package com.dal.drplus.model.entity;
 
-public class RatingLab{
+import com.dal.drplus.model.Builder.RatingLabBuilder;
+import com.dal.drplus.model.IEntity.IRatingLab;
+
+public class RatingLab extends IRatingLab {
     private int ratingId;
     private String patientId;
     private String labId;
@@ -17,10 +20,16 @@ public class RatingLab{
         this.review = review;
     }
 
-
+    public RatingLab(RatingLabBuilder builder){
+        this.ratingId = builder.getRatingId();
+        this.patientId = builder.getPatientId();
+        this.labId = builder.getLabId();
+        this.labRating = builder.getLabRating();
+        this.review = builder.getReview();
+    }
 
     public String getReview() {
-        return review;
+        return this.review;
     }
 
     public void setReview(String review) {
@@ -28,7 +37,7 @@ public class RatingLab{
     }
 
     public int getRatingId() {
-        return ratingId;
+        return this.ratingId;
     }
 
     public void setRatingId(int ratingId) {
@@ -36,7 +45,7 @@ public class RatingLab{
     }
 
     public String getPatientId() {
-        return patientId;
+        return this.patientId;
     }
 
     public void setPatientId(String patientId) {
@@ -44,7 +53,7 @@ public class RatingLab{
     }
 
     public String getLabId() {
-        return labId;
+        return this.labId;
     }
 
     public void setLabId(String labId) {
@@ -52,7 +61,7 @@ public class RatingLab{
     }
 
     public int getLabRating() {
-        return labRating;
+        return this.labRating;
     }
 
     public void setLabRating(int labRating) {

@@ -1,5 +1,6 @@
 package com.dal.drplus.repository.implementation;
 
+import com.dal.drplus.model.Builder.RatingLabBuilder;
 import com.dal.drplus.model.entity.RatingLab;
 import com.dal.drplus.repository.configuration.DatabaseConfiguration;
 import com.dal.drplus.repository.configuration.DatabaseConfigurationImpl;
@@ -108,12 +109,20 @@ public class RatingLabRepositoryImpl implements IRatingLabRepository {
             statement.setString(2,labId);
             ResultSet rs = statement.executeQuery();
             RatingLab ratingLab = new RatingLab();
+            RatingLabBuilder ratingLabBuilder = new RatingLabBuilder();
             while (rs.next()){
-                ratingLab.setRatingId(rs.getInt("rating_id"));
-                ratingLab.setPatientId(rs.getString("patient_id"));
-                ratingLab.setLabId(rs.getString("lab_id"));
-                ratingLab.setLabRating(rs.getInt("lab_rating"));
-                ratingLab.setReview(rs.getString("review"));
+                ratingLab = ratingLabBuilder
+                        .addRatingId(rs.getInt("rating_id"))
+                        .addPatientId(rs.getString("patient_id"))
+                        .addLabId(rs.getString("lab_id"))
+                        .addLabRating(rs.getInt("lab_rating"))
+                        .addReview(rs.getString("review")).build();
+
+//                ratingLab.setRatingId(rs.getInt("rating_id"));
+//                ratingLab.setPatientId(rs.getString("patient_id"));
+//                ratingLab.setLabId(rs.getString("lab_id"));
+//                ratingLab.setLabRating(rs.getInt("lab_rating"));
+//                ratingLab.setReview(rs.getString("review"));
             }
             return ratingLab;
         } catch (SQLException e) {
@@ -263,11 +272,20 @@ public class RatingLabRepositoryImpl implements IRatingLabRepository {
     private List<RatingLab> getRatingLab(List<RatingLab> ratingLabList, ResultSet rs) throws SQLException {
         while (rs.next()){
             RatingLab ratingLab = new RatingLab();
-            ratingLab.setRatingId(rs.getInt("rating_id"));
-            ratingLab.setPatientId(rs.getString("patient_id"));
-            ratingLab.setLabId(rs.getString("lab_id"));
-            ratingLab.setLabRating(rs.getInt("lab_rating"));
-            ratingLab.setReview(rs.getString("review"));
+            RatingLabBuilder ratingLabBuilder = new RatingLabBuilder();
+
+            ratingLab = ratingLabBuilder
+                    .addRatingId(rs.getInt("rating_id"))
+                            .addPatientId(rs.getString("patient_id"))
+                                    .addLabId(rs.getString("lab_id"))
+                                            .addLabRating(rs.getInt("lab_rating"))
+                                                    .addReview(rs.getString("review")).build();
+
+//            ratingLab.setRatingId(rs.getInt("rating_id"));
+//            ratingLab.setPatientId(rs.getString("patient_id"));
+//            ratingLab.setLabId(rs.getString("lab_id"));
+//            ratingLab.setLabRating(rs.getInt("lab_rating"));
+//            ratingLab.setReview(rs.getString("review"));
             ratingLabList.add(ratingLab);
         }
         return ratingLabList;
