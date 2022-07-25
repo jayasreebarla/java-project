@@ -119,7 +119,7 @@ public class LabServiceTest {
         List<Lab> lab = new ArrayList<>();
         Mockito.when(labRepository.findAllLabsByPincode(lab1.getLabPincode())).thenReturn(lab);
         List<Lab> lab_result = labService.filterLabOnPincode(lab1.getLabPincode());;
-        assertIterableEquals(null,lab_result);
+        assertIterableEquals(lab,lab_result);
     }
 
     @Test
@@ -127,7 +127,7 @@ public class LabServiceTest {
         List<Lab> lab = new ArrayList<>();
         Mockito.when(labRepository.findAllLabsByPincode(lab1.getLabPincode())).thenReturn(lab);
         List<Lab> lab_result = labService.filterLabOnPincode(lab2.getLabPincode());;
-        assertIterableEquals(null,lab_result);
+        assertIterableEquals(lab,lab_result);
     }
 
     @Test
