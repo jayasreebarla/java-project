@@ -1,4 +1,4 @@
-package com.dal.drplus.service.interfaces;
+package com.dal.drplus.service;
 import com.dal.drplus.model.entity.Appointment;
 import com.dal.drplus.repository.configuration.DatabaseConfiguration;
 import com.dal.drplus.repository.configuration.DatabaseConfigurationImpl;

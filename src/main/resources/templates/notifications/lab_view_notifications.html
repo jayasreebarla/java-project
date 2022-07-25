@@ -16,10 +16,8 @@
         <th> Appointment Time </th>
         <th> Appointment Description </th>
         <th> Appointment Type </th>
-        <th> Doctor Id </th>
-        <th> Lab Id </th>
+        <th> Patient Id </th>
         <th> Bill Id </th>
-        <th> Actions </th>
     </tr>
     </thead>
     <tbody>
@@ -27,9 +25,9 @@
         <td colspan="2"> No Appointments Available </td>
     </tr>
     <tr th:each="notification : ${notifications}">
-        <td><span th:text="${notification.getAppointmentId()}"> Appointment Id </span></td>
-        <td><span th:text="${notification.getAppointmentDate()}"> Appointment Date </span></td>
-        <td><span th:text="${notification.getAppointmentTime()}"> Appointment Time </span></td>
+        <td><span th:text="${notification.getSlotId()}"> Appointment Id </span></td>
+        <td><span th:text="${notification.getSlotDate()}"> Appointment Date </span></td>
+        <td><span th:text="${notification.getSlotTime()}"> Appointment Time </span></td>
         <td><span th:text="${notification.getAppointmentDescription()}"> Appointment Description </span></td>
         <td><span th:text="${notification.getAppointmentType()}"> Appointment Type </span></td>
         <td><span th:text="${notification.getDoctorId()}"> Doctor Id </span></td>

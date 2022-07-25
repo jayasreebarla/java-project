@@ -21,4 +21,5 @@ public interface IModelFactory {
 
     public IRatingLab createRatingLab();
     public IRatingLab createRatingLabBuilder(RatingLabBuilder builder);
+
 }
