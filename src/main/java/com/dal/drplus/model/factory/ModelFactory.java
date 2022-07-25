@@ -4,6 +4,9 @@ import com.dal.drplus.model.Builder.DoctorBuilder;
 import com.dal.drplus.model.IBuilder.IDoctorBuilder;
 import com.dal.drplus.model.IEntity.IDoctor;
 import com.dal.drplus.model.entity.Doctor;
+import com.dal.drplus.model.Builder.*;
+import com.dal.drplus.model.IEntity.*;
+import com.dal.drplus.model.entity.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
@@ -29,5 +32,46 @@ public class ModelFactory implements IModelFactory{
     public Doctor createDoctorUsingBuilder(IDoctorBuilder builder){return new Doctor(builder);}
     public IDoctorBuilder createDoctorBuilder(){
         return new DoctorBuilder();
+    }
+    public Doctor createDoctorBuilder(DoctorBuilder builder){return new Doctor(builder);}
+
+    @Override
+    public IPatient createPatient() {
+        return new Patient();
+    }
+
+    @Override
+    public IPatient createPatientBuilder(PatientBuilder builder) {
+        return new Patient(builder);
+    }
+
+    @Override
+    public ILabSchedule createLabSchedule() {
+        return new LabSchedule();
+    }
+
+    @Override
+    public ILabSchedule createLabScheduleBuilder(LabScheduleBuilder builder) {
+        return new LabSchedule(builder);
+    }
+
+    @Override
+    public IDoctorSchedule createDoctorSchedule() {
+        return new DoctorSchedule();
+    }
+
+    @Override
+    public IDoctorSchedule createDoctorScheduleBuilder(DoctorScheduleBuilder builder) {
+        return new DoctorSchedule(builder);
+    }
+
+    @Override
+    public IRatingLab createRatingLab() {
+        return new RatingLab();
+    }
+
+    @Override
+    public IRatingLab createRatingLabBuilder(RatingLabBuilder builder) {
+        return new RatingLab(builder);
     }
 }

@@ -1,6 +1,10 @@
 package com.dal.drplus.model.entity;
 
-public class Patient {
+import com.dal.drplus.model.Builder.DoctorBuilder;
+import com.dal.drplus.model.Builder.PatientBuilder;
+import com.dal.drplus.model.IEntity.IPatient;
+
+public class Patient extends IPatient {
     private String patientId;
     private String patientName;
     private int patientAge;
@@ -14,6 +18,17 @@ public class Patient {
     public Patient() {
     }
 
+    public Patient(PatientBuilder builder){
+        this.patientId = builder.getPatientId();
+        this.patientName = builder.getPatientName();
+        this.patientAge = builder.getPatientAge();
+        this.patientEmail = builder.getPatientEmail();
+        this.patientPhoneNo = builder.getPatientPhoneNo();
+        this.patientPassword = builder.getPatientPassword();
+        this.patientAddress = builder.getPatientAddress();
+        this.patientPincode = builder.getPatientPincode();
+        this.privacyAgreementEnabled = builder.isPrivacyAgreementEnabled();
+    }
     public Patient(String patientId, String patientName, int patientAge, String patientEmail, String patientPhoneNo, String patientPassword, String patientAddress, String patientPincode, boolean privacyAgreementEnabled) {
         this.patientId = patientId;
         this.patientName = patientName;
@@ -27,7 +42,7 @@ public class Patient {
     }
 
     public String getPatientId() {
-        return patientId;
+        return this.patientId;
     }
 
     public void setPatientId(String patientId) {
@@ -35,7 +50,7 @@ public class Patient {
     }
 
     public String getPatientName() {
-        return patientName;
+        return this.patientName;
     }
 
     public void setPatientName(String patientName) {
@@ -43,7 +58,7 @@ public class Patient {
     }
 
     public String getPatientEmail() {
-        return patientEmail;
+        return this.patientEmail;
     }
 
     public void setPatientEmail(String patientEmail) {
@@ -51,7 +66,7 @@ public class Patient {
     }
 
     public String getPatientPhoneNo() {
-        return patientPhoneNo;
+        return this.patientPhoneNo;
     }
 
     public void setPatientPhoneNo(String patientPhoneNo) {
@@ -59,7 +74,7 @@ public class Patient {
     }
 
     public int getPatientAge() {
-        return patientAge;
+        return this.patientAge;
     }
 
     public void setPatientAge(int patientAge) {
@@ -67,7 +82,7 @@ public class Patient {
     }
 
     public String getPatientPassword() {
-        return patientPassword;
+        return this.patientPassword;
     }
 
     public void setPatientPassword(String patientPassword) {
@@ -76,7 +91,7 @@ public class Patient {
 
 
     public String getPatientAddress() {
-        return patientAddress;
+        return this.patientAddress;
     }
 
     public void setPatientAddress(String patientAddress) {
@@ -84,7 +99,7 @@ public class Patient {
     }
 
     public String getPatientPincode() {
-        return patientPincode;
+        return this.patientPincode;
     }
 
     public void setPatientPincode(String patientPincode) {
@@ -92,7 +107,7 @@ public class Patient {
     }
 
     public boolean isPrivacyAgreementEnabled() {
-        return privacyAgreementEnabled;
+        return this.privacyAgreementEnabled;
     }
 
     public void setPrivacyAgreementEnabled(boolean privacyAgreementEnabled) {

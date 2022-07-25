@@ -96,7 +96,6 @@ public class DoctorBuilder implements IDoctorBuilder {
         this.doctorFee=fee;
         return this;
     }
-
     
     public Doctor build() {
        Doctor doctor = ModelFactory.instance().createDoctorUsingBuilder(this);

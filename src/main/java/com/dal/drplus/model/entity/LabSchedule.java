@@ -1,18 +1,29 @@
 package com.dal.drplus.model.entity;
 
-public class LabSchedule {
+import com.dal.drplus.model.Builder.LabScheduleBuilder;
+import com.dal.drplus.model.IEntity.ILabSchedule;
+
+public class LabSchedule extends ILabSchedule {
     private int slotId;
     private String slotTiming;
     private String slotDate;
     private String labId;
     private Boolean status;
 
-    public LabSchedule(int slotId, String slotTiming, String slotDate, String doctorId, Boolean status){
+    public LabSchedule(int slotId, String slotTiming, String slotDate, String labId, Boolean status){
         this.slotId = slotId;
         this.slotTiming = slotTiming;
         this.slotDate = slotDate;
-        this.labId = doctorId;
+        this.labId = labId;
         this.status = status;
+    }
+
+    public LabSchedule(LabScheduleBuilder builder){
+        this.slotId = builder.getSlotId();
+        this.slotTiming = builder.getSlotTiming();
+        this.slotDate = builder.getSlotDate();
+        this.labId = builder.getLabId();
+        this.status = builder.getStatus();
     }
 
     public LabSchedule(){
@@ -23,7 +34,7 @@ public class LabSchedule {
         this.status = null;
     }
     public int getSlotId() {
-        return slotId;
+        return this.slotId;
     }
 
     public void setSlotId(int slotId) {
@@ -31,7 +42,7 @@ public class LabSchedule {
     }
 
     public String getSlotTiming() {
-        return slotTiming;
+        return this.slotTiming;
     }
 
     public void setSlotTiming(String slotTiming) {
@@ -39,7 +50,7 @@ public class LabSchedule {
     }
 
     public String getSlotDate() {
-        return slotDate;
+        return this.slotDate;
     }
 
     public void setSlotDate(String slotDate) {
@@ -47,7 +58,7 @@ public class LabSchedule {
     }
 
     public String getLabId() {
-        return labId;
+        return this.labId;
     }
 
     public void setLabId(String labId) {
@@ -55,7 +66,7 @@ public class LabSchedule {
     }
 
     public Boolean getStatus() {
-        return status;
+        return this.status;
     }
 
     public void setStatus(Boolean status) {

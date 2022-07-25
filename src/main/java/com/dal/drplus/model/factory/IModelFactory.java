@@ -1,6 +1,6 @@
 package com.dal.drplus.model.factory;
 
-import com.dal.drplus.model.IBuilder.IDoctorBuilder;
+import com.dal.drplus.model.Builder.DoctorBuilder;
 import com.dal.drplus.model.IEntity.IDoctor;
 
 public interface IModelFactory {
@@ -8,4 +8,17 @@ public interface IModelFactory {
     public IDoctor createDoctorUsingBuilder(IDoctorBuilder builder);
 
     public IDoctorBuilder createDoctorBuilder();
+    public IDoctor createDoctorBuilder(DoctorBuilder builder);
+
+    public IPatient createPatient();
+    public IPatient createPatientBuilder(PatientBuilder builder);
+
+    public ILabSchedule createLabSchedule();
+    public ILabSchedule createLabScheduleBuilder(LabScheduleBuilder builder);
+
+    public IDoctorSchedule createDoctorSchedule();
+    public IDoctorSchedule createDoctorScheduleBuilder(DoctorScheduleBuilder builder);
+
+    public IRatingLab createRatingLab();
+    public IRatingLab createRatingLabBuilder(RatingLabBuilder builder);
 }
