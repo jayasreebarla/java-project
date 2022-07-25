@@ -17,6 +17,7 @@ public class LabServiceTest {
 
     String labPassword = "lab1";
     String labPassword1 = "lab2";
+    static List<Lab> unsortedList;
 
     private static LabService labService;
     private static ILabRepository labRepository;
@@ -25,6 +26,11 @@ public class LabServiceTest {
     public static void init(){
         labRepository = Mockito.mock(LabRepositoryImpl.class);
         labRepository = Mockito.mock(LabRepositoryImpl.class);
+        lab1.setLabRating(3);
+        lab2.setLabRating(4);
+        unsortedList = new ArrayList<>();
+        unsortedList.add(lab1);
+        unsortedList.add(lab2);
         Mockito.when(labRepository.saveLab(lab1)).thenReturn(ILabRepository.StorageResult.SUCCESS);
         Mockito.when(labRepository.saveLab(lab2)).thenReturn(ILabRepository.StorageResult.FAILURE);
         Mockito.when(labRepository.getLabPasswordById("lab1")).thenReturn("lab1");
@@ -101,12 +107,14 @@ public class LabServiceTest {
         assertIterableEquals(expectedLab,lab_result);
     }
 
+    @Test
     public void filterLabOnPincodeFailNull(){
         Mockito.when(labRepository.findAllLabsByPincode(lab1.getLabPincode())).thenReturn(null);
         List<Lab> lab_result = labService.filterLabOnPincode(lab1.getLabPincode());
         assertIterableEquals(null,lab_result);
     }
 
+    @Test
     public void filterLabOnPincodeFailEmpty(){
         List<Lab> lab = new ArrayList<>();
         Mockito.when(labRepository.findAllLabsByPincode(lab1.getLabPincode())).thenReturn(lab);
@@ -114,10 +122,17 @@ public class LabServiceTest {
         assertIterableEquals(null,lab_result);
     }
 
+    @Test
     public void filterLabOnPincodeFailIncorrectPincode(){
         List<Lab> lab = new ArrayList<>();
         Mockito.when(labRepository.findAllLabsByPincode(lab1.getLabPincode())).thenReturn(lab);
         List<Lab> lab_result = labService.filterLabOnPincode(lab2.getLabPincode());;
         assertIterableEquals(null,lab_result);
+    }
+
+    @Test
+    public void sortLabs(){
+        List<Lab> result = labService.sortLabList(unsortedList);
+        assertIterableEquals(unsortedList,result);
     }
 }

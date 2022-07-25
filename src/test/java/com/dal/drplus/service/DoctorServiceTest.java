@@ -2,6 +2,7 @@ package com.dal.drplus.service;
 
 import com.dal.drplus.model.IEntity.IDoctor;
 import com.dal.drplus.model.entity.Doctor;
+import com.dal.drplus.model.entity.Lab;
 import com.dal.drplus.repository.implementation.DoctorRepositoryImpl;
 import com.dal.drplus.repository.interfaces.IDoctorRepository;
 import org.junit.jupiter.api.BeforeAll;
@@ -23,10 +24,14 @@ public class DoctorServiceTest {
 
     private static IDoctorRepository doctorRepository;
 
+    static List<Doctor> unsortedList;
     @BeforeAll
     public static void init(){
         doctorRepository = Mockito.mock(DoctorRepositoryImpl.class);
-
+        unsortedList = new ArrayList<>();
+        unsortedList.add(doctor1);
+        unsortedList.add(doctor2);
+        unsortedList.add(doctor3);
         Mockito.when(doctorRepository.deleteDoctorById(doctor1.getDoctorId())).thenReturn(IDoctorRepository.StorageResult.SUCCESS);
         Mockito.when(doctorRepository.deleteDoctorById(doctor2.getDoctorId())).thenReturn(IDoctorRepository.StorageResult.FAILURE);
         Mockito.when(doctorRepository.findDoctorById(doctor1.getDoctorId())).thenReturn(doctor1);
@@ -121,4 +126,9 @@ public class DoctorServiceTest {
         assertNull(doctor_result);
     }
 
+    @Test
+    public void sortLabs(){
+        List<Doctor> result = doctorService.sortDoctorList(unsortedList);
+        assertIterableEquals(unsortedList,result);
+    }
 }
