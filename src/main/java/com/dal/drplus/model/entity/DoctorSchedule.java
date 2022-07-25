@@ -1,6 +1,9 @@
 package com.dal.drplus.model.entity;
 
-public class DoctorSchedule {
+import com.dal.drplus.model.Builder.DoctorScheduleBuilder;
+import com.dal.drplus.model.IEntity.IDoctorSchedule;
+
+public class DoctorSchedule extends IDoctorSchedule {
     private int slotId;
     private String slotTiming;
     private String slotDate;
@@ -23,8 +26,16 @@ public class DoctorSchedule {
         this.status = null;
     }
 
+    public DoctorSchedule(DoctorScheduleBuilder builder){
+        this.slotId = builder.getSlotId();
+        this.slotTiming = builder.getSlotTiming();
+        this.slotDate = builder.getSlotDate();
+        this.doctorId = builder.getDoctorId();
+        this.status = builder.getStatus();
+    }
+
     public int getSlotId() {
-        return slotId;
+        return this.slotId;
     }
 
     public void setSlotId(int slotId) {
@@ -32,7 +43,7 @@ public class DoctorSchedule {
     }
 
     public String getSlotTiming() {
-        return slotTiming;
+        return this.slotTiming;
     }
 
     public void setSlotTiming(String slotTiming) {
@@ -40,7 +51,7 @@ public class DoctorSchedule {
     }
 
     public String getSlotDate() {
-        return slotDate;
+        return this.slotDate;
     }
 
     public void setSlotDate(String slotDate) {
@@ -48,7 +59,7 @@ public class DoctorSchedule {
     }
 
     public String getDoctorId() {
-        return doctorId;
+        return this.doctorId;
     }
 
     public void setDoctorId(String doctorId) {
@@ -56,7 +67,7 @@ public class DoctorSchedule {
     }
 
     public Boolean getStatus() {
-        return status;
+        return this.status;
     }
 
     public void setStatus(Boolean status) {

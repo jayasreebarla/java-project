@@ -1,5 +1,6 @@
 package com.dal.drplus.repository.implementation;
 
+import com.dal.drplus.model.Builder.LabScheduleBuilder;
 import com.dal.drplus.model.entity.LabSchedule;
 import com.dal.drplus.repository.configuration.DatabaseConfiguration;
 import com.dal.drplus.repository.configuration.DatabaseConfigurationImpl;
@@ -144,6 +145,13 @@ public class LabScheduleRepositoryImpl implements ILabScheduleRepository {
 
     @Override
     public StorageResult updateSlotStatus(boolean status, int slotId) {
+//        int statusInt = 0;
+//        if(status){
+//            statusInt = 1;
+//        }
+//        else{
+//            statusInt = 0;
+//        }
         PreparedStatement statement = null;
         try {
             statement = databaseConfiguration.getDBConnection().prepareStatement(UPDATE_SLOT_STATUS);
@@ -206,11 +214,20 @@ public class LabScheduleRepositoryImpl implements ILabScheduleRepository {
     private LabSchedule createLabSchedule(ResultSet rs) throws SQLException {
 
         LabSchedule labSchedule = new LabSchedule();
-        labSchedule.setSlotId(rs.getInt("slot_id"));
-        labSchedule.setSlotTiming(rs.getString("slot_timing"));
-        labSchedule.setSlotDate(rs.getString("slot_date"));
-        labSchedule.setLabId(rs.getString("lab_id"));
-        labSchedule.setStatus(rs.getBoolean("status"));
+        LabScheduleBuilder labScheduleBuilder = new LabScheduleBuilder();
+
+        labSchedule = labScheduleBuilder
+                .addSlotId(rs.getInt("slot_id"))
+                .addSlotTiming(rs.getString("slot_timing"))
+                .addSlotDate(rs.getString("slot_date"))
+                .addLabId(rs.getString("lab_id"))
+                .addStatus(rs.getBoolean("status")).build();
+
+//        labSchedule.setSlotId(rs.getInt("slot_id"));
+//        labSchedule.setSlotTiming(rs.getString("slot_timing"));
+//        labSchedule.setSlotDate(rs.getString("slot_date"));
+//        labSchedule.setLabId(rs.getString("lab_id"));
+//        labSchedule.setStatus(rs.getBoolean("status"));
 
         return labSchedule;
     }

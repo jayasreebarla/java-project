@@ -1,5 +1,6 @@
 package com.dal.drplus.repository.interfaces;
 
+import com.dal.drplus.model.IEntity.IPatient;
 import com.dal.drplus.model.entity.Patient;
 
 import java.util.List;
@@ -11,7 +12,7 @@ public interface IPatientRepository {
         FAILURE
     }
 
-    StorageResult savePatient(Patient patient);
+    StorageResult savePatient(IPatient patient);
     StorageResult updatePatient(Patient patient);
     Patient findPatientById(String patientId);
 

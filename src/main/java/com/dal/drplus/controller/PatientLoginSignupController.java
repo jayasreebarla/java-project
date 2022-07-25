@@ -1,6 +1,8 @@
 package com.dal.drplus.controller;
 
+import com.dal.drplus.model.entity.Doctor;
 import com.dal.drplus.model.entity.Patient;
+import com.dal.drplus.model.factory.ModelFactory;
 import com.dal.drplus.repository.implementation.PatientRepositoryImpl;
 import com.dal.drplus.service.PasswordEncryptionService;
 import com.dal.drplus.service.PatientLoginSignupService;
@@ -29,7 +31,8 @@ public class PatientLoginSignupController {
 
     @GetMapping("/patient_signup")
     public String SignUp(Model model){
-        model.addAttribute("patient",new Patient());
+        //model.addAttribute("patient",new Patient());
+        model.addAttribute((Patient) ModelFactory.instance().createPatient());
         return "patient/signup";
     }
 

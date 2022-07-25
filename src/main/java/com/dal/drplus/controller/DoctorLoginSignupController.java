@@ -21,7 +21,8 @@ import java.util.List;
 
 @Controller
 @RequestMapping(value = "/auth_doctor")
-public class  DoctorLoginSignupController {
+public class
+DoctorLoginSignupController {
 
     private DoctorLoginSignupService loginSignupService;
     private AppointmentListService appointmentListService;

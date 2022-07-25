@@ -180,7 +180,6 @@ public class AppointmentController {
             return new RedirectView("/error_appointment");
         }
     }
-
     @GetMapping("/cancel_appointment_lab/{id}/{slotId}")
     public RedirectView cancelAppointmentbyLab(@PathVariable("id") int id, @PathVariable("slotId") int slotId){
         System.out.println("slotId: "+slotId);

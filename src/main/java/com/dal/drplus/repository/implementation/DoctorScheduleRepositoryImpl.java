@@ -1,6 +1,9 @@
 package com.dal.drplus.repository.implementation;
 
+import com.dal.drplus.model.Builder.DoctorScheduleBuilder;
+import com.dal.drplus.model.Builder.LabScheduleBuilder;
 import com.dal.drplus.model.entity.DoctorSchedule;
+import com.dal.drplus.model.entity.LabSchedule;
 import com.dal.drplus.repository.configuration.DatabaseConfiguration;
 import com.dal.drplus.repository.configuration.DatabaseConfigurationImpl;
 import com.dal.drplus.repository.interfaces.IDoctorScheduleRepository;
@@ -76,13 +79,7 @@ public class DoctorScheduleRepositoryImpl implements IDoctorScheduleRepository {
 
             ResultSet rs = statement.executeQuery();
             while (rs.next()){
-                DoctorSchedule doctorSchedule = new DoctorSchedule();
-                doctorSchedule.setSlotId(rs.getInt("slot_id"));
-                doctorSchedule.setSlotTiming(rs.getString("slot_timing"));
-                doctorSchedule.setSlotDate(rs.getString("slot_date"));
-                doctorSchedule.setDoctorId(rs.getString("doctor_id"));
-                doctorSchedule.setStatus(rs.getBoolean("status"));
-                doctorSchedules.add(doctorSchedule);
+                doctorSchedules.add(createLabSchedule(rs));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -100,13 +97,7 @@ public class DoctorScheduleRepositoryImpl implements IDoctorScheduleRepository {
 
             ResultSet rs = statement.executeQuery();
             while (rs.next()){
-                DoctorSchedule doctorSchedule = new DoctorSchedule();
-                doctorSchedule.setSlotId(rs.getInt("slot_id"));
-                doctorSchedule.setSlotTiming(rs.getString("slot_timing"));
-                doctorSchedule.setSlotDate(rs.getString("slot_date"));
-                doctorSchedule.setDoctorId(rs.getString("doctor_id"));
-                doctorSchedule.setStatus(rs.getBoolean("status"));
-                doctorSchedules.add(doctorSchedule);
+                doctorSchedules.add(createLabSchedule(rs));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -124,11 +115,9 @@ public class DoctorScheduleRepositoryImpl implements IDoctorScheduleRepository {
             statement = databaseConfiguration.getDBConnection().prepareStatement("Select * from Doc_schedule where slot_id = ?");
             statement.setInt(1,id);
             ResultSet rs = statement.executeQuery();
-            doctorSchedule.setSlotId(rs.getInt("slot_id"));
-            doctorSchedule.setSlotTiming(rs.getString("slot_timing"));
-            doctorSchedule.setSlotDate(rs.getString("slot_date"));
-            doctorSchedule.setDoctorId(rs.getString("doctor_id"));
-            doctorSchedule.setStatus(rs.getBoolean("status"));
+
+            doctorSchedule = createLabSchedule(rs);
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -179,14 +168,9 @@ public class DoctorScheduleRepositoryImpl implements IDoctorScheduleRepository {
             statement = databaseConfiguration.getDBConnection().prepareStatement(SELECT_UNBOOKED_SLOTS_BY_DOCTOR_ID);
             statement.setString(1, doctorId);
             ResultSet rs = statement.executeQuery();
+
             while(rs.next()) {
-                DoctorSchedule doctorSchedule = new DoctorSchedule();
-                doctorSchedule.setSlotId(rs.getInt("slot_id"));
-                doctorSchedule.setSlotTiming(rs.getString("slot_timing"));
-                doctorSchedule.setSlotDate(rs.getString("slot_date"));
-                doctorSchedule.setDoctorId(rs.getString("doctor_id"));
-                doctorSchedule.setStatus(rs.getBoolean("status"));
-                doctorScheduleList.add(doctorSchedule);
+                doctorScheduleList.add(createLabSchedule(rs));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -196,10 +180,11 @@ public class DoctorScheduleRepositoryImpl implements IDoctorScheduleRepository {
 
     @Override
     public StorageResult updateSlotStatus(boolean status, int slotId) {
+
         PreparedStatement statement = null;
         try {
             statement = databaseConfiguration.getDBConnection().prepareStatement("Update Doc_schedule set status = ? where slot_id = ?");
-            statement.setBoolean(1,true);
+            statement.setBoolean(1,status);
             statement.setInt(2,slotId);
             int result = statement.executeUpdate();
             if(result == 1) {
@@ -245,6 +230,27 @@ public class DoctorScheduleRepositoryImpl implements IDoctorScheduleRepository {
             throw new RuntimeException(e);
         }
         return slot_id_list;
+    }
+
+    private DoctorSchedule createLabSchedule(ResultSet rs) throws SQLException {
+
+        DoctorSchedule doctorSchedule = new DoctorSchedule();
+        DoctorScheduleBuilder doctorScheduleBuilder = new DoctorScheduleBuilder();
+
+        doctorSchedule = doctorScheduleBuilder
+                .addSlotId(rs.getInt("slot_id"))
+                .addSlotTiming(rs.getString("slot_timing"))
+                .addSlotDate(rs.getString("slot_date"))
+                .addDoctorId(rs.getString("doctor_id"))
+                .addStatus(rs.getBoolean("status")).build();
+
+//        labSchedule.setSlotId(rs.getInt("slot_id"));
+//        labSchedule.setSlotTiming(rs.getString("slot_timing"));
+//        labSchedule.setSlotDate(rs.getString("slot_date"));
+//        labSchedule.setLabId(rs.getString("lab_id"));
+//        labSchedule.setStatus(rs.getBoolean("status"));
+
+        return doctorSchedule;
     }
 
 
