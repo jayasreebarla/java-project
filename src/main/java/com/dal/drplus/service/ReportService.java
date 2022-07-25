@@ -1,5 +1,6 @@
 package com.dal.drplus.service;
 
+import com.dal.drplus.model.IEntity.IReport;
 import com.dal.drplus.model.entity.Report;
 import com.dal.drplus.repository.interfaces.IReportRepository;
 
@@ -14,7 +15,7 @@ public class ReportService {
         this.reportRepository = reportRepository;
     }
 
-    public boolean uploadReport(Report report){
+    public boolean uploadReport(IReport report){
         try {
             IReportRepository.StorageResult result = reportRepository.uploadReport(report);
             if(result.equals(IReportRepository.StorageResult.SUCCESS)){
@@ -27,26 +28,12 @@ public class ReportService {
         }
     }
 
-    public void deleteReport(){
-
-    }
-
-    public Report downloadReport(int id){
+    public IReport downloadReport(int id){
         return reportRepository.getReportbyId(id);
     }
 
     public List<Report> findAllbyAppointment(int appointmentId){
-
         return reportRepository.findAllbyAppointment(appointmentId);
-
     }
-//
-//    public Optional<Object> loadAll() {
-//    }
-//
-//    public Resource loadAsResource(String filename) {
-//    }
-//
-//    public void store(MultipartFile file) {
-//    }
+
 }

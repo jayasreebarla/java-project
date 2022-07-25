@@ -1,6 +1,9 @@
 package com.dal.drplus.repository.implementation;
 
+import com.dal.drplus.model.IBuilder.IReportBuilder;
+import com.dal.drplus.model.IEntity.IReport;
 import com.dal.drplus.model.entity.Report;
+import com.dal.drplus.model.factory.ModelFactory;
 import com.dal.drplus.repository.configuration.DatabaseConfiguration;
 import com.dal.drplus.repository.configuration.DatabaseConfigurationImpl;
 import com.dal.drplus.repository.interfaces.IReportRepository;
@@ -21,7 +24,6 @@ public class ReportRepositoryImpl implements IReportRepository {
 
     String INSERT_REPORT = "INSERT INTO Report (appointment_id, report_desc, report) VALUES (?,?,?)";
     String SELECT_REPORT_BY_ID = "Select * FROM Report WHERE report_id = ?";
-    String DELETE_REPORT_BY_ID = "DELETE FROM Report WHERE report_id = ?";
     String SELECT_REPORT_BY_AID = "Select * from Report where appointment_id=?";
     DatabaseConfiguration databaseConfiguration;
     public ReportRepositoryImpl() {
@@ -33,7 +35,7 @@ public class ReportRepositoryImpl implements IReportRepository {
     }
 
     @Override
-    public StorageResult uploadReport(Report report) {
+    public StorageResult uploadReport(IReport report) {
 
         try {
             PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(INSERT_REPORT);
@@ -43,9 +45,13 @@ public class ReportRepositoryImpl implements IReportRepository {
             statement.setInt(1, report.getAppointmentId());
             statement.setString(2, report.getReportDetails());
             statement.setBlob(3, blob_file);
-            statement.executeUpdate();
+            int res = statement.executeUpdate();
             System.out.println("report uploaded ");
-            return IReportRepository.StorageResult.SUCCESS;
+            if(res == 1) {
+                return IReportRepository.StorageResult.SUCCESS;
+            } else {
+                return StorageResult.FAILURE;
+            }
         } catch (SQLException e) {
 //           throw new RuntimeException(e);
             return IReportRepository.StorageResult.FAILURE;
@@ -53,20 +59,8 @@ public class ReportRepositoryImpl implements IReportRepository {
     }
 
     @Override
-    public int deleteReport(Report report) {
-        try {
-            PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(DELETE_REPORT_BY_ID);
-            return statement.executeUpdate();
-        } catch (SQLException e) {
-            return -1;
-            //throw new RuntimeException(e);
-        }
-
-    }
-
-    @Override
-    public Report getReportbyId(int reportId) {
-        Report report = null;
+    public IReport getReportbyId(int reportId) {
+        IReport report = null;
         try {
             PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(SELECT_REPORT_BY_ID);
             statement.setInt(1,reportId);
@@ -81,19 +75,24 @@ public class ReportRepositoryImpl implements IReportRepository {
     }
 
     private Report createReport(ResultSet rs) throws SQLException {
+        Report report;
+        IReportBuilder reportBuilder = ModelFactory.instance().createReportBuilder();
 
-        Report report= new Report();
-        report.setReportId(rs.getInt("report_id"));
-        report.setReportDetails(rs.getString("report_desc"));
-        report.setAppointmentId(rs.getInt("appointment_id"));
-        report.setReportFile(rs.getBytes("report"));
+        reportBuilder
+                .addAppointmentId(rs.getInt("appointment_id"))
+                .addReportFile(rs.getBytes("report"))
+                .addReportDetails(rs.getString("report_desc"))
+                .addReportId(rs.getInt("report_id"))
+                .build();
+
+        report = ModelFactory.instance().createReportUsingBuilder(reportBuilder);
         return report;
     }
 
     @Override
     public List<Report> findAllbyAppointment(int appointmentId) {
         List<Report> reportList = new ArrayList<>();
-        Report report = null;
+        Report report;
         try {
             PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(SELECT_REPORT_BY_AID);
             statement.setInt(1,appointmentId);
