@@ -1,19 +1,17 @@
 package com.dal.drplus.model.factory;
 
 import com.dal.drplus.model.Builder.DoctorBuilder;
+import com.dal.drplus.model.IBuilder.IAdminBuilder;
 import com.dal.drplus.model.IBuilder.IDoctorBuilder;
 import com.dal.drplus.model.IEntity.IDoctor;
 import com.dal.drplus.model.entity.Doctor;
 import com.dal.drplus.model.Builder.*;
 import com.dal.drplus.model.IEntity.*;
 import com.dal.drplus.model.entity.*;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.stereotype.Component;
-
-import javax.print.Doc;
 
 public class ModelFactory implements IModelFactory{
+
+
     private static ModelFactory theOneInstance = null;
     public static ModelFactory instance()
     {
@@ -72,5 +70,20 @@ public class ModelFactory implements IModelFactory{
     @Override
     public IRatingLab createRatingLabBuilder(RatingLabBuilder builder) {
         return new RatingLab(builder);
+    }
+
+    @Override
+    public IAdmin createAdmin() {
+        return new Admin();
+    }
+
+    @Override
+    public Admin createAdminUsingBuilder(IAdminBuilder adminBuilder) {
+        return new Admin(adminBuilder);
+    }
+
+    @Override
+    public IAdminBuilder createAdminBuilder() {
+        return new AdminBuilder();
     }
 }

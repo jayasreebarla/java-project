@@ -46,7 +46,6 @@ DoctorLoginSignupController {
 
     @PostMapping("/doctor_signup")
     public RedirectView RegisterDoctor(HttpSession session, @ModelAttribute Doctor doctor, @RequestParam(value = "confirmDoctorPassword") String confirmPassword){
-
         System.out.println(doctor.toString());
         System.out.println("confirmPassword"+confirmPassword);
         doctor.setDoctorPassword(passwordEncryptionService.hashPassword(doctor.getDoctorPassword()));

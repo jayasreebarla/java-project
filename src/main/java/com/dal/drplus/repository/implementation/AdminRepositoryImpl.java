@@ -1,6 +1,9 @@
 package com.dal.drplus.repository.implementation;
 
+import com.dal.drplus.model.IBuilder.IAdminBuilder;
+import com.dal.drplus.model.IEntity.IAdmin;
 import com.dal.drplus.model.entity.Admin;
+import com.dal.drplus.model.factory.ModelFactory;
 import com.dal.drplus.repository.configuration.DatabaseConfiguration;
 import com.dal.drplus.repository.configuration.DatabaseConfigurationImpl;
 import com.dal.drplus.repository.interfaces.IAdminRepository;
@@ -12,21 +15,17 @@ import java.sql.SQLException;
 
 @Repository
 public class AdminRepositoryImpl implements IAdminRepository {
-    //@Autowired
-    //private JdbcTemplate jdbcTemplate;
-
     DatabaseConfiguration databaseConfiguration;
 
     public AdminRepositoryImpl() {
         this.databaseConfiguration = dbConfig();
     }
-
     private DatabaseConfiguration dbConfig(){
         return new DatabaseConfigurationImpl();
     }
 
     @Override
-    public StorageResult addAdmin(Admin admin) {
+    public StorageResult addAdmin(IAdmin admin) {
         String query = "insert into Admin (ADMIN_ID, ADMIN_PASSWORD, ADMIN_ACCESS_KEY) values (?,?,?)";
         try {
             PreparedStatement ps = databaseConfiguration.getDBConnection().prepareStatement(query);
@@ -44,46 +43,18 @@ public class AdminRepositoryImpl implements IAdminRepository {
     }
 
     @Override
-    public int deleteAdmin(String adminId) throws SQLException {
-        String query = "delete from Admin where admin_id=?";
-        PreparedStatement ps = databaseConfiguration.getDBConnection().prepareStatement(query);
-        ps.setString(1,adminId);
-        int result = ps.executeUpdate();
-        return 0;
-    }
-
-    @Override
-    public StorageResult updateAdmin(Admin admin) throws SQLException {
-        String query = "update Admin set admin_password=?, admin_access_key = ? where admin_id=?";
-        try {
-        PreparedStatement ps = databaseConfiguration.getDBConnection().prepareStatement(query);
-        ps.setString(1,admin.getAdminPassword());
-        ps.setString(2,admin.getAdminAccessKey());
-        ps.setString(3,admin.getAdminId());
-        boolean result = ps.execute();
-            return StorageResult.SUCCESS;
-         }
-        catch (SQLException e) {
-            //throw new RuntimeException(e);
-            return StorageResult.FAILURE;
-        }
-    }
-
-    @Override
-    public Admin getAdminbyId(String adminId){
+    public IAdmin getAdminbyId(String adminId){
+        IAdmin adminObject = null;
         String query = "Select * FROM Admin WHERE admin_id = ?";
         try {
         PreparedStatement ps = databaseConfiguration.getDBConnection().prepareStatement(query);
         ps.setString(1,adminId);
         ResultSet rs = ps.executeQuery();
 
-        Admin admin = new Admin();
         while(rs.next()){
-            admin.setAdminId(rs.getString("ADMIN_ID"));
-            admin.setAdminPassword(rs.getString("ADMIN_PASSWORD"));
-            admin.setAdminAccessKey(rs.getString("ADMIN_ACCESS_KEY"));
+            adminObject = createAdmin(rs);
         }
-        return admin;
+        return adminObject;
         }
         catch (SQLException e) {
             throw new RuntimeException(e);
@@ -106,5 +77,20 @@ public class AdminRepositoryImpl implements IAdminRepository {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private Admin createAdmin(ResultSet rs) throws SQLException {
+        Admin adminObject = null;
+        IAdminBuilder adminBuilder = ModelFactory.instance().createAdminBuilder();
+
+        adminBuilder
+                .addAdminId(rs.getString("ADMIN_ID"))
+                .addAdminPassword(rs.getString("ADMIN_PASSWORD"))
+                .addAdminAccessKey(rs.getString("ADMIN_ACCESS_KEY"))
+                .build();
+
+        adminObject = ModelFactory.instance().createAdminUsingBuilder(adminBuilder);
+
+        return adminObject;
     }
 }
