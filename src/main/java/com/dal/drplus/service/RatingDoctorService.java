@@ -1,5 +1,6 @@
 package com.dal.drplus.service;
 
+import com.dal.drplus.model.IEntity.IRatingDoctor;
 import com.dal.drplus.model.entity.RatingDoctor;
 import com.dal.drplus.repository.interfaces.IRatingDoctorRepository;
 
@@ -14,7 +15,7 @@ public class RatingDoctorService {
         this.ratingDoctorRepository = ratingDoctorRepository;
     }
 
-    public boolean addRating(RatingDoctor ratingDoctor){
+    public boolean addRating(IRatingDoctor ratingDoctor){
         IRatingDoctorRepository.StorageResult result = ratingDoctorRepository.saveDoctorRating(ratingDoctor);
         System.out.println("Inside rating Service"+result);
         if(result.equals(IRatingDoctorRepository.StorageResult.SUCCESS)){

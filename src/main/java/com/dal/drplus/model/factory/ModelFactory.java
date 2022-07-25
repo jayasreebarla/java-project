@@ -2,6 +2,7 @@ package com.dal.drplus.model.factory;
 
 import com.dal.drplus.model.Builder.DoctorBuilder;
 import com.dal.drplus.model.IBuilder.IDoctorBuilder;
+import com.dal.drplus.model.IBuilder.IRatingDoctorBuilder;
 import com.dal.drplus.model.IEntity.IDoctor;
 import com.dal.drplus.model.entity.Doctor;
 import com.dal.drplus.model.Builder.*;
@@ -32,6 +33,21 @@ public class ModelFactory implements IModelFactory{
     public Doctor createDoctorUsingBuilder(IDoctorBuilder builder){return new Doctor(builder);}
     public IDoctorBuilder createDoctorBuilder(){
         return new DoctorBuilder();
+    }
+
+    @Override
+    public IRatingDoctor createRatingDoctor() {
+        return new RatingDoctor();
+    }
+
+    @Override
+    public RatingDoctor createRatingDoctorUsingBuilder(IRatingDoctorBuilder builder) {
+        return new RatingDoctor(builder);
+    }
+
+    @Override
+    public IRatingDoctorBuilder createRatingDoctorBuilder() {
+        return new RatingDoctorBuilder();
     }
 
     @Override

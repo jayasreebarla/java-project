@@ -1,6 +1,9 @@
 package com.dal.drplus.model.entity;
 
-public class RatingDoctor{
+import com.dal.drplus.model.IBuilder.IRatingDoctorBuilder;
+import com.dal.drplus.model.IEntity.IRatingDoctor;
+
+public class RatingDoctor extends IRatingDoctor {
     private int ratingId;
     private String patientId;
     private String doctorId;
@@ -9,6 +12,9 @@ public class RatingDoctor{
     private String review;
 
     public RatingDoctor() {
+    }
+
+    public RatingDoctor(IRatingDoctorBuilder builder) {
     }
 
     public RatingDoctor(int ratingId, String patientId, String doctorId, int doctorRating, String review) {

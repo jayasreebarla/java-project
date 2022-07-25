@@ -2,14 +2,19 @@ package com.dal.drplus.model.factory;
 
 import com.dal.drplus.model.Builder.*;
 import com.dal.drplus.model.IBuilder.IDoctorBuilder;
+import com.dal.drplus.model.IBuilder.IRatingDoctorBuilder;
 import com.dal.drplus.model.IEntity.*;
 import com.dal.drplus.model.entity.Doctor;
+import com.dal.drplus.model.entity.RatingDoctor;
 
 public interface IModelFactory {
     public IDoctor createDoctor();
     public Doctor createDoctorUsingBuilder(IDoctorBuilder builder);
 
     public IDoctorBuilder createDoctorBuilder();
+    public IRatingDoctor createRatingDoctor();
+    public RatingDoctor createRatingDoctorUsingBuilder(IRatingDoctorBuilder builder);
+    public IRatingDoctorBuilder createRatingDoctorBuilder();
 
     public IPatient createPatient();
     public IPatient createPatientBuilder(PatientBuilder builder);

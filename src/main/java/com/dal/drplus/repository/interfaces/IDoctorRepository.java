@@ -13,14 +13,10 @@ public interface IDoctorRepository {
     }
 
     public StorageResult saveDoctor(IDoctor doctor);
-    public StorageResult updateDoctor(Doctor doctor);
     public IDoctor findDoctorById(String id);
     public List<Doctor> findAllDoctors();
     public String getDoctorPasswordById(String doctorId);
-    public List<Doctor> findAllDoctorsBySpecialization(String specialization);
-    public List<Doctor> findAllDoctorsByPincode(String pincode);
     public List<Doctor> findAllDoctorsBySpecializationAndPincode(String specialization, String pincode);
     public StorageResult deleteDoctorById(String id);
-    public StorageResult deleteAllDoctors();
 
 }
