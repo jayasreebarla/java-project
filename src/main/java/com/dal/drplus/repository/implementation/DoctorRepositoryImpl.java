@@ -1,8 +1,10 @@
 package com.dal.drplus.repository.implementation;
 
 import com.dal.drplus.model.Builder.DoctorBuilder;
+import com.dal.drplus.model.IBuilder.IDoctorBuilder;
 import com.dal.drplus.model.IEntity.IDoctor;
 import com.dal.drplus.model.entity.Doctor;
+import com.dal.drplus.model.factory.ModelFactory;
 import com.dal.drplus.repository.configuration.DatabaseConfiguration;
 import com.dal.drplus.repository.configuration.DatabaseConfigurationImpl;
 import com.dal.drplus.repository.interfaces.IDoctorRepository;
@@ -79,17 +81,19 @@ public class DoctorRepositoryImpl implements IDoctorRepository {
 
     @Override
     public Doctor findDoctorById(String id) {
-        Doctor doctorObject = new Doctor();
+        Doctor doctorObject = null;
         PreparedStatement statement = null;
         try {
             statement = databaseConfiguration.getDBConnection().prepareStatement("Select * from Doctor where doctor_id = ?");
             statement.setString(1,id);
             ResultSet rs = statement.executeQuery();
-            DoctorBuilder buider=new DoctorBuilder();
+            IDoctorBuilder builder= ModelFactory.instance().createDoctorBuilder();
+            
+//            DoctorBuilder buider=createDoctorBuilder();
             while(rs.next()) {
                 System.out.println("inside rs");
 
-                doctorObject=buider
+                builder
                 .addDoctorId(rs.getString("doctor_id"))
                 .addDoctorName(rs.getString("doctor_name"))
                 .addDoctorPassword(rs.getString("doctor_password"))
@@ -103,6 +107,7 @@ public class DoctorRepositoryImpl implements IDoctorRepository {
                 .addDoctorPincode(rs.getString("doctor_pincode"))
                 .addDoctorFee(rs.getDouble("doctor_fee")).build();
 
+                doctorObject = ModelFactory.instance().createDoctorUsingBuilder(builder);
 
 //                doctorObject.setDoctorId(rs.getString("doctor_id"));
 //                doctorObject.setDoctorName(rs.getString("doctor_name"));

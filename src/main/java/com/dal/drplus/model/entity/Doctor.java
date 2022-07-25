@@ -1,13 +1,13 @@
 package com.dal.drplus.model.entity;
 
 import com.dal.drplus.model.Builder.DoctorBuilder;
+import com.dal.drplus.model.IBuilder.IDoctorBuilder;
 import com.dal.drplus.model.IEntity.IDoctor;
 
 public class Doctor extends IDoctor {
-
     public Doctor() {
     }
-    public Doctor(DoctorBuilder builder){
+    public Doctor(IDoctorBuilder builder){
         this.doctorId = builder.getDoctorId();
         this.doctorName = builder.getDoctorName();
         this.doctorPassword = builder.getDoctorPassword();
@@ -20,7 +20,6 @@ public class Doctor extends IDoctor {
         this.doctorClinicAddress = builder.getDoctorClinicAddress();
         this.doctorPincode = builder.getDoctorPincode();
         this.doctorFee = builder.getDoctorFee();
-
     }
 
     public Doctor(String doctorId, String doctorName, String doctorPassword, String doctorEmail, String doctorPhoneNo, String doctorGender, int doctorAge, String doctorCredentials, String doctorSpecialization, String doctorClinicAddress, String doctorPincode, double doctorFee) {

@@ -1,10 +1,10 @@
 package com.dal.drplus.model.Builder;
 
-import com.dal.drplus.model.IEntity.IDoctor;
+import com.dal.drplus.model.IBuilder.IDoctorBuilder;
 import com.dal.drplus.model.entity.Doctor;
 import com.dal.drplus.model.factory.ModelFactory;
 
-public class DoctorBuilder{
+public class DoctorBuilder implements IDoctorBuilder {
 
     private String doctorId;
     private String doctorName;
@@ -98,58 +98,47 @@ public class DoctorBuilder{
     }
     
     public Doctor build() {
-       Doctor doctor = ModelFactory.instance().createDoctorBuilder(this);
+       Doctor doctor = ModelFactory.instance().createDoctorUsingBuilder(this);
+//        Doctor doctor = new Doctor(this);
+
         return doctor;
     }
-
     public String getDoctorId() {
         return doctorId;
     }
-
     public String getDoctorName() {
         return doctorName;
     }
-
     public String getDoctorPassword() {
         return doctorPassword;
     }
-
     public String getDoctorEmail() {
         return doctorEmail;
     }
-
     public String getDoctorPhoneNo() {
         return doctorPhoneNo;
     }
-
     public String getDoctorGender() {
         return doctorGender;
     }
-
     public int getDoctorAge() {
         return doctorAge;
     }
-
     public String getDoctorCredentials() {
         return doctorCredentials;
     }
-
     public String getDoctorSpecialization() {
         return doctorSpecialization;
     }
-
     public String getDoctorClinicAddress() {
         return doctorClinicAddress;
     }
-
     public String getDoctorPincode() {
         return doctorPincode;
     }
-
     public int getDoctorRating() {
         return doctorRating;
     }
-
     public double getDoctorFee() {
         return doctorFee;
     }
