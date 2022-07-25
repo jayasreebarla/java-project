@@ -80,49 +80,21 @@ public class DoctorRepositoryImpl implements IDoctorRepository {
     }
 
     @Override
-    public Doctor findDoctorById(String id) {
-        Doctor doctorObject = null;
+    public IDoctor findDoctorById(String id) {
+        IDoctor doctorObject = null;
         PreparedStatement statement = null;
         try {
             statement = databaseConfiguration.getDBConnection().prepareStatement("Select * from Doctor where doctor_id = ?");
             statement.setString(1,id);
             ResultSet rs = statement.executeQuery();
-            IDoctorBuilder builder= ModelFactory.instance().createDoctorBuilder();
-            
-//            DoctorBuilder buider=createDoctorBuilder();
+//            IDoctorBuilder builder= ModelFactory.instance().createDoctorBuilder();
             while(rs.next()) {
                 System.out.println("inside rs");
-
-                builder
-                .addDoctorId(rs.getString("doctor_id"))
-                .addDoctorName(rs.getString("doctor_name"))
-                .addDoctorPassword(rs.getString("doctor_password"))
-                .addDoctorEmail(rs.getString("doctor_email"))
-                .addDoctorPhoneNo(rs.getString("doctor_phone"))
-                .addDoctorGender(rs.getString("doctor_gender"))
-                .addDoctorAge(rs.getInt("doctor_age"))
-                .addDoctorCredentials(rs.getString("doctor_credentials"))
-                .addDoctorSpecialization(rs.getString("doctor_specialization"))
-                .addDoctorClinicAddress(rs.getString("doctor_clinic_address"))
-                .addDoctorPincode(rs.getString("doctor_pincode"))
-                .addDoctorFee(rs.getDouble("doctor_fee")).build();
-
-                doctorObject = ModelFactory.instance().createDoctorUsingBuilder(builder);
-
-//                doctorObject.setDoctorId(rs.getString("doctor_id"));
-//                doctorObject.setDoctorName(rs.getString("doctor_name"));
-//                doctorObject.setDoctorPassword(rs.getString("doctor_password"));
-//                doctorObject.setDoctorEmail(rs.getString("doctor_email"));
-//                doctorObject.setDoctorPhoneNo(rs.getString("doctor_phone"));
-//                doctorObject.setDoctorGender(rs.getString("doctor_gender"));
-//                doctorObject.setDoctorAge(rs.getInt("doctor_age"));
-//                doctorObject.setDoctorCredentials(rs.getString("doctor_credentials"));
-//                doctorObject.setDoctorSpecialization(rs.getString("doctor_specialization"));
-//                doctorObject.setDoctorClinicAddress(rs.getString("doctor_clinic_address"));
-//                doctorObject.setDoctorPincode(rs.getString("doctor_pincode"));
-//                doctorObject.setDoctorFee(rs.getDouble("doctor_fee"));
+                doctorObject = createDoctor(rs);
             }
         } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
         return doctorObject;
@@ -136,23 +108,12 @@ public class DoctorRepositoryImpl implements IDoctorRepository {
             PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement("Select * from Doctor");
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
-                Doctor doctorObject = new Doctor();
-                doctorObject.setDoctorId(rs.getString("doctor_id"));
-                doctorObject.setDoctorName(rs.getString("doctor_name"));
-                doctorObject.setDoctorPassword(rs.getString("doctor_password"));
-                doctorObject.setDoctorEmail(rs.getString("doctor_email"));
-                doctorObject.setDoctorPhoneNo(rs.getString("doctor_phone"));
-                doctorObject.setDoctorGender(rs.getString("doctor_gender"));
-                doctorObject.setDoctorAge(rs.getInt("doctor_age"));
-                doctorObject.setDoctorCredentials(rs.getString("doctor_credentials"));
-                doctorObject.setDoctorSpecialization(rs.getString("doctor_specialization"));
-                doctorObject.setDoctorClinicAddress(rs.getString("doctor_clinic_address"));
-                doctorObject.setDoctorPincode(rs.getString("doctor_pincode"));
-                doctorObject.setDoctorFee(rs.getDouble("doctor_fee"));
-
+                Doctor doctorObject = createDoctor(rs);
                 doctors.add(doctorObject);
             }
         } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
         return doctors;
@@ -186,22 +147,25 @@ public class DoctorRepositoryImpl implements IDoctorRepository {
             statement.setString(1,specialization);
             ResultSet rs = statement.executeQuery();
             while (rs.next()){
-                Doctor doctorObject = new Doctor();
-                doctorObject.setDoctorId(rs.getString("doctor_id"));
-                doctorObject.setDoctorName(rs.getString("doctor_name"));
-                doctorObject.setDoctorEmail(rs.getString("doctor_email"));
-                doctorObject.setDoctorPhoneNo(rs.getString("doctor_phone"));
-                doctorObject.setDoctorGender(rs.getString("doctor_gender"));
-                doctorObject.setDoctorAge(rs.getInt("doctor_age"));
-                doctorObject.setDoctorCredentials(rs.getString("doctor_credentials"));
-                doctorObject.setDoctorSpecialization(rs.getString("doctor_specialization"));
-                doctorObject.setDoctorClinicAddress(rs.getString("doctor_clinic_address"));
-                doctorObject.setDoctorPincode(rs.getString("doctor_pincode"));
-                doctorObject.setDoctorFee(rs.getDouble("doctor_fee"));
+                Doctor doctorObject = createDoctor(rs);
+//                Doctor doctorObject = new Doctor();
+//                doctorObject.setDoctorId(rs.getString("doctor_id"));
+//                doctorObject.setDoctorName(rs.getString("doctor_name"));
+//                doctorObject.setDoctorEmail(rs.getString("doctor_email"));
+//                doctorObject.setDoctorPhoneNo(rs.getString("doctor_phone"));
+//                doctorObject.setDoctorGender(rs.getString("doctor_gender"));
+//                doctorObject.setDoctorAge(rs.getInt("doctor_age"));
+//                doctorObject.setDoctorCredentials(rs.getString("doctor_credentials"));
+//                doctorObject.setDoctorSpecialization(rs.getString("doctor_specialization"));
+//                doctorObject.setDoctorClinicAddress(rs.getString("doctor_clinic_address"));
+//                doctorObject.setDoctorPincode(rs.getString("doctor_pincode"));
+//                doctorObject.setDoctorFee(rs.getDouble("doctor_fee"));
 
                 doctorsBySpecialization.add(doctorObject);
             }
         } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
@@ -306,5 +270,27 @@ public class DoctorRepositoryImpl implements IDoctorRepository {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private Doctor createDoctor(ResultSet rs) throws Exception{
+        Doctor doctorObject = null;
+        IDoctorBuilder builder= ModelFactory.instance().createDoctorBuilder();
+
+                builder
+                .addDoctorId(rs.getString("doctor_id"))
+                .addDoctorName(rs.getString("doctor_name"))
+                .addDoctorPassword(rs.getString("doctor_password"))
+                .addDoctorEmail(rs.getString("doctor_email"))
+                .addDoctorPhoneNo(rs.getString("doctor_phone"))
+                .addDoctorGender(rs.getString("doctor_gender"))
+                .addDoctorAge(rs.getInt("doctor_age"))
+                .addDoctorCredentials(rs.getString("doctor_credentials"))
+                .addDoctorSpecialization(rs.getString("doctor_specialization"))
+                .addDoctorClinicAddress(rs.getString("doctor_clinic_address"))
+                .addDoctorPincode(rs.getString("doctor_pincode"))
+                .addDoctorFee(rs.getDouble("doctor_fee")).build();
+        doctorObject = ModelFactory.instance().createDoctorUsingBuilder(builder);
+
+        return doctorObject;
     }
 }

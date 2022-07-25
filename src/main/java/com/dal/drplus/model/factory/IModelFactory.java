@@ -3,10 +3,11 @@ package com.dal.drplus.model.factory;
 import com.dal.drplus.model.Builder.*;
 import com.dal.drplus.model.IBuilder.IDoctorBuilder;
 import com.dal.drplus.model.IEntity.*;
+import com.dal.drplus.model.entity.Doctor;
 
 public interface IModelFactory {
     public IDoctor createDoctor();
-    public IDoctor createDoctorUsingBuilder(IDoctorBuilder builder);
+    public Doctor createDoctorUsingBuilder(IDoctorBuilder builder);
 
     public IDoctorBuilder createDoctorBuilder();
 
