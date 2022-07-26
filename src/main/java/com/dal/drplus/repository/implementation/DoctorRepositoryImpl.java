@@ -167,10 +167,12 @@ public class DoctorRepositoryImpl implements IDoctorRepository {
             ps.setString(1,doctorId);
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
+                int count = rs.getInt(1);
+                if(count>0){
                 return StorageResult.SUCCESS;
-            } else {
-                return StorageResult.FAILURE;
+                }
             }
+            return StorageResult.FAILURE;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

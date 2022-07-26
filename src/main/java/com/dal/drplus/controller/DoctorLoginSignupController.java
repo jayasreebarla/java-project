@@ -48,7 +48,16 @@ DoctorLoginSignupController {
     public RedirectView RegisterDoctor(HttpSession session, @ModelAttribute Doctor doctor, @RequestParam(value = "confirmDoctorPassword") String confirmPassword){
         System.out.println(doctor.toString());
         System.out.println("confirmPassword"+confirmPassword);
+        System.out.println("signup if id exists"+loginSignupService.isDoctorIdExists(doctor.getDoctorId()));
+        System.out.println("doctor.validateDoctorAge()"+doctor.validateDoctorAge());
+        System.out.println("doctor.validateDoctorCredentials()"+doctor.validateDoctorCredentials());
+        System.out.println("validateDoctorEmail"+doctor.validateDoctorEmail());
+        System.out.println("validateDoctorName"+doctor.validateDoctorName());
+        System.out.println("validatePhoneNumber"+doctor.validatePhoneNumber());
+        System.out.println("validateDoctorPincode"+doctor.validateDoctorPincode());
+        System.out.println("validateDoctorFee"+doctor.validateDoctorFee());
         if(loginSignupService.isDoctorIdExists(doctor.getDoctorId())){
+            System.out.println("id exists");
             return new RedirectView("/auth_doctor/doctor_signup");
         }else{
             if(doctor.validateDoctorAge()

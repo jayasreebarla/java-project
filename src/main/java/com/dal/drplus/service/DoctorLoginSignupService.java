@@ -14,6 +14,7 @@ public class DoctorLoginSignupService {
 
     public Boolean isDoctorIdExists(String doctorId){
         IDoctorRepository.StorageResult result = doctorRepository.isDoctorIdExists(doctorId);
+        System.out.println(result);
         if(result.equals(IDoctorRepository.StorageResult.SUCCESS)){
             return true;
         }else{

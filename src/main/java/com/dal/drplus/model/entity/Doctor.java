@@ -50,7 +50,7 @@ public class Doctor extends IDoctor {
     }
 
     public boolean validateDoctorEmail(){
-        return this.doctorEmail.matches("/([a-zA-Z0-9]+)([\\.{1}])?([a-zA-Z0-9]+)\\@gmail([\\.])com/g");
+        return this.doctorEmail.matches("^[\\w.+\\-]+@gmail\\.com$");
     }
 
     public boolean validatePhoneNumber(){
