@@ -70,7 +70,7 @@ public class AppointmentController {
         int billId = billService.generateBill(billAmount,"DOCTOR");
 
         IAppointmentBuilder appointmentBuilder = ModelFactory.instance().createAppointmentBuilder();
-        appointmentBuilder
+        IAppointment appointment = appointmentBuilder
                 .addSlotId(Integer.parseInt(slotId))
                 .addAppointmentType("DOCTOR")
                 .addAppointmentFee(billAmount)
@@ -78,8 +78,13 @@ public class AppointmentController {
                 .addDoctorId(doctorId)
                 .addBillId(billId)
                 .build();
-        IAppointment appointment = ModelFactory.instance().createAppointmentUsingBuilder(appointmentBuilder);
+//        IAppointment appointment = ModelFactory.instance().createAppointmentUsingBuilder(appointmentBuilder);
 
+        boolean isConflict = appointmentService.isAppointmentConflict(appointment);
+        System.out.println(isConflict);
+        if(isConflict){
+            return new RedirectView("/error_appointment");
+        }
         boolean result = appointmentService.bookAppointment(appointment);
         if(result == true){
             doctorSlotService.updateSlotStatus(true, Integer.parseInt(slotId));
@@ -111,6 +116,11 @@ public class AppointmentController {
                 .build();
         IAppointment appointment = ModelFactory.instance().createAppointmentUsingBuilder(appointmentBuilder);
 
+        boolean isConflict = appointmentService.isAppointmentConflict(appointment);
+        System.out.println(isConflict);
+        if(isConflict){
+            return new RedirectView("/error_appointment");
+        }
         boolean result = appointmentService.bookAppointment(appointment);
         if(result == true){
             labSlotService.updateSlotStatus(true, Integer.parseInt(slotId));

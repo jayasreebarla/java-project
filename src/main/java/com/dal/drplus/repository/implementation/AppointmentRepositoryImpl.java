@@ -384,7 +384,9 @@ public class AppointmentRepositoryImpl implements IAppointmentRepository{
                 slotDateDB = rs.getString(1);
                 slotTimeDB = rs.getString(2);
             }
-            if((slotDateDB!=slotDate) && (slotTimeDB!=slotTime)) {
+            System.out.println("db "+slotDateDB+""+slotTimeDB);
+            System.out.println("fe "+slotDate+""+slotTime);
+            if((!(slotDateDB.equals(slotDate))) && (!(slotTimeDB.equals(slotTime)))) {
                 return IAppointmentRepository.StorageResult.FAILURE;
             }
             return IAppointmentRepository.StorageResult.SUCCESS;
