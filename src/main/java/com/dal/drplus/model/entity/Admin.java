@@ -1,12 +1,16 @@
 package com.dal.drplus.model.entity;
 
-public class Admin {
-    private String adminId;
-    private String adminPassword;
-    private String adminAccessKey;
+import com.dal.drplus.model.IBuilder.IAdminBuilder;
+import com.dal.drplus.model.IEntity.IAdmin;
 
+public class Admin extends IAdmin {
     public Admin(){
+    }
 
+    public Admin(IAdminBuilder adminBuilder){
+        this.adminId = adminBuilder.getAdminId();
+        this.adminPassword = adminBuilder.getAdminPassword();
+        this.adminAccessKey = adminBuilder.getAdminAccessKey();
     }
 
     public Admin(String adminId, String adminPassword, String adminAccessKey){

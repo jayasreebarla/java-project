@@ -1,5 +1,6 @@
 package com.dal.drplus.service;
 
+import com.dal.drplus.model.IEntity.IAdmin;
 import com.dal.drplus.model.entity.Admin;
 import com.dal.drplus.repository.implementation.AdminRepositoryImpl;
 import com.dal.drplus.repository.interfaces.IAdminRepository;
@@ -30,13 +31,13 @@ public class AdminServiceTest {
 
     @Test
     void getAdminByIdWhenExists(){
-        Admin admin_result = adminService.getAdminbyId(admin.getAdminId());
+        IAdmin admin_result = adminService.getAdminbyId(admin.getAdminId());
         assertEquals(admin,admin_result);
     }
 
     @Test
     void getAdminByIdWhenNotExists(){
-        Admin admin_result = adminService.getAdminbyId(admin1.getAdminId());
+        IAdmin admin_result = adminService.getAdminbyId(admin1.getAdminId());
         assertNull(admin_result);
     }
 

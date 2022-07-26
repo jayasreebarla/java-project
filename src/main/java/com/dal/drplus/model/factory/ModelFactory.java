@@ -1,11 +1,14 @@
 package com.dal.drplus.model.factory;
 
 import com.dal.drplus.model.Builder.DoctorBuilder;
+import com.dal.drplus.model.IBuilder.IAdminBuilder;
+import com.dal.drplus.model.IBuilder.IAppointmentBuilder;
 import com.dal.drplus.model.IBuilder.IBillingBuilder;
 import com.dal.drplus.model.IBuilder.IDoctorBuilder;
 import com.dal.drplus.model.IBuilder.IRatingDoctorBuilder;
 import com.dal.drplus.model.IBuilder.IWalletBuilder;
 import com.dal.drplus.model.IBuilder.IDoctorBuilder;
+import com.dal.drplus.model.IBuilder.IReportBuilder;
 import com.dal.drplus.model.IBuilder.ILabBuilder;
 import com.dal.drplus.model.IBuilder.IPrescriptionBuilder;
 import com.dal.drplus.model.IBuilder.IPromotionsBuilder;
@@ -17,6 +20,8 @@ import com.dal.drplus.model.IEntity.*;
 import com.dal.drplus.model.entity.*;
 
 public class ModelFactory implements IModelFactory{
+
+
     private static ModelFactory theOneInstance = null;
     public static ModelFactory instance()
     {
@@ -32,8 +37,9 @@ public class ModelFactory implements IModelFactory{
     public IDoctor createDoctor() {
         return new Doctor();
     }
-
-    public Doctor createDoctorUsingBuilder(IDoctorBuilder builder){return new Doctor(builder);}
+    public Doctor createDoctorUsingBuilder(IDoctorBuilder builder){
+        return new Doctor(builder);
+    }
     public IDoctorBuilder createDoctorBuilder(){
         return new DoctorBuilder();
     }
@@ -176,5 +182,50 @@ public class ModelFactory implements IModelFactory{
     @Override
     public IPrescriptionBuilder createPrescriptionBuilder() {
         return new PrescriptionBuilder();
+    }
+
+    @Override
+    public IAdmin createAdmin() {
+        return new Admin();
+    }
+
+    @Override
+    public Admin createAdminUsingBuilder(IAdminBuilder adminBuilder) {
+        return new Admin(adminBuilder);
+    }
+
+    @Override
+    public IAdminBuilder createAdminBuilder() {
+        return new AdminBuilder();
+    }
+
+    @Override
+    public IReport createReport() {
+        return new Report();
+    }
+
+    @Override
+    public Report createReportUsingBuilder(IReportBuilder reportBuilder) {
+        return new Report(reportBuilder);
+    }
+
+    @Override
+    public IReportBuilder createReportBuilder() {
+        return new ReportBuilder();
+    }
+
+    @Override
+    public IAppointment createAppointment() {
+        return new Appointment();
+    }
+
+    @Override
+    public Appointment createAppointmentUsingBuilder(IAppointmentBuilder appointmentBuilder) {
+        return new Appointment(appointmentBuilder);
+    }
+
+    @Override
+    public IAppointmentBuilder createAppointmentBuilder() {
+        return new AppointmentBuilder();
     }
 }

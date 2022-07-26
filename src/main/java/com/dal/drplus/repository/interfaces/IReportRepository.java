@@ -1,5 +1,6 @@
 package com.dal.drplus.repository.interfaces;
 
+import com.dal.drplus.model.IEntity.IReport;
 import com.dal.drplus.model.entity.Report;
 
 import java.io.FileNotFoundException;
@@ -11,11 +12,9 @@ public interface IReportRepository {
         SUCCESS,
         FAILURE
     }
-    public StorageResult uploadReport(Report report) throws FileNotFoundException;
+    public StorageResult uploadReport(IReport report) throws FileNotFoundException;
 
-    public int deleteReport(Report report);
-
-    public Report getReportbyId (int reportId);
+    public IReport getReportbyId (int reportId);
 
     public List<Report> findAllbyAppointment(int appointmentId);
 

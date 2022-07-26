@@ -1,6 +1,6 @@
 package com.dal.drplus.controller;
 
-import com.dal.drplus.model.entity.Appointment;
+import com.dal.drplus.model.IEntity.IAppointment;
 import com.dal.drplus.model.entity.LabSchedule;
 import com.dal.drplus.repository.implementation.AppointmentRepositoryImpl;
 import com.dal.drplus.repository.implementation.LabScheduleRepositoryImpl;
@@ -34,7 +34,7 @@ public class LabSlotController {
     @GetMapping("/lab_reschedule/{appointmentId}")
     public String rescheduleSlotOnLabId(Model model, @PathVariable("appointmentId") int appointmentId){
         System.out.println("appointmentId: "+appointmentId);
-        Appointment appointment = appointmentService.findAppointmentbyId(appointmentId);
+        IAppointment appointment = appointmentService.findAppointmentbyId(appointmentId);
         List<LabSchedule> labScheduleList = labSlotService.filterUnbookedSlotOnLabId(appointment.getLabId());
         model.addAttribute("labSlots",labScheduleList);
         model.addAttribute("appointment",appointment);

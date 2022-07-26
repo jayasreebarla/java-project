@@ -1,6 +1,8 @@
 package com.dal.drplus.controller;
 
+import com.dal.drplus.model.IEntity.IAdmin;
 import com.dal.drplus.model.entity.Admin;
+import com.dal.drplus.model.factory.ModelFactory;
 import com.dal.drplus.repository.implementation.AdminRepositoryImpl;
 import com.dal.drplus.service.AdminLoginSignupService;
 import com.dal.drplus.service.AdminService;
@@ -29,7 +31,7 @@ public class AdminLoginSignupController {
 
     @GetMapping("/admin_signup")
     public String userSignup(Model model) {
-        model.addAttribute("admin", new Admin());
+        model.addAttribute("admin", ModelFactory.instance().createAdmin());
         return "admin/signup";
     }
 
@@ -63,7 +65,7 @@ public class AdminLoginSignupController {
         isCredentialsValid = loginSignupService.isAdminCredentialValid(adminId,password);
         System.out.println(isCredentialsValid+"iscredentialValid");
         if(isCredentialsValid){
-            Admin admin = adminService.getAdminbyId(adminId);
+            IAdmin admin = adminService.getAdminbyId(adminId);
             session.setAttribute("CurrentAdmin",admin);
             session.setAttribute("Type","A");
             return new RedirectView("/auth_admin/admin_home");
@@ -74,7 +76,7 @@ public class AdminLoginSignupController {
 
     @GetMapping("/admin_home")
     public String adminHome(HttpSession session){
-        Admin currentAdmin= (Admin) session.getAttribute("CurrentAdmin");
+        IAdmin currentAdmin= (Admin) session.getAttribute("CurrentAdmin");
         System.out.println("current admin Id"+currentAdmin.getAdminId());
         System.out.println("current admin password"+currentAdmin.getAdminPassword());
         return "admin/admin_home";

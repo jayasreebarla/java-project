@@ -24,7 +24,6 @@ public class AdminController {
     private RatingDoctorService ratingDoctorService;
     private RatingLabService ratingLabService;
     private PromotionsService promotionsService;
-
     private NotificationsService notificationsService;
 
     public AdminController(AppointmentRepositoryImpl appointmentRepository,

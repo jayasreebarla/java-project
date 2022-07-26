@@ -1,5 +1,6 @@
 package com.dal.drplus.service;
 
+import com.dal.drplus.model.IEntity.IAdmin;
 import com.dal.drplus.model.entity.Admin;
 import com.dal.drplus.repository.interfaces.IAdminRepository;
 
@@ -11,7 +12,7 @@ public class AdminLoginSignupService {
         this.adminRepository = adminRepository;
     }
 
-    public boolean registerAdmin(Admin admin, String confirmPassword) {
+    public boolean registerAdmin(IAdmin admin, String confirmPassword) {
         if(confirmPassword.equals(admin.getAdminPassword())){
             IAdminRepository.StorageResult result = adminRepository.addAdmin(admin);
             if(result.equals(IAdminRepository.StorageResult.SUCCESS)){

@@ -1,5 +1,8 @@
 package com.dal.drplus.controller;
+import com.dal.drplus.model.IBuilder.IReportBuilder;
+import com.dal.drplus.model.IEntity.IReport;
 import com.dal.drplus.model.entity.Report;
+import com.dal.drplus.model.factory.ModelFactory;
 import com.dal.drplus.repository.implementation.ReportRepositoryImpl;
 import com.dal.drplus.service.ReportService;
 import org.springframework.stereotype.Controller;
@@ -21,8 +24,6 @@ import java.io.IOException;
 
 @Controller
 public class ReportUploadController {
-
-
     private final ReportService reportService;
     private int appointmentId;
 
@@ -42,11 +43,18 @@ public class ReportUploadController {
     public RedirectView listUploadedFiles(HttpSession session, @RequestParam("file") MultipartFile file) throws IOException {
         System.out.println("list upload file"+appointmentId);
         String fileName = file.getOriginalFilename();
-        Report report = new Report();
-        report.setReportId(0);
-        report.setReportDetails(fileName);
-        report.setReportFile(file.getBytes());
-        report.setAppointmentId(appointmentId);
+
+        IReportBuilder reportBuilder = ModelFactory.instance().createReportBuilder();
+        reportBuilder
+                .addReportDetails(fileName)
+                .addReportFile(file.getBytes())
+                .addAppointmentId(appointmentId)
+                .build();
+        IReport report = ModelFactory.instance().createReportUsingBuilder(reportBuilder);
+//        report.setReportId(0);
+//        report.setReportDetails(fileName);
+//        report.setReportFile(file.getBytes());
+//        report.setAppointmentId(appointmentId);
         boolean result = reportService.uploadReport(report);
         //boolean result2 = labService.
         String type = String.valueOf(session.getAttribute("Type"));
@@ -89,7 +97,7 @@ public class ReportUploadController {
     @GetMapping("/download_file_report/{report_id}")
     public void showDownload(HttpServletResponse response, @PathVariable("report_id") int report_id)  {
 
-        Report report = reportService.downloadReport(report_id);
+        IReport report = reportService.downloadReport(report_id);
         try {
             System.out.println("inside download "+report.getReportId());
             System.out.println("inside download "+report.getReportDetails());

@@ -1,4 +1,5 @@
 package com.dal.drplus.service;
+import com.dal.drplus.model.IEntity.IAppointment;
 import com.dal.drplus.model.entity.Appointment;
 import com.dal.drplus.repository.interfaces.IAppointmentRepository;
 
@@ -11,7 +12,7 @@ public class AppointmentService {
         this.appointmentRepository = appointmentRepository;
     }
 
-    public boolean isAppointmentConflict(Appointment appointment) {
+    public boolean isAppointmentConflict(IAppointment appointment) {
         String slotDate = appointment.getAppointmentDate();
         String slotTime = appointment.getAppointmentTime();
         String patientId = appointment.getPatientId();
@@ -23,7 +24,7 @@ public class AppointmentService {
         }
     }
 
-    public Appointment findAppointmentbyId(int appointmentId){
+    public IAppointment findAppointmentbyId(int appointmentId){
         return appointmentRepository.findAppointmentById(appointmentId);
     }
 
@@ -36,7 +37,7 @@ public class AppointmentService {
         }
     }
 
-    public boolean bookAppointment(Appointment appointment) {
+    public boolean bookAppointment(IAppointment appointment) {
         IAppointmentRepository.StorageResult result = appointmentRepository.saveAppointment(appointment);
         if(IAppointmentRepository.StorageResult.SUCCESS.equals(result)){
             return true;

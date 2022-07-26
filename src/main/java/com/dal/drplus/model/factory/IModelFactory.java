@@ -1,7 +1,10 @@
 package com.dal.drplus.model.factory;
 
 import com.dal.drplus.model.Builder.*;
+import com.dal.drplus.model.IBuilder.IAdminBuilder;
+import com.dal.drplus.model.IBuilder.IAppointmentBuilder;
 import com.dal.drplus.model.IBuilder.IDoctorBuilder;
+import com.dal.drplus.model.IBuilder.IReportBuilder;
 import com.dal.drplus.model.IBuilder.ILabBuilder;
 import com.dal.drplus.model.IBuilder.IPrescriptionBuilder;
 import com.dal.drplus.model.IBuilder.IPromotionsBuilder;
@@ -60,6 +63,19 @@ public interface IModelFactory {
 
     public IPromotions createPromotions();
     public Promotions createPromotionsUsingBuilder(IPromotionsBuilder builder);
+
+    public IAdmin createAdmin();
+    public IAdmin createAdminUsingBuilder(IAdminBuilder adminBuilder);
+    public IAdminBuilder createAdminBuilder();
+
+    public IReport createReport();
+    public IReport createReportUsingBuilder(IReportBuilder reportBuilder);
+    public IReportBuilder createReportBuilder();
+
+    public IAppointment createAppointment();
+    public IAppointment createAppointmentUsingBuilder(IAppointmentBuilder appointmentBuilder);
+    public IAppointmentBuilder createAppointmentBuilder();
+
 
     public IPromotionsBuilder createPromotionsBuilder();
 

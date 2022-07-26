@@ -1,19 +1,24 @@
 package com.dal.drplus.model.entity;
 
-public class Report {
-    private int reportId;
-    private int AppointmentId;
-    private String reportDetails;
-    private byte[] reportFile;
+import com.dal.drplus.model.IBuilder.IReportBuilder;
+import com.dal.drplus.model.IEntity.IReport;
 
-    private String fileName;
-
-    public String getFileName() {
-        return fileName;
+public class Report extends IReport {
+    public Report(){
     }
 
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
+    public Report(int reportId, int appointmentId, String reportDetails, byte[] reportFile) {
+        this.reportId = reportId;
+        this.appointmentId = appointmentId;
+        this.reportDetails = reportDetails;
+        this.reportFile = reportFile;
+    }
+
+    public Report(IReportBuilder reportBuilder){
+        this.reportId = reportBuilder.getReportId();
+        this.appointmentId = reportBuilder.getAppointmentId();
+        this.reportDetails = reportBuilder.getReportDetails();
+        this.reportFile = reportBuilder.getReportFile();
     }
 
     public byte[] getReportFile() {
@@ -33,11 +38,11 @@ public class Report {
     }
 
     public int getAppointmentId() {
-        return AppointmentId;
+        return appointmentId;
     }
 
-    public void setAppointmentId(int AppointmentId) {
-        this.AppointmentId = AppointmentId;
+    public void setAppointmentId(int appointmentId) {
+        this.appointmentId = appointmentId;
     }
 
     public String getReportDetails() {

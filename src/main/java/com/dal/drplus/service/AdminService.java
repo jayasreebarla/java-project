@@ -1,6 +1,6 @@
 package com.dal.drplus.service;
 
-import com.dal.drplus.model.entity.Admin;
+import com.dal.drplus.model.IEntity.IAdmin;
 import com.dal.drplus.repository.interfaces.IAdminRepository;
 
 public class AdminService {
@@ -10,8 +10,8 @@ public class AdminService {
         this.adminRepository = adminRepository;
     }
 
-    public Admin getAdminbyId(String adminId){
-        Admin admin = adminRepository.getAdminbyId(adminId);
+    public IAdmin getAdminbyId(String adminId){
+        IAdmin admin = adminRepository.getAdminbyId(adminId);
         return admin;
     }
 
