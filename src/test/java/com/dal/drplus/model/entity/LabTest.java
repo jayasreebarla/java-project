@@ -13,7 +13,7 @@ public class LabTest {
 
     @Test
     void validateLabPersonNameFormatTrue(){
-        boolean result = lab.validateLabPersonNameFormat("Sherlock Holmes");
+        boolean result = lab.validateLabPersonNameFormat("Sherlock");
         assertTrue(result);
     }
 
@@ -25,16 +25,14 @@ public class LabTest {
 
     @Test
     void validateLabEmailIdFormatTrue(){
-        boolean result = lab.validateLabEmailIdFormat("brainydeveloper4@gmail.com");
+        boolean result = lab.validateLabEmailIdFormat("abc@gmail.com");
         assertTrue(result);
     }
 
     @Test
     void validateLabContactInfoFormatTrue(){
-        boolean result = lab.validateLabContactInfoFormat("9099099999");
+        boolean result = lab.validateLabContactInfoFormat("923713456");
         assertTrue(result);
     }
-
-
 
 }

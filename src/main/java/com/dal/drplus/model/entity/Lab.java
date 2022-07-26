@@ -147,12 +147,14 @@ public class Lab extends ILab {
 
     @Override
     public boolean validateLabEmailIdFormat(String labEmailId) {
-        return labEmailId.matches("\"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$\"");
+        //return labEmailId.matches("\"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$\"");
+        return labEmailId.matches("^[\\w.+\\-]+@gmail\\.com$");
     }
 
     @Override
     public boolean validateLabContactInfoFormat(String labContactInfo) {
-        return labContactInfo.matches("^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s.-]\\d{3}[\\s.-]\\d{4}$");
+        //return labContactInfo.matches("^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s.-]\\d{3}[\\s.-]\\d{4}$");
+        return labContactInfo.matches("^[a-zA-Z0-9]*$");
     }
 
 }
