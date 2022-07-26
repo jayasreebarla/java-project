@@ -12,8 +12,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class LabLoginSignupServiceTest {
 
-    static Lab lab1 = new Lab ("lab1", "lab1", "lab1", "labtest1@gmail.com", "lab1", "123456", "123456");
-    static Lab lab2 = new Lab ("lab2", "lab2", "lab2", "labtest2@gmail.com", "lab2", "123123", "123123");
+    static Lab lab1 = new Lab ("lab1", "lab1", "lab1", "labtest1@gmail.com", "lab1", "123456", "123456",34,4);
+    static Lab lab2 = new Lab ("lab2", "lab2", "lab2", "labtest2@gmail.com", "lab2", "123123", "123123",54,3);
 
     String labPassword = "lab1";
     String labPassword1 = "lab2";
