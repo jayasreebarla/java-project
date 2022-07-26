@@ -51,3 +51,4 @@ deploy-main:
     - dpl --provider=heroku --app=$HEROKU_APPLICATION_NAME --api-key=$HEROKU_API_KEY
   only:
     - main
+    - release
