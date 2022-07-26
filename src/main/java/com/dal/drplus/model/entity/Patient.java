@@ -57,7 +57,7 @@ public class Patient extends IPatient {
 
     @Override
     public boolean validatePatientPhoneNumberFormat(String patientPhoneNo) {
-        return patientPhoneNo.matches("^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s.-]\\d{3}[\\s.-]\\d{4}$");
+        return patientPhoneNo.matches("^[0-9-()]*$");
     }
 
     @Override

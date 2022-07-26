@@ -9,8 +9,8 @@ public class DrPlusApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(DrPlusApplication.class, args);
-		MailController controller = new MailController();
-		controller.triggerMailService();
+		//MailController controller = new MailController();
+		//controller.triggerMailService();
 	}
 
 }

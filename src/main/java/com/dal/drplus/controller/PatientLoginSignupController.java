@@ -37,6 +37,7 @@ public class PatientLoginSignupController {
     public RedirectView RegisterPatient(HttpSession session, @ModelAttribute Patient patient, @RequestParam(value = "confirmPatientPassword") String confirmPassword){
         patient.setPatientPassword(passwordEncryptionService.hashPassword(patient.getPatientPassword()));
         confirmPassword = passwordEncryptionService.hashPassword(confirmPassword);
+
         if(patient.validatePatientAgeFormat(patient.getPatientAge())
                 && patient.validatePatientEmailFormat(patient.getPatientEmail())
                 && patient.validatePatientPincodeFormat(patient.getPatientPincode())
