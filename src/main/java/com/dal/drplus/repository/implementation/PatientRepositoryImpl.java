@@ -9,6 +9,7 @@ import com.dal.drplus.model.entity.Patient;
 import com.dal.drplus.model.factory.ModelFactory;
 import com.dal.drplus.repository.configuration.DatabaseConfiguration;
 import com.dal.drplus.repository.configuration.DatabaseConfigurationImpl;
+import com.dal.drplus.repository.interfaces.IAdminRepository;
 import com.dal.drplus.repository.interfaces.IPatientRepository;
 import org.springframework.stereotype.Repository;
 
@@ -193,4 +194,23 @@ public class PatientRepositoryImpl implements IPatientRepository{
 
         return patient;
     }
+
+    public IPatientRepository.StorageResult isPatientIdExists(String patientId){
+        String PATIENT_EXISTS_QUERY = "Select count(1) FROM Patient WHERE patient_id = ?";
+        try {
+            PreparedStatement ps = databaseConfiguration.getDBConnection().prepareStatement(PATIENT_EXISTS_QUERY);
+            ps.setString(1,patientId);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                int count = rs.getInt(1);
+                if(count>0){
+                    return StorageResult.SUCCESS;
+                }
+            }
+            return StorageResult.FAILURE;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

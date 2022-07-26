@@ -48,7 +48,8 @@ public class PatientLoginSignupController {
                 && patient.validatePatientEmailFormat(patient.getPatientEmail())
                 && patient.validatePatientPincodeFormat(patient.getPatientPincode())
                 && patient.validatePatientNameFormat(patient.getPatientName())
-                && patient.validatePatientPhoneNumberFormat(patient.getPatientPhoneNo()))
+                && patient.validatePatientPhoneNumberFormat(patient.getPatientPhoneNo())
+                && (!loginSignupService.isPatientIdExists(patient.getPatientId())))
         {
             boolean result = loginSignupService.registerPatient(patient,confirmPassword);
             String type = String.valueOf(session.getAttribute("Type"));

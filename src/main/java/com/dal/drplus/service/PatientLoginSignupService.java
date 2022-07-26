@@ -2,6 +2,7 @@ package com.dal.drplus.service;
 
 import com.dal.drplus.model.IEntity.IPatient;
 import com.dal.drplus.model.entity.Patient;
+import com.dal.drplus.repository.interfaces.IAdminRepository;
 import com.dal.drplus.repository.interfaces.IPatientRepository;
 
 public class PatientLoginSignupService {
@@ -35,4 +36,12 @@ public class PatientLoginSignupService {
         }
     }
 
+    public boolean isPatientIdExists(String patientId){
+        IPatientRepository.StorageResult result =  patientRepository.isPatientIdExists(patientId);
+        if(IPatientRepository.StorageResult.SUCCESS.equals(result)){
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

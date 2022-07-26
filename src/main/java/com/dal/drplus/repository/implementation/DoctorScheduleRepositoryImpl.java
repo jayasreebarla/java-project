@@ -140,7 +140,6 @@ public class DoctorScheduleRepositoryImpl implements IDoctorScheduleRepository {
             return StorageResult.FAILURE;
 
         } catch (SQLException e) {
-//            throw new RuntimeException(e);
         return StorageResult.FAILURE;
         }
     }
@@ -155,7 +154,6 @@ public class DoctorScheduleRepositoryImpl implements IDoctorScheduleRepository {
             statement.executeUpdate();
             return StorageResult.SUCCESS;
         } catch (SQLException e) {
-//            throw new RuntimeException(e);
             return StorageResult.FAILURE;
         }
     }
@@ -190,13 +188,13 @@ public class DoctorScheduleRepositoryImpl implements IDoctorScheduleRepository {
             statement.setBoolean(1,status);
             statement.setInt(2,slotId);
             int result = statement.executeUpdate();
+
             if(result == 1) {
                 return StorageResult.SUCCESS;
             } else {
                 return StorageResult.FAILURE;
             }
         } catch (SQLException e) {
-//            throw new RuntimeException(e);
             return StorageResult.FAILURE;
         }
     }
@@ -247,14 +245,7 @@ public class DoctorScheduleRepositoryImpl implements IDoctorScheduleRepository {
                 .addDoctorId(rs.getString("doctor_id"))
                 .addStatus(rs.getBoolean("status")).build();
 
-//        labSchedule.setSlotId(rs.getInt("slot_id"));
-//        labSchedule.setSlotTiming(rs.getString("slot_timing"));
-//        labSchedule.setSlotDate(rs.getString("slot_date"));
-//        labSchedule.setLabId(rs.getString("lab_id"));
-//        labSchedule.setStatus(rs.getBoolean("status"));
-
         return doctorSchedule;
     }
-
 
 }
