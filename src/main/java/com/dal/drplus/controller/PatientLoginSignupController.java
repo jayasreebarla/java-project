@@ -43,12 +43,21 @@ public class PatientLoginSignupController {
         System.out.println("confirmPassword"+confirmPassword);
         patient.setPatientPassword(passwordEncryptionService.hashPassword(patient.getPatientPassword()));
         confirmPassword = passwordEncryptionService.hashPassword(confirmPassword);
-        boolean result = loginSignupService.registerPatient(patient,confirmPassword);
-        String type = String.valueOf(session.getAttribute("Type"));
-        if(type.equals("A")){
-            return new RedirectView("/admin/patient_list_admin");
+
+        if(patient.validatePatientAgeFormat(patient.getPatientAge())
+                && patient.validatePatientEmailFormat(patient.getPatientEmail())
+                && patient.validatePatientPincodeFormat(patient.getPatientPincode())
+                && patient.validatePatientNameFormat(patient.getPatientName())
+                && patient.validatePatientPhoneNumberFormat(patient.getPatientPhoneNo()))
+        {
+            boolean result = loginSignupService.registerPatient(patient,confirmPassword);
+            String type = String.valueOf(session.getAttribute("Type"));
+            if(type.equals("A")){
+                return new RedirectView("/admin/patient_list_admin");
+            }
+            return new RedirectView("/auth/patient_login");
         }
-        return new RedirectView("/auth/patient_login");
+        return new RedirectView("/auth/patient_signup");
     }
 
     @GetMapping("/patient_login")

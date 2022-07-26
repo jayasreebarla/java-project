@@ -17,6 +17,7 @@ import com.dal.drplus.service.RatingLabService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpSession;
 
@@ -81,20 +82,14 @@ public class RatingController {
                                 .addDoctorId(doctorId)
                                 .addReview(review)
                                 .addDoctorRating(Integer.parseInt(doctorRating)).build();
-//        IRatingDoctor rating = ModelFactory.instance().createRatingDoctorUsingBuilder(builder);
-//        RatingDoctor rating = new RatingDoctor();
-//        rating.setRatingId(0);
-//        rating.setPatientId(patientId);
-//        rating.setDoctorId(doctorId);
-//        rating.setReview(review);
-//        rating.setDoctorRating(Integer.parseInt(doctorRating));
+
         boolean result = ratingDoctorService.addRating(rating);
         System.out.println("rating save result" + result);
         return "Rating/rating_successful";
     }
 
     @PostMapping("/add_lab_rating/")
-    public String AddRatingForLab(@RequestParam("review") String review,@RequestParam("labRating") String labRating){
+    public RedirectView AddRatingForLab(@RequestParam("review") String review, @RequestParam("labRating") String labRating){
         System.out.println("inside add rating for lab");
         System.out.println("inside add rating for lab => patientId"+patientId);
         System.out.println("inside add rating for lab => LabId"+labId);
@@ -107,15 +102,11 @@ public class RatingController {
                         .addReview(review)
                         .addLabRating(Integer.parseInt(labRating)).build();
 
-          // = ModelFactory.instance().createRatingLabUsingBuilder(builder);
-//        rating.setRatingId(0);
-//        rating.setPatientId(patientId);
-//        rating.setLabId(labId);
-//        rating.setReview(review);
-//        rating.setLabRating(Integer.parseInt(labRating));
-
-        boolean result = ratingLabService.addRating(rating);
-        System.out.println("rating save result"+result);
-        return "Rating/rating_successful";
+        if(rating.validateLabRatingFormat(rating.getLabRating())){
+            boolean result = ratingLabService.addRating(rating);
+            System.out.println("rating save result"+result);
+            return new RedirectView("/rating_success");
+        }
+        return new RedirectView("/add_rating/"+labId);
     }
 }
