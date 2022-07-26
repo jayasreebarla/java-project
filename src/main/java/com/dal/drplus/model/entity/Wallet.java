@@ -13,6 +13,9 @@ public class Wallet extends IWallet {
     }
     public Wallet() {}
 
+    public boolean validateWalletAmount(){
+        return this.amount>0;
+    }
     public String getWalletId() {
         return walletId;
     }

@@ -28,13 +28,15 @@ public class WalletService {
         String wallet_id = "W_"+patientEmail;
         IWallet wallet = walletRepository.getWalletBalanceByWalletId(wallet_id);
         if(wallet!=null){
-            double amount_final = wallet.getAmount() - amount;
-            IWalletRepository.StorageResult result=walletRepository.UpdateIntoWallet(amount_final,wallet_id);
-            if(result.equals(IWalletRepository.StorageResult.SUCCESS)){
-                return_result = true;
+            if(wallet.validateWalletAmount()){
+                double amount_final = wallet.getAmount() - amount;
+                IWalletRepository.StorageResult result=walletRepository.UpdateIntoWallet(amount_final,wallet_id);
+                if(result.equals(IWalletRepository.StorageResult.SUCCESS)){
+                    return_result = true;
+                }
             }
+            System.out.println("return result inside wallet service"+return_result);
         }
-        System.out.println("return result inside wallet service"+return_result);
         return return_result;
     }
 

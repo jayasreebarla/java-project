@@ -72,7 +72,7 @@ public class RatingController {
     }
 
     @PostMapping("/add_rating/")
-    public String AddRatingForDoctor(@RequestParam("review") String review,@RequestParam("doctorRating") String doctorRating){
+    public RedirectView AddRatingForDoctor(@RequestParam("review") String review, @RequestParam("doctorRating") String doctorRating){
         System.out.println("inside add rating for doc");
         System.out.println("inside add rating for doc => patientId"+patientId);
         System.out.println("inside add rating for doc => doctorId"+doctorId);
@@ -82,10 +82,14 @@ public class RatingController {
                                 .addDoctorId(doctorId)
                                 .addReview(review)
                                 .addDoctorRating(Integer.parseInt(doctorRating)).build();
+        if(rating.validateDoctorRating()){
+            boolean result = ratingDoctorService.addRating(rating);
+            System.out.println("rating save result" + result);
+            return new RedirectView("/rating_success");
+        }else{
+            return new RedirectView("/add_rating/"+doctorId);
+        }
 
-        boolean result = ratingDoctorService.addRating(rating);
-        System.out.println("rating save result" + result);
-        return "Rating/rating_successful";
     }
 
     @PostMapping("/add_lab_rating/")
@@ -108,5 +112,10 @@ public class RatingController {
             return new RedirectView("/rating_success");
         }
         return new RedirectView("/add_rating/"+labId);
+    }
+
+    @GetMapping("/rating_success")
+    public String returnRatingSuccessPage(){
+        return "Rating/rating_successful";
     }
 }

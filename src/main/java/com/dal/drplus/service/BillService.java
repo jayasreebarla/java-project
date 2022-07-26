@@ -19,7 +19,11 @@ public class BillService {
     }
 
     public double getBillAmount(int billId){
-        return billRepository.getBillAmount(billId);
+        if(getBill(billId).validateBillAmount()){
+            return billRepository.getBillAmount(billId);
+        }else{
+            return 0;
+        }
     }
 
     public IBilling getBill(int billId){

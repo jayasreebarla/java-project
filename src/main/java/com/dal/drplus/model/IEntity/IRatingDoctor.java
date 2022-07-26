@@ -18,6 +18,8 @@ public abstract class IRatingDoctor {
         this.review = review;
     }
 
+    abstract public boolean validateDoctorRating();
+
     abstract public int getRatingId();
 
     abstract public void setRatingId(int ratingId);

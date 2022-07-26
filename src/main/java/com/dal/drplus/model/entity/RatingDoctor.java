@@ -22,6 +22,10 @@ public class RatingDoctor extends IRatingDoctor {
         this.review = review;
     }
 
+    public boolean validateDoctorRating(){
+        return this.doctorRating>=1 && doctorRating<=5;
+    }
+
     public int getRatingId() {
         return ratingId;
     }

@@ -1,9 +1,17 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
+    <style>
+        table, th, td {
+            border: 1px solid;
+        }
+    </style>
     <meta charset="UTF-8">
     <title>Doctor Reschedule Availability</title>
 </head>
+<br>
+<a href="/home">Home</a>
+<br>
 <body>
 Reschedule Appointment Id : <p th:text="${appointment.getAppointmentId()}">
 <h2> Doctor Availability List: </h2>
@@ -11,8 +19,8 @@ Reschedule Appointment Id : <p th:text="${appointment.getAppointmentId()}">
     <thead>
     <tr>
         <th> Slot Id </th>
+        <th> Slot Date </th>
         <th> Slot Timing </th>
-        <th> Slot date </th>
         <th> Actions </th>
     </tr>
     </thead>

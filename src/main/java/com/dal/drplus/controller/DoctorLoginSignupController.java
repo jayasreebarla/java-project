@@ -48,15 +48,39 @@ DoctorLoginSignupController {
     public RedirectView RegisterDoctor(HttpSession session, @ModelAttribute Doctor doctor, @RequestParam(value = "confirmDoctorPassword") String confirmPassword){
         System.out.println(doctor.toString());
         System.out.println("confirmPassword"+confirmPassword);
-        doctor.setDoctorPassword(passwordEncryptionService.hashPassword(doctor.getDoctorPassword()));
-        confirmPassword = passwordEncryptionService.hashPassword(confirmPassword);
+        System.out.println("signup if id exists"+loginSignupService.isDoctorIdExists(doctor.getDoctorId()));
+        System.out.println("doctor.validateDoctorAge()"+doctor.validateDoctorAge());
+        System.out.println("doctor.validateDoctorCredentials()"+doctor.validateDoctorCredentials());
+        System.out.println("validateDoctorEmail"+doctor.validateDoctorEmail());
+        System.out.println("validateDoctorName"+doctor.validateDoctorName());
+        System.out.println("validatePhoneNumber"+doctor.validatePhoneNumber());
+        System.out.println("validateDoctorPincode"+doctor.validateDoctorPincode());
+        System.out.println("validateDoctorFee"+doctor.validateDoctorFee());
+        if(loginSignupService.isDoctorIdExists(doctor.getDoctorId())){
+            System.out.println("id exists");
+            return new RedirectView("/auth_doctor/doctor_signup");
+        }else{
+            if(doctor.validateDoctorAge()
+                    && doctor.validateDoctorCredentials()
+                    && doctor.validateDoctorEmail()
+                    && doctor.validateDoctorName()
+                    && doctor.validatePhoneNumber()
+                    && doctor.validateDoctorPincode() && doctor.validateDoctorFee())
+            {
+                doctor.setDoctorPassword(passwordEncryptionService.hashPassword(doctor.getDoctorPassword()));
+                confirmPassword = passwordEncryptionService.hashPassword(confirmPassword);
 
-        boolean result = loginSignupService.registerDoctor(doctor,confirmPassword);
-        String type = String.valueOf(session.getAttribute("Type"));
-        if(type.equals("A")){
-            return new RedirectView("/admin/doctor_list_admin");
+                boolean result = loginSignupService.registerDoctor(doctor,confirmPassword);
+                String type = String.valueOf(session.getAttribute("Type"));
+                if(type.equals("A")){
+                    return new RedirectView("/admin/doctor_list_admin");
+                }
+                return new RedirectView("/auth_doctor/doctor_login");
+            }else{
+                return new RedirectView("/auth_doctor/doctor_signup");
+            }
         }
-        return new RedirectView("/auth_doctor/doctor_login");
+
     }
 
     @GetMapping("/doctor_login")

@@ -18,5 +18,6 @@ public interface IDoctorRepository {
     public String getDoctorPasswordById(String doctorId);
     public List<Doctor> findAllDoctorsBySpecializationAndPincode(String specialization, String pincode);
     public StorageResult deleteDoctorById(String id);
+    public StorageResult isDoctorIdExists(String doctorId);
 
 }
