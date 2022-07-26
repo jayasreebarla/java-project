@@ -1,6 +1,8 @@
 package com.dal.drplus.service;
 
+import com.dal.drplus.model.IEntity.IBilling;
 import com.dal.drplus.model.entity.Billing;
+import com.dal.drplus.model.factory.ModelFactory;
 import com.dal.drplus.repository.implementation.BillRepositoryImpl;
 import com.dal.drplus.repository.interfaces.IBillRepository;
 import org.junit.jupiter.api.BeforeAll;
@@ -13,11 +15,11 @@ public class BillServiceTest {
 
     private static BillService billService;
     private static IBillRepository billRepository;
-    private static Billing bill_initial;
+    private static IBilling bill_initial;
 
     @BeforeAll
     public static void init(){
-        bill_initial = new Billing();
+        bill_initial = ModelFactory.instance().createBilling();
         bill_initial.setBillId(1);
         bill_initial.setBillAmount(34);
         bill_initial.setBillDescription("xyz");
@@ -46,13 +48,13 @@ public class BillServiceTest {
 
     @Test
     void getBillSuccess(){
-        Billing bill = billService.getBill(1);
+        IBilling bill = billService.getBill(1);
         assertEquals(bill_initial,bill);
     }
 
     @Test
     void getBillFailure(){
-        Billing bill = billService.getBill(2);
+        IBilling bill = billService.getBill(2);
         assertNull(bill);
     }
 

@@ -1,5 +1,6 @@
 package com.dal.drplus.repository.interfaces;
 
+import com.dal.drplus.model.IEntity.IBilling;
 import com.dal.drplus.model.entity.Billing;
 
 public interface IBillRepository {
@@ -11,6 +12,6 @@ public interface IBillRepository {
 
     int insertBill(double amount,String description);
     double getBillAmount(int billId);
-    Billing getBill(int billId);
+    IBilling getBill(int billId);
     StorageResult UpdateBillAmount(int billId,double amount);
 }

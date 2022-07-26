@@ -2,6 +2,7 @@ package com.dal.drplus.controller;
 
 
 import com.dal.drplus.model.IBuilder.IRatingDoctorBuilder;
+import com.dal.drplus.model.IEntity.IRatingDoctor;
 import com.dal.drplus.model.entity.Patient;
 import com.dal.drplus.model.entity.RatingDoctor;
 import com.dal.drplus.model.entity.RatingLab;
@@ -76,7 +77,7 @@ public class RatingController {
                 .addDoctorId(doctorId)
                 .addReview(review)
                 .addDoctorRating(Integer.parseInt(doctorRating)).build();
-        RatingDoctor rating = ModelFactory.instance().createRatingDoctorUsingBuilder(builder);
+        IRatingDoctor rating = ModelFactory.instance().createRatingDoctorUsingBuilder(builder);
 //        RatingDoctor rating = new RatingDoctor();
 //        rating.setRatingId(0);
 //        rating.setPatientId(patientId);

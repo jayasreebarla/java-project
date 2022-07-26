@@ -5,8 +5,7 @@ public abstract class IRatingDoctor {
     protected String patientId;
     protected String doctorId;
     protected int doctorRating;
-
-    private String review;
+    protected String review;
 
     public IRatingDoctor() {
     }

@@ -1,5 +1,6 @@
 package com.dal.drplus.service;
 
+import com.dal.drplus.model.IEntity.IBilling;
 import com.dal.drplus.model.entity.Billing;
 import com.dal.drplus.repository.interfaces.IBillRepository;
 
@@ -21,7 +22,7 @@ public class BillService {
         return billRepository.getBillAmount(billId);
     }
 
-    public Billing getBill(int billId){
+    public IBilling getBill(int billId){
         return billRepository.getBill(billId);
     }
 

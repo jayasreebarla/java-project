@@ -4,17 +4,14 @@ import com.dal.drplus.model.IBuilder.IRatingDoctorBuilder;
 import com.dal.drplus.model.IEntity.IRatingDoctor;
 
 public class RatingDoctor extends IRatingDoctor {
-    private int ratingId;
-    private String patientId;
-    private String doctorId;
-    private int doctorRating;
-
-    private String review;
-
     public RatingDoctor() {
     }
 
     public RatingDoctor(IRatingDoctorBuilder builder) {
+        this.doctorId= builder.getDoctorId();
+        this.doctorRating= builder.getRatingId();
+        this.patientId= builder.getPatientId();
+        this.review= builder.getReview();
     }
 
     public RatingDoctor(int ratingId, String patientId, String doctorId, int doctorRating, String review) {

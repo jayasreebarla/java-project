@@ -3,6 +3,7 @@ package com.dal.drplus.controller;
 
 import com.dal.drplus.model.IEntity.IDoctor;
 import com.dal.drplus.model.entity.Appointment;
+import com.dal.drplus.model.entity.Billing;
 import com.dal.drplus.model.entity.Lab;
 import com.dal.drplus.model.entity.Patient;
 import com.dal.drplus.repository.implementation.*;
@@ -66,6 +67,7 @@ public class AppointmentController {
         IDoctor doctor = doctorService.getDoctorById(doctorId);
         double billAmount = doctor.getDoctorFee();
         int billId = billService.generateBill(billAmount,"DOCTOR");
+        System.out.println("vij "+billId);
         //double billAmount = doctor.getDoctorFee();
         appointment.setSlotId(Integer.parseInt(slotId));
         appointment.setAppointmentType("DOCTOR");
@@ -83,7 +85,8 @@ public class AppointmentController {
         //return "appointment/appointment_booked";
 //        attributes.addFlashAttribute("billAmount",billAmount);
 
-        attributes.addFlashAttribute("bill",billService.getBill(billId));
+        attributes.addFlashAttribute("bill",(Billing)billService.getBill(billId));
+        System.out.println("before flash attribute"+billService.getBill(billId).getBillAmount());
         //System.out.println("bill amount in appointment controller"+billService.getBillAmount(billId));
         return new RedirectView("/payment");
     }
@@ -110,7 +113,7 @@ public class AppointmentController {
         }
 //        attributes.addFlashAttribute("billAmount",billAmount);
 //        System.out.println("bill amount in appointment controller"+billAmount);
-        attributes.addFlashAttribute("bill",billService.getBill(billId));
+        attributes.addFlashAttribute("bill",(Billing)billService.getBill(billId));
         return new RedirectView("/payment");
     }
 
