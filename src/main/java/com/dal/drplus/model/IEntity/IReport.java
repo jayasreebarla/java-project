@@ -36,4 +36,6 @@ public abstract class IReport {
 
 
 
+    abstract public boolean validateReportDetails(String reportDetails);
+
 }

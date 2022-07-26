@@ -36,6 +36,15 @@ public class LabService  {
         }
     }
 
+    public boolean isLabIdExists(String labId){
+        ILabRepository.StorageResult result = labRepository.isLabIdExists(labId);
+        if(result.equals(ILabRepository.StorageResult.SUCCESS)){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public List<Lab> filterLabOnPincode(String labPincode){
         return labRepository.findAllLabsByPincode(labPincode);
     }
@@ -51,4 +60,5 @@ public class LabService  {
 
         return listToSort;
     }
+
 }

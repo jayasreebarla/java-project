@@ -42,16 +42,19 @@ public class LabLoginSignupController {
     }
 
     @PostMapping("/lab_signup")
-    public RedirectView RegisterLab(HttpSession session, @ModelAttribute Lab lab){
-        System.out.println("LAB SIGNUP"+lab.getLabId()+lab.getLabPassword()+lab.getLabAddress()+lab.getLabEmailId()+lab.getLabPincode()+lab.getLabContactInfo()+lab.getLabPersonName());
+    public RedirectView RegisterLab(HttpSession session, @ModelAttribute Lab lab) {
+        System.out.println("LAB SIGNUP" + lab.getLabId() + lab.getLabPassword() + lab.getLabAddress() + lab.getLabEmailId() + lab.getLabPincode() + lab.getLabContactInfo() + lab.getLabPersonName());
         lab.setLabPassword(passwordEncryptionService.hashPassword(lab.getLabPassword()));
 
-        boolean result = loginSignupService.registerLab(lab);
-        String type = String.valueOf(session.getAttribute("Type"));
-        if(type.equals("A")){
-            return new RedirectView("/admin/lab_list_admin");
+        if (lab.validateLabPersonNameFormat(lab.getLabPersonName()) && lab.validateLabEmailIdFormat(lab.getLabEmailId()) && lab.validateLabContactInfoFormat(lab.getLabContactInfo()) && lab.validateLabPincodeFormat(lab.getLabPincode())) {
+            boolean result = loginSignupService.registerLab(lab);
+            String type = String.valueOf(session.getAttribute("Type"));
+            if (type.equals("A")) {
+                return new RedirectView("/admin/lab_list_admin");
+            }
+            return new RedirectView("/auth_lab/lab_login");
         }
-        return new RedirectView("/auth_lab/lab_login");
+        return new RedirectView("/auth_lab/lab_signup");
     }
 
     @GetMapping("/lab_login")

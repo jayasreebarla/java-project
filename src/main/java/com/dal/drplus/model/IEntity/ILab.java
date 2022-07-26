@@ -58,4 +58,13 @@ public abstract class ILab {
     abstract public int getLabRating();
 
     abstract public void setLabRating(int labRating);
+
+    abstract public boolean validateLabPersonNameFormat(String labPersonName);
+
+    abstract public boolean validateLabPincodeFormat(String labPincode);
+
+    abstract public boolean validateLabEmailIdFormat(String labEmailId);
+
+    abstract public boolean validateLabContactInfoFormat(String labContactInfo);
+
 }

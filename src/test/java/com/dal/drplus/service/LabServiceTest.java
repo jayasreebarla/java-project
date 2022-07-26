@@ -40,6 +40,9 @@ public class LabServiceTest {
         Mockito.when(labRepository.findLabById("lab2")).thenReturn(null);
         Mockito.when(labRepository.deleteLabById("lab1")).thenReturn(ILabRepository.StorageResult.SUCCESS);
         Mockito.when(labRepository.deleteLabById("lab2")).thenReturn(ILabRepository.StorageResult.FAILURE);
+        Mockito.when(labRepository.isLabIdExists(lab1.getLabId())).thenReturn(ILabRepository.StorageResult.SUCCESS);
+        Mockito.when(labRepository.isLabIdExists(lab2.getLabId())).thenReturn(ILabRepository.StorageResult.FAILURE);
+
         labService = new LabService(labRepository);
     }
 
@@ -136,4 +139,17 @@ public class LabServiceTest {
         List<Lab> result = labService.sortLabList(unsortedList);
         assertIterableEquals(unsortedList,result);
     }
+
+    @Test
+    void isLabIdExistsTrue(){
+        boolean result = labService.isLabIdExists(lab1.getLabId());
+        assertTrue(result);
+    }
+
+    @Test
+    void isLabIdExistsFalse(){
+        boolean result = labService.isLabIdExists(lab2.getLabId());
+        assertFalse(result);
+    }
+
 }

@@ -24,4 +24,6 @@ public abstract class IPrescription {
     abstract public void setPrescriptionDetails(String prescriptionDetails);
     abstract public byte[] getPrescriptionFile();
     abstract public void setPrescriptionFile(byte[] prescriptionFile);
+
+    abstract public boolean validatePrescriptionDetails(String reportDetails);
 }

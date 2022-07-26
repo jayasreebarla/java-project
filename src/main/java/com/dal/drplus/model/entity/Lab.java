@@ -134,4 +134,25 @@ public class Lab extends ILab {
     public void setLabRating(int labRating) {
         this.labRating = labRating;
     }
+
+    @Override
+    public boolean validateLabPersonNameFormat(String labPersonName) {
+        return labPersonName.matches("^[a-zA-Z0-9]*$");
+    }
+
+    @Override
+    public boolean validateLabPincodeFormat(String labPincode) {
+        return labPincode.matches("^[a-zA-Z0-9]*$");
+    }
+
+    @Override
+    public boolean validateLabEmailIdFormat(String labEmailId) {
+        return labEmailId.matches("\"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$\"");
+    }
+
+    @Override
+    public boolean validateLabContactInfoFormat(String labContactInfo) {
+        return labContactInfo.matches("^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s.-]\\d{3}[\\s.-]\\d{4}$");
+    }
+
 }

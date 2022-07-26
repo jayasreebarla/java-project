@@ -1,5 +1,5 @@
 package com.dal.drplus.service;
-import com.dal.drplus.model.entity.Prescription;
+import com.dal.drplus.model.entity.PrescriptionTest;
 import com.dal.drplus.repository.implementation.PrescriptionRepositoryImpl;
 import com.dal.drplus.repository.interfaces.IPrescriptionRepository;
 import org.junit.jupiter.api.Assertions;
@@ -11,7 +11,7 @@ import java.io.FileNotFoundException;
 
 public class PrescriptionServiceTest {
 
-    private static Prescription prescription = new Prescription();
+    private static PrescriptionTest prescription = new PrescriptionTest();
 
     private static PrescriptionService prescriptionService;
     private static IPrescriptionRepository prescriptionRepository;
