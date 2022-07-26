@@ -2,6 +2,7 @@ package com.dal.drplus.model.factory;
 
 import com.dal.drplus.model.Builder.DoctorBuilder;
 import com.dal.drplus.model.IBuilder.IAdminBuilder;
+import com.dal.drplus.model.IBuilder.IAppointmentBuilder;
 import com.dal.drplus.model.IBuilder.IDoctorBuilder;
 import com.dal.drplus.model.IBuilder.IReportBuilder;
 import com.dal.drplus.model.IEntity.IDoctor;
@@ -103,5 +104,20 @@ public class ModelFactory implements IModelFactory{
     @Override
     public IReportBuilder createReportBuilder() {
         return new ReportBuilder();
+    }
+
+    @Override
+    public IAppointment createAppointment() {
+        return new Appointment();
+    }
+
+    @Override
+    public Appointment createAppointmentUsingBuilder(IAppointmentBuilder appointmentBuilder) {
+        return new Appointment(appointmentBuilder);
+    }
+
+    @Override
+    public IAppointmentBuilder createAppointmentBuilder() {
+        return new AppointmentBuilder();
     }
 }

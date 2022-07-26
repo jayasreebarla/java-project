@@ -2,6 +2,7 @@ package com.dal.drplus.model.factory;
 
 import com.dal.drplus.model.Builder.*;
 import com.dal.drplus.model.IBuilder.IAdminBuilder;
+import com.dal.drplus.model.IBuilder.IAppointmentBuilder;
 import com.dal.drplus.model.IBuilder.IDoctorBuilder;
 import com.dal.drplus.model.IBuilder.IReportBuilder;
 import com.dal.drplus.model.IEntity.*;
@@ -32,6 +33,10 @@ public interface IModelFactory {
     public IReport createReport();
     public IReport createReportUsingBuilder(IReportBuilder reportBuilder);
     public IReportBuilder createReportBuilder();
+
+    public IAppointment createAppointment();
+    public IAppointment createAppointmentUsingBuilder(IAppointmentBuilder appointmentBuilder);
+    public IAppointmentBuilder createAppointmentBuilder();
 
 
 }

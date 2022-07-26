@@ -1,21 +1,24 @@
 package com.dal.drplus.model.entity;
 
-public class Appointment {
+import com.dal.drplus.model.IBuilder.IAppointmentBuilder;
+import com.dal.drplus.model.IEntity.IAppointment;
 
-    private int appointmentId;
-    private String appointmentDate;
-    private String appointmentTime;
-    private String appointmentDescription;
-    private double appointmentFee;
-    private String patientId;
-    private String doctorId;
-    private int billId;
-    private int slotId;
-    private String labId;
-
-    private String appointmentType;
-
+public class Appointment extends IAppointment {
     public Appointment() {
+    }
+
+    public Appointment(IAppointmentBuilder appointmentBuilder){
+        this.appointmentId = appointmentBuilder.getAppointmentId();
+        this.appointmentDate = appointmentBuilder.getAppointmentDate();
+        this.appointmentTime = appointmentBuilder.getAppointmentTime();
+        this.appointmentDescription = appointmentBuilder.getAppointmentDescription();
+        this.appointmentFee = appointmentBuilder.getAppointmentFee();
+        this.patientId = appointmentBuilder.getPatientId();
+        this.doctorId = appointmentBuilder.getDoctorId();
+        this.billId = appointmentBuilder.getBillId();
+        this.slotId = appointmentBuilder.getSlotId();
+        this.labId = appointmentBuilder.getLabId();
+        this.appointmentType = appointmentBuilder.getAppointmentType();
     }
 
     public Appointment(int appointmentId, String appointmentDate, String appointmentTime, String appointmentDescription, double appointmentFee, String patientId, String doctorId, int billId, int slotId, String labId, String appointmentType) {
