@@ -2,7 +2,6 @@ package com.dal.drplus.repository.implementation;
 
 import com.dal.drplus.model.IBuilder.IWalletBuilder;
 import com.dal.drplus.model.IEntity.IWallet;
-import com.dal.drplus.model.entity.Wallet;
 import com.dal.drplus.model.factory.ModelFactory;
 import com.dal.drplus.repository.configuration.DatabaseConfiguration;
 import com.dal.drplus.repository.configuration.DatabaseConfigurationImpl;
@@ -29,7 +28,6 @@ public class WalletRepositoryImpl implements IWalletRepository {
         this.databaseConfiguration = dbConfig();
     }
 
-
     @Override
     public StorageResult InsertIntoWallet(double amount, String wallet_id) {
         try {
@@ -43,7 +41,6 @@ public class WalletRepositoryImpl implements IWalletRepository {
                 return StorageResult.FAILURE;
             }
         } catch (SQLException e) {
-            //throw new RuntimeException(e);
             return StorageResult.FAILURE;
         }
     }

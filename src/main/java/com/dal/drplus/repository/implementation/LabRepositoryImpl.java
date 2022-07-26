@@ -1,6 +1,5 @@
 package com.dal.drplus.repository.implementation;
 
-import com.dal.drplus.model.IBuilder.IDoctorBuilder;
 import com.dal.drplus.model.IBuilder.ILabBuilder;
 import com.dal.drplus.model.IEntity.ILab;
 import com.dal.drplus.model.entity.Lab;
@@ -58,7 +57,6 @@ public class LabRepositoryImpl implements ILabRepository{
     @Override
     public ILabRepository.StorageResult saveLab(ILab lab) {
 
-        System.out.println("inside save lab");
         try {
             PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(INSERT_LAB);
             statement.setString(1, lab.getLabId());
@@ -71,16 +69,14 @@ public class LabRepositoryImpl implements ILabRepository{
             statement.setDouble(8,lab.getLabFee());
 
             int result = statement.executeUpdate();
-            System.out.println("inside save !!!!!!");
+
             if (result == 1){return ILabRepository.StorageResult.SUCCESS;}
             else{return ILabRepository.StorageResult.FAILURE;}
         } catch (SQLException e) {
-//            throw new RuntimeException(e);
             e.printStackTrace();
             return ILabRepository.StorageResult.FAILURE;
         }
     }
-
 
     @Override
     public ILab findLabById(String labId) {
@@ -97,7 +93,6 @@ public class LabRepositoryImpl implements ILabRepository{
             throw new RuntimeException(e);
         }
     }
-
 
     @Override
     public List<Lab> findAllLabsByPincode(String labPincode) {
@@ -151,7 +146,6 @@ public class LabRepositoryImpl implements ILabRepository{
             statement.executeUpdate();
             return ILabRepository.StorageResult.SUCCESS;
         } catch (SQLException e) {
-//            throw new RuntimeException(e);
             return ILabRepository.StorageResult.FAILURE;
         }
     }
@@ -178,9 +172,9 @@ public class LabRepositoryImpl implements ILabRepository{
             return statement.executeUpdate();
         } catch (SQLException e) {
             return -1;
-            //throw new RuntimeException(e);
         }
     }
+
     public String getLabPasswordById(String labId) {
         PreparedStatement statement = null;
         String password = null;

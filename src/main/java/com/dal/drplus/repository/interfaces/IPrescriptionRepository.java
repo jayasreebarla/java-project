@@ -15,10 +15,8 @@ public interface IPrescriptionRepository {
 
     public StorageResult uploadPrescription(IPrescription prescription) throws FileNotFoundException;
 
-
     public IPrescription findById(int id);
 
     public  List<Prescription> findAllbyAppointment(int prescription_id);
-
 
 }

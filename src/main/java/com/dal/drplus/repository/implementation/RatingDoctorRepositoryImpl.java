@@ -54,7 +54,6 @@ public class RatingDoctorRepositoryImpl implements IRatingDoctorRepository {
             }
 
         } catch (SQLException e) {
-//            throw new RuntimeException(e);
             return StorageResult.SUCCESS;
         }
 
@@ -155,7 +154,6 @@ public class RatingDoctorRepositoryImpl implements IRatingDoctorRepository {
                 return StorageResult.FAILURE;
             }
         } catch (SQLException e) {
-//            throw new RuntimeException(e);
             return StorageResult.FAILURE;
         }
     }
@@ -166,7 +164,6 @@ public class RatingDoctorRepositoryImpl implements IRatingDoctorRepository {
             PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(DELETE_BY_PATIENT_ID);
             statement.setString(1,patientId);
             int result  = statement.executeUpdate();
-            System.out.println("1 "+result);
             if(result == 1) {
                 return StorageResult.SUCCESS;
             } else {
@@ -174,7 +171,6 @@ public class RatingDoctorRepositoryImpl implements IRatingDoctorRepository {
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
-//            return StorageResult.FAILURE;
         }
     }
 
@@ -197,7 +193,6 @@ public class RatingDoctorRepositoryImpl implements IRatingDoctorRepository {
             return statement.executeUpdate();
         } catch (SQLException e) {
             return -1;
-            //throw new RuntimeException(e);
         }
     }
 

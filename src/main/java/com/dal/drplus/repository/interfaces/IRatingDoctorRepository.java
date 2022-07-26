@@ -2,7 +2,6 @@ package com.dal.drplus.repository.interfaces;
 
 import com.dal.drplus.model.IEntity.IRatingDoctor;
 import com.dal.drplus.model.entity.RatingDoctor;
-
 import java.util.List;
 
 public interface IRatingDoctorRepository {

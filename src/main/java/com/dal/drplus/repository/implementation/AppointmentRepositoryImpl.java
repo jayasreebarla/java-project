@@ -104,7 +104,7 @@ public class AppointmentRepositoryImpl implements IAppointmentRepository{
 
         try {
             PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(INSERT_APPOINTMENT);
-            //statement.setInt(1,appointment.getAppointmentId());
+
             statement.setInt(1,appointment.getSlotId());
             statement.setString(2,appointment.getAppointmentType());
             statement.setString(3,appointment.getAppointmentDescription());
@@ -116,7 +116,6 @@ public class AppointmentRepositoryImpl implements IAppointmentRepository{
             statement.executeUpdate();
             return IAppointmentRepository.StorageResult.SUCCESS;
         } catch (SQLException e) {
-           // throw new RuntimeException(e);
             return IAppointmentRepository.StorageResult.FAILURE;
         }
     }
@@ -134,7 +133,6 @@ public class AppointmentRepositoryImpl implements IAppointmentRepository{
                 return IAppointmentRepository.StorageResult.FAILURE;
             }
         } catch (SQLException e) {
-            // throw new RuntimeException(e);
             return IAppointmentRepository.StorageResult.FAILURE;
         }
     }
@@ -277,7 +275,6 @@ public class AppointmentRepositoryImpl implements IAppointmentRepository{
             statement.executeUpdate();
             return IAppointmentRepository.StorageResult.SUCCESS;
         } catch (SQLException e) {
-            // throw new RuntimeException(e);
             return IAppointmentRepository.StorageResult.FAILURE;
         }
     }
@@ -310,7 +307,6 @@ public class AppointmentRepositoryImpl implements IAppointmentRepository{
                 return IAppointmentRepository.StorageResult.FAILURE;
             }
         } catch (SQLException e) {
-            // throw new RuntimeException(e);
             return IAppointmentRepository.StorageResult.FAILURE;
         }
     }
@@ -327,7 +323,6 @@ public class AppointmentRepositoryImpl implements IAppointmentRepository{
                 return IAppointmentRepository.StorageResult.FAILURE;
             }
         } catch (SQLException e) {
-            // throw new RuntimeException(e);
             return IAppointmentRepository.StorageResult.FAILURE;
         }
     }
@@ -338,7 +333,7 @@ public class AppointmentRepositoryImpl implements IAppointmentRepository{
             PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(DELETE_APPOINTMENTS_BY_PATIENT_ID);
             statement.setString(1,patientId);
             int result = statement.executeUpdate();
-            System.out.println("33 "+result);
+
             if(result == 1) {
                 return IAppointmentRepository.StorageResult.SUCCESS;
             } else {
@@ -346,7 +341,6 @@ public class AppointmentRepositoryImpl implements IAppointmentRepository{
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
-//            return IAppointmentRepository.StorageResult.FAILURE;
         }
     }
 
@@ -362,7 +356,6 @@ public class AppointmentRepositoryImpl implements IAppointmentRepository{
                 return IAppointmentRepository.StorageResult.FAILURE;
             }
         } catch (SQLException e) {
-            // throw new RuntimeException(e);
             return IAppointmentRepository.StorageResult.FAILURE;
         }
     }
@@ -384,8 +377,7 @@ public class AppointmentRepositoryImpl implements IAppointmentRepository{
                 slotDateDB = rs.getString(1);
                 slotTimeDB = rs.getString(2);
             }
-            System.out.println("db "+slotDateDB+""+slotTimeDB);
-            System.out.println("fe "+slotDate+""+slotTime);
+
             if((!(slotDateDB.equals(slotDate))) && (!(slotTimeDB.equals(slotTime)))) {
                 return IAppointmentRepository.StorageResult.FAILURE;
             }
@@ -423,7 +415,6 @@ public class AppointmentRepositoryImpl implements IAppointmentRepository{
                 return IAppointmentRepository.StorageResult.FAILURE;
             }
         } catch (SQLException e) {
-            //throw new RuntimeException(e);
             return IAppointmentRepository.StorageResult.FAILURE;
         }
 

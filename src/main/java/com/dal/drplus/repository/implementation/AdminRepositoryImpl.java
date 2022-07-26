@@ -37,7 +37,6 @@ public class AdminRepositoryImpl implements IAdminRepository {
             return StorageResult.SUCCESS;
         }
         catch (SQLException e) {
-            //throw new RuntimeException(e)
         return StorageResult.FAILURE;
         }
     }

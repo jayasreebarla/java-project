@@ -2,7 +2,6 @@ package com.dal.drplus.repository.interfaces;
 
 import com.dal.drplus.model.IEntity.IRatingLab;
 import com.dal.drplus.model.entity.RatingLab;
-
 import java.util.List;
 
 public interface IRatingLabRepository {

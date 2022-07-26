@@ -1,8 +1,6 @@
 package com.dal.drplus.repository.interfaces;
 
-
 import com.dal.drplus.model.entity.Promotions;
-
 import java.util.List;
 
 public interface IPromotionsRepository {

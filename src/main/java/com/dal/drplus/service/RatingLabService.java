@@ -15,7 +15,7 @@ public class RatingLabService {
 
     public boolean addRating(IRatingLab ratingLab){
         IRatingLabRepository.StorageResult result = ratingLabRepository.saveLabRating(ratingLab);
-        System.out.println("Inside rating Service"+result);
+
         if(result.equals(IRatingLabRepository.StorageResult.SUCCESS)){
             return true;
         }else{
@@ -24,7 +24,7 @@ public class RatingLabService {
     }
 
     public boolean checkPreviousLabRatingNotExistsForPatientID(String labId, String patientId){
-        System.out.println(ratingLabRepository.findLabRatingByLabIdAndPatientID(labId, patientId));
+
         if(ratingLabRepository.findLabRatingByLabIdAndPatientID(labId, patientId)){
             return false;
         }

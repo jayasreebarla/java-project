@@ -11,7 +11,6 @@ public interface ILabRepository {
         FAILURE
     }
     StorageResult saveLab(ILab lab);
-
     ILab findLabById(String labId);
     List<Lab> findAllLabsByPincode(String labPincode);
     String getLabPasswordById(String labId);

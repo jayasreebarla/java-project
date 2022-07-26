@@ -1,7 +1,6 @@
 package com.dal.drplus.service;
 
 import com.dal.drplus.model.IEntity.ILab;
-import com.dal.drplus.model.entity.Doctor;
 import com.dal.drplus.model.entity.Lab;
 import com.dal.drplus.repository.interfaces.ILabRepository;
 

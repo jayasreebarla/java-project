@@ -25,8 +25,6 @@ public class ConfigVariables implements EnvironmentAware {
         return dbpassword;
     }
 
-
-
     public static void setDBVariables(String url, String username, String password){
         dburl=url;
         dbusername=username;

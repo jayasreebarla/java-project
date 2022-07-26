@@ -21,7 +21,6 @@ public class PromotionsRepositoryImpl implements IPromotionsRepository {
         return new DatabaseConfigurationImpl();
     }
 
-
     String INSERT_PROMOTION = "INSERT INTO Promotions (promotion_id, promotion_name, promotion_start_date, promotion_end_date,amount_off) VALUES(?,?,?,?,?)";
     String UPDATE_PROMOTION = "UPDATE Promotions SET promotion_name=?, promotion_start_date=?, promotion_end_date=?, amount_off=? WHERE promotion_id=?";
     String FIND_PROMOTION_BY_ID = "SELECT * FROM Promotions WHERE promotion_id=?";
@@ -45,7 +44,6 @@ public class PromotionsRepositoryImpl implements IPromotionsRepository {
                 return IPromotionsRepository.StorageResult.FAILURE;
             }
         } catch (SQLException e) {
-//            throw new RuntimeException(e);
             return IPromotionsRepository.StorageResult.FAILURE;
         }
     }
@@ -61,7 +59,6 @@ public class PromotionsRepositoryImpl implements IPromotionsRepository {
             statement.executeUpdate();
             return IPromotionsRepository.StorageResult.SUCCESS;
         } catch (SQLException e) {
-//            throw new RuntimeException(e);
             return IPromotionsRepository.StorageResult.FAILURE;
         }
     }
@@ -95,7 +92,6 @@ public class PromotionsRepositoryImpl implements IPromotionsRepository {
 
     @Override
     public StorageResult deleteById(String promotion_id) {
-        //return jdbcTemplate.update("DELETE FROM Promotions WHERE promotions_id=?", promotion_id);
         try {
             PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(DELETE_PROMOTION_BY_ID);
             statement.setString(1,promotion_id);
@@ -106,7 +102,6 @@ public class PromotionsRepositoryImpl implements IPromotionsRepository {
                 return IPromotionsRepository.StorageResult.FAILURE;
             }
         } catch (SQLException e) {
-//            throw new RuntimeException(e);
             return IPromotionsRepository.StorageResult.FAILURE;
         }
     }
@@ -134,7 +129,6 @@ public class PromotionsRepositoryImpl implements IPromotionsRepository {
             return statement.executeUpdate();
         } catch (SQLException e) {
             return -1;
-            //throw new RuntimeException(e);
         }
     }
 

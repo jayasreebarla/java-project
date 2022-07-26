@@ -1,15 +1,11 @@
 package com.dal.drplus.repository.implementation;
 
-import com.dal.drplus.model.Builder.PatientBuilder;
-import com.dal.drplus.model.IBuilder.IDoctorBuilder;
 import com.dal.drplus.model.IBuilder.IPatientBuilder;
 import com.dal.drplus.model.IEntity.IPatient;
-import com.dal.drplus.model.entity.Doctor;
 import com.dal.drplus.model.entity.Patient;
 import com.dal.drplus.model.factory.ModelFactory;
 import com.dal.drplus.repository.configuration.DatabaseConfiguration;
 import com.dal.drplus.repository.configuration.DatabaseConfigurationImpl;
-import com.dal.drplus.repository.interfaces.IAdminRepository;
 import com.dal.drplus.repository.interfaces.IPatientRepository;
 import org.springframework.stereotype.Repository;
 
@@ -21,8 +17,6 @@ import java.util.List;
 
 @Repository
 public class PatientRepositoryImpl implements IPatientRepository{
-
-//implements IPatientRepository
 
     String INSERT_PATIENT = "INSERT into Patient (patient_id,patient_name,patient_age,patient_email,patient_phone_no,patient_password,patient_address,patient_pincode,privacy_agreement_enabled) VALUES(?,?,?,?,?,?,?,?,?)";
     String UPDATE_PATIENT = "UPDATE Patient SET patient_name=?,patient_age=?,patient_email=?,patient_phone_no=?,patient_password=?,patient_address=?,patient_pincode=?,privacy_agreement_enabled=? WHERE patient_id=?";
@@ -42,7 +36,6 @@ public class PatientRepositoryImpl implements IPatientRepository{
     private DatabaseConfiguration dbConfig(){
         return new DatabaseConfigurationImpl();
     }
-
 
     @Override
     public StorageResult savePatient(IPatient patient) {
@@ -66,7 +59,6 @@ public class PatientRepositoryImpl implements IPatientRepository{
                 return StorageResult.FAILURE;
             }
         } catch (SQLException e) {
-//            throw new RuntimeException(e);
             return StorageResult.FAILURE;
         }
     }
@@ -87,7 +79,6 @@ public class PatientRepositoryImpl implements IPatientRepository{
             statement.executeUpdate();
             return StorageResult.SUCCESS;
         } catch (SQLException e) {
-//            throw new RuntimeException(e);
             return StorageResult.FAILURE;
         }
     }
@@ -140,7 +131,6 @@ public class PatientRepositoryImpl implements IPatientRepository{
                 return StorageResult.FAILURE;
             }
         } catch (SQLException e) {
-//            throw new RuntimeException(e);
             return StorageResult.FAILURE;
         }
     }
@@ -170,7 +160,6 @@ public class PatientRepositoryImpl implements IPatientRepository{
             return statement.executeUpdate();
         } catch (SQLException e) {
             return -1;
-            //throw new RuntimeException(e);
         }
 
     }
@@ -189,8 +178,6 @@ public class PatientRepositoryImpl implements IPatientRepository{
                 .addPatientAddress(rs.getString("patient_address"))
                 .addPatientPincode(rs.getString("patient_pincode"))
                 .addPrivacyAgreementEnabled(rs.getBoolean("privacy_agreement_enabled")).build();
-
-        //patient = ModelFactory.instance().createPatientUsingBuilder(builder);
 
         return patient;
     }

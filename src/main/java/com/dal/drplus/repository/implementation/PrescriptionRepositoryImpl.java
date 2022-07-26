@@ -40,13 +40,12 @@ public class PrescriptionRepositoryImpl implements IPrescriptionRepository {
         try {
             PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(UPLOAD_PRESCRIPTION);
             Blob blob_file = new SerialBlob(prescription.getPrescriptionFile());
-            //statement.setString(1, prescription.getPrescriptionId());
             statement.setInt(3, prescription.getAppointmentId());
             statement.setString(1, prescription.getPrescriptionDetails());
             statement.setBlob(2,blob_file);
 
             int res = statement.executeUpdate();
-            System.out.println("prescription uploaded ");
+
             if(res == 1) {
                 return IPrescriptionRepository.StorageResult.SUCCESS;
             } else {
@@ -54,7 +53,6 @@ public class PrescriptionRepositoryImpl implements IPrescriptionRepository {
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
-            //  return IPrescriptionRepository.StorageResult.FAILURE;
         }
     }
 

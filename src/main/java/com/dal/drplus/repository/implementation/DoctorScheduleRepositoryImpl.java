@@ -1,11 +1,8 @@
 package com.dal.drplus.repository.implementation;
 
-import com.dal.drplus.model.Builder.DoctorScheduleBuilder;
-import com.dal.drplus.model.Builder.LabScheduleBuilder;
 import com.dal.drplus.model.IBuilder.IDoctorScheduleBuilder;
 import com.dal.drplus.model.IEntity.IDoctorSchedule;
 import com.dal.drplus.model.entity.DoctorSchedule;
-import com.dal.drplus.model.entity.LabSchedule;
 import com.dal.drplus.model.factory.ModelFactory;
 import com.dal.drplus.repository.configuration.DatabaseConfiguration;
 import com.dal.drplus.repository.configuration.DatabaseConfigurationImpl;
@@ -22,7 +19,6 @@ import java.util.List;
 public class DoctorScheduleRepositoryImpl implements IDoctorScheduleRepository {
 
     String GET_SLOT_IDS = "SELECT slot_id FROM Doc_schedule WHERE slot_date=?";
-    //String GET_SLOT_IDS = "SELECT slot_id FROM Doc_schedule";
     DatabaseConfiguration databaseConfiguration;
     private DatabaseConfiguration DbConfig(){
         return new DatabaseConfigurationImpl();
@@ -38,7 +34,6 @@ public class DoctorScheduleRepositoryImpl implements IDoctorScheduleRepository {
         PreparedStatement statement = null;
         try {
             statement = databaseConfiguration.getDBConnection().prepareStatement("INSERT into Doc_schedule( slot_timing, slot_date, doctor_id, status) VALUES (?,?,?,?)");
-//            statement.setInt(1,doctorSchedule.getSlotId());
             statement.setString(1, doctorSchedule.getSlotTiming());
             statement.setString(2, doctorSchedule.getSlotDate());
             statement.setString(3,doctorSchedule.getDoctorId());
@@ -47,7 +42,6 @@ public class DoctorScheduleRepositoryImpl implements IDoctorScheduleRepository {
 
             return StorageResult.SUCCESS;
         } catch (SQLException e) {
-//            throw new RuntimeException(e);
         return StorageResult.FAILURE;
         }
 
@@ -73,7 +67,7 @@ public class DoctorScheduleRepositoryImpl implements IDoctorScheduleRepository {
 
     @Override
     public List<DoctorSchedule> findScheduleByDoctorID(String id) {
-        System.out.println("Doctor"+id);
+
         List<DoctorSchedule> doctorSchedules = new ArrayList<>();
         PreparedStatement statement = null;
         try {
