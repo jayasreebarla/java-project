@@ -5,16 +5,12 @@ import com.dal.drplus.model.IBuilder.IBillingBuilder;
 import com.dal.drplus.model.IBuilder.IDoctorBuilder;
 import com.dal.drplus.model.IBuilder.IRatingDoctorBuilder;
 import com.dal.drplus.model.IBuilder.IWalletBuilder;
+import com.dal.drplus.model.IBuilder.*;
 import com.dal.drplus.model.IEntity.IDoctor;
 import com.dal.drplus.model.entity.Doctor;
 import com.dal.drplus.model.Builder.*;
 import com.dal.drplus.model.IEntity.*;
 import com.dal.drplus.model.entity.*;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.stereotype.Component;
-
-import javax.print.Doc;
 
 public class ModelFactory implements IModelFactory{
     private static ModelFactory theOneInstance = null;
@@ -32,6 +28,7 @@ public class ModelFactory implements IModelFactory{
     public IDoctor createDoctor() {
         return new Doctor();
     }
+
     public Doctor createDoctorUsingBuilder(IDoctorBuilder builder){return new Doctor(builder);}
     public IDoctorBuilder createDoctorBuilder(){
         return new DoctorBuilder();
@@ -88,8 +85,13 @@ public class ModelFactory implements IModelFactory{
     }
 
     @Override
-    public IPatient createPatientBuilder(PatientBuilder builder) {
+    public Patient createPatientUsingBuilder(IPatientBuilder builder) {
         return new Patient(builder);
+    }
+
+    @Override
+    public IPatientBuilder createPatientBuilder() {
+        return new PatientBuilder();
     }
 
     @Override
@@ -98,8 +100,13 @@ public class ModelFactory implements IModelFactory{
     }
 
     @Override
-    public ILabSchedule createLabScheduleBuilder(LabScheduleBuilder builder) {
+    public LabSchedule createLabScheduleUsingBuilder(ILabScheduleBuilder builder) {
         return new LabSchedule(builder);
+    }
+
+    @Override
+    public ILabScheduleBuilder createLabScheduleBuilder() {
+        return new LabScheduleBuilder();
     }
 
     @Override
@@ -108,8 +115,13 @@ public class ModelFactory implements IModelFactory{
     }
 
     @Override
-    public IDoctorSchedule createDoctorScheduleBuilder(DoctorScheduleBuilder builder) {
+    public DoctorSchedule createDoctorScheduleUsingBuilder(IDoctorScheduleBuilder builder) {
         return new DoctorSchedule(builder);
+    }
+
+    @Override
+    public IDoctorScheduleBuilder createDoctorScheduleBuilder() {
+        return new DoctorScheduleBuilder();
     }
 
     @Override
@@ -118,7 +130,13 @@ public class ModelFactory implements IModelFactory{
     }
 
     @Override
-    public IRatingLab createRatingLabBuilder(RatingLabBuilder builder) {
+    public RatingLab createRatingLabUsingBuilder(IRatingLabBuilder builder) {
         return new RatingLab(builder);
     }
+
+    @Override
+    public IRatingLabBuilder createRatingLabBuilder() {
+        return new RatingLabBuilder();
+    }
+
 }

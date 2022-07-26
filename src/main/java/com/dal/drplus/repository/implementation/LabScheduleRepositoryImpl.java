@@ -1,7 +1,10 @@
 package com.dal.drplus.repository.implementation;
 
 import com.dal.drplus.model.Builder.LabScheduleBuilder;
+import com.dal.drplus.model.IBuilder.ILabScheduleBuilder;
+import com.dal.drplus.model.IEntity.ILabSchedule;
 import com.dal.drplus.model.entity.LabSchedule;
+import com.dal.drplus.model.factory.ModelFactory;
 import com.dal.drplus.repository.configuration.DatabaseConfiguration;
 import com.dal.drplus.repository.configuration.DatabaseConfigurationImpl;
 import com.dal.drplus.repository.interfaces.ILabScheduleRepository;
@@ -43,7 +46,7 @@ public class LabScheduleRepositoryImpl implements ILabScheduleRepository {
     }
 
     @Override
-    public StorageResult saveLabSchedule(LabSchedule labSchedule) {
+    public StorageResult saveLabSchedule(ILabSchedule labSchedule) {
         try {
             PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(INSERT_LAB_SCHEDULE);
 //            statement.setString(1,labSchedule.getSlotTiming());
@@ -112,7 +115,7 @@ public class LabScheduleRepositoryImpl implements ILabScheduleRepository {
     }
 
     @Override
-    public LabSchedule findScheduleBySlotID(String id) {
+    public ILabSchedule findScheduleBySlotID(String id) {
         LabSchedule labSchedule=null;
         try {
             PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(FIND_SCHEDULE_BY_SLOT_ID);
@@ -213,8 +216,8 @@ public class LabScheduleRepositoryImpl implements ILabScheduleRepository {
 
     private LabSchedule createLabSchedule(ResultSet rs) throws SQLException {
 
-        LabSchedule labSchedule = new LabSchedule();
-        LabScheduleBuilder labScheduleBuilder = new LabScheduleBuilder();
+        LabSchedule labSchedule = null;
+        ILabScheduleBuilder labScheduleBuilder = ModelFactory.instance().createLabScheduleBuilder();
 
         labSchedule = labScheduleBuilder
                 .addSlotId(rs.getInt("slot_id"))
