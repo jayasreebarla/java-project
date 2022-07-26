@@ -1,6 +1,9 @@
 package com.dal.drplus.repository.implementation;
 
+import com.dal.drplus.model.IBuilder.IBillingBuilder;
+import com.dal.drplus.model.IEntity.IBilling;
 import com.dal.drplus.model.entity.Billing;
+import com.dal.drplus.model.factory.ModelFactory;
 import com.dal.drplus.repository.configuration.DatabaseConfiguration;
 import com.dal.drplus.repository.configuration.DatabaseConfigurationImpl;
 import com.dal.drplus.repository.interfaces.IBillRepository;
@@ -81,24 +84,20 @@ public class BillRepositoryImpl implements IBillRepository {
                 return StorageResult.FAILURE;
             }
         } catch (SQLException e) {
-            //throw new RuntimeException(e);
             return StorageResult.FAILURE;
         }
     }
 
     @Override
-    public Billing getBill(int billId) {
-        Billing bill = null;
+    public IBilling getBill(int billId) {
+        IBilling bill = null;
         try {
             PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(GET_BILL);
             statement.setInt(1,billId);
             ResultSet rs = statement.executeQuery();
+            IBillingBuilder builder = ModelFactory.instance().createBillingBuilder();
             while (rs.next()){
-                bill = new Billing();
-                bill.setBillId(rs.getInt("bill_id"));
-                bill.setBillAmount(rs.getDouble("bill_amount"));
-                //bill.setBillDate(rs.getString("bill_date"));
-                bill.setBillDescription(rs.getString("bill_description"));
+                bill = builder.addBillId(rs.getInt("bill_id")).addBillAmount(rs.getDouble("bill_amount")).addBillDescription(rs.getString("bill_description")).build();
             }
         } catch (SQLException e) {
             //throw new RuntimeException(e);

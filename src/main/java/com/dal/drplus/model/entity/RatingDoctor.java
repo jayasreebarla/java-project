@@ -1,14 +1,17 @@
 package com.dal.drplus.model.entity;
 
-public class RatingDoctor{
-    private int ratingId;
-    private String patientId;
-    private String doctorId;
-    private int doctorRating;
+import com.dal.drplus.model.IBuilder.IRatingDoctorBuilder;
+import com.dal.drplus.model.IEntity.IRatingDoctor;
 
-    private String review;
-
+public class RatingDoctor extends IRatingDoctor {
     public RatingDoctor() {
+    }
+
+    public RatingDoctor(IRatingDoctorBuilder builder) {
+        this.doctorId= builder.getDoctorId();
+        this.doctorRating= builder.getRatingId();
+        this.patientId= builder.getPatientId();
+        this.review= builder.getReview();
     }
 
     public RatingDoctor(int ratingId, String patientId, String doctorId, int doctorRating, String review) {

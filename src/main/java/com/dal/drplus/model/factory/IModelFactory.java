@@ -6,17 +6,36 @@ import com.dal.drplus.model.IBuilder.ILabBuilder;
 import com.dal.drplus.model.IBuilder.IPrescriptionBuilder;
 import com.dal.drplus.model.IBuilder.IPromotionsBuilder;
 import com.dal.drplus.model.IBuilder.*;
+import com.dal.drplus.model.IBuilder.IBillingBuilder;
+import com.dal.drplus.model.IBuilder.IDoctorBuilder;
+import com.dal.drplus.model.IBuilder.IRatingDoctorBuilder;
+import com.dal.drplus.model.IBuilder.IWalletBuilder;
 import com.dal.drplus.model.IEntity.*;
 import com.dal.drplus.model.entity.Doctor;
 import com.dal.drplus.model.entity.Lab;
 import com.dal.drplus.model.entity.Promotions;
 import com.dal.drplus.model.entity.*;
+import com.dal.drplus.model.entity.Billing;
+import com.dal.drplus.model.entity.Doctor;
+import com.dal.drplus.model.entity.RatingDoctor;
+import com.dal.drplus.model.entity.Wallet;
 
 public interface IModelFactory {
     public IDoctor createDoctor();
     public Doctor createDoctorUsingBuilder(IDoctorBuilder builder);
-
     public IDoctorBuilder createDoctorBuilder();
+
+    public IRatingDoctor createRatingDoctor();
+    public RatingDoctor createRatingDoctorUsingBuilder(IRatingDoctorBuilder builder);
+    public IRatingDoctorBuilder createRatingDoctorBuilder();
+
+    public IBilling createBilling();
+    public Billing createBillingUsingBuilder(IBillingBuilder builder);
+    public IBillingBuilder createBillingBuilder();
+
+    public IWallet createWallet();
+    public Wallet createWalletUsingBuilder(IWalletBuilder builder);
+    public IWalletBuilder createWalletBuilder();
 
     public IPatient createPatient();
     public Patient createPatientUsingBuilder(IPatientBuilder builder);

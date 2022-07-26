@@ -1,6 +1,9 @@
 package com.dal.drplus.repository.implementation;
 
+import com.dal.drplus.model.IBuilder.IWalletBuilder;
+import com.dal.drplus.model.IEntity.IWallet;
 import com.dal.drplus.model.entity.Wallet;
+import com.dal.drplus.model.factory.ModelFactory;
 import com.dal.drplus.repository.configuration.DatabaseConfiguration;
 import com.dal.drplus.repository.configuration.DatabaseConfigurationImpl;
 import com.dal.drplus.repository.interfaces.IWalletRepository;
@@ -58,29 +61,25 @@ public class WalletRepositoryImpl implements IWalletRepository {
                 return StorageResult.FAILURE;
             }
         } catch (SQLException e) {
-            //throw new RuntimeException(e);
             return StorageResult.FAILURE;
         }
     }
 
     @Override
-    public Wallet getWalletBalanceByWalletId(String wallet_id) {
+    public IWallet getWalletBalanceByWalletId(String wallet_id) {
 
-        Wallet wallet = null;
+        IWallet wallet = null;
         try {
             PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(SELECT_WALLET);
             statement.setString(1,wallet_id);
             ResultSet rs = statement.executeQuery();
             while (rs.next()){
-                wallet = new Wallet();
-                wallet.setWalletId(wallet_id);
-                wallet.setAmount(rs.getDouble("amount"));
+                IWalletBuilder builder = ModelFactory.instance().createWalletBuilder();
+                wallet=builder.addWalletId(wallet_id).addWalletAmount(rs.getDouble("amount")).build();
             }
 
         } catch (SQLException e) {
-            //throw new RuntimeException(e);
             e.printStackTrace();
-            //return wallet;
         }
         return wallet;
     }

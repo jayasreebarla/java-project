@@ -1,6 +1,10 @@
 package com.dal.drplus.model.factory;
 
 import com.dal.drplus.model.Builder.DoctorBuilder;
+import com.dal.drplus.model.IBuilder.IBillingBuilder;
+import com.dal.drplus.model.IBuilder.IDoctorBuilder;
+import com.dal.drplus.model.IBuilder.IRatingDoctorBuilder;
+import com.dal.drplus.model.IBuilder.IWalletBuilder;
 import com.dal.drplus.model.IBuilder.IDoctorBuilder;
 import com.dal.drplus.model.IBuilder.ILabBuilder;
 import com.dal.drplus.model.IBuilder.IPrescriptionBuilder;
@@ -32,6 +36,51 @@ public class ModelFactory implements IModelFactory{
     public Doctor createDoctorUsingBuilder(IDoctorBuilder builder){return new Doctor(builder);}
     public IDoctorBuilder createDoctorBuilder(){
         return new DoctorBuilder();
+    }
+
+    @Override
+    public IRatingDoctor createRatingDoctor() {
+        return new RatingDoctor();
+    }
+
+    @Override
+    public RatingDoctor createRatingDoctorUsingBuilder(IRatingDoctorBuilder builder) {
+        return new RatingDoctor(builder);
+    }
+
+    @Override
+    public IRatingDoctorBuilder createRatingDoctorBuilder() {
+        return new RatingDoctorBuilder();
+    }
+
+    @Override
+    public IBilling createBilling() {
+        return new Billing();
+    }
+
+    @Override
+    public Billing createBillingUsingBuilder(IBillingBuilder builder) {
+        return new Billing(builder);
+    }
+
+    @Override
+    public IBillingBuilder createBillingBuilder() {
+        return new BillingBuilder();
+    }
+
+    @Override
+    public IWallet createWallet() {
+        return new Wallet();
+    }
+
+    @Override
+    public Wallet createWalletUsingBuilder(IWalletBuilder builder) {
+        return new Wallet(builder);
+    }
+
+    @Override
+    public IWalletBuilder createWalletBuilder() {
+        return new WalletBuilder();
     }
 
     @Override
