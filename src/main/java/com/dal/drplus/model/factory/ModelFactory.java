@@ -34,7 +34,6 @@ public class ModelFactory implements IModelFactory{
         return theOneInstance;
     }
 
-//    @Bean
     @Override
     public IDoctor createDoctor() {
         return new Doctor();

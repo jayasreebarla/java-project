@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <style>
+        table, th, td {
+            border: 1px solid;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<a href="/home">Home</a>
+<body>
+</br>
+Lab Id : <p th:text="${doctorId}">
+<h2> Lab Reviews List</h2>
+<table class = "table table-striped table-bordered">
+    <thead>
+    <tr>
+        <th> Reviews </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${reviews.isEmpty()}">
+        <td colspan="2"> No Reviews Available </td>
+    </tr>
+    <tr th:each="review : ${reviews}">
+        <td><span th:text="${review}"> Review </span></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

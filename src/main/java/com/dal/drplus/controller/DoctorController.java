@@ -1,6 +1,7 @@
 package com.dal.drplus.controller;
 
 import com.dal.drplus.model.entity.Doctor;
+import com.dal.drplus.model.entity.DoctorSchedule;
 import com.dal.drplus.repository.implementation.DoctorRepositoryImpl;
 import com.dal.drplus.repository.implementation.DoctorScheduleRepositoryImpl;
 import com.dal.drplus.repository.implementation.RatingDoctorRepositoryImpl;
@@ -10,6 +11,7 @@ import com.dal.drplus.service.RatingDoctorService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.*;
@@ -44,6 +46,15 @@ public class DoctorController {
 
         model.addAttribute("doctors",doctorListSorted);
         return "doctor/doctor_list";
+    }
+
+    @GetMapping("/reviews_doctor/{doctorId}")
+    public String filterReviewsOnDoctorId(Model model, @PathVariable("doctorId") String doctorId){
+        System.out.println("doctor"+doctorId);
+        List<String> reviews = ratingDoctorService.getReviews(doctorId);
+        model.addAttribute("doctorId",doctorId);
+        model.addAttribute("reviews",reviews);
+        return "Rating/list_of_reviews_doctor";
     }
 
 }

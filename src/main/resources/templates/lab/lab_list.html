@@ -26,6 +26,7 @@
         <th> Lab Pincode</th>
         <th> Lab Fee</th>
         <th> Lab Rating</th>
+        <th> Lab Reviews</th>
         <th> Actions </th>
     </tr>
     </thead>
@@ -42,6 +43,8 @@
         <td><span th:text="${lab.labPincode}"> Lab Pincode </span></td>
         <td><span th:text="${lab.labFee}"> Lab Fee </span></td>
         <td><span th:text="${lab.labRating}"> Lab Rating </span></td>
+        <td><a th:href = "@{/reviews_lab/{labId}(labId=${lab.labId})}"
+               class = "btn btn-primary">Check Reviews</a></td>
         <td><a th:href = "@{/lab/{labId}(labId=${lab.labId})}"
                class = "btn btn-primary">Check Availability</a></td>
     </tr>
