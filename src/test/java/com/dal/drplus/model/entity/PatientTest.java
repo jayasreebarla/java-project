@@ -19,7 +19,7 @@ public class PatientTest {
     private static String patientEmail2 = "waitwy@shd.com";
 
     private static String patientPhoneNumber1 = "902-989-8179";
-    private static String patientPhoneNumber2 = "7826))98123";
+    private static String patientPhoneNumber2 = "7826.98123";
 
     private static int patientAge1 = 20;
     private static int patientAge2 = -9;
