@@ -15,4 +15,13 @@ public class AdminService {
         return admin;
     }
 
+    public boolean isAdminIdExists(String adminId){
+        IAdminRepository.StorageResult result =  adminRepository.isAdminIdExists(adminId);
+        if(IAdminRepository.StorageResult.SUCCESS.equals(result)){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

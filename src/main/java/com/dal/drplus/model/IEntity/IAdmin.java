@@ -15,6 +15,7 @@ public abstract class IAdmin {
         this.adminAccessKey = adminAccessKey;
     }
 
+    abstract public boolean validateAdminAccesskey(String adminAccessKey);
     abstract public String getAdminId();
 
     abstract public void setAdminId(String adminId);

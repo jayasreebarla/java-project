@@ -4,12 +4,12 @@ import com.dal.drplus.model.IEntity.IAdmin;
 import com.dal.drplus.model.entity.Admin;
 import com.dal.drplus.repository.implementation.AdminRepositoryImpl;
 import com.dal.drplus.repository.interfaces.IAdminRepository;
+import com.dal.drplus.repository.interfaces.IAppointmentRepository;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AdminServiceTest {
 
@@ -26,6 +26,8 @@ public class AdminServiceTest {
         adminRepository = Mockito.mock(AdminRepositoryImpl.class);
 
         Mockito.when(adminRepository.getAdminbyId(admin.getAdminId())).thenReturn(admin);
+        Mockito.when(adminRepository.isAdminIdExists(admin.getAdminId())).thenReturn(IAdminRepository.StorageResult.SUCCESS);
+        Mockito.when(adminRepository.isAdminIdExists(admin1.getAdminId())).thenReturn(IAdminRepository.StorageResult.FAILURE);
         adminService = new AdminService(adminRepository);
     }
 
@@ -41,5 +43,15 @@ public class AdminServiceTest {
         assertNull(admin_result);
     }
 
+    @Test
+    void isAdminIdExistsTrue(){
+        boolean result = adminService.isAdminIdExists(admin.getAdminId());
+        assertTrue(result);
+    }
 
+    @Test
+    void isAdminIdExistsFalse(){
+        boolean result = adminService.isAdminIdExists(admin1.getAdminId());
+        assertFalse(result);
+    }
 }

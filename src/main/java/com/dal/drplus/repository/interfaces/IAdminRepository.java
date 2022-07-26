@@ -10,6 +10,8 @@ public interface IAdminRepository {
     public IAdmin getAdminbyId(String adminId);
     String getAdminPasswordById(String adminId);
 
+    StorageResult isAdminIdExists(String adminId);
+
     enum StorageResult{
         SUCCESS,
         FAILURE
