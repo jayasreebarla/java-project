@@ -36,7 +36,7 @@ public class AdminLoginSignupController {
     }
 
     @PostMapping("/admin_signup")
-    public String registerAdmin(@ModelAttribute Admin admin, @RequestParam(value = "confirmAdminPassword") String confirmPassword){
+    public RedirectView registerAdmin(@ModelAttribute Admin admin, @RequestParam(value = "confirmAdminPassword") String confirmPassword){
         System.out.println("admin "+admin.getAdminId());
         System.out.println("admin pas"+admin.getAdminPassword());
         System.out.println("admin ak"+admin.getAdminAccessKey());
@@ -46,8 +46,13 @@ public class AdminLoginSignupController {
 
         System.out.println("HASH admin pas"+admin.getAdminPassword());
         System.out.println("HASH confirmPassword"+confirmPassword);
-        boolean result = loginSignupService.registerAdmin(admin,confirmPassword);
-        return "admin/login";
+
+        if((admin.validateAdminAccesskey(admin.getAdminAccessKey())) && (!adminService.isAdminIdExists(admin.getAdminId()))) {
+            boolean result = loginSignupService.registerAdmin(admin, confirmPassword);
+            return new RedirectView("/auth_admin/admin_login");
+        } else {
+            return new RedirectView("/auth_admin/admin_signup");
+        }
     }
 
     @GetMapping("/admin_login")

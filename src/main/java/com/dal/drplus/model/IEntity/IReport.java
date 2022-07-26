@@ -16,6 +16,8 @@ public abstract class IReport {
         this.reportFile = reportFile;
     }
 
+    abstract public boolean validateReportDetails(String reportDetails);
+
     abstract public int getReportId();
 
     abstract public void setReportId(int reportId);
@@ -31,5 +33,7 @@ public abstract class IReport {
     abstract public byte[] getReportFile();
 
     abstract public void setReportFile(byte[] reportFile);
+
+
 
 }

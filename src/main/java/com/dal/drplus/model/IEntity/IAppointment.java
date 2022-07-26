@@ -31,6 +31,7 @@ public abstract class IAppointment {
         this.appointmentType = appointmentType;
     }
 
+    abstract public boolean validateAppointmentDate(String appointmentDate);
     abstract public int getAppointmentId();
 
     abstract public void setAppointmentId(int appointmentId);

@@ -55,7 +55,11 @@ public class ReportUploadController {
 //        report.setReportDetails(fileName);
 //        report.setReportFile(file.getBytes());
 //        report.setAppointmentId(appointmentId);
-        boolean result = reportService.uploadReport(report);
+        if(report.validateReportDetails(fileName)) {
+            boolean result = reportService.uploadReport(report);
+        } else {
+            return new RedirectView("upload_report/"+appointmentId);
+        }
         //boolean result2 = labService.
         String type = String.valueOf(session.getAttribute("Type"));
         System.out.print("type of appointment"+type);
