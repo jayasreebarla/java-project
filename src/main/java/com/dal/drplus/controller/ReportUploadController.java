@@ -86,6 +86,6 @@ public class ReportUploadController {
     @GetMapping("/download_report/{appointmentId}")
     public String showReportList(Model model,@PathVariable("appointmentId") int appointmentId){
         model.addAttribute("reports",reportService.findAllbyAppointment(appointmentId));
-        return "/reports/report_list";
+        return "reports/report_list";
     }
 }

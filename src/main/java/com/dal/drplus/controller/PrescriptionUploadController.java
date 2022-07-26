@@ -68,6 +68,6 @@ public class PrescriptionUploadController {
     @GetMapping("/download_prescription/{appointmentId}")
     public String showPrescriptionList(Model model, @PathVariable("appointmentId") int appointmentId){
         model.addAttribute("prescription",prescriptionService.findAllbyAppointment(appointmentId));
-        return "/prescription/prescription_list";
+        return "prescription/prescription_list";
     }
 }
