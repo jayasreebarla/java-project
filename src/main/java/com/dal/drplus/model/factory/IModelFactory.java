@@ -4,10 +4,12 @@ import com.dal.drplus.model.Builder.*;
 import com.dal.drplus.model.IBuilder.IBillingBuilder;
 import com.dal.drplus.model.IBuilder.IDoctorBuilder;
 import com.dal.drplus.model.IBuilder.IRatingDoctorBuilder;
+import com.dal.drplus.model.IBuilder.IWalletBuilder;
 import com.dal.drplus.model.IEntity.*;
 import com.dal.drplus.model.entity.Billing;
 import com.dal.drplus.model.entity.Doctor;
 import com.dal.drplus.model.entity.RatingDoctor;
+import com.dal.drplus.model.entity.Wallet;
 
 public interface IModelFactory {
     public IDoctor createDoctor();
@@ -21,6 +23,10 @@ public interface IModelFactory {
     public IBilling createBilling();
     public Billing createBillingUsingBuilder(IBillingBuilder builder);
     public IBillingBuilder createBillingBuilder();
+
+    public IWallet createWallet();
+    public Wallet createWalletUsingBuilder(IWalletBuilder builder);
+    public IWalletBuilder createWalletBuilder();
 
     public IPatient createPatient();
     public IPatient createPatientBuilder(PatientBuilder builder);

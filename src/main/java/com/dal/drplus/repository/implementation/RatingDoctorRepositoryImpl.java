@@ -1,7 +1,9 @@
 package com.dal.drplus.repository.implementation;
 
+import com.dal.drplus.model.IBuilder.IRatingDoctorBuilder;
 import com.dal.drplus.model.IEntity.IRatingDoctor;
 import com.dal.drplus.model.entity.RatingDoctor;
+import com.dal.drplus.model.factory.ModelFactory;
 import com.dal.drplus.repository.configuration.DatabaseConfiguration;
 import com.dal.drplus.repository.configuration.DatabaseConfigurationImpl;
 import com.dal.drplus.repository.interfaces.IRatingDoctorRepository;
@@ -26,9 +28,6 @@ public class RatingDoctorRepositoryImpl implements IRatingDoctorRepository {
     }
 
     String INSERT_RATING_DOCTOR = "INSERT into RatingDoctor (patient_id,doctor_id,doctor_rating,review) VALUES (?,?,?,?)";
-    String UPDATE_RATING_DOCTOR = "UPDATE RatingDoctor SET doctor_rating=? WHERE rating_id=? and doctor_id=?";
-    String UPDATE_REVIEW_DOCTOR = "UPDATE RatingDoctor SET review=? WHERE rating_id=? and doctor_id=?";
-    String SELECT_BY_RATING_AND_DOCTOR_ID = "SELECT * FROM RatingDoctor WHERE rating_id=? and doctor_id=?";
     String SELECT_BY_DOCTOR_ID = "SELECT * FROM RatingDoctor WHERE doctor_id=?";
     String SELECT_BY_DOCTOR_ID_AND_PATIENT_ID = "SELECT * FROM RatingDoctor where doctor_id = ? and patient_id = ?";
     String SELECT_BY_PATIENT_ID = "SELECT * FROM RatingDoctor WHERE patient_id=?";
@@ -204,12 +203,15 @@ public class RatingDoctorRepositoryImpl implements IRatingDoctorRepository {
 
     private List<RatingDoctor> getRatingDoctor(List<RatingDoctor> ratingDoctorList, ResultSet rs) throws SQLException {
         while (rs.next()){
-            RatingDoctor ratingDoctor = new RatingDoctor();
-            ratingDoctor.setRatingId(rs.getInt("rating_id"));
-            ratingDoctor.setPatientId(rs.getString("patient_id"));
-            ratingDoctor.setDoctorId(rs.getString("doctor_id"));
-            ratingDoctor.setDoctorRating(rs.getInt("doctor_rating"));
-            ratingDoctor.setReview(rs.getString("review"));
+            RatingDoctor ratingDoctor;
+
+            IRatingDoctorBuilder builder = ModelFactory.instance().createRatingDoctorBuilder();
+            ratingDoctor = builder
+                    .addRatingId(rs.getInt("rating_id"))
+                    .addPatientId(rs.getString("patient_id"))
+                    .addDoctorId(rs.getString("doctor_id"))
+                    .addDoctorRating(rs.getInt("doctor_rating"))
+                    .addReview(rs.getString("review")).build();
             ratingDoctorList.add(ratingDoctor);
         }
         return ratingDoctorList;

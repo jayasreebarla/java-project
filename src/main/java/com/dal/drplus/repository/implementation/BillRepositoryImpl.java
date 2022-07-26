@@ -84,7 +84,6 @@ public class BillRepositoryImpl implements IBillRepository {
                 return StorageResult.FAILURE;
             }
         } catch (SQLException e) {
-            //throw new RuntimeException(e);
             return StorageResult.FAILURE;
         }
     }
@@ -99,11 +98,6 @@ public class BillRepositoryImpl implements IBillRepository {
             IBillingBuilder builder = ModelFactory.instance().createBillingBuilder();
             while (rs.next()){
                 bill = builder.addBillId(rs.getInt("bill_id")).addBillAmount(rs.getDouble("bill_amount")).addBillDescription(rs.getString("bill_description")).build();
-//                bill = new Billing();
-//                bill.setBillId(rs.getInt("bill_id"));
-//                bill.setBillAmount(rs.getDouble("bill_amount"));
-//                //bill.setBillDate(rs.getString("bill_date"));
-//                bill.setBillDescription(rs.getString("bill_description"));
             }
         } catch (SQLException e) {
             //throw new RuntimeException(e);

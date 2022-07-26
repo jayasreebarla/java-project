@@ -1,5 +1,6 @@
 package com.dal.drplus.service;
 
+import com.dal.drplus.model.IEntity.IWallet;
 import com.dal.drplus.model.entity.Wallet;
 import com.dal.drplus.repository.interfaces.IWalletRepository;
 
@@ -13,7 +14,7 @@ public class WalletService {
 
     public void addMoneyToWallet(double amount, String patientEmail){
         String wallet_id = "W_"+patientEmail;
-        Wallet wallet = walletRepository.getWalletBalanceByWalletId(wallet_id);
+        IWallet wallet = walletRepository.getWalletBalanceByWalletId(wallet_id);
         if(wallet==null){
             walletRepository.InsertIntoWallet(amount,wallet_id);
         }else{
@@ -25,7 +26,7 @@ public class WalletService {
     public boolean deductMoneyFromWallet(double amount, String patientEmail){
         boolean return_result = false;
         String wallet_id = "W_"+patientEmail;
-        Wallet wallet = walletRepository.getWalletBalanceByWalletId(wallet_id);
+        IWallet wallet = walletRepository.getWalletBalanceByWalletId(wallet_id);
         if(wallet!=null){
             double amount_final = wallet.getAmount() - amount;
             IWalletRepository.StorageResult result=walletRepository.UpdateIntoWallet(amount_final,wallet_id);
@@ -39,7 +40,7 @@ public class WalletService {
 
     public double getBalanceFromWallet(String patientEmail){
         String wallet_id = "W_"+patientEmail;
-        Wallet wallet = walletRepository.getWalletBalanceByWalletId(wallet_id);
+        IWallet wallet = walletRepository.getWalletBalanceByWalletId(wallet_id);
         if(wallet == null){
             return 0;
         }else{

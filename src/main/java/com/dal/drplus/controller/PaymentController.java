@@ -59,8 +59,13 @@ public class PaymentController {
             discount = promotionsService.validatePromotionAndGetDiscountAmount(promoCode);
         }
         System.out.println("discount"+discount);
-        double billAmount = bill_process.getBillAmount();;
-        double billFinalAmount = billAmount-discount;
+        double billAmount = bill_process.getBillAmount();
+        double billFinalAmount;
+        if(billAmount-discount>0){
+            billFinalAmount = billAmount-discount;
+        }else{
+            billFinalAmount =0;
+        }
         System.out.println("discount,bill final amount"+billFinalAmount);
         //update in appointment and bill
         billService.updateBill(bill_process.getBillId(), billFinalAmount);

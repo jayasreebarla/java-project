@@ -65,7 +65,6 @@ public class DoctorRepositoryImpl implements IDoctorRepository {
             statement = databaseConfiguration.getDBConnection().prepareStatement("Select * from Doctor where doctor_id = ?");
             statement.setString(1,id);
             ResultSet rs = statement.executeQuery();
-//            IDoctorBuilder builder= ModelFactory.instance().createDoctorBuilder();
             while(rs.next()) {
                 System.out.println("inside rs");
                 doctorObject = createDoctor(rs);
@@ -164,20 +163,19 @@ public class DoctorRepositoryImpl implements IDoctorRepository {
         Doctor doctorObject = null;
         IDoctorBuilder builder= ModelFactory.instance().createDoctorBuilder();
 
-                builder
-                .addDoctorId(rs.getString("doctor_id"))
-                .addDoctorName(rs.getString("doctor_name"))
-                .addDoctorPassword(rs.getString("doctor_password"))
-                .addDoctorEmail(rs.getString("doctor_email"))
-                .addDoctorPhoneNo(rs.getString("doctor_phone"))
-                .addDoctorGender(rs.getString("doctor_gender"))
-                .addDoctorAge(rs.getInt("doctor_age"))
-                .addDoctorCredentials(rs.getString("doctor_credentials"))
-                .addDoctorSpecialization(rs.getString("doctor_specialization"))
-                .addDoctorClinicAddress(rs.getString("doctor_clinic_address"))
-                .addDoctorPincode(rs.getString("doctor_pincode"))
-                .addDoctorFee(rs.getDouble("doctor_fee")).build();
-        doctorObject = ModelFactory.instance().createDoctorUsingBuilder(builder);
+        doctorObject = builder
+                        .addDoctorId(rs.getString("doctor_id"))
+                        .addDoctorName(rs.getString("doctor_name"))
+                        .addDoctorPassword(rs.getString("doctor_password"))
+                        .addDoctorEmail(rs.getString("doctor_email"))
+                        .addDoctorPhoneNo(rs.getString("doctor_phone"))
+                        .addDoctorGender(rs.getString("doctor_gender"))
+                        .addDoctorAge(rs.getInt("doctor_age"))
+                        .addDoctorCredentials(rs.getString("doctor_credentials"))
+                        .addDoctorSpecialization(rs.getString("doctor_specialization"))
+                        .addDoctorClinicAddress(rs.getString("doctor_clinic_address"))
+                        .addDoctorPincode(rs.getString("doctor_pincode"))
+                        .addDoctorFee(rs.getDouble("doctor_fee")).build();
 
         return doctorObject;
     }

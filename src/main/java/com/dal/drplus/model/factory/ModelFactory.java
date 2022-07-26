@@ -4,6 +4,7 @@ import com.dal.drplus.model.Builder.DoctorBuilder;
 import com.dal.drplus.model.IBuilder.IBillingBuilder;
 import com.dal.drplus.model.IBuilder.IDoctorBuilder;
 import com.dal.drplus.model.IBuilder.IRatingDoctorBuilder;
+import com.dal.drplus.model.IBuilder.IWalletBuilder;
 import com.dal.drplus.model.IEntity.IDoctor;
 import com.dal.drplus.model.entity.Doctor;
 import com.dal.drplus.model.Builder.*;
@@ -64,6 +65,21 @@ public class ModelFactory implements IModelFactory{
     @Override
     public IBillingBuilder createBillingBuilder() {
         return new BillingBuilder();
+    }
+
+    @Override
+    public IWallet createWallet() {
+        return new Wallet();
+    }
+
+    @Override
+    public Wallet createWalletUsingBuilder(IWalletBuilder builder) {
+        return new Wallet(builder);
+    }
+
+    @Override
+    public IWalletBuilder createWalletBuilder() {
+        return new WalletBuilder();
     }
 
     @Override

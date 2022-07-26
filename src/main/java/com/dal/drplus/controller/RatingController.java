@@ -72,12 +72,12 @@ public class RatingController {
         System.out.println("inside add rating for doc => patientId"+patientId);
         System.out.println("inside add rating for doc => doctorId"+doctorId);
         IRatingDoctorBuilder builder = ModelFactory.instance().createRatingDoctorBuilder();
-        builder
-                .addPatientId(patientId)
-                .addDoctorId(doctorId)
-                .addReview(review)
-                .addDoctorRating(Integer.parseInt(doctorRating)).build();
-        IRatingDoctor rating = ModelFactory.instance().createRatingDoctorUsingBuilder(builder);
+        IRatingDoctor rating =builder
+                                .addPatientId(patientId)
+                                .addDoctorId(doctorId)
+                                .addReview(review)
+                                .addDoctorRating(Integer.parseInt(doctorRating)).build();
+//        IRatingDoctor rating = ModelFactory.instance().createRatingDoctorUsingBuilder(builder);
 //        RatingDoctor rating = new RatingDoctor();
 //        rating.setRatingId(0);
 //        rating.setPatientId(patientId);
