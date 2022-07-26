@@ -12,6 +12,7 @@ public interface IPatientRepository {
         FAILURE
     }
 
+    StorageResult isPatientIdExists(String patientId);
     StorageResult savePatient(IPatient patient);
     StorageResult updatePatient(Patient patient);
     IPatient findPatientById(String patientId);

@@ -2,6 +2,7 @@ package com.dal.drplus.service;
 
 import com.dal.drplus.model.entity.Patient;
 import com.dal.drplus.repository.implementation.PatientRepositoryImpl;
+import com.dal.drplus.repository.interfaces.IAdminRepository;
 import com.dal.drplus.repository.interfaces.IPatientRepository;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -24,6 +25,9 @@ public class PatientLoginSignupServiceTest {
         Mockito.when(patientRepository.savePatient(patient)).thenReturn(IPatientRepository.StorageResult.SUCCESS);
         Mockito.when(patientRepository.savePatient(patient1)).thenReturn(IPatientRepository.StorageResult.FAILURE);
         Mockito.when(patientRepository.getPatientPasswordById("d1")).thenReturn("d1");
+        Mockito.when(patientRepository.isPatientIdExists(patient.getPatientId())).thenReturn(IPatientRepository.StorageResult.SUCCESS);
+        Mockito.when(patientRepository.isPatientIdExists(patient1.getPatientId())).thenReturn(IPatientRepository.StorageResult.FAILURE);
+
         patientLoginSignupService = new PatientLoginSignupService(patientRepository);
     }
 
@@ -54,6 +58,18 @@ public class PatientLoginSignupServiceTest {
     @Test
     void isPatientCredentialsValidFalse(){
         boolean result = patientLoginSignupService.isPatientCredentialValid("d1",confirmPassword1);
+        assertFalse(result);
+    }
+
+    @Test
+    void isPatientIdExistsTrue(){
+        boolean result = patientLoginSignupService.isPatientIdExists(patient.getPatientId());
+        assertTrue(result);
+    }
+
+    @Test
+    void isPatientIdExistsFalse(){
+        boolean result = patientLoginSignupService.isPatientIdExists(patient1.getPatientId());
         assertFalse(result);
     }
 }
