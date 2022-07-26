@@ -22,6 +22,10 @@ public class Prescription extends IPrescription {
         this.prescriptionFile = prescriptionFile;
     }
 
+    public boolean validatePrescriptionDetails(String reportDetails) {
+        return reportDetails.endsWith(".pdf");
+    }
+
     public void setPrescription(byte[] prescription) {
         this.prescriptionFile = prescription;
     }

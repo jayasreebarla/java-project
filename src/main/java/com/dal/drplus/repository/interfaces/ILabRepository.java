@@ -18,4 +18,5 @@ public interface ILabRepository {
     StorageResult deleteLabById(String labId);
     List<Lab> findAll();
     int deleteAll();
+    StorageResult isLabIdExists(String labId);
 }

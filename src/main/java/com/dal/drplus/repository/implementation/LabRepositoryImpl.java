@@ -38,6 +38,23 @@ public class LabRepositoryImpl implements ILabRepository{
         return new DatabaseConfigurationImpl();
     }
 
+
+    public StorageResult isLabIdExists(String labId){
+        String LAB_EXISTS_QUERY = "Select count(1) FROM Lab WHERE lab_id = ?";
+        try {
+            PreparedStatement ps = databaseConfiguration.getDBConnection().prepareStatement(LAB_EXISTS_QUERY);
+            ps.setString(1,labId);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                return StorageResult.SUCCESS;
+            } else {
+                return StorageResult.FAILURE;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @Override
     public ILabRepository.StorageResult saveLab(ILab lab) {
 

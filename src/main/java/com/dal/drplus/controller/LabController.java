@@ -20,10 +20,13 @@ public class LabController {
     private LabService labService;
     private RatingLabService ratingLabService;
 
+    private Lab lab;
+
     public LabController(LabRepositoryImpl labRepository, RatingLabRepositoryImpl ratingLabRepository) {
         this.ratingLabService = new RatingLabService(ratingLabRepository);
         this.labService = new LabService(labRepository);
     }
+
 
     @GetMapping("/patient_lab_home")
     public String getLabHome(){
