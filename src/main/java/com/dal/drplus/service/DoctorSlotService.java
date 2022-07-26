@@ -1,5 +1,6 @@
 package com.dal.drplus.service;
 
+import com.dal.drplus.model.IEntity.IDoctorSchedule;
 import com.dal.drplus.model.entity.DoctorSchedule;
 import com.dal.drplus.repository.interfaces.IDoctorScheduleRepository;
 
@@ -54,7 +55,7 @@ public class DoctorSlotService {
         }
     }
 
-    public boolean addDoctorSlot(DoctorSchedule doctorSchedule) {
+    public boolean addDoctorSlot(IDoctorSchedule doctorSchedule) {
         doctorSchedule.setStatus(false);
         IDoctorScheduleRepository.StorageResult result = doctorScheduleRepository.saveDoctorSchedule(doctorSchedule);
         if(result.equals(IDoctorScheduleRepository.StorageResult.SUCCESS)){

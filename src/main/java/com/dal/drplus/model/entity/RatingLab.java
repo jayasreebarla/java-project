@@ -1,6 +1,7 @@
 package com.dal.drplus.model.entity;
 
 import com.dal.drplus.model.Builder.RatingLabBuilder;
+import com.dal.drplus.model.IBuilder.IRatingLabBuilder;
 import com.dal.drplus.model.IEntity.IRatingLab;
 
 public class RatingLab extends IRatingLab {
@@ -20,7 +21,7 @@ public class RatingLab extends IRatingLab {
         this.review = review;
     }
 
-    public RatingLab(RatingLabBuilder builder){
+    public RatingLab(IRatingLabBuilder builder){
         this.ratingId = builder.getRatingId();
         this.patientId = builder.getPatientId();
         this.labId = builder.getLabId();

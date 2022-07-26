@@ -1,6 +1,7 @@
 package com.dal.drplus.model.entity;
 
 import com.dal.drplus.model.Builder.DoctorScheduleBuilder;
+import com.dal.drplus.model.IBuilder.IDoctorScheduleBuilder;
 import com.dal.drplus.model.IEntity.IDoctorSchedule;
 
 public class DoctorSchedule extends IDoctorSchedule {
@@ -26,7 +27,7 @@ public class DoctorSchedule extends IDoctorSchedule {
         this.status = null;
     }
 
-    public DoctorSchedule(DoctorScheduleBuilder builder){
+    public DoctorSchedule(IDoctorScheduleBuilder builder){
         this.slotId = builder.getSlotId();
         this.slotTiming = builder.getSlotTiming();
         this.slotDate = builder.getSlotDate();

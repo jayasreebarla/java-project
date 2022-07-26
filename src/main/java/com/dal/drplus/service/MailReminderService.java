@@ -1,5 +1,6 @@
 package com.dal.drplus.service;
 
+import com.dal.drplus.model.IEntity.IPatient;
 import com.dal.drplus.model.entity.Patient;
 import com.dal.drplus.repository.interfaces.IAppointmentRepository;
 import com.dal.drplus.repository.interfaces.IDoctorScheduleRepository;
@@ -118,8 +119,8 @@ public class MailReminderService implements MailService {
             System.out.println("inside service, slot id :"+slot);
             String patient_id = appointmentRepository.getPatientIdBySlotId(slot);
             System.out.println("inside get service patient id"+patient_id);
-            Patient patient = patientRepository.findPatientById(patient_id);
-            patientList.add(patient);
+            IPatient patient = patientRepository.findPatientById(patient_id);
+            patientList.add((Patient) patient);
         }
         return patientList;
     }

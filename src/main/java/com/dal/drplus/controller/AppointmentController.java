@@ -2,6 +2,7 @@ package com.dal.drplus.controller;
 
 
 import com.dal.drplus.model.IEntity.IDoctor;
+import com.dal.drplus.model.IEntity.IPatient;
 import com.dal.drplus.model.entity.Appointment;
 import com.dal.drplus.model.entity.Lab;
 import com.dal.drplus.model.entity.Patient;
@@ -166,7 +167,7 @@ public class AppointmentController {
         Appointment appointment = appointmentService.findAppointmentbyId(id);
         String patientId = appointment.getPatientId();
         double amountToBeCredited = appointment.getAppointmentFee();
-        Patient patient = patientService.getPatientById(patientId);
+        IPatient patient = patientService.getPatientById(patientId);
 
         boolean result = appointmentService.cancelAppointment(id);
 
@@ -186,7 +187,7 @@ public class AppointmentController {
         Appointment appointment = appointmentService.findAppointmentbyId(id);
         String patientId = appointment.getPatientId();
         double amountToBeCredited = appointment.getAppointmentFee();
-        Patient patient = patientService.getPatientById(patientId);
+        IPatient patient = patientService.getPatientById(patientId);
 
         boolean result = appointmentService.cancelAppointment(id);
 
