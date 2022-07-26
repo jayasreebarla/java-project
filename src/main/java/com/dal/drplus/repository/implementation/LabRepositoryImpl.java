@@ -45,10 +45,12 @@ public class LabRepositoryImpl implements ILabRepository{
             ps.setString(1,labId);
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
-                return StorageResult.SUCCESS;
-            } else {
-                return StorageResult.FAILURE;
+                int count = rs.getInt(1);
+                if(count>0){
+                    return StorageResult.SUCCESS;
+                }
             }
+            return StorageResult.FAILURE;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

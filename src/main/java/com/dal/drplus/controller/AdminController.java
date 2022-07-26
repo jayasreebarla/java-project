@@ -1,9 +1,8 @@
 package com.dal.drplus.controller;
 
 import com.dal.drplus.model.entity.*;
+import com.dal.drplus.model.service.*;
 import com.dal.drplus.repository.implementation.*;
-import com.dal.drplus.service.*;
-import com.dal.drplus.service.NotificationsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;

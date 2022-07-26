@@ -4,8 +4,8 @@ import com.dal.drplus.repository.implementation.AppointmentRepositoryImpl;
 import com.dal.drplus.repository.implementation.DoctorScheduleRepositoryImpl;
 import com.dal.drplus.repository.implementation.LabScheduleRepositoryImpl;
 import com.dal.drplus.repository.implementation.PatientRepositoryImpl;
-import com.dal.drplus.service.MailReminderService;
-import com.dal.drplus.service.interfaces.MailService;
+import com.dal.drplus.model.service.MailReminderService;
+import com.dal.drplus.model.service.interfaces.MailService;
 
 public class MailController {
     private MailService mailService;

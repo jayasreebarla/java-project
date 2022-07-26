@@ -7,7 +7,7 @@ import com.dal.drplus.repository.implementation.NotificationsRepositoryImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import com.dal.drplus.service.NotificationsService;
+import com.dal.drplus.model.service.NotificationsService;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 

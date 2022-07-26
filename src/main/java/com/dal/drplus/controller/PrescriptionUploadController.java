@@ -4,7 +4,7 @@ import com.dal.drplus.model.IBuilder.IPrescriptionBuilder;
 import com.dal.drplus.model.IEntity.IPrescription;
 import com.dal.drplus.model.factory.ModelFactory;
 import com.dal.drplus.repository.implementation.PrescriptionRepositoryImpl;
-import com.dal.drplus.service.PrescriptionService;
+import com.dal.drplus.model.service.PrescriptionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

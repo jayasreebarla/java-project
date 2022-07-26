@@ -3,7 +3,7 @@ package com.dal.drplus.controller;
 import com.dal.drplus.model.entity.Billing;
 import com.dal.drplus.model.entity.Patient;
 import com.dal.drplus.repository.implementation.WalletRepositoryImpl;
-import com.dal.drplus.service.WalletService;
+import com.dal.drplus.model.service.WalletService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

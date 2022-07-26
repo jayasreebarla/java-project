@@ -4,7 +4,7 @@ import com.dal.drplus.model.IBuilder.IReportBuilder;
 import com.dal.drplus.model.IEntity.IReport;
 import com.dal.drplus.model.factory.ModelFactory;
 import com.dal.drplus.repository.implementation.ReportRepositoryImpl;
-import com.dal.drplus.service.ReportService;
+import com.dal.drplus.model.service.ReportService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

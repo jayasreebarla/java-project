@@ -2,7 +2,7 @@ package com.dal.drplus.controller;
 
 import com.dal.drplus.model.entity.Promotions;
 import com.dal.drplus.repository.implementation.PromotionsRepositoryImpl;
-import com.dal.drplus.service.PromotionsService;
+import com.dal.drplus.model.service.PromotionsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
