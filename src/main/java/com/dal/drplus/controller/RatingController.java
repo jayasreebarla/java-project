@@ -90,10 +90,6 @@ public class RatingController {
             return new RedirectView("/add_rating/"+doctorId);
         }
 
-
-        boolean result = ratingDoctorService.addRating(rating);
-        System.out.println("rating save result" + result);
-        return "Rating/rating_successful";
     }
 
     @PostMapping("/add_lab_rating/")
@@ -116,9 +112,6 @@ public class RatingController {
             return new RedirectView("/rating_success");
         }
         return new RedirectView("/add_rating/"+labId);
-        boolean result = ratingLabService.addRating(rating);
-        System.out.println("rating save result"+result);
-        return "Rating/rating_successful";
     }
 
     @GetMapping("/rating_success")

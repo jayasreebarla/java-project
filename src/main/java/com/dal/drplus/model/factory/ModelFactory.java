@@ -21,6 +21,8 @@ import com.dal.drplus.model.entity.*;
 
 public class ModelFactory implements IModelFactory{
 
+    private ModelFactory() {
+    }
 
     private static ModelFactory theOneInstance = null;
     public static ModelFactory instance()
