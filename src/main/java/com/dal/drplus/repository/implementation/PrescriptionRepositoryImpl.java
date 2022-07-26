@@ -1,6 +1,9 @@
 package com.dal.drplus.repository.implementation;
 
+import com.dal.drplus.model.IBuilder.IPrescriptionBuilder;
+import com.dal.drplus.model.IEntity.IPrescription;
 import com.dal.drplus.model.entity.Prescription;
+import com.dal.drplus.model.factory.ModelFactory;
 import com.dal.drplus.repository.configuration.DatabaseConfiguration;
 import com.dal.drplus.repository.configuration.DatabaseConfigurationImpl;
 import com.dal.drplus.repository.interfaces.IPrescriptionRepository;
@@ -22,9 +25,7 @@ public class PrescriptionRepositoryImpl implements IPrescriptionRepository {
 
     String UPLOAD_PRESCRIPTION = "INSERT INTO Prescription ( prescription_details, Prescription, appointment_id) VALUES(?,?,?)";
     String SELECT_PRESCRIPTION_BY_ID = "SELECT * FROM Prescription WHERE prescription_id=?";
-    String DELETE_PRESCRIPTION_BY_ID = "DELETE FROM Prescription WHERE prescription_id=?";
     String SELECT_PRESCRIPTION_BY_AID = "SELECT * FROM Prescription WHERE appointment_id=?";
-
 
     DatabaseConfiguration databaseConfiguration;
 
@@ -35,34 +36,38 @@ public class PrescriptionRepositoryImpl implements IPrescriptionRepository {
         return new DatabaseConfigurationImpl();
     }
 
-
-    public StorageResult uploadPrescription(Prescription prescription) throws FileNotFoundException {
+    public StorageResult uploadPrescription(IPrescription prescription) throws FileNotFoundException {
         try {
             PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(UPLOAD_PRESCRIPTION);
-            Blob blob_file = new SerialBlob(prescription.getPrescription());
+            Blob blob_file = new SerialBlob(prescription.getPrescriptionFile());
             //statement.setString(1, prescription.getPrescriptionId());
             statement.setInt(3, prescription.getAppointmentId());
             statement.setString(1, prescription.getPrescriptionDetails());
             statement.setBlob(2,blob_file);
 
-            statement.executeUpdate();
+            int res = statement.executeUpdate();
             System.out.println("prescription uploaded ");
-            return IPrescriptionRepository.StorageResult.SUCCESS;
+            if(res == 1) {
+                return IPrescriptionRepository.StorageResult.SUCCESS;
+            } else {
+                return StorageResult.FAILURE;
+            }
         } catch (SQLException e) {
-          throw new RuntimeException(e);
-          //  return IPrescriptionRepository.StorageResult.FAILURE;
+            throw new RuntimeException(e);
+            //  return IPrescriptionRepository.StorageResult.FAILURE;
         }
     }
 
-
     private Prescription createPrescription(ResultSet rs) throws SQLException {
 
-        Prescription prescription = new Prescription();
-        prescription.setPrescriptionId(rs.getInt("prescription_id"));
-        prescription.setPrescriptionDetails(rs.getString("prescription_details"));
-        prescription.setAppointmentId(rs.getInt("appointment_id"));
-        prescription.setPrescription(rs.getBytes("Prescription"));
-        //report.setReportFile(rs.getBytes("report"));
+        Prescription prescription;
+        IPrescriptionBuilder prescriptionBuilder = ModelFactory.instance().createPrescriptionBuilder();
+        prescription = prescriptionBuilder
+                .addPrescriptionId(rs.getInt("prescription_id"))
+                .addPrescriptionDetails(rs.getString("prescription_details"))
+                .addAppointmentId(rs.getInt("appointment_id"))
+                .addPrescriptionFile(rs.getBytes("Prescription")).build();
+
         return prescription;
     }
 
@@ -97,21 +102,5 @@ public class PrescriptionRepositoryImpl implements IPrescriptionRepository {
             throw new RuntimeException(e);
         }
     }
-
-
-
-    @Override
-    public int deleteById(int prescription_id) {
-
-        try {
-            PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(DELETE_PRESCRIPTION_BY_ID);
-            return statement.executeUpdate();
-        } catch (SQLException e) {
-            return -1;
-            //throw new RuntimeException(e);
-        }
-    }
-
-
 
 }

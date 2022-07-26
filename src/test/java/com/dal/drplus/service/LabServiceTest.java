@@ -1,4 +1,5 @@
 package com.dal.drplus.service;
+import com.dal.drplus.model.IEntity.ILab;
 import com.dal.drplus.model.entity.Lab;
 import com.dal.drplus.repository.implementation.LabRepositoryImpl;
 import com.dal.drplus.repository.interfaces.ILabRepository;
@@ -12,8 +13,8 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class LabServiceTest {
-    static Lab lab1 = new Lab ("lab1", "lab1", "lab1", "labtest1@gmail.com", "lab1", "123456", "123456");
-    static Lab lab2 = new Lab ("lab2", "lab2", "lab2", "labtest2@gmail.com", "lab2", "123123", "123123");
+    static Lab lab1 = new Lab ("lab1", "lab1", "lab1", "labtest1@gmail.com", "lab1", "123456", "123456", 10, 4);
+    static Lab lab2 = new Lab ("lab2", "lab2", "lab2", "labtest2@gmail.com", "lab2", "123123", "123123", 10, 5);
 
     String labPassword = "lab1";
     String labPassword1 = "lab2";
@@ -72,13 +73,13 @@ public class LabServiceTest {
 
     @Test
     public void getLabByIdPass(){
-        Lab lab_result =  labService.getLabById(lab1.getLabId());
+        ILab lab_result =  labService.getLabById(lab1.getLabId());
         assertEquals(lab1,lab_result);
     }
 
     @Test
     public void getLabByIdFailNull(){
-        Lab lab_result =  labService.getLabById(lab2.getLabId());
+        ILab lab_result =  labService.getLabById(lab2.getLabId());
         assertNull(lab_result);
     }
 

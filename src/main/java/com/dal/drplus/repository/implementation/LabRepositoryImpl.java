@@ -1,6 +1,10 @@
 package com.dal.drplus.repository.implementation;
 
+import com.dal.drplus.model.IBuilder.IDoctorBuilder;
+import com.dal.drplus.model.IBuilder.ILabBuilder;
+import com.dal.drplus.model.IEntity.ILab;
 import com.dal.drplus.model.entity.Lab;
+import com.dal.drplus.model.factory.ModelFactory;
 import com.dal.drplus.repository.configuration.DatabaseConfiguration;
 import com.dal.drplus.repository.configuration.DatabaseConfigurationImpl;
 import com.dal.drplus.repository.interfaces.ILabRepository;
@@ -35,7 +39,7 @@ public class LabRepositoryImpl implements ILabRepository{
     }
 
     @Override
-    public ILabRepository.StorageResult saveLab(Lab lab) {
+    public ILabRepository.StorageResult saveLab(ILab lab) {
 
         System.out.println("inside save lab");
         try {
@@ -60,30 +64,10 @@ public class LabRepositoryImpl implements ILabRepository{
         }
     }
 
-    @Override
-    public StorageResult updateLab(Lab lab) {
-        try {
-            PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(UPDATE_LAB);
-            statement.setString(1, lab.getLabPersonName());
-            statement.setString (2, lab.getLabEmailId());
-            statement.setString(3, lab.getLabPassword());
-            statement.setString(4, lab.getLabAddress());
-            statement.setString(5, lab.getLabContactInfo());
-            statement.setString(6, lab.getLabPincode());
-            statement.setString(7, lab.getLabId());
-            statement.setDouble(8,lab.getLabFee());
-
-            statement.executeUpdate();
-            return ILabRepository.StorageResult.SUCCESS;
-        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-            return ILabRepository.StorageResult.FAILURE;
-        }
-    }
 
     @Override
-    public Lab findLabById(String labId) {
-        Lab lab = null;
+    public ILab findLabById(String labId) {
+        ILab lab = null;
         try {
             PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(SELECT_LAB_BY_ID);
             statement.setString(1,labId);
@@ -126,16 +110,18 @@ public class LabRepositoryImpl implements ILabRepository{
     }
 
     private Lab createLab(ResultSet rs) throws SQLException {
-
-        Lab lab= new Lab();
-        lab.setLabId(rs.getString("lab_id"));
-        lab.setLabPersonName(rs.getString("lab_person_name"));
-        lab.setLabEmailId(rs.getString("lab_email_id"));
-        lab.setLabPassword(rs.getString("lab_password"));
-        lab.setLabAddress(rs.getString("lab_address"));
-        lab.setLabContactInfo((rs.getString("lab_contact_info")));
-        lab.setLabPincode(rs.getString("lab_pincode"));
-        lab.setLabFee(rs.getDouble("lab_fee"));
+        Lab lab= null;
+        ILabBuilder builder= ModelFactory.instance().createLabBuilder();
+                builder
+                .addLabId(rs.getString("lab_id"))
+                .addLabPersonName(rs.getString("lab_person_name"))
+                .addLabEmailId(rs.getString("lab_email_id"))
+                .addLabPassword(rs.getString("lab_password"))
+                .addLabAddress(rs.getString("lab_address"))
+                .addLabContactInfo((rs.getString("lab_contact_info")))
+                .addLabPincode(rs.getString("lab_pincode"))
+                .addLabFee(rs.getDouble("lab_fee")).build();
+        lab = ModelFactory.instance().createLabUsingBuilder(builder);
 
         return lab;
     }

@@ -1,19 +1,30 @@
 package com.dal.drplus.model.entity;
 
-public class Prescription {
-    int prescriptionId;
+import com.dal.drplus.model.IBuilder.IPrescriptionBuilder;
+import com.dal.drplus.model.IEntity.IPrescription;
 
-    int appointmentId;
-    String prescriptionDetails;
+public class Prescription extends IPrescription {
+    public Prescription(){
 
-    private byte[] prescriptionFile;
+    }
+
+    public Prescription(IPrescriptionBuilder prescriptionBuilder) {
+        this.prescriptionId = prescriptionBuilder.getPrescriptionId();
+        this.appointmentId = prescriptionBuilder.getAppointmentId();
+        this.prescriptionDetails = prescriptionBuilder.getPrescriptionDetails();
+        this.prescriptionFile = prescriptionBuilder.getPrescriptionFile();
+    }
+
+    public Prescription(int prescriptionId, int appointmentId, String prescriptionDetails, byte[] prescriptionFile) {
+        this.prescriptionId = prescriptionId;
+        this.appointmentId = appointmentId;
+        this.prescriptionDetails = prescriptionDetails;
+        this.prescriptionFile = prescriptionFile;
+    }
 
     public void setPrescription(byte[] prescription) {
         this.prescriptionFile = prescription;
     }
-
-
-     String fileName;
 
     public int getPrescriptionId() {
         return prescriptionId;
@@ -32,6 +43,14 @@ public class Prescription {
         this.prescriptionDetails = prescriptionDetails;
     }
 
+    public byte[] getPrescriptionFile() {
+        return prescriptionFile;
+    }
+
+    public void setPrescriptionFile(byte[] prescriptionFile) {
+        this.prescriptionFile = prescriptionFile;
+    }
+
     public void setAppointmentId(int appointmentId) {
         this.appointmentId = appointmentId;
     }
@@ -39,13 +58,6 @@ public class Prescription {
     public int getAppointmentId(){
         return appointmentId;
     }
-
-//    public Blob getPrescription() throws FileNotFoundException
-//    {
-//        FileInputStream fileName;
-//        fileName = new FileInputStream(this.fileName);
-//        return fileName;
-//    }
 
     public byte[] getPrescription() {
         return prescriptionFile;

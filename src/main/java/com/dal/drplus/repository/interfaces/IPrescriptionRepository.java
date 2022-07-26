@@ -1,5 +1,6 @@
 package com.dal.drplus.repository.interfaces;
 
+import com.dal.drplus.model.IEntity.IPrescription;
 import com.dal.drplus.model.entity.Prescription;
 
 import java.io.FileNotFoundException;
@@ -12,18 +13,12 @@ public interface IPrescriptionRepository {
         FAILURE
     }
 
-    public StorageResult uploadPrescription(Prescription prescription) throws FileNotFoundException;
+    public StorageResult uploadPrescription(IPrescription prescription) throws FileNotFoundException;
 
 
-    public default Prescription findById(int id){
-        return null;
-    }
+    public IPrescription findById(int id);
 
-    public default List<Prescription> findAllbyAppointment(int prescription_id) {
-        return null;
-    }
-
-    int deleteById(int prescription_id);
+    public  List<Prescription> findAllbyAppointment(int prescription_id);
 
 
 }

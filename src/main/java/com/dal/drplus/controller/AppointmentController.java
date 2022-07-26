@@ -2,6 +2,7 @@ package com.dal.drplus.controller;
 
 
 import com.dal.drplus.model.IEntity.IDoctor;
+import com.dal.drplus.model.IEntity.ILab;
 import com.dal.drplus.model.IEntity.IPatient;
 import com.dal.drplus.model.entity.Appointment;
 import com.dal.drplus.model.entity.Lab;
@@ -93,7 +94,7 @@ public class AppointmentController {
     public RedirectView bookAppointmentForLab(Model model, HttpSession session, @PathVariable("slotId") String slotId, @PathVariable("labId") String labId,RedirectAttributes attributes){
         Appointment appointment = new Appointment();
         Patient currentPatient = (Patient) session.getAttribute("CurrentPatient");
-        Lab lab = labService.getLabById(labId);
+        ILab lab = labService.getLabById(labId);
         int billId = billService.generateBill(lab.getLabFee(),"LAB");
         double billAmount = lab.getLabFee();
         appointment.setSlotId(Integer.parseInt(slotId));
