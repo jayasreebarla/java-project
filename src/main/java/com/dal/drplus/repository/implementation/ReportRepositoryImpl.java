@@ -78,14 +78,12 @@ public class ReportRepositoryImpl implements IReportRepository {
         Report report;
         IReportBuilder reportBuilder = ModelFactory.instance().createReportBuilder();
 
-        reportBuilder
+        report = reportBuilder
                 .addAppointmentId(rs.getInt("appointment_id"))
                 .addReportFile(rs.getBytes("report"))
                 .addReportDetails(rs.getString("report_desc"))
                 .addReportId(rs.getInt("report_id"))
                 .build();
-
-        report = ModelFactory.instance().createReportUsingBuilder(reportBuilder);
         return report;
     }
 

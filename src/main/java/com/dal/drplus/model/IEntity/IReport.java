@@ -5,18 +5,15 @@ public abstract class IReport {
     protected int appointmentId;
     protected String reportDetails;
     protected byte[] reportFile;
-    protected String fileName;
-
     public IReport(){
 
     }
 
-    public IReport(int reportId, int appointmentId, String reportDetails, byte[] reportFile, String fileName) {
+    public IReport(int reportId, int appointmentId, String reportDetails, byte[] reportFile) {
         this.reportId = reportId;
         this.appointmentId = appointmentId;
         this.reportDetails = reportDetails;
         this.reportFile = reportFile;
-        this.fileName = fileName;
     }
 
     abstract public int getReportId();
@@ -34,9 +31,5 @@ public abstract class IReport {
     abstract public byte[] getReportFile();
 
     abstract public void setReportFile(byte[] reportFile);
-
-    abstract public String getFileName();
-
-    abstract public void setFileName(String fileName);
 
 }

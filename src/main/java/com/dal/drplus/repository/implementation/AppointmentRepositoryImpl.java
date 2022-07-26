@@ -430,7 +430,7 @@ public class AppointmentRepositoryImpl implements IAppointmentRepository{
     private Appointment createAppointment(ResultSet rs) throws SQLException {
         Appointment appointment;
         IAppointmentBuilder appointmentBuilder = ModelFactory.instance().createAppointmentBuilder();
-        appointmentBuilder
+        appointment = appointmentBuilder
         .addAppointmentId(rs.getInt("appointment_id"))
         .addSlotId(rs.getInt("slot_id"))
         .addAppointmentType(rs.getString("appointment_type"))
@@ -443,7 +443,6 @@ public class AppointmentRepositoryImpl implements IAppointmentRepository{
         .addAppointmentDate(rs.getString("slot_date"))
         .addAppointmentTime(rs.getString("slot_timing")).build();
 
-        appointment = ModelFactory.instance().createAppointmentUsingBuilder(appointmentBuilder);
         return appointment;
     }
 

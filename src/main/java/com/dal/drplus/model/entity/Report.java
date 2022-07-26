@@ -7,12 +7,11 @@ public class Report extends IReport {
     public Report(){
     }
 
-    public Report(int reportId, int appointmentId, String reportDetails, byte[] reportFile, String fileName) {
+    public Report(int reportId, int appointmentId, String reportDetails, byte[] reportFile) {
         this.reportId = reportId;
         this.appointmentId = appointmentId;
         this.reportDetails = reportDetails;
         this.reportFile = reportFile;
-        this.fileName = fileName;
     }
 
     public Report(IReportBuilder reportBuilder){
@@ -20,15 +19,6 @@ public class Report extends IReport {
         this.appointmentId = reportBuilder.getAppointmentId();
         this.reportDetails = reportBuilder.getReportDetails();
         this.reportFile = reportBuilder.getReportFile();
-        this.fileName = reportBuilder.getFileName();
-    }
-
-    public String getFileName() {
-        return fileName;
-    }
-
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
     }
 
     public byte[] getReportFile() {

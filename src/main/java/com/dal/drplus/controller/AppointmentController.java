@@ -32,7 +32,6 @@ public class AppointmentController {
     private LabService labService;
     private LabSlotService labSlotService;
     private BillService billService;
-
     private WalletService walletService;
 
     public AppointmentController(AppointmentRepositoryImpl appointmentRepository,

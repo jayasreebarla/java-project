@@ -83,13 +83,11 @@ public class AdminRepositoryImpl implements IAdminRepository {
         Admin adminObject = null;
         IAdminBuilder adminBuilder = ModelFactory.instance().createAdminBuilder();
 
-        adminBuilder
+        adminObject = adminBuilder
                 .addAdminId(rs.getString("ADMIN_ID"))
                 .addAdminPassword(rs.getString("ADMIN_PASSWORD"))
                 .addAdminAccessKey(rs.getString("ADMIN_ACCESS_KEY"))
                 .build();
-
-        adminObject = ModelFactory.instance().createAdminUsingBuilder(adminBuilder);
 
         return adminObject;
     }
