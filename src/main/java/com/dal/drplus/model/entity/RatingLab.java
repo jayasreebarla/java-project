@@ -28,7 +28,10 @@ public class RatingLab extends IRatingLab {
         this.labRating = builder.getLabRating();
         this.review = builder.getReview();
     }
-
+    @Override
+    public boolean validateLabRatingFormat(int labRating) {
+        return labRating >= 1 && labRating <= 5;
+    }
     public String getReview() {
         return this.review;
     }
@@ -68,4 +71,5 @@ public class RatingLab extends IRatingLab {
     public void setLabRating(int labRating) {
         this.labRating = labRating;
     }
+
 }

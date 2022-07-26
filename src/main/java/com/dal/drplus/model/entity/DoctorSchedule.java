@@ -4,6 +4,8 @@ import com.dal.drplus.model.Builder.DoctorScheduleBuilder;
 import com.dal.drplus.model.IBuilder.IDoctorScheduleBuilder;
 import com.dal.drplus.model.IEntity.IDoctorSchedule;
 
+import java.time.LocalDate;
+
 public class DoctorSchedule extends IDoctorSchedule {
     private int slotId;
     private String slotTiming;
@@ -35,6 +37,11 @@ public class DoctorSchedule extends IDoctorSchedule {
         this.status = builder.getStatus();
     }
 
+    @Override
+    public boolean validateSlotDateFormat(String slotDate) {
+        LocalDate date = LocalDate.parse(slotDate);
+        return date.isEqual(LocalDate.now()) || date.isAfter(LocalDate.now());
+    }
     public int getSlotId() {
         return this.slotId;
     }
@@ -74,4 +81,5 @@ public class DoctorSchedule extends IDoctorSchedule {
     public void setStatus(Boolean status) {
         this.status = status;
     }
+
 }

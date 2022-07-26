@@ -123,8 +123,11 @@ public class AdminController {
                                 @RequestParam(value = "fromTime") String fromTime,
                                 @RequestParam(value = "toTime") String toTime){
         doctorSchedule.setSlotTiming(fromTime+"-"+toTime);
-        boolean result = doctorSlotService.addDoctorSlot(doctorSchedule);
-        return new RedirectView("/admin/doctor_schedule_list_admin");
+        if(doctorSchedule.validateSlotDateFormat(doctorSchedule.getSlotDate())) {
+            boolean result = doctorSlotService.addDoctorSlot(doctorSchedule);
+            return new RedirectView("/admin/doctor_schedule_list_admin");
+        }
+        return new RedirectView("/admin/doctor_slot_add");
 //        return "admin/doctor_schedule_add";
     }
 
@@ -139,8 +142,11 @@ public class AdminController {
                                       @RequestParam(value = "fromTime") String fromTime,
                                       @RequestParam(value = "toTime") String toTime){
         labSchedule.setSlotTiming(fromTime+"-"+toTime);
-        boolean result = labSlotService.addLabSlot(labSchedule);
-        return new RedirectView("/admin/lab_schedule_list_admin");
+        if(labSchedule.validateSlotDateFormat(labSchedule.getSlotDate())) {
+            boolean result = labSlotService.addLabSlot(labSchedule);
+            return new RedirectView("/admin/lab_schedule_list_admin");
+        }
+        return new RedirectView("/admin/lab_slot_add");
 //        return "admin/lab_schedule_add";
     }
 

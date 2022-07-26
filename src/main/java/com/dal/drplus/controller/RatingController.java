@@ -90,10 +90,14 @@ public class RatingController {
             return new RedirectView("/add_rating/"+doctorId);
         }
 
+
+        boolean result = ratingDoctorService.addRating(rating);
+        System.out.println("rating save result" + result);
+        return "Rating/rating_successful";
     }
 
     @PostMapping("/add_lab_rating/")
-    public String AddRatingForLab(@RequestParam("review") String review,@RequestParam("labRating") String labRating){
+    public RedirectView AddRatingForLab(@RequestParam("review") String review, @RequestParam("labRating") String labRating){
         System.out.println("inside add rating for lab");
         System.out.println("inside add rating for lab => patientId"+patientId);
         System.out.println("inside add rating for lab => LabId"+labId);
@@ -106,6 +110,12 @@ public class RatingController {
                         .addReview(review)
                         .addLabRating(Integer.parseInt(labRating)).build();
 
+        if(rating.validateLabRatingFormat(rating.getLabRating())){
+            boolean result = ratingLabService.addRating(rating);
+            System.out.println("rating save result"+result);
+            return new RedirectView("/rating_success");
+        }
+        return new RedirectView("/add_rating/"+labId);
         boolean result = ratingLabService.addRating(rating);
         System.out.println("rating save result"+result);
         return "Rating/rating_successful";
