@@ -1,64 +1,137 @@
 package com.dal.drplus.model.entity;
 
-public class Lab {
-    private String labId;
-    private String labPersonName;
-    private String labPassword;
-    //private String labConfirmPassword;
-    private String labEmailId;
-    private String labAddress;
-    private String labContactInfo;
-    private String labPincode;
-    private double labFee;
-    private int labRating;
+import com.dal.drplus.model.IBuilder.ILabBuilder;
+import com.dal.drplus.model.IEntity.ILab;
 
-    public int getLabRating() {
-        return labRating;
+public class Lab extends ILab {
+
+//    private String labId;
+//    private String labPersonName;
+//    private String labPassword;
+//    //private String labConfirmPassword;
+//    private String labEmailId;
+//    private String labAddress;
+//    private String labContactInfo;
+//    private String labPincode;
+//    private double labFee;
+//    private int labRating;
+
+    public Lab() {
+
     }
 
-    public void setLabRating(int labRating) {
+    public Lab(ILabBuilder builder){
+        this.labId = builder.getLabId();
+        this.labPersonName = builder.getLabPersonName();
+        this.labPassword = builder.getLabPassword();
+        this.labEmailId = builder.getLabEmailId();
+        this.labAddress = builder.getLabAddress();
+        this.labContactInfo = builder.getLabContactInfo();
+        this.labPincode = builder.getLabPincode();
+        this.labFee = builder.getLabFee();
+        this.labRating = builder.getLabRating();
+    }
+
+    public Lab(String labId, String labPersonName, String labPassword, String labEmailId, String labAddress, String labContactInfo, String labPincode,double labFee, int labRating) {
+        this.labId = labId;
+        this.labPersonName = labPersonName;
+        this.labPassword = labPassword;
+        this.labEmailId = labEmailId;
+        this.labAddress = labAddress;
+        this.labContactInfo = labContactInfo;
+        this.labPincode = labPincode;
+        this.labFee = labFee;
         this.labRating = labRating;
     }
 
-    public double getLabFee() {
-        return labFee;
+
+    @Override
+    public String getLabId() {
+        return this.labId;
     }
-    public void setLabFee(double labFee) {
-        this.labFee = labFee;
+
+    @Override
+    public void setLabId(String labId) {
+        this.labId = labId;
     }
 
-    public Lab(){}
+    @Override
+    public String getLabPersonName() {
+        return this.labPersonName;
+    }
 
-    public Lab(String labId, String labPersonName, String labPassword, String labEmailId, String labAddress, String labContactInfo, String labPincode) {
-    this.labId = labId;
-    this.labPersonName = labPersonName;
-    this.labPassword = labPassword;
-    this.labEmailId = labEmailId;
-    this.labAddress = labAddress;
-    this.labContactInfo = labContactInfo;
-    this.labPincode = labPincode;
-   }
+    @Override
+    public void setLabPersonName(String labPersonName) {
+        this.labPersonName = labPersonName;
+    }
 
-    public String getLabId() {return labId;}
-    public void setLabId(String labId) {this.labId = labId;}
-    public String getLabPersonName() {return labPersonName;}
-    public void setLabPersonName(String labPersonName) {this.labPersonName = labPersonName;}
-    public String getLabPassword() {return labPassword;}
-    public void setLabPassword(String labPassword) {this.labPassword = labPassword;}
-//    public String getLabConfirmPassword() {return labConfirmPassword;}
-//    public void setLabConfirmPassword(String labConfirmPassword) {this.labConfirmPassword = labConfirmPassword;}
-    public String getLabEmailId() {return labEmailId;}
-    public void setLabEmailId(String labEmailId) {this.labEmailId = labEmailId;}
-    public String getLabAddress() {return labAddress;}
-    public void setLabAddress(String labAddress) {this.labAddress = labAddress;}
-    public String getLabContactInfo() {return labContactInfo;}
-    public void setLabContactInfo(String labContactInfo) {this.labContactInfo = labContactInfo;}
+    @Override
+    public String getLabPassword() {
+        return labPassword;
+    }
 
+    @Override
+    public void setLabPassword(String labPassword) {
+        this.labPassword = labPassword;
+    }
+
+    @Override
+    public String getLabEmailId() {
+        return labEmailId;
+    }
+
+    @Override
+    public void setLabEmailId(String labEmailId) {
+        this.labEmailId = labEmailId;
+    }
+
+    @Override
+    public String getLabAddress() {
+        return labAddress;
+    }
+
+    @Override
+    public void setLabAddress(String labAddress) {
+        this.labAddress = labAddress;
+    }
+
+    @Override
+    public String getLabContactInfo() {
+        return labContactInfo;
+    }
+
+    @Override
+    public void setLabContactInfo(String labContactInfo) {
+        this.labContactInfo = labContactInfo;
+    }
+
+    @Override
     public String getLabPincode() {
         return labPincode;
     }
 
+    @Override
     public void setLabPincode(String labPincode) {
         this.labPincode = labPincode;
+    }
+
+    @Override
+    public double getLabFee() {
+        return labFee;
+    }
+
+    @Override
+    public void setLabFee(double labFee) {
+        this.labFee = labFee;
+    }
+
+    @Override
+    public int getLabRating() {
+        return labRating;
+    }
+
+    @Override
+    public void setLabRating(int labRating) {
+        this.labRating = labRating;
     }
 }

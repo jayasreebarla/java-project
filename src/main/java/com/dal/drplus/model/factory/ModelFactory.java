@@ -5,6 +5,10 @@ import com.dal.drplus.model.IBuilder.IBillingBuilder;
 import com.dal.drplus.model.IBuilder.IDoctorBuilder;
 import com.dal.drplus.model.IBuilder.IRatingDoctorBuilder;
 import com.dal.drplus.model.IBuilder.IWalletBuilder;
+import com.dal.drplus.model.IBuilder.IDoctorBuilder;
+import com.dal.drplus.model.IBuilder.ILabBuilder;
+import com.dal.drplus.model.IBuilder.IPrescriptionBuilder;
+import com.dal.drplus.model.IBuilder.IPromotionsBuilder;
 import com.dal.drplus.model.IBuilder.*;
 import com.dal.drplus.model.IEntity.IDoctor;
 import com.dal.drplus.model.entity.Doctor;
@@ -89,6 +93,25 @@ public class ModelFactory implements IModelFactory{
         return new Patient(builder);
     }
 
+    public ILab createLab() {
+        return new Lab();
+    }
+
+    public Lab createLabUsingBuilder(ILabBuilder builder){return new Lab(builder);}
+    public ILabBuilder createLabBuilder(){
+        return new LabBuilder();
+    }
+
+    public IPromotions createPromotions() {
+        return new Promotions();
+    }
+
+    public Promotions createPromotionsUsingBuilder(IPromotionsBuilder builder){return new Promotions(builder);}
+
+    public IPromotionsBuilder createPromotionsBuilder(){
+        return new PromotionsBuilder();
+    }
+
     @Override
     public IPatientBuilder createPatientBuilder() {
         return new PatientBuilder();
@@ -139,4 +162,19 @@ public class ModelFactory implements IModelFactory{
         return new RatingLabBuilder();
     }
 
+
+    @Override
+    public IPrescription createPrescription() {
+        return new Prescription();
+    }
+
+    @Override
+    public Prescription createPrescriptionUsingBuilder(IPrescriptionBuilder prescriptionBuilder) {
+        return new Prescription(prescriptionBuilder);
+    }
+
+    @Override
+    public IPrescriptionBuilder createPrescriptionBuilder() {
+        return new PrescriptionBuilder();
+    }
 }
