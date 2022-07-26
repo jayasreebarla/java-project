@@ -17,9 +17,7 @@ public abstract class IRatingLab {
         this.labRating = labRating;
         this.review = review;
     }
-
-
-
+    abstract public boolean validateLabRatingFormat(int labRating);
     abstract public String getReview();
 
     abstract public void setReview(String review);
@@ -39,4 +37,5 @@ public abstract class IRatingLab {
     abstract public int getLabRating();
 
     abstract public void setLabRating(int labRating);
+
 }

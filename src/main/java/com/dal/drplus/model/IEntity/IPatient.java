@@ -26,6 +26,11 @@ public abstract class IPatient {
         this.privacyAgreementEnabled = privacyAgreementEnabled;
     }
 
+    abstract public boolean validatePatientNameFormat(String patientName);
+    abstract public boolean validatePatientPincodeFormat(String patientPincode);
+    abstract public boolean validatePatientEmailFormat(String patientEmail);
+    abstract public boolean validatePatientPhoneNumberFormat(String patientPhoneNo);
+    abstract public boolean validatePatientAgeFormat(int patientAge);
     abstract public String getPatientId();
 
     abstract public void setPatientId(String patientId);
@@ -61,4 +66,5 @@ public abstract class IPatient {
     abstract public boolean isPrivacyAgreementEnabled();
 
     abstract public void setPrivacyAgreementEnabled(boolean privacyAgreementEnabled);
+
 }
