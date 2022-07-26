@@ -42,6 +42,30 @@ public class Patient extends IPatient {
         this.privacyAgreementEnabled = privacyAgreementEnabled;
     }
 
+    @Override
+    public boolean validatePatientNameFormat(String patientName) {
+        return patientName.matches("^[a-zA-Z0-9]*$");
+    }
+
+    @Override
+    public boolean validatePatientPincodeFormat(String patientPincode) {
+        return patientPincode.matches("^[a-zA-Z0-9]*$");
+    }
+
+    @Override
+    public boolean validatePatientEmailFormat(String patientEmail) {
+        return patientEmail.matches("^[a-z0-9]+(?!.*(?:\\+{2,}|\\-{2,}|\\.{2,}))(?:[\\.+\\-]{0,1}[a-z0-9])*@gmail\\.com$");
+    }
+
+    @Override
+    public boolean validatePatientPhoneNumberFormat(String patientPhoneNo) {
+        return patientPhoneNo.matches("^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s.-]\\d{3}[\\s.-]\\d{4}$");
+    }
+
+    @Override
+    public boolean validatePatientAgeFormat(int patientAge) {
+        return patientAge > 0;
+    }
     public String getPatientId() {
         return this.patientId;
     }
@@ -114,5 +138,6 @@ public class Patient extends IPatient {
     public void setPrivacyAgreementEnabled(boolean privacyAgreementEnabled) {
         this.privacyAgreementEnabled = privacyAgreementEnabled;
     }
+
 }
 

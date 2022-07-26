@@ -22,6 +22,7 @@ public abstract class ILabSchedule {
         this.labId = null;
         this.status = null;
     }
+    abstract public boolean validateSlotDateFormat(String slotDate);
     abstract public int getSlotId();
 
     abstract public void setSlotId(int slotId);
@@ -41,4 +42,5 @@ public abstract class ILabSchedule {
     abstract public Boolean getStatus();
 
     abstract public void setStatus(Boolean status);
+
 }
