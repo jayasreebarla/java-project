@@ -99,10 +99,12 @@ public class AdminRepositoryImpl implements IAdminRepository {
             ps.setString(1,adminId);
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
-                return StorageResult.SUCCESS;
-            } else {
-                return StorageResult.FAILURE;
+                int count = rs.getInt(1);
+                if(count>0){
+                    return StorageResult.SUCCESS;
+                }
             }
+            return StorageResult.FAILURE;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
