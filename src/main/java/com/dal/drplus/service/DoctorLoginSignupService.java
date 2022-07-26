@@ -12,6 +12,14 @@ public class DoctorLoginSignupService {
         this.doctorRepository = doctorRepository;
     }
 
+    public Boolean isDoctorIdExists(String doctorId){
+        IDoctorRepository.StorageResult result = doctorRepository.isDoctorIdExists(doctorId);
+        if(result.equals(IDoctorRepository.StorageResult.SUCCESS)){
+            return true;
+        }else{
+            return false;
+        }
+    }
     public boolean registerDoctor(IDoctor doctor, String confirmPassword){
         if(confirmPassword.equals(doctor.getDoctorPassword())){
             IDoctorRepository.StorageResult result = doctorRepository.saveDoctor(doctor);

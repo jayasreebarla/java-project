@@ -11,4 +11,5 @@ public abstract class IWallet {
     abstract public double getAmount();
 
     abstract public void setAmount(double amount);
+    abstract public boolean validateWalletAmount();
 }

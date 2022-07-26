@@ -34,6 +34,18 @@ public abstract class IDoctor {
         this.doctorFee = doctorFee;
     }
 
+    abstract public boolean validateDoctorCredentials();
+
+    abstract public boolean validateDoctorName();
+
+    abstract public boolean validateDoctorPincode();
+
+    abstract public boolean validateDoctorEmail();
+
+    abstract public boolean validatePhoneNumber();
+
+    abstract public boolean validateDoctorAge();
+
     abstract public String getDoctorId();
 
     abstract public void setDoctorId(String doctorId);

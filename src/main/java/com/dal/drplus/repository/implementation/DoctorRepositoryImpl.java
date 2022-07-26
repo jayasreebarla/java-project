@@ -29,6 +29,7 @@ public class DoctorRepositoryImpl implements IDoctorRepository {
     @Override
     public StorageResult saveDoctor(IDoctor doctor) {
 
+
         PreparedStatement statement = null;
         try {
             statement = databaseConfiguration.getDBConnection().prepareStatement("INSERT into Doctor(doctor_id, doctor_name, doctor_password, doctor_email, doctor_phone, doctor_gender, doctor_age, doctor_credentials, doctor_specialization, doctor_clinic_address, doctor_pincode, doctor_fee) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
@@ -156,6 +157,22 @@ public class DoctorRepositoryImpl implements IDoctorRepository {
         } catch (SQLException e) {
             //throw new RuntimeException(e);
             return IDoctorRepository.StorageResult.FAILURE;
+        }
+    }
+
+    public StorageResult isDoctorIdExists(String doctorId){
+        String ADMIN_EXISTS_QUERY = "Select count(1) FROM Doctor WHERE doctor_id = ?";
+        try {
+            PreparedStatement ps = databaseConfiguration.getDBConnection().prepareStatement(ADMIN_EXISTS_QUERY);
+            ps.setString(1,doctorId);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                return StorageResult.SUCCESS;
+            } else {
+                return StorageResult.FAILURE;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 

@@ -37,6 +37,33 @@ public class Doctor extends IDoctor {
         this.doctorFee = doctorFee;
     }
 
+    public boolean validateDoctorCredentials(){
+        return this.doctorCredentials.matches("^[a-zA-Z0-9-]*$");
+    }
+
+    public boolean validateDoctorName(){
+        return this.doctorCredentials.matches("^[a-zA-Z0-9-]*$");
+    }
+
+    public boolean validateDoctorPincode(){
+        return this.doctorCredentials.matches("^[a-zA-Z0-9-]*$");
+    }
+
+    public boolean validateDoctorEmail(){
+        return this.doctorEmail.matches("/([a-zA-Z0-9]+)([\\.{1}])?([a-zA-Z0-9]+)\\@gmail([\\.])com/g");
+    }
+
+    public boolean validatePhoneNumber(){
+        return this.doctorPhoneNo.matches("^[0-9-()]*$");
+    }
+
+    public boolean validateDoctorAge(){
+        return this.doctorAge>0;
+    }
+
+    public boolean validateDoctorFee(){
+        return this.doctorFee>0;
+    }
     @Override
     public String getDoctorId() {
         return this.doctorId;

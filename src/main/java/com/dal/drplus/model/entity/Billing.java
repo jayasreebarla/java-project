@@ -3,6 +3,7 @@ package com.dal.drplus.model.entity;
 import com.dal.drplus.model.IBuilder.IBillingBuilder;
 import com.dal.drplus.model.IEntity.IBilling;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Billing extends IBilling {
@@ -19,6 +20,15 @@ public class Billing extends IBilling {
         this.billDate=builder.getBillDate();
         this.billDescription= builder.getBillDescription();
         this.billId = builder.getBillId();
+    }
+
+    public boolean validateBillAmount(){
+        return this.billAmount>=0;
+    }
+
+    public boolean validateDate(String date){
+        LocalDate billDate = LocalDate.parse(date);
+        return billDate.equals(LocalDate.now()) || billDate.isAfter(LocalDate.now());
     }
 
     public int getBillId() {
