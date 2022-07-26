@@ -105,7 +105,7 @@ public class AppointmentController {
     public RedirectView bookAppointmentForLab(Model model, HttpSession session, @PathVariable("slotId") String slotId, @PathVariable("labId") String labId,RedirectAttributes attributes){
 
         Patient currentPatient = (Patient) session.getAttribute("CurrentPatient");
-        Lab lab = labService.getLabById(labId);
+        ILab lab = labService.getLabById(labId);
         int billId = billService.generateBill(lab.getLabFee(),"LAB");
         double billAmount = lab.getLabFee();
 

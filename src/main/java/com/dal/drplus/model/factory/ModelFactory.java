@@ -40,8 +40,6 @@ public class ModelFactory implements IModelFactory{
     public Doctor createDoctorUsingBuilder(IDoctorBuilder builder){
         return new Doctor(builder);
     }
-
-    public Doctor createDoctorUsingBuilder(IDoctorBuilder builder){return new Doctor(builder);}
     public IDoctorBuilder createDoctorBuilder(){
         return new DoctorBuilder();
     }
