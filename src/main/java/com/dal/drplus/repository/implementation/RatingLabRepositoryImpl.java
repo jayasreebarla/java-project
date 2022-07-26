@@ -1,7 +1,10 @@
 package com.dal.drplus.repository.implementation;
 
 import com.dal.drplus.model.Builder.RatingLabBuilder;
+import com.dal.drplus.model.IBuilder.IRatingLabBuilder;
+import com.dal.drplus.model.IEntity.IRatingLab;
 import com.dal.drplus.model.entity.RatingLab;
+import com.dal.drplus.model.factory.ModelFactory;
 import com.dal.drplus.repository.configuration.DatabaseConfiguration;
 import com.dal.drplus.repository.configuration.DatabaseConfigurationImpl;
 import com.dal.drplus.repository.interfaces.IRatingLabRepository;
@@ -42,7 +45,7 @@ public class RatingLabRepositoryImpl implements IRatingLabRepository {
 //    `rating_id`, `patient_id`, `lab_id`, `lab_rating`, `review`
 
     @Override
-    public StorageResult saveLabRating(RatingLab ratingLab) {
+    public StorageResult saveLabRating(IRatingLab ratingLab) {
         try {
             PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(INSERT_RATING_LAB);
             statement.setString(1, ratingLab.getPatientId());
@@ -101,7 +104,7 @@ public class RatingLabRepositoryImpl implements IRatingLabRepository {
     }
 
     @Override
-    public RatingLab findLabRatingById(int ratingId, String labId) {
+    public IRatingLab findLabRatingById(int ratingId, String labId) {
         PreparedStatement statement = null;
         try {
             statement = databaseConfiguration.getDBConnection().prepareStatement(SELECT_BY_RATING_AND_LAB_ID);
@@ -271,8 +274,8 @@ public class RatingLabRepositoryImpl implements IRatingLabRepository {
 
     private List<RatingLab> getRatingLab(List<RatingLab> ratingLabList, ResultSet rs) throws SQLException {
         while (rs.next()){
-            RatingLab ratingLab = new RatingLab();
-            RatingLabBuilder ratingLabBuilder = new RatingLabBuilder();
+            RatingLab ratingLab = null;
+            IRatingLabBuilder ratingLabBuilder = ModelFactory.instance().createRatingLabBuilder();
 
             ratingLab = ratingLabBuilder
                     .addRatingId(rs.getInt("rating_id"))

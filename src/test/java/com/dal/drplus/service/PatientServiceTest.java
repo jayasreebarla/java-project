@@ -1,5 +1,6 @@
 package com.dal.drplus.service;
 
+import com.dal.drplus.model.IEntity.IPatient;
 import com.dal.drplus.model.entity.Patient;
 import com.dal.drplus.repository.implementation.PatientRepositoryImpl;
 import com.dal.drplus.repository.interfaces.IPatientRepository;
@@ -61,13 +62,13 @@ public class PatientServiceTest {
 
     @Test
     void getPatientByIdPass(){
-        Patient patient_result =  patientService.getPatientById(patient1.getPatientId());
+        IPatient patient_result =  patientService.getPatientById(patient1.getPatientId());
         assertEquals(patient1,patient_result);
     }
 
     @Test
     void getPatientByIdFailNull(){
-        Patient patient_result =  patientService.getPatientById(patient2.getPatientId());
+        IPatient patient_result =  patientService.getPatientById(patient2.getPatientId());
         assertNull(patient_result);
     }
 

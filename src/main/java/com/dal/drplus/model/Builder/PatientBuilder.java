@@ -1,10 +1,11 @@
 package com.dal.drplus.model.Builder;
 
+import com.dal.drplus.model.IBuilder.IPatientBuilder;
 import com.dal.drplus.model.entity.Doctor;
 import com.dal.drplus.model.entity.Patient;
 import com.dal.drplus.model.factory.ModelFactory;
 
-public class PatientBuilder {
+public class PatientBuilder implements IPatientBuilder {
     private String patientId;
     private String patientName;
     private int patientAge;
@@ -61,7 +62,7 @@ public class PatientBuilder {
     }
 
     public Patient build() {
-        Patient patient = (Patient) ModelFactory.instance().createPatientBuilder(this);
+        Patient patient = (Patient) ModelFactory.instance().createPatientUsingBuilder(this);
         return patient;
     }
 

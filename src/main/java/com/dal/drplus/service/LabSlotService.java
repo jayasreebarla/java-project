@@ -1,5 +1,6 @@
 package com.dal.drplus.service;
 
+import com.dal.drplus.model.IEntity.ILabSchedule;
 import com.dal.drplus.model.entity.LabSchedule;
 import com.dal.drplus.repository.interfaces.ILabScheduleRepository;
 
@@ -23,7 +24,7 @@ public class LabSlotService {
     public List<LabSchedule> filterUnbookedSlotOnLabId(String labId){
         return labScheduleRepository.listUnbookedSlotsbyLabId(labId);
     }
-    public boolean addLabSlot(LabSchedule labSchedule){
+    public boolean addLabSlot(ILabSchedule labSchedule){
         labSchedule.setStatus(false);
         ILabScheduleRepository.StorageResult result = labScheduleRepository.saveLabSchedule(labSchedule);
         if(result.equals(ILabScheduleRepository.StorageResult.SUCCESS)){

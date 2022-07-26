@@ -1,8 +1,12 @@
 package com.dal.drplus.repository.implementation;
 
 import com.dal.drplus.model.Builder.PatientBuilder;
+import com.dal.drplus.model.IBuilder.IDoctorBuilder;
+import com.dal.drplus.model.IBuilder.IPatientBuilder;
 import com.dal.drplus.model.IEntity.IPatient;
+import com.dal.drplus.model.entity.Doctor;
 import com.dal.drplus.model.entity.Patient;
+import com.dal.drplus.model.factory.ModelFactory;
 import com.dal.drplus.repository.configuration.DatabaseConfiguration;
 import com.dal.drplus.repository.configuration.DatabaseConfigurationImpl;
 import com.dal.drplus.repository.interfaces.IPatientRepository;
@@ -88,8 +92,8 @@ public class PatientRepositoryImpl implements IPatientRepository{
     }
 
     @Override
-    public Patient findPatientById(String patientId) {
-        Patient patient = null;
+    public IPatient findPatientById(String patientId) {
+        IPatient patient = null;
         try {
             PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(SELECT_PATIENT_BY_ID);
             statement.setString(1,patientId);
@@ -99,6 +103,8 @@ public class PatientRepositoryImpl implements IPatientRepository{
             }
             return patient;
         } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
@@ -150,37 +156,10 @@ public class PatientRepositoryImpl implements IPatientRepository{
             return patients;
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
 
-    }
-
-    private Patient createPatient(ResultSet rs) throws SQLException {
-
-        Patient patient= new Patient();
-        PatientBuilder patientBuilder = new PatientBuilder();
-
-        patient = patientBuilder
-                .addPatientId(rs.getString("patient_id"))
-                .addPatientName(rs.getString("patient_name"))
-                .addPatientAge(rs.getInt("patient_age"))
-                .addPatientEmail(rs.getString("patient_email"))
-                .addPatientPhoneNo(rs.getString("patient_phone_no"))
-                .addPatientPassword(rs.getString("patient_password"))
-                .addPatientAddress(rs.getString("patient_address"))
-                .addPatientPincode(rs.getString("patient_pincode"))
-                .addPrivacyAgreementEnabled(rs.getBoolean("privacy_agreement_enabled")).build();
-
-//        patient.setPatientId(rs.getString("patient_id"));
-//        patient.setPatientName(rs.getString("patient_name"));
-//        patient.setPatientAge(rs.getInt("patient_age"));
-//        patient.setPatientEmail(rs.getString("patient_email"));
-//        patient.setPatientPhoneNo(rs.getString("patient_phone_no"));
-//        patient.setPatientPassword(rs.getString("patient_password"));
-//        patient.setPatientAddress(rs.getString("patient_address"));
-//        patient.setPatientPincode(rs.getString("patient_pincode"));
-//        patient.setPrivacyAgreementEnabled(rs.getBoolean("privacy_agreement_enabled"));
-
-        return patient;
     }
 
     @Override
@@ -193,5 +172,25 @@ public class PatientRepositoryImpl implements IPatientRepository{
             //throw new RuntimeException(e);
         }
 
+    }
+
+    private Patient createPatient(ResultSet rs) throws Exception{
+        Patient patient = null;
+        IPatientBuilder builder= ModelFactory.instance().createPatientBuilder();
+
+        patient = builder
+                .addPatientId(rs.getString("patient_id"))
+                .addPatientName(rs.getString("patient_name"))
+                .addPatientAge(rs.getInt("patient_age"))
+                .addPatientEmail(rs.getString("patient_email"))
+                .addPatientPhoneNo(rs.getString("patient_phone_no"))
+                .addPatientPassword(rs.getString("patient_password"))
+                .addPatientAddress(rs.getString("patient_address"))
+                .addPatientPincode(rs.getString("patient_pincode"))
+                .addPrivacyAgreementEnabled(rs.getBoolean("privacy_agreement_enabled")).build();
+
+        //patient = ModelFactory.instance().createPatientUsingBuilder(builder);
+
+        return patient;
     }
 }

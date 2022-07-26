@@ -5,10 +5,12 @@ import com.dal.drplus.model.IBuilder.IDoctorBuilder;
 import com.dal.drplus.model.IBuilder.ILabBuilder;
 import com.dal.drplus.model.IBuilder.IPrescriptionBuilder;
 import com.dal.drplus.model.IBuilder.IPromotionsBuilder;
+import com.dal.drplus.model.IBuilder.*;
 import com.dal.drplus.model.IEntity.*;
 import com.dal.drplus.model.entity.Doctor;
 import com.dal.drplus.model.entity.Lab;
 import com.dal.drplus.model.entity.Promotions;
+import com.dal.drplus.model.entity.*;
 
 public interface IModelFactory {
     public IDoctor createDoctor();
@@ -17,7 +19,8 @@ public interface IModelFactory {
     public IDoctorBuilder createDoctorBuilder();
 
     public IPatient createPatient();
-    public IPatient createPatientBuilder(PatientBuilder builder);
+    public Patient createPatientUsingBuilder(IPatientBuilder builder);
+    public IPatientBuilder createPatientBuilder();
 
     public ILab createLab();
     public ILab createLabUsingBuilder(ILabBuilder builder);
@@ -25,13 +28,16 @@ public interface IModelFactory {
     public ILabBuilder createLabBuilder();
 
     public ILabSchedule createLabSchedule();
-    public ILabSchedule createLabScheduleBuilder(LabScheduleBuilder builder);
+    public LabSchedule createLabScheduleUsingBuilder(ILabScheduleBuilder builder);
+    public ILabScheduleBuilder createLabScheduleBuilder();
 
     public IDoctorSchedule createDoctorSchedule();
-    public IDoctorSchedule createDoctorScheduleBuilder(DoctorScheduleBuilder builder);
+    public DoctorSchedule createDoctorScheduleUsingBuilder(IDoctorScheduleBuilder builder);
+    public IDoctorScheduleBuilder createDoctorScheduleBuilder();
 
     public IRatingLab createRatingLab();
-    public IRatingLab createRatingLabBuilder(RatingLabBuilder builder);
+    public RatingLab createRatingLabUsingBuilder(IRatingLabBuilder builder);
+    public IRatingLabBuilder createRatingLabBuilder();
 
     public IPromotions createPromotions();
     public Promotions createPromotionsUsingBuilder(IPromotionsBuilder builder);

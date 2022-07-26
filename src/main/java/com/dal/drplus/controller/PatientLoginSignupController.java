@@ -1,5 +1,6 @@
 package com.dal.drplus.controller;
 
+import com.dal.drplus.model.IEntity.IPatient;
 import com.dal.drplus.model.entity.Doctor;
 import com.dal.drplus.model.entity.Patient;
 import com.dal.drplus.model.factory.ModelFactory;
@@ -64,7 +65,7 @@ public class PatientLoginSignupController {
         isCredentialsValid = loginSignupService.isPatientCredentialValid(patientId,password);
         System.out.println(isCredentialsValid+"iscredentialValid");
         if(isCredentialsValid){
-            Patient patient = patientService.getPatientById(patientId);
+            IPatient patient = patientService.getPatientById(patientId);
             session.setAttribute("CurrentPatient",patient);
             session.setAttribute("Type","P");
 //            return "patient/patient_home";
