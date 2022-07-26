@@ -3,6 +3,8 @@ package com.dal.drplus.model.entity;
 import com.dal.drplus.model.IBuilder.IAppointmentBuilder;
 import com.dal.drplus.model.IEntity.IAppointment;
 
+import java.time.LocalDate;
+
 public class Appointment extends IAppointment {
     public Appointment() {
     }
@@ -33,6 +35,12 @@ public class Appointment extends IAppointment {
         this.slotId = slotId;
         this.labId = labId;
         this.appointmentType = appointmentType;
+    }
+
+    @Override
+    public boolean validateAppointmentDate(String appointmentDate) {
+        LocalDate date = LocalDate.parse(appointmentDate);
+        return date.isEqual(LocalDate.now()) || date.isAfter(LocalDate.now());
     }
 
     public String getLabId() {
@@ -116,7 +124,6 @@ public class Appointment extends IAppointment {
     }
 
     public int getSlotId() {
-        //slot id logic to be added
         return slotId;
     }
     public void setSlotId(int slotId) {

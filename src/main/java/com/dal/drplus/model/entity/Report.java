@@ -21,6 +21,11 @@ public class Report extends IReport {
         this.reportFile = reportBuilder.getReportFile();
     }
 
+    @Override
+    public boolean validateReportDetails(String reportDetails) {
+        return reportDetails.endsWith(".pdf") || reportDetails.endsWith(".PDF");
+    }
+
     public byte[] getReportFile() {
         return reportFile;
     }

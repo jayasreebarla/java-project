@@ -19,6 +19,10 @@ public class Admin extends IAdmin {
         this.adminAccessKey = adminAccessKey;
     }
 
+    public boolean validateAdminAccesskey(String adminAccessKey) {
+        return adminAccessKey.matches("^[a-zA-Z0-9]{8}$");
+    }
+
     public String getAdminId() {
         return adminId;
     }
@@ -42,5 +46,4 @@ public class Admin extends IAdmin {
     public void setAdminAccessKey(String adminAccessKey) {
         this.adminAccessKey = adminAccessKey;
     }
-
 }

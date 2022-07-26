@@ -91,4 +91,20 @@ public class AdminRepositoryImpl implements IAdminRepository {
 
         return adminObject;
     }
+
+    public StorageResult isAdminIdExists(String adminId){
+        String ADMIN_EXISTS_QUERY = "Select count(1) FROM Admin WHERE admin_id = ?";
+        try {
+            PreparedStatement ps = databaseConfiguration.getDBConnection().prepareStatement(ADMIN_EXISTS_QUERY);
+            ps.setString(1,adminId);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                return StorageResult.SUCCESS;
+            } else {
+                return StorageResult.FAILURE;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
