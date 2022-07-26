@@ -1,6 +1,9 @@
 package com.dal.drplus.repository.implementation;
 
+import com.dal.drplus.model.IBuilder.IRatingDoctorBuilder;
+import com.dal.drplus.model.IEntity.IRatingDoctor;
 import com.dal.drplus.model.entity.RatingDoctor;
+import com.dal.drplus.model.factory.ModelFactory;
 import com.dal.drplus.repository.configuration.DatabaseConfiguration;
 import com.dal.drplus.repository.configuration.DatabaseConfigurationImpl;
 import com.dal.drplus.repository.interfaces.IRatingDoctorRepository;
@@ -25,9 +28,6 @@ public class RatingDoctorRepositoryImpl implements IRatingDoctorRepository {
     }
 
     String INSERT_RATING_DOCTOR = "INSERT into RatingDoctor (patient_id,doctor_id,doctor_rating,review) VALUES (?,?,?,?)";
-    String UPDATE_RATING_DOCTOR = "UPDATE RatingDoctor SET doctor_rating=? WHERE rating_id=? and doctor_id=?";
-    String UPDATE_REVIEW_DOCTOR = "UPDATE RatingDoctor SET review=? WHERE rating_id=? and doctor_id=?";
-    String SELECT_BY_RATING_AND_DOCTOR_ID = "SELECT * FROM RatingDoctor WHERE rating_id=? and doctor_id=?";
     String SELECT_BY_DOCTOR_ID = "SELECT * FROM RatingDoctor WHERE doctor_id=?";
     String SELECT_BY_DOCTOR_ID_AND_PATIENT_ID = "SELECT * FROM RatingDoctor where doctor_id = ? and patient_id = ?";
     String SELECT_BY_PATIENT_ID = "SELECT * FROM RatingDoctor WHERE patient_id=?";
@@ -39,7 +39,7 @@ public class RatingDoctorRepositoryImpl implements IRatingDoctorRepository {
     String DELETE_ALL = "DELETE from RatingDoctor";
 
     @Override
-    public StorageResult saveDoctorRating(RatingDoctor ratingDoctor) {
+    public StorageResult saveDoctorRating(IRatingDoctor ratingDoctor) {
         try {
             PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(INSERT_RATING_DOCTOR);
             statement.setString(1, ratingDoctor.getPatientId());
@@ -58,67 +58,6 @@ public class RatingDoctorRepositoryImpl implements IRatingDoctorRepository {
             return StorageResult.SUCCESS;
         }
 
-    }
-
-    public StorageResult updateDoctorReview(RatingDoctor ratingDoctor){
-        try {
-            PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(UPDATE_REVIEW_DOCTOR);
-            statement.setString(1, ratingDoctor.getReview());
-            statement.setInt(2,ratingDoctor.getRatingId());
-            statement.setString(3,ratingDoctor.getDoctorId());
-            int result = statement.executeUpdate();
-            if(result == 1){
-                return StorageResult.SUCCESS;
-            }else{
-                return StorageResult.FAILURE;
-            }
-        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-            return StorageResult.FAILURE;
-        }
-    }
-
-
-    @Override
-    public StorageResult updateDoctorRating(RatingDoctor ratingDoctor) {
-        try {
-            PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(UPDATE_RATING_DOCTOR);
-            statement.setInt(1,ratingDoctor.getDoctorRating());
-            statement.setInt(2,ratingDoctor.getRatingId());
-            statement.setString(3,ratingDoctor.getDoctorId());
-            int result = statement.executeUpdate();
-            if(result == 1){
-                return StorageResult.SUCCESS;
-            }else{
-                return StorageResult.FAILURE;
-            }
-        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-            return StorageResult.FAILURE;
-        }
-
-    }
-
-    @Override
-    public RatingDoctor findDoctorRatingById(int ratingId, String doctorId) {
-        PreparedStatement statement = null;
-        try {
-            statement = databaseConfiguration.getDBConnection().prepareStatement(SELECT_BY_RATING_AND_DOCTOR_ID);
-            statement.setInt(1,ratingId);
-            statement.setString(2,doctorId);
-            ResultSet rs = statement.executeQuery();
-            RatingDoctor ratingDoctor = new RatingDoctor();
-            while (rs.next()){
-                ratingDoctor.setRatingId(rs.getInt("rating_id"));
-                ratingDoctor.setPatientId(rs.getString("patient_id"));
-                ratingDoctor.setDoctorId(rs.getString("doctor_id"));
-                ratingDoctor.setDoctorRating(rs.getInt("doctor_rating"));
-                ratingDoctor.setReview(rs.getString("review"));
-            }
-            return ratingDoctor;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     @Override
@@ -264,12 +203,15 @@ public class RatingDoctorRepositoryImpl implements IRatingDoctorRepository {
 
     private List<RatingDoctor> getRatingDoctor(List<RatingDoctor> ratingDoctorList, ResultSet rs) throws SQLException {
         while (rs.next()){
-            RatingDoctor ratingDoctor = new RatingDoctor();
-            ratingDoctor.setRatingId(rs.getInt("rating_id"));
-            ratingDoctor.setPatientId(rs.getString("patient_id"));
-            ratingDoctor.setDoctorId(rs.getString("doctor_id"));
-            ratingDoctor.setDoctorRating(rs.getInt("doctor_rating"));
-            ratingDoctor.setReview(rs.getString("review"));
+            RatingDoctor ratingDoctor;
+
+            IRatingDoctorBuilder builder = ModelFactory.instance().createRatingDoctorBuilder();
+            ratingDoctor = builder
+                    .addRatingId(rs.getInt("rating_id"))
+                    .addPatientId(rs.getString("patient_id"))
+                    .addDoctorId(rs.getString("doctor_id"))
+                    .addDoctorRating(rs.getInt("doctor_rating"))
+                    .addReview(rs.getString("review")).build();
             ratingDoctorList.add(ratingDoctor);
         }
         return ratingDoctorList;

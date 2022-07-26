@@ -1,5 +1,6 @@
 package com.dal.drplus.service;
 
+import com.dal.drplus.model.IEntity.ILab;
 import com.dal.drplus.model.entity.Doctor;
 import com.dal.drplus.model.entity.Lab;
 import com.dal.drplus.repository.interfaces.ILabRepository;
@@ -18,11 +19,11 @@ public class LabService  {
     public List<Lab> listAllLabs(){
         return labRepository.findAll();
     }
-    public Lab getLabById(String labId){
-        Lab lab = labRepository.findLabById(labId);
+    public ILab getLabById(String labId){
+        ILab lab = labRepository.findLabById(labId);
         return lab;
     }
-    public Lab findLabById(String labId){
+    public ILab findLabById(String labId){
         return labRepository.findLabById(labId);
     }
 

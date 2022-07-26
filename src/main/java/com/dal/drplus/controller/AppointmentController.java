@@ -5,7 +5,10 @@ import com.dal.drplus.model.IBuilder.IAppointmentBuilder;
 import com.dal.drplus.model.IEntity.IAppointment;
 import com.dal.drplus.model.IEntity.IDoctor;
 import com.dal.drplus.model.IEntity.IPatient;
+import com.dal.drplus.model.IEntity.ILab;
+import com.dal.drplus.model.IEntity.IPatient;
 import com.dal.drplus.model.entity.Appointment;
+import com.dal.drplus.model.entity.Billing;
 import com.dal.drplus.model.entity.Lab;
 import com.dal.drplus.model.entity.Patient;
 import com.dal.drplus.model.factory.ModelFactory;
@@ -32,6 +35,7 @@ public class AppointmentController {
     private LabService labService;
     private LabSlotService labSlotService;
     private BillService billService;
+
     private WalletService walletService;
 
     public AppointmentController(AppointmentRepositoryImpl appointmentRepository,
@@ -183,6 +187,8 @@ public class AppointmentController {
         double amountToBeCredited = appointment.getAppointmentFee();
         IPatient patient = patientService.getPatientById(patientId);
         boolean result = appointmentService.cancelAppointment(id);
+
+
         if(result == true){
             doctorSlotService.updateSlotStatus(false, slotId);
             walletService.addMoneyToWallet(amountToBeCredited,patient.getPatientEmail());

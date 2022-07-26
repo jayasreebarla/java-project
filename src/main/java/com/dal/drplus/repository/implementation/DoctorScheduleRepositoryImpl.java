@@ -2,8 +2,11 @@ package com.dal.drplus.repository.implementation;
 
 import com.dal.drplus.model.Builder.DoctorScheduleBuilder;
 import com.dal.drplus.model.Builder.LabScheduleBuilder;
+import com.dal.drplus.model.IBuilder.IDoctorScheduleBuilder;
+import com.dal.drplus.model.IEntity.IDoctorSchedule;
 import com.dal.drplus.model.entity.DoctorSchedule;
 import com.dal.drplus.model.entity.LabSchedule;
+import com.dal.drplus.model.factory.ModelFactory;
 import com.dal.drplus.repository.configuration.DatabaseConfiguration;
 import com.dal.drplus.repository.configuration.DatabaseConfigurationImpl;
 import com.dal.drplus.repository.interfaces.IDoctorScheduleRepository;
@@ -30,7 +33,7 @@ public class DoctorScheduleRepositoryImpl implements IDoctorScheduleRepository {
     }
 
     @Override
-    public StorageResult saveDoctorSchedule(DoctorSchedule doctorSchedule) {
+    public StorageResult saveDoctorSchedule(IDoctorSchedule doctorSchedule) {
 
         PreparedStatement statement = null;
         try {
@@ -107,7 +110,7 @@ public class DoctorScheduleRepositoryImpl implements IDoctorScheduleRepository {
     }
 
     @Override
-    public DoctorSchedule findScheduleBySlotID(int id) {
+    public IDoctorSchedule findScheduleBySlotID(int id) {
 
         DoctorSchedule doctorSchedule = new DoctorSchedule();
         PreparedStatement statement = null;
@@ -234,8 +237,8 @@ public class DoctorScheduleRepositoryImpl implements IDoctorScheduleRepository {
 
     private DoctorSchedule createLabSchedule(ResultSet rs) throws SQLException {
 
-        DoctorSchedule doctorSchedule = new DoctorSchedule();
-        DoctorScheduleBuilder doctorScheduleBuilder = new DoctorScheduleBuilder();
+        DoctorSchedule doctorSchedule = null;
+        IDoctorScheduleBuilder doctorScheduleBuilder = ModelFactory.instance().createDoctorScheduleBuilder();
 
         doctorSchedule = doctorScheduleBuilder
                 .addSlotId(rs.getInt("slot_id"))

@@ -1,12 +1,25 @@
 package com.dal.drplus.model.entity;
 
+import com.dal.drplus.model.IBuilder.IBillingBuilder;
+import com.dal.drplus.model.IEntity.IBilling;
+
 import java.util.Date;
 
-public class Billing {
+public class Billing extends IBilling {
     int billId;
     Date billDate;
     double billAmount;
     String billDescription;
+
+    public Billing() {
+    }
+
+    public Billing(IBillingBuilder builder) {
+        this.billAmount= builder.getBillAmount();
+        this.billDate=builder.getBillDate();
+        this.billDescription= builder.getBillDescription();
+        this.billId = builder.getBillId();
+    }
 
     public int getBillId() {
         return billId;

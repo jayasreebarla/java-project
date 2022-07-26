@@ -1,5 +1,6 @@
 package com.dal.drplus.service;
 
+import com.dal.drplus.model.IEntity.IPrescription;
 import com.dal.drplus.model.entity.Prescription;
 import com.dal.drplus.repository.interfaces.IPrescriptionRepository;
 
@@ -13,7 +14,7 @@ public class PrescriptionService {
     public PrescriptionService(IPrescriptionRepository prescriptionRepository) {
         this.prescriptionRepository = prescriptionRepository;
     }
-    public boolean uploadPrescription(Prescription prescription){
+    public boolean uploadPrescription(IPrescription prescription){
         try {
             IPrescriptionRepository.StorageResult result = prescriptionRepository.uploadPrescription(prescription);
             if(result.equals(IPrescriptionRepository.StorageResult.SUCCESS)){
@@ -26,11 +27,7 @@ public class PrescriptionService {
         }
     }
 
-    public int deletePrescription(int id){
-        return prescriptionRepository.deleteById(id);
-    }
-
-    public Prescription downloadPrescription(int id){
+    public IPrescription downloadPrescription(int id){
         return prescriptionRepository.findById(id);
     }
 

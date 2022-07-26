@@ -1,6 +1,8 @@
 package com.dal.drplus.controller;
+import com.dal.drplus.model.IEntity.ILab;
 import com.dal.drplus.model.entity.Appointment;
 import com.dal.drplus.model.entity.Lab;
+import com.dal.drplus.model.factory.ModelFactory;
 import com.dal.drplus.repository.implementation.AppointmentRepositoryImpl;
 import com.dal.drplus.repository.implementation.LabRepositoryImpl;
 import com.dal.drplus.service.AppointmentListService;
@@ -35,7 +37,7 @@ public class LabLoginSignupController {
 
     @GetMapping("/lab_signup")
     public String SignUp(Model model){
-        model.addAttribute("lab",new Lab());
+        model.addAttribute("lab",(Lab) ModelFactory.instance().createLab());
         return "lab/labSignup";
     }
 
@@ -75,7 +77,7 @@ public class LabLoginSignupController {
 
         if(isCredentialsValid){
             System.out.println("inside if");
-            Lab lab = labService.getLabById(labId);
+            ILab lab = labService.getLabById(labId);
             session.setAttribute("CurrentLab",lab);
             session.setAttribute("Type","L");
             //List<Appointment> appointmentList = appointmentListService.listAppointmentbyDoctor(doctorId);
@@ -89,7 +91,7 @@ public class LabLoginSignupController {
     }
     @GetMapping("/lab_home")
     public String LabHome(HttpSession session, Model model){
-        Lab currentLab= (Lab) session.getAttribute("CurrentLab");
+        ILab currentLab= (Lab) session.getAttribute("CurrentLab");
         System.out.println("current Lab Id inside lab login signup controller"+currentLab.getLabId());
         List<Appointment> appointmentList = appointmentListService.listAppointmentbyLab(currentLab.getLabId());
         model.addAttribute("appointments",appointmentList);

@@ -99,8 +99,6 @@ public class DoctorBuilder implements IDoctorBuilder {
     
     public Doctor build() {
        Doctor doctor = ModelFactory.instance().createDoctorUsingBuilder(this);
-//        Doctor doctor = new Doctor(this);
-
         return doctor;
     }
     public String getDoctorId() {

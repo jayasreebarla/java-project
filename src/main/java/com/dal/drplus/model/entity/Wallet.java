@@ -1,8 +1,17 @@
 package com.dal.drplus.model.entity;
 
-public class Wallet {
+import com.dal.drplus.model.IBuilder.IWalletBuilder;
+import com.dal.drplus.model.IEntity.IWallet;
+
+public class Wallet extends IWallet {
     private String walletId;
     private double amount;
+
+    public Wallet(IWalletBuilder builder) {
+        this.walletId=builder.getWalletId();
+        this.amount= builder.getAmount();
+    }
+    public Wallet() {}
 
     public String getWalletId() {
         return walletId;

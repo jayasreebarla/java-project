@@ -1,10 +1,11 @@
 package com.dal.drplus.model.Builder;
 
+import com.dal.drplus.model.IBuilder.IRatingLabBuilder;
 import com.dal.drplus.model.entity.Doctor;
 import com.dal.drplus.model.entity.RatingLab;
 import com.dal.drplus.model.factory.ModelFactory;
 
-public class RatingLabBuilder {
+public class RatingLabBuilder implements IRatingLabBuilder {
     private int ratingId;
     private String patientId;
     private String labId;
@@ -37,7 +38,7 @@ public class RatingLabBuilder {
     }
 
     public RatingLab build() {
-        RatingLab ratingLab = (RatingLab) ModelFactory.instance().createRatingLabBuilder(this);
+        RatingLab ratingLab = (RatingLab) ModelFactory.instance().createRatingLabUsingBuilder(this);
         return ratingLab;
     }
 
