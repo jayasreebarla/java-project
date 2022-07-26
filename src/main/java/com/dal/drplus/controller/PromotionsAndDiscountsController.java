@@ -9,11 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.view.RedirectView;
-
 import java.util.List;
+
 @Controller
 public class PromotionsAndDiscountsController {
-
     public PromotionsAndDiscountsController(PromotionsRepositoryImpl promotionsRepository) {
         this.promotionsService = new PromotionsService(promotionsRepository);
     }
@@ -34,12 +33,7 @@ public class PromotionsAndDiscountsController {
     @GetMapping("/display_promotions")
     public String promotionsDisplay(Model model){
         List<Promotions> displayPromotionsList = promotionsService.listAllPromotions();
-        if(displayPromotionsList == null)
-        System.out.println("list is null ,promotions controller");
         model.addAttribute("promotions", displayPromotionsList);
         return "promotions/display_promotions";
     }
-
-
-
 }

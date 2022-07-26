@@ -14,16 +14,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
 @RequestMapping(value = "/auth_doctor")
-public class
-DoctorLoginSignupController {
-
+public class DoctorLoginSignupController {
     private DoctorLoginSignupService loginSignupService;
     private AppointmentListService appointmentListService;
     private DoctorService doctorService;
@@ -38,26 +35,13 @@ DoctorLoginSignupController {
 
     @GetMapping("/doctor_signup")
     public String SignUp(Model model){
-        //model.addAttribute("doctor",new Doctor());
         model.addAttribute("doctor", (Doctor)ModelFactory.instance().createDoctor());
-
         return "doctor/signup";
     }
 
     @PostMapping("/doctor_signup")
     public RedirectView RegisterDoctor(HttpSession session, @ModelAttribute Doctor doctor, @RequestParam(value = "confirmDoctorPassword") String confirmPassword){
-        System.out.println(doctor.toString());
-        System.out.println("confirmPassword"+confirmPassword);
-        System.out.println("signup if id exists"+loginSignupService.isDoctorIdExists(doctor.getDoctorId()));
-        System.out.println("doctor.validateDoctorAge()"+doctor.validateDoctorAge());
-        System.out.println("doctor.validateDoctorCredentials()"+doctor.validateDoctorCredentials());
-        System.out.println("validateDoctorEmail"+doctor.validateDoctorEmail());
-        System.out.println("validateDoctorName"+doctor.validateDoctorName());
-        System.out.println("validatePhoneNumber"+doctor.validatePhoneNumber());
-        System.out.println("validateDoctorPincode"+doctor.validateDoctorPincode());
-        System.out.println("validateDoctorFee"+doctor.validateDoctorFee());
         if(loginSignupService.isDoctorIdExists(doctor.getDoctorId())){
-            System.out.println("id exists");
             return new RedirectView("/auth_doctor/doctor_signup");
         }else{
             if(doctor.validateDoctorAge()
@@ -90,21 +74,15 @@ DoctorLoginSignupController {
 
     @PostMapping("/doctor_login")
     public String LoginDoctor(HttpSession session, @RequestParam(value="doctorId") String doctorId,@RequestParam(value="doctorPassword") String password, Model model){
-        System.out.println(doctorId+"doctorId");
-        System.out.println(password+"password");
         password = passwordEncryptionService.hashPassword(password);
         boolean isCredentialsValid;
         isCredentialsValid = loginSignupService.isDoctorCredentialValid(doctorId,password);
-        System.out.println(isCredentialsValid+" iscredentialValid");
         if(isCredentialsValid){
-            System.out.println("inside if");
             IDoctor doctor = doctorService.getDoctorById(doctorId);
-            System.out.println("Doctor improvement"+doctor.getDoctorId());
             session.setAttribute("CurrentDoctor",doctor);
             session.setAttribute("Type","D");
             List<Appointment> appointmentList = appointmentListService.listAppointmentbyDoctor(doctorId);
             model.addAttribute("appointments",appointmentList);
-            System.out.println("abcd");
             return "doctor/doctor_home";
         }else{
             return "doctor/login";
@@ -114,7 +92,6 @@ DoctorLoginSignupController {
     @GetMapping("/doctor_home")
     public String DoctorHome(HttpSession session, Model model){
         IDoctor currentDoctor= (Doctor) session.getAttribute("CurrentDoctor");
-        System.out.println("current Doctor Id inside doctor login signup controller"+currentDoctor.getDoctorId());
         List<Appointment> appointmentList = appointmentListService.listAppointmentbyDoctor(currentDoctor.getDoctorId());
         model.addAttribute("appointments",appointmentList);
         return "doctor/doctor_home";
@@ -122,9 +99,7 @@ DoctorLoginSignupController {
 
     @RequestMapping(value = "/logout")
     public RedirectView LogoutDoctor(HttpServletRequest request){
-        System.out.println("inside logout");
         request.getSession().invalidate();
-        System.out.println("session invalidated");
         return new RedirectView("/");
     }
 }

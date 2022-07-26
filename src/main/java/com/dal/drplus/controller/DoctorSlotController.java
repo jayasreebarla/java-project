@@ -10,16 +10,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
 import java.util.List;
-
 
 @Controller
 public class DoctorSlotController {
-
     private DoctorSlotService doctorSlotService;
     private AppointmentService appointmentService;
-
     public DoctorSlotController(DoctorScheduleRepositoryImpl doctorScheduleRepository,
                                 AppointmentRepositoryImpl appointmentRepository) {
         this.doctorSlotService = new DoctorSlotService(doctorScheduleRepository);
@@ -28,7 +24,6 @@ public class DoctorSlotController {
 
     @GetMapping("/doctor/{doctorId}")
     public String filterSlotOnDoctorId(Model model, @PathVariable("doctorId") String doctorId){
-        System.out.println("doctor"+doctorId);
         List<DoctorSchedule> doctorScheduleList = doctorSlotService.filterUnbookedSlotOnDoctorId(doctorId);
         model.addAttribute("doctorSlots",doctorScheduleList);
         return "doctor/doctor_availability";
@@ -36,7 +31,6 @@ public class DoctorSlotController {
 
     @GetMapping("/doctor_reschedule/{appointmentId}")
     public String listRescheduleSlotOnDoctorId(Model model, @PathVariable("appointmentId") int appointmentId){
-        System.out.println("appointmentId: "+appointmentId);
         IAppointment appointment = appointmentService.findAppointmentbyId(appointmentId);
         List<DoctorSchedule> doctorScheduleList = doctorSlotService.filterUnbookedSlotOnDoctorId(appointment.getDoctorId());
         model.addAttribute("doctorSlots",doctorScheduleList);

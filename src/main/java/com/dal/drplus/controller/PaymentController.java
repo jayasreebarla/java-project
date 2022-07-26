@@ -18,19 +18,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
-
 import javax.servlet.http.HttpSession;
 
 @Controller
 public class PaymentController {
-
     private BillService billService;
     private Billing bill_process;
     private WalletService walletService;
     private PromotionsService promotionsService;
-
     private AppointmentService appointmentService;
-
     private double finalAmount;
 
     public PaymentController(BillRepositoryImpl billRepository, WalletRepositoryImpl walletRepository, PromotionsRepositoryImpl promotionsRepository, AppointmentRepositoryImpl appointmentRepository) {
@@ -43,8 +39,6 @@ public class PaymentController {
     @GetMapping("/payment")
     public String payment(HttpSession session, Model model, @ModelAttribute("bill")Billing bill){
         bill_process = bill;
-        //System.out.println("controller payment appointment details : "+appointment.getBillId()+appointment.getPatientId()+appointment.getDoctorId());
-        System.out.println("payment controller , bill amount :"+bill.getBillAmount());
         String bill_amount = Double.toString(bill.getBillAmount());
         model.addAttribute("billAmount", bill_amount);
         return "payment/payment";
@@ -58,7 +52,6 @@ public class PaymentController {
         }else{
             discount = promotionsService.validatePromotionAndGetDiscountAmount(promoCode);
         }
-        System.out.println("discount"+discount);
         double billAmount = bill_process.getBillAmount();
         double billFinalAmount;
         if(billAmount-discount>0){
@@ -66,12 +59,8 @@ public class PaymentController {
         }else{
             billFinalAmount =0;
         }
-        System.out.println("discount,bill final amount"+billFinalAmount);
-        //update in appointment and bill
         billService.updateBill(bill_process.getBillId(), billFinalAmount);
-        System.out.println("bill ID "+bill_process.getBillId());
         boolean res = appointmentService.updateAppointmentByBillId(bill_process.getBillId(), billFinalAmount);
-        System.out.println(res);
         attributes.addFlashAttribute("billFinalAmount",billFinalAmount);
         return new RedirectView("/make-confirm-payment");
     }
@@ -79,20 +68,15 @@ public class PaymentController {
     @GetMapping("/make-confirm-payment")
     public String makePaymentConfirmation(Model model,@ModelAttribute("billFinalAmount") double billFinalAmount ){
         finalAmount = billFinalAmount;
-        System.out.println(finalAmount);
         model.addAttribute("billAmount",finalAmount);
         return "payment/confirm-payment";
     }
 
     @PostMapping("/payment")
     public RedirectView processPayment(RedirectAttributes attributes, HttpSession session){
-        //System.out.println("bill amount"+Double.parseDouble(billFinalAmount));
-        System.out.println("bill amount final amount " + finalAmount);
         double billAmount = finalAmount;
         Patient currentPatient = (Patient) session.getAttribute("CurrentPatient");
         String patientEmail = currentPatient.getPatientEmail();
-        System.out.println("bill amount inside post mapping"+billAmount);
-        System.out.println("wallet money for patient : "+walletService.getBalanceFromWallet(patientEmail));
         if(walletService.getBalanceFromWallet(patientEmail)>=billAmount){
             boolean result = walletService.deductMoneyFromWallet(billAmount,patientEmail);
             if(result == true){

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
-
 import java.util.List;
 
 @Controller
@@ -128,7 +127,6 @@ public class AdminController {
             return new RedirectView("/admin/doctor_schedule_list_admin");
         }
         return new RedirectView("/admin/doctor_slot_add");
-//        return "admin/doctor_schedule_add";
     }
 
     @GetMapping("/lab_slot_add")
@@ -147,7 +145,6 @@ public class AdminController {
             return new RedirectView("/admin/lab_schedule_list_admin");
         }
         return new RedirectView("/admin/lab_slot_add");
-//        return "admin/lab_schedule_add";
     }
 
     @GetMapping("/cancel_appointment_admin/{id}")

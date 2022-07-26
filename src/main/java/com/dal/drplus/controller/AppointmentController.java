@@ -1,15 +1,11 @@
 package com.dal.drplus.controller;
 
-
 import com.dal.drplus.model.IBuilder.IAppointmentBuilder;
 import com.dal.drplus.model.IEntity.IAppointment;
 import com.dal.drplus.model.IEntity.IDoctor;
 import com.dal.drplus.model.IEntity.IPatient;
 import com.dal.drplus.model.IEntity.ILab;
-import com.dal.drplus.model.IEntity.IPatient;
 import com.dal.drplus.model.entity.Appointment;
-import com.dal.drplus.model.entity.Billing;
-import com.dal.drplus.model.entity.Lab;
 import com.dal.drplus.model.entity.Patient;
 import com.dal.drplus.model.factory.ModelFactory;
 import com.dal.drplus.repository.implementation.*;
@@ -20,13 +16,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
-
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
 public class AppointmentController {
-
     private AppointmentService appointmentService;
     private AppointmentListService appointmentListService;
     private DoctorSlotService doctorSlotService;
@@ -35,7 +29,6 @@ public class AppointmentController {
     private LabService labService;
     private LabSlotService labSlotService;
     private BillService billService;
-
     private WalletService walletService;
 
     public AppointmentController(AppointmentRepositoryImpl appointmentRepository,
@@ -60,7 +53,6 @@ public class AppointmentController {
     @GetMapping("/appointment_list")
     public String getAppointmentList(Model model, HttpSession session){
         IPatient currentPatient = (Patient) session.getAttribute("CurrentPatient");
-        System.out.println("current Patient Id inside appointment controller"+currentPatient.getPatientId());
         List<Appointment> appointmentList = appointmentListService.listAppointmentbyPatient(currentPatient.getPatientId());
         model.addAttribute("appointments",appointmentList);
         return "appointment/appointment_list";
@@ -72,7 +64,6 @@ public class AppointmentController {
         IDoctor doctor = doctorService.getDoctorById(doctorId);
         double billAmount = doctor.getDoctorFee();
         int billId = billService.generateBill(billAmount,"DOCTOR");
-
         IAppointmentBuilder appointmentBuilder = ModelFactory.instance().createAppointmentBuilder();
         IAppointment appointment = appointmentBuilder
                 .addSlotId(Integer.parseInt(slotId))
@@ -82,10 +73,8 @@ public class AppointmentController {
                 .addDoctorId(doctorId)
                 .addBillId(billId)
                 .build();
-//        IAppointment appointment = ModelFactory.instance().createAppointmentUsingBuilder(appointmentBuilder);
 
         boolean isConflict = appointmentService.isAppointmentConflict(appointment);
-        System.out.println(isConflict);
         if(isConflict){
             return new RedirectView("/error_appointment");
         }
@@ -93,17 +82,12 @@ public class AppointmentController {
         if(result == true){
             doctorSlotService.updateSlotStatus(true, Integer.parseInt(slotId));
         }
-        //return "appointment/appointment_booked";
-//        attributes.addFlashAttribute("billAmount",billAmount);
-
         attributes.addFlashAttribute("bill",billService.getBill(billId));
-        //System.out.println("bill amount in appointment controller"+billService.getBillAmount(billId));
         return new RedirectView("/payment");
     }
 
     @GetMapping("/labSlot/{slotId}/{labId}")
     public RedirectView bookAppointmentForLab(Model model, HttpSession session, @PathVariable("slotId") String slotId, @PathVariable("labId") String labId,RedirectAttributes attributes){
-
         Patient currentPatient = (Patient) session.getAttribute("CurrentPatient");
         ILab lab = labService.getLabById(labId);
         int billId = billService.generateBill(lab.getLabFee(),"LAB");
@@ -121,7 +105,6 @@ public class AppointmentController {
         IAppointment appointment = ModelFactory.instance().createAppointmentUsingBuilder(appointmentBuilder);
 
         boolean isConflict = appointmentService.isAppointmentConflict(appointment);
-        System.out.println(isConflict);
         if(isConflict){
             return new RedirectView("/error_appointment");
         }
@@ -129,8 +112,6 @@ public class AppointmentController {
         if(result == true){
             labSlotService.updateSlotStatus(true, Integer.parseInt(slotId));
         }
-//        attributes.addFlashAttribute("billAmount",billAmount);
-//        System.out.println("bill amount in appointment controller"+billAmount);
         attributes.addFlashAttribute("bill",billService.getBill(billId));
         return new RedirectView("/payment");
     }
@@ -142,7 +123,6 @@ public class AppointmentController {
         boolean res = doctorSlotService.updateSlotStatus(false,previousSlotId);
         boolean res1 = appointmentService.rescheduleAppointment(slotId,appointmentId);
         boolean res2 = doctorSlotService.updateSlotStatus(true,slotId);
-        System.out.println(res+" "+res1+" "+res2);
         return new RedirectView("/appointment_booked_page");
     }
 
@@ -153,7 +133,6 @@ public class AppointmentController {
         boolean res = labSlotService.updateSlotStatus(false,previousSlotId);
         boolean res1 = appointmentService.rescheduleAppointment(slotId,appointmentId);
         boolean res2 = labSlotService.updateSlotStatus(true,slotId);
-        System.out.println(res+" "+res1+" "+res2);
         return new RedirectView("/appointment_booked_page");
     }
 
@@ -165,11 +144,9 @@ public class AppointmentController {
     @GetMapping("/cancel_appointment/{id}/{slotId}")
     public RedirectView cancelAppointment(HttpSession session, @PathVariable("id") int id, @PathVariable("slotId") int slotId){
         IPatient currentPatient = (Patient) session.getAttribute("CurrentPatient");
-        System.out.println("slotId: "+slotId);
         IAppointment appointment = appointmentService.findAppointmentbyId(id);
         double amountToBeCredited = appointment.getAppointmentFee();
         boolean result = appointmentService.cancelAppointment(id);
-
         if(result == true){
             doctorSlotService.updateSlotStatus(false, slotId);
             walletService.addMoneyToWallet(amountToBeCredited, currentPatient.getPatientEmail());
@@ -181,14 +158,11 @@ public class AppointmentController {
 
     @GetMapping("/cancel_appointment_doc/{id}/{slotId}")
     public RedirectView cancelAppointmentbyDoc(@PathVariable("id") int id, @PathVariable("slotId") int slotId){
-        System.out.println("slotId: "+slotId);
         IAppointment appointment = appointmentService.findAppointmentbyId(id);
         String patientId = appointment.getPatientId();
         double amountToBeCredited = appointment.getAppointmentFee();
         IPatient patient = patientService.getPatientById(patientId);
         boolean result = appointmentService.cancelAppointment(id);
-
-
         if(result == true){
             doctorSlotService.updateSlotStatus(false, slotId);
             walletService.addMoneyToWallet(amountToBeCredited,patient.getPatientEmail());
@@ -198,9 +172,9 @@ public class AppointmentController {
             return new RedirectView("/error_appointment");
         }
     }
+
     @GetMapping("/cancel_appointment_lab/{id}/{slotId}")
     public RedirectView cancelAppointmentbyLab(@PathVariable("id") int id, @PathVariable("slotId") int slotId){
-        System.out.println("slotId: "+slotId);
         IAppointment appointment = appointmentService.findAppointmentbyId(id);
         String patientId = appointment.getPatientId();
         double amountToBeCredited = appointment.getAppointmentFee();

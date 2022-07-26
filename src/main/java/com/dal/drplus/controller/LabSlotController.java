@@ -10,8 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
 import java.util.List;
+
 @Controller
 public class LabSlotController {
     private LabSlotService labSlotService;
@@ -25,7 +25,6 @@ public class LabSlotController {
 
     @GetMapping("/lab/{labId}")
     public String filterSlotOnLabId(Model model, @PathVariable("labId") String labId){
-        System.out.println("lab: "+labId);
         List<LabSchedule> labScheduleList = labSlotService.filterUnbookedSlotOnLabId(labId);
         model.addAttribute("labSlots",labScheduleList);
         return "lab/lab_availability";
@@ -33,7 +32,6 @@ public class LabSlotController {
 
     @GetMapping("/lab_reschedule/{appointmentId}")
     public String rescheduleSlotOnLabId(Model model, @PathVariable("appointmentId") int appointmentId){
-        System.out.println("appointmentId: "+appointmentId);
         IAppointment appointment = appointmentService.findAppointmentbyId(appointmentId);
         List<LabSchedule> labScheduleList = labSlotService.filterUnbookedSlotOnLabId(appointment.getLabId());
         model.addAttribute("labSlots",labScheduleList);

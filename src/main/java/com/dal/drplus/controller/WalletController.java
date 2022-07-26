@@ -12,23 +12,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
-
 import javax.servlet.http.HttpSession;
 
 @Controller
 public class WalletController {
-
     private WalletService walletService;
     private Billing bill_process;
+
     public WalletController(WalletRepositoryImpl walletRepository) {
         this.walletService = new WalletService(walletRepository);
     }
-
     @GetMapping("/add_money_in_wallet")
     public String AddMoneyToWalletForPayment(Model model,@ModelAttribute("bill")Billing bill){
         bill_process = bill;
-        System.out.println("Bill amount in wallet controller "+ bill);
-         model.addAttribute("billAmount",bill_process.getBillAmount());
+        model.addAttribute("billAmount",bill_process.getBillAmount());
         return "wallet/add-money-to-wallet";
     }
 
@@ -38,9 +35,7 @@ public class WalletController {
         String patientEmail = currentPatient.getPatientEmail();
         double billAmount = bill_process.getBillAmount();
         walletService.addMoneyToWallet(billAmount,patientEmail);
-        System.out.println("Post mapping bill amount "+billAmount);
         attributes.addFlashAttribute("billFinalAmount",billAmount);
-//        return new RedirectView("/payment");
         return new RedirectView("/make-confirm-payment");
     }
 
@@ -69,7 +64,5 @@ public class WalletController {
         model.addAttribute("balance",Double.toString(balance));
         return "wallet/payment-success";
     }
-
-
 }
 

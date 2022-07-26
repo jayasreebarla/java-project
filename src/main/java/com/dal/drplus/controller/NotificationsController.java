@@ -8,13 +8,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import com.dal.drplus.service.NotificationsService;
-
 import javax.servlet.http.HttpSession;
 import java.util.List;
+
 @Controller
 public class NotificationsController {
     private NotificationsService notificationsService;
-
     public NotificationsController(NotificationsRepositoryImpl notificationsRepository) {
         this.notificationsService = new NotificationsService(notificationsRepository);
     }
@@ -24,7 +23,6 @@ public class NotificationsController {
         Patient currentPatient = (Patient) httpSession.getAttribute("CurrentPatient");
         List<Appointment> appointmentList = notificationsService.notifyPatient(currentPatient.getPatientId());
         model.addAttribute("notifications", appointmentList);
-//        return "admin/appointments_list_admin";
         return "notifications/patient_view_notifications";
     }
 
@@ -33,17 +31,14 @@ public class NotificationsController {
         Doctor currentDoctor = (Doctor) httpSession.getAttribute("CurrentDoctor");
         List<Appointment> appointmentList = notificationsService.notifyDoctor(currentDoctor.getDoctorId());
         model.addAttribute("notifications", appointmentList);
-//        return "admin/appointments_list_admin";
         return "notifications/doctor_view_notifications";
     }
 
-    //  x
     @GetMapping("/notification_lab")
     public String notifyLab(HttpSession httpSession, Model model) {
         Lab currentLab = (Lab) httpSession.getAttribute("CurrentLab");
         List<Appointment> appointmentList = notificationsService.notifyLab(currentLab.getLabId());
         model.addAttribute("notifications", appointmentList);
-//        return "admin/appointments_list_admin";
         return "notifications/lab_view_notifications";
     }
 }

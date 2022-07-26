@@ -1,11 +1,9 @@
 package com.dal.drplus.controller;
 
-
 import com.dal.drplus.model.IBuilder.IRatingDoctorBuilder;
 import com.dal.drplus.model.IEntity.IRatingDoctor;
 import com.dal.drplus.model.IBuilder.IRatingLabBuilder;
 import com.dal.drplus.model.IEntity.IRatingLab;
-import com.dal.drplus.model.entity.Doctor;
 import com.dal.drplus.model.entity.Patient;
 import com.dal.drplus.model.entity.RatingDoctor;
 import com.dal.drplus.model.entity.RatingLab;
@@ -18,7 +16,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
-
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -27,7 +24,6 @@ public class RatingController {
     private String doctorId;
     private String labId;
     private RatingDoctorService ratingDoctorService;
-
     private RatingLabService ratingLabService;
 
     public RatingController(RatingDoctorRepositoryImpl ratingDoctorRepository,RatingLabRepositoryImpl ratingLabRepository) {
@@ -37,13 +33,9 @@ public class RatingController {
 
     @GetMapping("/add_rating/{doctor_id}")
     public String RatingForDoctor(HttpSession session, Model model, @PathVariable("doctor_id") String doctor_id ){
-        System.out.println("inside rating for doctor");
         Patient currentPatient = (Patient) session.getAttribute("CurrentPatient");
         patientId=currentPatient.getPatientId();
         doctorId=doctor_id;
-        System.out.println("inside rating for doctor patientId"+patientId);
-        System.out.println("inside rating for doctor doctorId"+doctorId);
-
         if(ratingDoctorService.checkPreviousDoctorRatingNotExistsForPatientID(doctorId, patientId) == true) {
             model.addAttribute("doctorRating", (RatingDoctor)ModelFactory.instance().createRatingDoctor());
             return "Rating/rating_doctor";
@@ -55,14 +47,10 @@ public class RatingController {
 
     @GetMapping("/add_lab_rating/{lab_id}")
     public String RatingForLab(HttpSession session, Model model, @PathVariable("lab_id") String lab_id ){
-        System.out.println("inside rating for doctor");
         Patient currentPatient = (Patient) session.getAttribute("CurrentPatient");
         patientId=currentPatient.getPatientId();
         labId=lab_id;
-        System.out.println("inside rating for Lab patientId"+patientId);
-
         if(ratingLabService.checkPreviousLabRatingNotExistsForPatientID(labId, patientId) == true) {
-            //model.addAttribute("labRating", new RatingLab());
             model.addAttribute("labRating", (RatingLab) ModelFactory.instance().createRatingLab());
             return "Rating/rating_lab";
         }
@@ -73,18 +61,14 @@ public class RatingController {
 
     @PostMapping("/add_rating/")
     public RedirectView AddRatingForDoctor(@RequestParam("review") String review, @RequestParam("doctorRating") String doctorRating){
-        System.out.println("inside add rating for doc");
-        System.out.println("inside add rating for doc => patientId"+patientId);
-        System.out.println("inside add rating for doc => doctorId"+doctorId);
         IRatingDoctorBuilder builder = ModelFactory.instance().createRatingDoctorBuilder();
-        IRatingDoctor rating =builder
+        IRatingDoctor rating = builder
                                 .addPatientId(patientId)
                                 .addDoctorId(doctorId)
                                 .addReview(review)
                                 .addDoctorRating(Integer.parseInt(doctorRating)).build();
         if(rating.validateDoctorRating()){
             boolean result = ratingDoctorService.addRating(rating);
-            System.out.println("rating save result" + result);
             return new RedirectView("/rating_success");
         }else{
             return new RedirectView("/add_rating/"+doctorId);
@@ -94,21 +78,14 @@ public class RatingController {
 
     @PostMapping("/add_lab_rating/")
     public RedirectView AddRatingForLab(@RequestParam("review") String review, @RequestParam("labRating") String labRating){
-        System.out.println("inside add rating for lab");
-        System.out.println("inside add rating for lab => patientId"+patientId);
-        System.out.println("inside add rating for lab => LabId"+labId);
-
         IRatingLabBuilder builder = ModelFactory.instance().createRatingLabBuilder();
-
         IRatingLab rating =  builder
                         .addPatientId(patientId)
                         .addLabId(labId)
                         .addReview(review)
                         .addLabRating(Integer.parseInt(labRating)).build();
-
         if(rating.validateLabRatingFormat(rating.getLabRating())){
             boolean result = ratingLabService.addRating(rating);
-            System.out.println("rating save result"+result);
             return new RedirectView("/rating_success");
         }
         return new RedirectView("/add_rating/"+labId);
