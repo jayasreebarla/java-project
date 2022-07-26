@@ -15,7 +15,6 @@ public abstract class IDoctor {
     protected int doctorRating;
     protected double doctorFee;
 
-
     public IDoctor() {
     }
 

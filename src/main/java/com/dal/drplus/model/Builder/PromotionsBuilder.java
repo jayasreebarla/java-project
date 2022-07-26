@@ -1,10 +1,10 @@
 package com.dal.drplus.model.Builder;
+
 import com.dal.drplus.model.IBuilder.IPromotionsBuilder;
 import com.dal.drplus.model.entity.Promotions;
 import com.dal.drplus.model.factory.ModelFactory;
 
 public class PromotionsBuilder implements IPromotionsBuilder{
-
     private String promotionId;
     private String promotionName;
     private String promotionStartDate;
@@ -46,5 +46,4 @@ public class PromotionsBuilder implements IPromotionsBuilder{
     public String getPromotionsStartDate() {return promotionStartDate;}
     public String getPromotionsEndDate() {return promotionEndDate;}
     public int getAmountOff() {return  amountOff;}
-
 }

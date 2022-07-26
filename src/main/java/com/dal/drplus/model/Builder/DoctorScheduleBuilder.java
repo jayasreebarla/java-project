@@ -1,10 +1,8 @@
 package com.dal.drplus.model.Builder;
 
 import com.dal.drplus.model.IBuilder.IDoctorScheduleBuilder;
-import com.dal.drplus.model.entity.Doctor;
 import com.dal.drplus.model.entity.DoctorSchedule;
 import com.dal.drplus.model.factory.ModelFactory;
-import com.dal.drplus.repository.implementation.DoctorScheduleRepositoryImpl;
 
 public class DoctorScheduleBuilder implements IDoctorScheduleBuilder {
     private int slotId;
@@ -44,24 +42,19 @@ public class DoctorScheduleBuilder implements IDoctorScheduleBuilder {
         return slotId;
     }
 
-
     public String getSlotTiming() {
         return slotTiming;
     }
-
 
     public String getSlotDate() {
         return slotDate;
     }
 
-
     public String getDoctorId() {
         return doctorId;
     }
 
-
     public Boolean getStatus() {
         return status;
     }
-
 }

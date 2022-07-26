@@ -44,17 +44,14 @@ public class PrescriptionBuilder implements IPrescriptionBuilder {
     public int getPrescriptionId() {
         return prescriptionId;
     }
-
     @Override
     public int getAppointmentId() {
         return appointmentId;
     }
-
     @Override
     public String getPrescriptionDetails() {
         return prescriptionDetails;
     }
-
     @Override
     public byte[] getPrescriptionFile() {
         return prescriptionFile;

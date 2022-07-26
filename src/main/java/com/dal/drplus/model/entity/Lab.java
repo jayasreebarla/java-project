@@ -4,18 +4,6 @@ import com.dal.drplus.model.IBuilder.ILabBuilder;
 import com.dal.drplus.model.IEntity.ILab;
 
 public class Lab extends ILab {
-
-//    private String labId;
-//    private String labPersonName;
-//    private String labPassword;
-//    //private String labConfirmPassword;
-//    private String labEmailId;
-//    private String labAddress;
-//    private String labContactInfo;
-//    private String labPincode;
-//    private double labFee;
-//    private int labRating;
-
     public Lab() {
 
     }
@@ -43,7 +31,6 @@ public class Lab extends ILab {
         this.labFee = labFee;
         this.labRating = labRating;
     }
-
 
     @Override
     public String getLabId() {
@@ -147,13 +134,11 @@ public class Lab extends ILab {
 
     @Override
     public boolean validateLabEmailIdFormat(String labEmailId) {
-        //return labEmailId.matches("\"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$\"");
         return labEmailId.matches("^[\\w.+\\-]+@gmail\\.com$");
     }
 
     @Override
     public boolean validateLabContactInfoFormat(String labContactInfo) {
-        //return labContactInfo.matches("^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s.-]\\d{3}[\\s.-]\\d{4}$");
         return labContactInfo.matches("^[a-zA-Z0-9]*$");
     }
 

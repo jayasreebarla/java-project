@@ -1,5 +1,5 @@
 package com.dal.drplus.model.IBuilder;
-import com.dal.drplus.model.Builder.PromotionsBuilder;
+
 import com.dal.drplus.model.entity.Promotions;
 
 public interface IPromotionsBuilder {

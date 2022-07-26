@@ -6,7 +6,6 @@ public abstract class IReport {
     protected String reportDetails;
     protected byte[] reportFile;
     public IReport(){
-
     }
 
     public IReport(int reportId, int appointmentId, String reportDetails, byte[] reportFile) {
@@ -15,8 +14,6 @@ public abstract class IReport {
         this.reportDetails = reportDetails;
         this.reportFile = reportFile;
     }
-
-   // abstract public boolean validateReportDetails(String reportDetails);
 
     abstract public int getReportId();
 
@@ -35,5 +32,4 @@ public abstract class IReport {
     abstract public void setReportFile(byte[] reportFile);
 
     abstract public boolean validateReportDetails(String reportDetails);
-
 }

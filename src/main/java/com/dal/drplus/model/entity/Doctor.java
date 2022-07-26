@@ -1,6 +1,5 @@
 package com.dal.drplus.model.entity;
 
-import com.dal.drplus.model.Builder.DoctorBuilder;
 import com.dal.drplus.model.IBuilder.IDoctorBuilder;
 import com.dal.drplus.model.IEntity.IDoctor;
 
@@ -168,5 +167,4 @@ public class Doctor extends IDoctor {
     public void setDoctorFee(double doctorFee) {
         this.doctorFee = doctorFee;
     }
-
 }

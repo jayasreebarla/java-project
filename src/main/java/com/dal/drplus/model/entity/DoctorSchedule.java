@@ -1,6 +1,5 @@
 package com.dal.drplus.model.entity;
 
-import com.dal.drplus.model.Builder.DoctorScheduleBuilder;
 import com.dal.drplus.model.IBuilder.IDoctorScheduleBuilder;
 import com.dal.drplus.model.IEntity.IDoctorSchedule;
 
@@ -42,6 +41,7 @@ public class DoctorSchedule extends IDoctorSchedule {
         LocalDate date = LocalDate.parse(slotDate);
         return date.isEqual(LocalDate.now()) || date.isAfter(LocalDate.now());
     }
+
     public int getSlotId() {
         return this.slotId;
     }
@@ -81,5 +81,4 @@ public class DoctorSchedule extends IDoctorSchedule {
     public void setStatus(Boolean status) {
         this.status = status;
     }
-
 }

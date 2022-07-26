@@ -7,7 +7,6 @@ import com.dal.drplus.model.IBuilder.IBillingBuilder;
 import com.dal.drplus.model.IBuilder.IDoctorBuilder;
 import com.dal.drplus.model.IBuilder.IRatingDoctorBuilder;
 import com.dal.drplus.model.IBuilder.IWalletBuilder;
-import com.dal.drplus.model.IBuilder.IDoctorBuilder;
 import com.dal.drplus.model.IBuilder.IReportBuilder;
 import com.dal.drplus.model.IBuilder.ILabBuilder;
 import com.dal.drplus.model.IBuilder.IPrescriptionBuilder;
@@ -20,7 +19,6 @@ import com.dal.drplus.model.IEntity.*;
 import com.dal.drplus.model.entity.*;
 
 public class ModelFactory implements IModelFactory{
-
     private ModelFactory() {
     }
 

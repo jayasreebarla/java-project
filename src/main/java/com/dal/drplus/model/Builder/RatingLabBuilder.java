@@ -1,7 +1,6 @@
 package com.dal.drplus.model.Builder;
 
 import com.dal.drplus.model.IBuilder.IRatingLabBuilder;
-import com.dal.drplus.model.entity.Doctor;
 import com.dal.drplus.model.entity.RatingLab;
 import com.dal.drplus.model.factory.ModelFactory;
 

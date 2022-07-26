@@ -38,7 +38,6 @@ public class Prescription extends IPrescription {
         this.prescriptionId = prescriptionId;
     }
 
-
     public String getPrescriptionDetails() {
         return prescriptionDetails;
     }

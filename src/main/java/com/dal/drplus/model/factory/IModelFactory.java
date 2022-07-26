@@ -1,6 +1,5 @@
 package com.dal.drplus.model.factory;
 
-import com.dal.drplus.model.Builder.*;
 import com.dal.drplus.model.IBuilder.IAdminBuilder;
 import com.dal.drplus.model.IBuilder.IAppointmentBuilder;
 import com.dal.drplus.model.IBuilder.IDoctorBuilder;
@@ -10,16 +9,13 @@ import com.dal.drplus.model.IBuilder.IPrescriptionBuilder;
 import com.dal.drplus.model.IBuilder.IPromotionsBuilder;
 import com.dal.drplus.model.IBuilder.*;
 import com.dal.drplus.model.IBuilder.IBillingBuilder;
-import com.dal.drplus.model.IBuilder.IDoctorBuilder;
 import com.dal.drplus.model.IBuilder.IRatingDoctorBuilder;
 import com.dal.drplus.model.IBuilder.IWalletBuilder;
 import com.dal.drplus.model.IEntity.*;
 import com.dal.drplus.model.entity.Doctor;
-import com.dal.drplus.model.entity.Lab;
 import com.dal.drplus.model.entity.Promotions;
 import com.dal.drplus.model.entity.*;
 import com.dal.drplus.model.entity.Billing;
-import com.dal.drplus.model.entity.Doctor;
 import com.dal.drplus.model.entity.RatingDoctor;
 import com.dal.drplus.model.entity.Wallet;
 
@@ -46,7 +42,6 @@ public interface IModelFactory {
 
     public ILab createLab();
     public ILab createLabUsingBuilder(ILabBuilder builder);
-
     public ILabBuilder createLabBuilder();
 
     public ILabSchedule createLabSchedule();
@@ -63,6 +58,7 @@ public interface IModelFactory {
 
     public IPromotions createPromotions();
     public Promotions createPromotionsUsingBuilder(IPromotionsBuilder builder);
+    public IPromotionsBuilder createPromotionsBuilder();
 
     public IAdmin createAdmin();
     public IAdmin createAdminUsingBuilder(IAdminBuilder adminBuilder);
@@ -75,9 +71,6 @@ public interface IModelFactory {
     public IAppointment createAppointment();
     public IAppointment createAppointmentUsingBuilder(IAppointmentBuilder appointmentBuilder);
     public IAppointmentBuilder createAppointmentBuilder();
-
-
-    public IPromotionsBuilder createPromotionsBuilder();
 
     public IPrescription createPrescription();
     public IPrescription createPrescriptionUsingBuilder(IPrescriptionBuilder prescriptionBuilder);

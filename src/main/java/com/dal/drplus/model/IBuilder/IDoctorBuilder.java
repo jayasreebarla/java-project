@@ -1,6 +1,5 @@
 package com.dal.drplus.model.IBuilder;
 
-import com.dal.drplus.model.Builder.DoctorBuilder;
 import com.dal.drplus.model.entity.Doctor;
 
 public interface IDoctorBuilder {

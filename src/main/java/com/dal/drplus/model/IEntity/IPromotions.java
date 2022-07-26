@@ -25,16 +25,13 @@ public abstract class IPromotions {
 
     abstract public void setPromotionName(String promotionName);
 
-
     abstract public String getPromotionStartDate();
 
     abstract public void setPromotionStartDate(String promotionStartDate);
 
-
     abstract public String getPromotionEndDate();
 
     abstract public void setPromotionEndDate(String promotionEndDate);
-
 
     abstract public int getAmountOff();
 

@@ -1,7 +1,6 @@
 package com.dal.drplus.model.Builder;
 
 import com.dal.drplus.model.IBuilder.ILabScheduleBuilder;
-import com.dal.drplus.model.entity.Doctor;
 import com.dal.drplus.model.entity.LabSchedule;
 import com.dal.drplus.model.factory.ModelFactory;
 
@@ -21,6 +20,7 @@ public class LabScheduleBuilder implements ILabScheduleBuilder {
         this.slotTiming = slotTiming;
         return this;
     }
+
     public LabScheduleBuilder addSlotDate(String slotDate) {
         this.slotDate = slotDate;
         return this;
@@ -37,7 +37,7 @@ public class LabScheduleBuilder implements ILabScheduleBuilder {
     }
 
     public LabSchedule build() {
-        LabSchedule labSchedule = (LabSchedule) ModelFactory.instance().createLabScheduleUsingBuilder(this);
+        LabSchedule labSchedule = ModelFactory.instance().createLabScheduleUsingBuilder(this);
         return labSchedule;
     }
 
@@ -52,7 +52,6 @@ public class LabScheduleBuilder implements ILabScheduleBuilder {
     public String getSlotDate() {
         return slotDate;
     }
-
 
     public String getLabId() {
         return labId;

@@ -14,7 +14,6 @@ public abstract class IAppointment {
     protected String appointmentType;
 
     public IAppointment(){
-
     }
 
     public IAppointment(int appointmentId, String appointmentDate, String appointmentTime, String appointmentDescription, double appointmentFee, String patientId, String doctorId, int billId, int slotId, String labId, String appointmentType) {

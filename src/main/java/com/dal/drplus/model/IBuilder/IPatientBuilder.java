@@ -1,8 +1,6 @@
 package com.dal.drplus.model.IBuilder;
 
-import com.dal.drplus.model.Builder.PatientBuilder;
 import com.dal.drplus.model.entity.Patient;
-import com.dal.drplus.model.factory.ModelFactory;
 
 public interface IPatientBuilder {
 

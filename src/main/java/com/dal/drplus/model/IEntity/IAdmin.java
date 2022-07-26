@@ -6,7 +6,6 @@ public abstract class IAdmin {
     protected String adminAccessKey;
 
     public IAdmin(){
-
     }
 
     public IAdmin(String adminId, String adminPassword, String adminAccessKey) {

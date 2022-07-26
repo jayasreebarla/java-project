@@ -1,7 +1,6 @@
 package com.dal.drplus.model.Builder;
 
 import com.dal.drplus.model.IBuilder.ILabBuilder;
-import com.dal.drplus.model.IEntity.ILab;
 import com.dal.drplus.model.entity.Lab;
 import com.dal.drplus.model.factory.ModelFactory;
 
@@ -37,13 +36,11 @@ public class LabBuilder implements ILabBuilder {
         return this;
     }
 
-
     @Override
     public LabBuilder addLabAddress(String labAddress){
         this.labAddress = labAddress;
         return this;
     }
-
 
     public LabBuilder addLabContactInfo(String labContactInfo){
         this.labContactInfo = labContactInfo;
@@ -73,12 +70,10 @@ public class LabBuilder implements ILabBuilder {
     public String getLabId(){ return labId;}
     public String getLabPersonName(){return labPersonName;}
     public String getLabPassword(){return labPassword;}
-
     public String getLabEmailId(){return labEmailId;}
     public String getLabAddress(){return labAddress;}
     public String getLabContactInfo(){return labContactInfo;}
     public String getLabPincode(){return labPincode;}
     public double getLabFee(){return labFee;}
     public int getLabRating(){return labRating;}
-
 }

@@ -5,7 +5,6 @@ import com.dal.drplus.model.entity.Doctor;
 import com.dal.drplus.model.factory.ModelFactory;
 
 public class DoctorBuilder implements IDoctorBuilder {
-
     private String doctorId;
     private String doctorName;
     private String doctorPassword;
@@ -25,72 +24,60 @@ public class DoctorBuilder implements IDoctorBuilder {
         return this;
     }
 
-    
     public DoctorBuilder addDoctorName(String doctorName) {
         this.doctorName=doctorName;
         return this;
     }
-
     
     public DoctorBuilder addDoctorPassword(String doctorPassword) {
         this.doctorPassword=doctorPassword;
         return this;
     }
-
     
     public DoctorBuilder addDoctorEmail(String doctorEmail) {
         this.doctorEmail=doctorEmail;
         return this;
     }
 
-    
     public DoctorBuilder addDoctorPhoneNo(String doctorPhoneNo) {
         this.doctorPhoneNo=doctorPhoneNo;
         return this;
     }
 
-    
     public DoctorBuilder addDoctorGender(String doctorGender) {
         this.doctorGender=doctorGender;
         return this;
     }
-
     
     public DoctorBuilder addDoctorAge(int age) {
         this.doctorAge=age;
         return this;
     }
-
     
     public DoctorBuilder addDoctorCredentials(String doctorCredentials) {
         this.doctorCredentials=doctorCredentials;
         return this;
     }
-
     
     public DoctorBuilder addDoctorSpecialization(String specialization) {
         this.doctorSpecialization=specialization;
         return this;
     }
 
-    
     public DoctorBuilder addDoctorClinicAddress(String doctorClinicAddress) {
         this.doctorClinicAddress=doctorClinicAddress;
         return this;
     }
 
-    
     public DoctorBuilder addDoctorPincode(String doctorPincode) {
         this.doctorPincode=doctorPincode;
         return this;
     }
-
     
     public DoctorBuilder addDoctorRating(int rating) {
         this.doctorRating=rating;
         return this;
     }
-
     
     public DoctorBuilder addDoctorFee(double fee) {
         this.doctorFee=fee;

@@ -1,6 +1,5 @@
 package com.dal.drplus.model.entity;
 
-import com.dal.drplus.model.Builder.RatingLabBuilder;
 import com.dal.drplus.model.IBuilder.IRatingLabBuilder;
 import com.dal.drplus.model.IEntity.IRatingLab;
 
@@ -71,5 +70,4 @@ public class RatingLab extends IRatingLab {
     public void setLabRating(int labRating) {
         this.labRating = labRating;
     }
-
 }

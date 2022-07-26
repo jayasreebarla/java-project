@@ -2,7 +2,6 @@ package com.dal.drplus.model.entity;
 
 import com.dal.drplus.model.IBuilder.IAppointmentBuilder;
 import com.dal.drplus.model.IEntity.IAppointment;
-
 import java.time.LocalDate;
 
 public class Appointment extends IAppointment {

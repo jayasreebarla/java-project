@@ -1,7 +1,6 @@
 package com.dal.drplus.model.IBuilder;
 
 import com.dal.drplus.model.entity.Billing;
-
 import java.util.Date;
 
 public interface IBillingBuilder {

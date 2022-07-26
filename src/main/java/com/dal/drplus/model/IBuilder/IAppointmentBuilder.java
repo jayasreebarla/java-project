@@ -15,17 +15,16 @@ public interface IAppointmentBuilder {
     IAppointmentBuilder addLabId(String labId);
     IAppointmentBuilder addAppointmentType(String appointmentType);
 
-    public Appointment build();
-
-    public int getAppointmentId();
-    public String getAppointmentDate();
-    public String getAppointmentTime();
-    public String getAppointmentDescription();
-    public double getAppointmentFee();
-    public String getPatientId();
-    public String getDoctorId();
-    public int getBillId();
-    public int getSlotId();
-    public String getLabId();
-    public String getAppointmentType();
+    Appointment build();
+    int getAppointmentId();
+    String getAppointmentDate();
+    String getAppointmentTime();
+    String getAppointmentDescription();
+    double getAppointmentFee();
+    String getPatientId();
+    String getDoctorId();
+    int getBillId();
+    int getSlotId();
+    String getLabId();
+    String getAppointmentType();
 }

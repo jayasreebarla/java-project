@@ -1,8 +1,6 @@
 package com.dal.drplus.model.IBuilder;
 
-import com.dal.drplus.model.Builder.DoctorScheduleBuilder;
 import com.dal.drplus.model.entity.DoctorSchedule;
-import com.dal.drplus.model.factory.ModelFactory;
 
 public interface IDoctorScheduleBuilder {
 

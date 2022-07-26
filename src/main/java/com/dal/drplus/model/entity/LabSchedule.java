@@ -1,6 +1,5 @@
 package com.dal.drplus.model.entity;
 
-import com.dal.drplus.model.Builder.LabScheduleBuilder;
 import com.dal.drplus.model.IBuilder.ILabScheduleBuilder;
 import com.dal.drplus.model.IEntity.ILabSchedule;
 
@@ -36,11 +35,13 @@ public class LabSchedule extends ILabSchedule {
         this.labId = null;
         this.status = null;
     }
+
     @Override
     public boolean validateSlotDateFormat(String slotDate) {
         LocalDate date = LocalDate.parse(slotDate);
         return date.isEqual(LocalDate.now()) || date.isAfter(LocalDate.now());
     }
+
     public int getSlotId() {
         return this.slotId;
     }
@@ -80,5 +81,4 @@ public class LabSchedule extends ILabSchedule {
     public void setStatus(Boolean status) {
         this.status = status;
     }
-
 }

@@ -1,4 +1,5 @@
 package com.dal.drplus.model.IBuilder;
+
 import com.dal.drplus.model.Builder.LabBuilder;
 import com.dal.drplus.model.entity.Lab;
 
@@ -6,8 +7,7 @@ public interface ILabBuilder {
     ILabBuilder addLabId(String labId);
     ILabBuilder addLabPersonName(String labPersonName);
     ILabBuilder addLabPassword(String labPassword);
-
-    abstract LabBuilder addLabEmailId(String labEmailId);
+    LabBuilder addLabEmailId(String labEmailId);
     ILabBuilder addLabAddress(String labAddress);
     ILabBuilder addLabContactInfo(String labContactInfo);
     ILabBuilder addLabPincode(String labPincode);

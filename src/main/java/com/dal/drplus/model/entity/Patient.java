@@ -1,7 +1,5 @@
 package com.dal.drplus.model.entity;
 
-import com.dal.drplus.model.Builder.DoctorBuilder;
-import com.dal.drplus.model.Builder.PatientBuilder;
 import com.dal.drplus.model.IBuilder.IPatientBuilder;
 import com.dal.drplus.model.IEntity.IPatient;
 
@@ -114,7 +112,6 @@ public class Patient extends IPatient {
         this.patientPassword = patientPassword;
     }
 
-
     public String getPatientAddress() {
         return this.patientAddress;
     }
@@ -138,6 +135,5 @@ public class Patient extends IPatient {
     public void setPrivacyAgreementEnabled(boolean privacyAgreementEnabled) {
         this.privacyAgreementEnabled = privacyAgreementEnabled;
     }
-
 }
 

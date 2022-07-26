@@ -1,7 +1,6 @@
 package com.dal.drplus.model.Builder;
 
 import com.dal.drplus.model.IBuilder.IPatientBuilder;
-import com.dal.drplus.model.entity.Doctor;
 import com.dal.drplus.model.entity.Patient;
 import com.dal.drplus.model.factory.ModelFactory;
 
@@ -39,7 +38,6 @@ public class PatientBuilder implements IPatientBuilder {
         return this;
     }
 
-
     public PatientBuilder addPatientPassword(String patientPassword) {
         this.patientPassword = patientPassword;
         return this;
@@ -49,7 +47,6 @@ public class PatientBuilder implements IPatientBuilder {
         this.patientAddress = patientAddress;
         return this;
     }
-
 
     public PatientBuilder addPatientPincode(String patientPincode) {
         this.patientPincode = patientPincode;
@@ -69,40 +66,28 @@ public class PatientBuilder implements IPatientBuilder {
     public String getPatientId() {
         return patientId;
     }
-
     public String getPatientName() {
         return patientName;
     }
-
-
     public String getPatientEmail() {
         return patientEmail;
     }
-
-
     public String getPatientPhoneNo() {
         return patientPhoneNo;
     }
-
     public int getPatientAge() {
         return patientAge;
     }
-
     public String getPatientPassword() {
         return patientPassword;
     }
-
-
     public String getPatientAddress() {
         return patientAddress;
     }
-
     public String getPatientPincode() {
         return patientPincode;
     }
-
     public boolean isPrivacyAgreementEnabled() {
         return privacyAgreementEnabled;
     }
-
 }

@@ -2,7 +2,6 @@ package com.dal.drplus.model.entity;
 
 import com.dal.drplus.model.IBuilder.IBillingBuilder;
 import com.dal.drplus.model.IEntity.IBilling;
-
 import java.time.LocalDate;
 import java.util.Date;
 

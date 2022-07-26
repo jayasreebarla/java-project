@@ -44,17 +44,14 @@ public class ReportBuilder implements IReportBuilder {
     public int getReportId() {
         return reportId;
     }
-
     @Override
     public int getAppointmentId() {
         return appointmentId;
     }
-
     @Override
     public String getReportDetails() {
         return reportDetails;
     }
-
     @Override
     public byte[] getReportFile() {
         return reportFile;

@@ -5,7 +5,6 @@ import com.dal.drplus.model.entity.Appointment;
 import com.dal.drplus.model.factory.ModelFactory;
 
 public class AppointmentBuilder implements IAppointmentBuilder {
-
     private int appointmentId;
     private String appointmentDate;
     private String appointmentTime;

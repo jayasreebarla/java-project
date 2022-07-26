@@ -1,6 +1,5 @@
 package com.dal.drplus.model.IEntity;
 
-import java.time.LocalDate;
 import java.util.Date;
 
 public abstract class IBilling {
