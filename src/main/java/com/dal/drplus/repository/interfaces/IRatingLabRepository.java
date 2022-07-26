@@ -1,5 +1,6 @@
 package com.dal.drplus.repository.interfaces;
 
+import com.dal.drplus.model.IEntity.IRatingLab;
 import com.dal.drplus.model.entity.RatingLab;
 
 import java.util.List;
@@ -9,10 +10,10 @@ public interface IRatingLabRepository {
         SUCCESS,
         FAILURE
     }
-    StorageResult saveLabRating(RatingLab ratingLab);
+    StorageResult saveLabRating(IRatingLab ratingLab);
     StorageResult updateLabRating(RatingLab ratingLab);
     StorageResult updateLabReview(RatingLab ratingLab);
-    RatingLab findLabRatingById(int ratingId,String labId);
+    IRatingLab findLabRatingById(int ratingId, String labId);
     boolean findLabRatingByLabIdAndPatientID(String labId, String patientId);
     List<RatingLab> findLabRatingByLabId(String labId);
     List<RatingLab> findLabRatingByPatientId(String patientId);

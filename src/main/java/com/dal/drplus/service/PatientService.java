@@ -1,5 +1,6 @@
 package com.dal.drplus.service;
 
+import com.dal.drplus.model.IEntity.IPatient;
 import com.dal.drplus.model.entity.Patient;
 import com.dal.drplus.repository.interfaces.IPatientRepository;
 
@@ -17,8 +18,8 @@ public class PatientService {
         return patientRepository.findAll();
     }
 
-    public Patient getPatientById(String patientId){
-        Patient patient = patientRepository.findPatientById(patientId);
+    public IPatient getPatientById(String patientId){
+        IPatient patient = patientRepository.findPatientById(patientId);
         return patient;
     }
 

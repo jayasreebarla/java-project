@@ -1,9 +1,13 @@
 package com.dal.drplus.controller;
 
 
+import com.dal.drplus.model.IBuilder.IRatingLabBuilder;
+import com.dal.drplus.model.IEntity.IRatingLab;
+import com.dal.drplus.model.entity.Doctor;
 import com.dal.drplus.model.entity.Patient;
 import com.dal.drplus.model.entity.RatingDoctor;
 import com.dal.drplus.model.entity.RatingLab;
+import com.dal.drplus.model.factory.ModelFactory;
 import com.dal.drplus.repository.implementation.RatingDoctorRepositoryImpl;
 import com.dal.drplus.repository.implementation.RatingLabRepositoryImpl;
 import com.dal.drplus.service.RatingDoctorService;
@@ -55,7 +59,8 @@ public class RatingController {
         System.out.println("inside rating for Lab patientId"+patientId);
 
         if(ratingLabService.checkPreviousLabRatingNotExistsForPatientID(labId, patientId) == true) {
-            model.addAttribute("labRating", new RatingLab());
+            //model.addAttribute("labRating", new RatingLab());
+            model.addAttribute("labRating", (RatingLab) ModelFactory.instance().createRatingLab());
             return "Rating/rating_lab";
         }
         else{
@@ -85,12 +90,22 @@ public class RatingController {
         System.out.println("inside add rating for lab");
         System.out.println("inside add rating for lab => patientId"+patientId);
         System.out.println("inside add rating for lab => LabId"+labId);
-        RatingLab rating = new RatingLab();
-        rating.setRatingId(0);
-        rating.setPatientId(patientId);
-        rating.setLabId(labId);
-        rating.setReview(review);
-        rating.setLabRating(Integer.parseInt(labRating));
+
+        IRatingLabBuilder builder = ModelFactory.instance().createRatingLabBuilder();
+
+        IRatingLab rating =  builder
+                        .addPatientId(patientId)
+                        .addLabId(labId)
+                        .addReview(review)
+                        .addLabRating(Integer.parseInt(labRating)).build();
+
+          // = ModelFactory.instance().createRatingLabUsingBuilder(builder);
+//        rating.setRatingId(0);
+//        rating.setPatientId(patientId);
+//        rating.setLabId(labId);
+//        rating.setReview(review);
+//        rating.setLabRating(Integer.parseInt(labRating));
+
         boolean result = ratingLabService.addRating(rating);
         System.out.println("rating save result"+result);
         return "Rating/rating_successful";

@@ -2,6 +2,7 @@ package com.dal.drplus.model.entity;
 
 import com.dal.drplus.model.Builder.DoctorBuilder;
 import com.dal.drplus.model.Builder.PatientBuilder;
+import com.dal.drplus.model.IBuilder.IPatientBuilder;
 import com.dal.drplus.model.IEntity.IPatient;
 
 public class Patient extends IPatient {
@@ -18,7 +19,7 @@ public class Patient extends IPatient {
     public Patient() {
     }
 
-    public Patient(PatientBuilder builder){
+    public Patient(IPatientBuilder builder){
         this.patientId = builder.getPatientId();
         this.patientName = builder.getPatientName();
         this.patientAge = builder.getPatientAge();

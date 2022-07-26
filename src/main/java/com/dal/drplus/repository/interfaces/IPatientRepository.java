@@ -14,7 +14,7 @@ public interface IPatientRepository {
 
     StorageResult savePatient(IPatient patient);
     StorageResult updatePatient(Patient patient);
-    Patient findPatientById(String patientId);
+    IPatient findPatientById(String patientId);
 
     String getPatientPasswordById(String patientId);
     StorageResult deletePatientById(String patientId);
