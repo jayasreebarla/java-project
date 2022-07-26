@@ -1,13 +1,27 @@
 package com.dal.drplus.model.entity;
+import com.dal.drplus.model.IBuilder.IPromotionsBuilder;
+import com.dal.drplus.model.IEntity.IPromotions;
 
-public class Promotions {
+public class Promotions extends IPromotions {
 
-    String promotionId;
-    String promotionName;
-    String promotionStartDate;
-    String promotionEndDate;
-    int amountOff;
+    public Promotions(){
+    }
 
+    public Promotions(IPromotionsBuilder builder){
+        this.promotionId = builder.getPromotionsId();
+        this.promotionName = builder.getPromotionsName();
+        this.promotionStartDate = builder.getPromotionsStartDate();
+        this.promotionEndDate = builder.getPromotionsEndDate();
+        this.amountOff = builder.getAmountOff();
+    }
+
+    public Promotions(String promotionId,String promotionName,String promotionStartDate,String promotionEndDate,int amountOff){
+        this.promotionId = promotionId;
+        this.promotionName = promotionName;
+        this.promotionStartDate = promotionStartDate;
+        this.promotionEndDate = promotionEndDate;
+        this.amountOff = amountOff;
+    }
 
     public String getPromotionId() {
         return promotionId;

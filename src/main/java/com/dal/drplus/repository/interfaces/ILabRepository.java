@@ -1,5 +1,5 @@
 package com.dal.drplus.repository.interfaces;
-
+import com.dal.drplus.model.IEntity.ILab;
 import com.dal.drplus.model.entity.Lab;
 
 import java.util.List;
@@ -10,9 +10,9 @@ public interface ILabRepository {
         SUCCESS,
         FAILURE
     }
-    StorageResult saveLab(Lab lab);
-    StorageResult updateLab(Lab lab);
-    Lab findLabById(String labId);
+    StorageResult saveLab(ILab lab);
+
+    ILab findLabById(String labId);
     List<Lab> findAllLabsByPincode(String labPincode);
     String getLabPasswordById(String labId);
     StorageResult deleteLabById(String labId);
