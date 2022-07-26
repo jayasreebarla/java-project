@@ -12,13 +12,13 @@ public class PrescriptionTest {
     private static String prescriptionDetails2 = "abcd.pdf";
 
     @Test
-    void validateAdminAccessKeyTrue(){
-        boolean result = prescription.validatePrescriptionDetails(prescriptionDetails1);
+    void validatePrescriptionDetailsTrue(){
+        boolean result = prescription.validatePrescriptionDetails(prescriptionDetails2);
         assertTrue(result);
     }
 
     @Test
-    void validateAdminAccessKeyFalse(){
+    void validatePrescriptionDetailsFalse(){
         boolean result = prescription.validatePrescriptionDetails(prescriptionDetails1);
         assertFalse(result);
     }

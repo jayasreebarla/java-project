@@ -1,4 +1,5 @@
 package com.dal.drplus.service;
+import com.dal.drplus.model.entity.Prescription;
 import com.dal.drplus.model.entity.PrescriptionTest;
 import com.dal.drplus.repository.implementation.PrescriptionRepositoryImpl;
 import com.dal.drplus.repository.interfaces.IPrescriptionRepository;
@@ -11,7 +12,7 @@ import java.io.FileNotFoundException;
 
 public class PrescriptionServiceTest {
 
-    private static PrescriptionTest prescription = new PrescriptionTest();
+    private static Prescription prescription = new Prescription();
 
     private static PrescriptionService prescriptionService;
     private static IPrescriptionRepository prescriptionRepository;
@@ -22,7 +23,7 @@ public class PrescriptionServiceTest {
         prescriptionRepository = Mockito.mock(PrescriptionRepositoryImpl.class);
         prescriptionRepository = Mockito.mock(PrescriptionRepositoryImpl.class);
         Mockito.when(prescriptionRepository.uploadPrescription(prescription)).thenReturn(IPrescriptionRepository.StorageResult.SUCCESS);
-        Mockito.when(prescriptionRepository.uploadPrescription(prescription)).thenReturn(IPrescriptionRepository.StorageResult.FAILURE);
+       Mockito.when(prescriptionRepository.uploadPrescription(prescription)).thenReturn(IPrescriptionRepository.StorageResult.FAILURE);
         prescriptionService = new PrescriptionService(prescriptionRepository);
     }
 
