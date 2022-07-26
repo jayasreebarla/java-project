@@ -149,7 +149,6 @@ public class AdminController {
 
     @GetMapping("/cancel_appointment_admin/{id}")
     public RedirectView cancelAppointmentbyAdmin(@PathVariable int id){
-        System.out.println("cancel appointment "+id);
         boolean result = appointmentService.cancelAppointment(id);
         if(result == true){
             return new RedirectView("/admin/appointment_list_admin");
@@ -160,20 +159,14 @@ public class AdminController {
 
     @GetMapping("/delete_doctor_admin/{id}")
     public RedirectView deleteDoctorbyAdmin(@PathVariable String id){
-        System.out.println("delete doctor "+id);
         boolean result = doctorService.deleteDoctorbyId(id);
-        System.out.println("delete doctor res"+result);
         if(result == true){
-            System.out.println("1");
             boolean result1 = appointmentService.deleteAppointmentbyDoctorId(id);
             if(result1 == true) {
-                System.out.println("2");
                 boolean result2 = doctorSlotService.deleteSlotbyDoctorId(id);
                 if(result2 == true) {
-                    System.out.println("3");
                     boolean result3 = ratingDoctorService.deleteDoctorRatingbydoctorid(id);
                     if(result3 == true) {
-                        System.out.println("4");
                         return new RedirectView("/admin/doctor_list_admin");
                     }
                 }
@@ -186,17 +179,12 @@ public class AdminController {
     public RedirectView deletePatientbyAdmin(@PathVariable String id){
         boolean result = patientService.deletePatientById(id);
         if(result == true){
-            System.out.println("1");
             boolean result1 = appointmentService.deleteAppointmentbyPatientId(id);
-            System.out.println("111 "+result1);
             if(result1 == true) {
-                System.out.println("2");
                 boolean result2 = ratingDoctorService.deleteDoctorRatingbyPatientId(id);
                 if(result2 == true){
-                    System.out.println("3");
                     boolean result3 = ratingLabService.deleteLabRatingbyPatientId(id);
                     if(result3 == true) {
-                        System.out.println("4");
                         return new RedirectView("/admin/patient_list_admin");
                     }
                 }
