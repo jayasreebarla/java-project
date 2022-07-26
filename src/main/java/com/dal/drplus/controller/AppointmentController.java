@@ -74,16 +74,14 @@ public class AppointmentController {
                 .addBillId(billId)
                 .build();
 
-        boolean isConflict = appointmentService.isAppointmentConflict(appointment);
-        if(isConflict){
-            return new RedirectView("/error_appointment");
-        }
         boolean result = appointmentService.bookAppointment(appointment);
         if(result == true){
             doctorSlotService.updateSlotStatus(true, Integer.parseInt(slotId));
+            attributes.addFlashAttribute("bill",billService.getBill(billId));
+            return new RedirectView("/payment");
+        } else {
+            return new RedirectView("/error_appointment");
         }
-        attributes.addFlashAttribute("bill",billService.getBill(billId));
-        return new RedirectView("/payment");
     }
 
     @GetMapping("/labSlot/{slotId}/{labId}")
@@ -104,16 +102,14 @@ public class AppointmentController {
                 .build();
         IAppointment appointment = ModelFactory.instance().createAppointmentUsingBuilder(appointmentBuilder);
 
-        boolean isConflict = appointmentService.isAppointmentConflict(appointment);
-        if(isConflict){
-            return new RedirectView("/error_appointment");
-        }
         boolean result = appointmentService.bookAppointment(appointment);
         if(result == true){
             labSlotService.updateSlotStatus(true, Integer.parseInt(slotId));
+            attributes.addFlashAttribute("bill",billService.getBill(billId));
+            return new RedirectView("/payment");
+        } else {
+            return new RedirectView("/error_appointment");
         }
-        attributes.addFlashAttribute("bill",billService.getBill(billId));
-        return new RedirectView("/payment");
     }
 
     @GetMapping("/rescheduleDoctorSlot/{slotId}/{appointmentId}")

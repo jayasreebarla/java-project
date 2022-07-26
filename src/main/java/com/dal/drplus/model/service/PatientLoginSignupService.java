@@ -27,7 +27,7 @@ public class PatientLoginSignupService {
 
     public boolean isPatientCredentialValid(String patientId,String password){
         String passwordFromDB=patientRepository.getPatientPasswordById(patientId);
-        if(passwordFromDB.equals(password)){
+        if(password.equals(passwordFromDB)){
             return true;
         }else{
             return false;

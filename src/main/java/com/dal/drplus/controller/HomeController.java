@@ -13,8 +13,8 @@ public class HomeController {
         return new RedirectView("/home/"+type);
     }
     @GetMapping("/home/D")
-    public String getDoctorHomePage(){
-        return "doctor/doctor_home";
+    public RedirectView getDoctorHomePage(){
+        return new RedirectView("/auth_doctor/doctor_home");
     }
 
     @GetMapping("/home/A")
@@ -23,8 +23,8 @@ public class HomeController {
     }
 
     @GetMapping("/home/L")
-    public String getLabHomePage(){
-        return "lab/lab_home";
+    public RedirectView getLabHomePage(){
+        return new RedirectView("/auth_lab/lab_home");
     }
 
     @GetMapping("/home/P")

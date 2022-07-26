@@ -36,7 +36,7 @@ public class DoctorLoginSignupService {
 
     public boolean isDoctorCredentialValid(String doctorId,String password){
         String passwordFromDB=doctorRepository.getDoctorPasswordById(doctorId);
-        if(passwordFromDB.equals(password)){
+        if(password.equals(passwordFromDB)){
             return true;
         }else{
             return false;
