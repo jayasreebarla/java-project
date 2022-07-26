@@ -1,7 +1,6 @@
 package com.dal.drplus.service;
 
 import com.dal.drplus.model.IEntity.IDoctor;
-import com.dal.drplus.model.entity.Doctor;
 import com.dal.drplus.repository.interfaces.IDoctorRepository;
 
 public class DoctorLoginSignupService {
@@ -14,7 +13,7 @@ public class DoctorLoginSignupService {
 
     public Boolean isDoctorIdExists(String doctorId){
         IDoctorRepository.StorageResult result = doctorRepository.isDoctorIdExists(doctorId);
-        System.out.println(result);
+
         if(result.equals(IDoctorRepository.StorageResult.SUCCESS)){
             return true;
         }else{

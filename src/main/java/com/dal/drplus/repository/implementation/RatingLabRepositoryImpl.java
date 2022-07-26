@@ -42,8 +42,6 @@ public class RatingLabRepositoryImpl implements IRatingLabRepository {
     String SELECT_ALL = "SELECT * from RatingLab";
     String DELETE_ALL = "DELETE from RatingLab";
 
-//    `rating_id`, `patient_id`, `lab_id`, `lab_rating`, `review`
-
     @Override
     public StorageResult saveLabRating(IRatingLab ratingLab) {
         try {
@@ -60,7 +58,6 @@ public class RatingLabRepositoryImpl implements IRatingLabRepository {
             }
 
         } catch (SQLException e) {
-//            throw new RuntimeException(e);
             return IRatingLabRepository.StorageResult.SUCCESS;
         }
     }
@@ -79,7 +76,6 @@ public class RatingLabRepositoryImpl implements IRatingLabRepository {
                 return IRatingLabRepository.StorageResult.FAILURE;
             }
         } catch (SQLException e) {
-//            throw new RuntimeException(e);
             return IRatingLabRepository.StorageResult.FAILURE;
         }
     }
@@ -98,7 +94,6 @@ public class RatingLabRepositoryImpl implements IRatingLabRepository {
                 return IRatingLabRepository.StorageResult.FAILURE;
             }
         } catch (SQLException e) {
-//            throw new RuntimeException(e);
             return IRatingLabRepository.StorageResult.FAILURE;
         }
     }
@@ -120,12 +115,6 @@ public class RatingLabRepositoryImpl implements IRatingLabRepository {
                         .addLabId(rs.getString("lab_id"))
                         .addLabRating(rs.getInt("lab_rating"))
                         .addReview(rs.getString("review")).build();
-
-//                ratingLab.setRatingId(rs.getInt("rating_id"));
-//                ratingLab.setPatientId(rs.getString("patient_id"));
-//                ratingLab.setLabId(rs.getString("lab_id"));
-//                ratingLab.setLabRating(rs.getInt("lab_rating"));
-//                ratingLab.setReview(rs.getString("review"));
             }
             return ratingLab;
         } catch (SQLException e) {
@@ -228,7 +217,6 @@ public class RatingLabRepositoryImpl implements IRatingLabRepository {
             }
             return IRatingLabRepository.StorageResult.FAILURE;
         } catch (SQLException e) {
-//            throw new RuntimeException(e);
             return IRatingLabRepository.StorageResult.FAILURE;
         }
     }
@@ -244,7 +232,6 @@ public class RatingLabRepositoryImpl implements IRatingLabRepository {
             }
             return IRatingLabRepository.StorageResult.FAILURE;
         } catch (SQLException e) {
-//            throw new RuntimeException(e);
             return IRatingLabRepository.StorageResult.FAILURE;
         }
     }
@@ -268,7 +255,6 @@ public class RatingLabRepositoryImpl implements IRatingLabRepository {
             return statement.executeUpdate();
         } catch (SQLException e) {
             return -1;
-            //throw new RuntimeException(e);
         }
     }
 
@@ -284,11 +270,6 @@ public class RatingLabRepositoryImpl implements IRatingLabRepository {
                                             .addLabRating(rs.getInt("lab_rating"))
                                                     .addReview(rs.getString("review")).build();
 
-//            ratingLab.setRatingId(rs.getInt("rating_id"));
-//            ratingLab.setPatientId(rs.getString("patient_id"));
-//            ratingLab.setLabId(rs.getString("lab_id"));
-//            ratingLab.setLabRating(rs.getInt("lab_rating"));
-//            ratingLab.setReview(rs.getString("review"));
             ratingLabList.add(ratingLab);
         }
         return ratingLabList;

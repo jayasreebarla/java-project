@@ -1,6 +1,5 @@
 package com.dal.drplus.repository.implementation;
 
-import com.dal.drplus.model.Builder.LabScheduleBuilder;
 import com.dal.drplus.model.IBuilder.ILabScheduleBuilder;
 import com.dal.drplus.model.IEntity.ILabSchedule;
 import com.dal.drplus.model.entity.LabSchedule;
@@ -49,7 +48,6 @@ public class LabScheduleRepositoryImpl implements ILabScheduleRepository {
     public StorageResult saveLabSchedule(ILabSchedule labSchedule) {
         try {
             PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(INSERT_LAB_SCHEDULE);
-//            statement.setString(1,labSchedule.getSlotTiming());
             statement.setString(2, labSchedule.getSlotDate());
             statement.setString(1, labSchedule.getSlotTiming());
             statement.setString(3,labSchedule.getLabId());
@@ -57,7 +55,6 @@ public class LabScheduleRepositoryImpl implements ILabScheduleRepository {
             statement.executeUpdate();
             return StorageResult.SUCCESS;
         } catch (SQLException e) {
-//            throw new RuntimeException(e);
             return StorageResult.FAILURE;
         }
     }
@@ -148,13 +145,7 @@ public class LabScheduleRepositoryImpl implements ILabScheduleRepository {
 
     @Override
     public StorageResult updateSlotStatus(boolean status, int slotId) {
-//        int statusInt = 0;
-//        if(status){
-//            statusInt = 1;
-//        }
-//        else{
-//            statusInt = 0;
-//        }
+
         PreparedStatement statement = null;
         try {
             statement = databaseConfiguration.getDBConnection().prepareStatement(UPDATE_SLOT_STATUS);
@@ -167,7 +158,6 @@ public class LabScheduleRepositoryImpl implements ILabScheduleRepository {
             return StorageResult.FAILURE;
 
         } catch (SQLException e) {
-//            throw new RuntimeException(e);
             return StorageResult.FAILURE;
         }
     }
@@ -184,7 +174,6 @@ public class LabScheduleRepositoryImpl implements ILabScheduleRepository {
             return StorageResult.FAILURE;
 
         } catch (SQLException e) {
-//            throw new RuntimeException(e);
             return StorageResult.FAILURE;
         }
     }
@@ -198,7 +187,6 @@ public class LabScheduleRepositoryImpl implements ILabScheduleRepository {
             statement.executeUpdate();
             return StorageResult.SUCCESS;
         } catch (SQLException e) {
-//            throw new RuntimeException(e);
         return StorageResult.FAILURE;
         }
     }
@@ -210,7 +198,6 @@ public class LabScheduleRepositoryImpl implements ILabScheduleRepository {
            return statement.executeUpdate();
             } catch (SQLException e) {
                 return -1;
-                //throw new RuntimeException(e);
         }
     }
 
@@ -225,12 +212,6 @@ public class LabScheduleRepositoryImpl implements ILabScheduleRepository {
                 .addSlotDate(rs.getString("slot_date"))
                 .addLabId(rs.getString("lab_id"))
                 .addStatus(rs.getBoolean("status")).build();
-
-//        labSchedule.setSlotId(rs.getInt("slot_id"));
-//        labSchedule.setSlotTiming(rs.getString("slot_timing"));
-//        labSchedule.setSlotDate(rs.getString("slot_date"));
-//        labSchedule.setLabId(rs.getString("lab_id"));
-//        labSchedule.setStatus(rs.getBoolean("status"));
 
         return labSchedule;
     }

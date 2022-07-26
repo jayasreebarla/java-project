@@ -1,6 +1,5 @@
 package com.dal.drplus.repository.implementation;
 
-
 import com.dal.drplus.model.entity.Appointment;
 import com.dal.drplus.repository.configuration.DatabaseConfiguration;
 import com.dal.drplus.repository.configuration.DatabaseConfigurationImpl;
@@ -29,16 +28,9 @@ public class NotificationsRepositoryImpl implements INotificationRepository {
             " and b.slot_id = a.slot_id and b.appointment_type='DOCTOR' and b.patient_id= ?) union " +
             " (select b.*, a.slot_date, a.slot_timing from Lab_schedule a, Appointment b where slot_date=? "+
             " and b.slot_id = a.slot_id and b.appointment_type='LAB' and b.patient_id=?)";
-
-//    String NOTIFICATION_DOCTOR = "(select a.*, b.* from Doc_schedule a, Appointment b "+"where slot_date= ? "
-//    +"and b.slot_id = a.slot_id and b.doctor_id= ?)";
-
-   // String NOTIFICATION_DOCTOR = "( select a.*, b.appointment_id, b.patient_id from Doc_schedule a, Appointment b where slot_date= ? " + " and b.slot_id = a.slot_id and b.doctor_id= ? and b.appointment_type = 'DOCTOR')";
     String NOTIFICATION_DOCTOR = "(select a.*, b.* from Doc_schedule a, Appointment b where slot_date= ? "+ " and b.slot_id = a.slot_id and b.doctor_id= ? and b.appointment_type = 'DOCTOR')";
 
-//    String NOTIFICATION_LAB = "(select a.*, b.* from Lab_schedule a, Appointment b where "+ "slot_date= ?"
-//          +"  and b.slot_id = a.slot_id and b.lab_id= ?)";
-String NOTIFICATION_LAB =  "(select a.*, b.* from Lab_schedule a, Appointment b where slot_date= ? and b.slot_id = a.slot_id and b.lab_id= ? and b.appointment_type = 'LAB')";
+    String NOTIFICATION_LAB =  "(select a.*, b.* from Lab_schedule a, Appointment b where slot_date= ? and b.slot_id = a.slot_id and b.lab_id= ? and b.appointment_type = 'LAB')";
 
     public NotificationsRepositoryImpl() {
         this.databaseConfiguration = dbConfig();
@@ -51,8 +43,7 @@ String NOTIFICATION_LAB =  "(select a.*, b.* from Lab_schedule a, Appointment b 
         try {
             for (int i =0; i<3; i++) {
                 String nextAppDate = (today.plusDays(i)).format(DateTimeFormatter.ISO_DATE);
-                System.out.println(nextAppDate);
-                System.out.println(patientId);
+
                 PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(NOTIFICATION_PATIENT);
                 statement.setString(1,nextAppDate);
                 statement.setString(2,patientId);
@@ -68,6 +59,7 @@ String NOTIFICATION_LAB =  "(select a.*, b.* from Lab_schedule a, Appointment b 
                 }
             }
             return appointmentList;
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -80,8 +72,7 @@ String NOTIFICATION_LAB =  "(select a.*, b.* from Lab_schedule a, Appointment b 
         try {
             for (int i =0; i<3; i++) {
                 String nextAppDate = (today.plusDays(i)).format(DateTimeFormatter.ISO_DATE);
-                System.out.println(nextAppDate);
-                System.out.println(doctorId);
+
                 PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(NOTIFICATION_DOCTOR);
                 statement.setString(1,nextAppDate);
                 statement.setString(2,doctorId);
@@ -98,7 +89,6 @@ String NOTIFICATION_LAB =  "(select a.*, b.* from Lab_schedule a, Appointment b 
         }
     }
 
-
     public List<Appointment> notifyLab(String labId)
     {
         List<Appointment> appointmentList = new ArrayList<>();
@@ -106,8 +96,7 @@ String NOTIFICATION_LAB =  "(select a.*, b.* from Lab_schedule a, Appointment b 
         try {
             for (int i =0; i<3; i++) {
                 String nextAppDate = (today.plusDays(i)).format(DateTimeFormatter.ISO_DATE);
-                System.out.println(nextAppDate);
-                System.out.println(labId);
+
                 PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(NOTIFICATION_LAB);
                 statement.setString(1,nextAppDate);
                 statement.setString(2,labId);

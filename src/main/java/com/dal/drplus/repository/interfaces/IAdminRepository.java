@@ -1,9 +1,6 @@
 package com.dal.drplus.repository.interfaces;
 
 import com.dal.drplus.model.IEntity.IAdmin;
-import com.dal.drplus.model.entity.Admin;
-
-import java.sql.SQLException;
 
 public interface IAdminRepository {
     StorageResult addAdmin(IAdmin admin);

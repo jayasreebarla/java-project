@@ -1,7 +1,6 @@
 package com.dal.drplus.service;
 
 import com.dal.drplus.model.IEntity.ILab;
-import com.dal.drplus.model.entity.Lab;
 import com.dal.drplus.repository.interfaces.ILabRepository;
 
 public class LabLoginSignupService {
@@ -12,7 +11,6 @@ public class LabLoginSignupService {
 
     public boolean registerLab(ILab lab){
         ILabRepository.StorageResult result = labRepository.saveLab(lab);
-        System.out.println("result inside service"+ result);
             if(result.equals(ILabRepository.StorageResult.SUCCESS)){
                 return true;
             }else {
@@ -28,7 +26,5 @@ public class LabLoginSignupService {
             return false;
         }
     }
-
-
 
 }

@@ -20,9 +20,8 @@ public class DoctorService {
     }
 
     public boolean deleteDoctorbyId(String doctorId){
-        System.out.println("doc service");
+
         IDoctorRepository.StorageResult result = doctorRepository.deleteDoctorById(doctorId);
-        System.out.println("doc service res "+result);
         if(result.equals(IDoctorRepository.StorageResult.SUCCESS)){
             return true;
         } else {

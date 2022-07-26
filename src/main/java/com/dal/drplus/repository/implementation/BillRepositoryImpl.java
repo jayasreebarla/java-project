@@ -2,7 +2,6 @@ package com.dal.drplus.repository.implementation;
 
 import com.dal.drplus.model.IBuilder.IBillingBuilder;
 import com.dal.drplus.model.IEntity.IBilling;
-import com.dal.drplus.model.entity.Billing;
 import com.dal.drplus.model.factory.ModelFactory;
 import com.dal.drplus.repository.configuration.DatabaseConfiguration;
 import com.dal.drplus.repository.configuration.DatabaseConfigurationImpl;
@@ -21,9 +20,7 @@ public class BillRepositoryImpl implements IBillRepository {
     String INSERT_BILL = "INSERT INTO Bill (bill_date,bill_amount,bill_description) VALUES(?,?,?)";
     String GET_AMOUNT_BILL = "SELECT bill_amount FROM Bill where bill_id=?";
     String UPADTE_BILL = "UPDATE Bill SET bill_amount = ? where bill_id=?";
-
     String GET_BILL = "SELECT * FROM Bill where  bill_id=?";
-
     DatabaseConfiguration databaseConfiguration;
 
     private DatabaseConfiguration dbConfig(){
@@ -45,12 +42,9 @@ public class BillRepositoryImpl implements IBillRepository {
             ResultSet rs = statement.getGeneratedKeys();
             while (rs.next()){
                id = rs.getInt(1);
-                System.out.println("Bill repository, bill id generated: "+id);
             }
         } catch (SQLException e) {
-            //throw new RuntimeException(e);
             e.printStackTrace();
-            //return id;
         }
 
         return id;
@@ -58,7 +52,7 @@ public class BillRepositoryImpl implements IBillRepository {
 
     @Override
     public double getBillAmount(int billId) {
-        double amount=0;
+        double amount = 0;
         try {
             PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(GET_AMOUNT_BILL);
             statement.setInt(1,billId);
@@ -100,7 +94,6 @@ public class BillRepositoryImpl implements IBillRepository {
                 bill = builder.addBillId(rs.getInt("bill_id")).addBillAmount(rs.getDouble("bill_amount")).addBillDescription(rs.getString("bill_description")).build();
             }
         } catch (SQLException e) {
-            //throw new RuntimeException(e);
             e.printStackTrace();
         }
         return bill;

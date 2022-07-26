@@ -1,7 +1,6 @@
 package com.dal.drplus.service;
 
 import com.dal.drplus.model.IEntity.IBilling;
-import com.dal.drplus.model.entity.Billing;
 import com.dal.drplus.repository.interfaces.IBillRepository;
 
 public class BillService {
@@ -12,8 +11,7 @@ public class BillService {
     }
 
     public int generateBill(double amount,String description){
-        //appointmentType from session
-        //
+
         int bill_id = billRepository.insertBill(amount,description);
         return bill_id;
     }

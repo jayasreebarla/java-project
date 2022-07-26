@@ -10,14 +10,13 @@ public class RatingDoctorService {
 
     private IRatingDoctorRepository ratingDoctorRepository;
 
-
     public RatingDoctorService(IRatingDoctorRepository ratingDoctorRepository) {
         this.ratingDoctorRepository = ratingDoctorRepository;
     }
 
     public boolean addRating(IRatingDoctor ratingDoctor){
         IRatingDoctorRepository.StorageResult result = ratingDoctorRepository.saveDoctorRating(ratingDoctor);
-        System.out.println("Inside rating Service"+result);
+
         if(result.equals(IRatingDoctorRepository.StorageResult.SUCCESS)){
             return true;
         }else{

@@ -17,10 +17,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Repository
 public class ReportRepositoryImpl implements IReportRepository {
-
 
     String INSERT_REPORT = "INSERT INTO Report (appointment_id, report_desc, report) VALUES (?,?,?)";
     String SELECT_REPORT_BY_ID = "Select * FROM Report WHERE report_id = ?";
@@ -40,20 +38,17 @@ public class ReportRepositoryImpl implements IReportRepository {
         try {
             PreparedStatement statement = databaseConfiguration.getDBConnection().prepareStatement(INSERT_REPORT);
             Blob blob_file = new SerialBlob(report.getReportFile());
-            //statement.setString(1, report.getReportId());
-            // Patient currentPatient = session.getAttributeNames("current")
             statement.setInt(1, report.getAppointmentId());
             statement.setString(2, report.getReportDetails());
             statement.setBlob(3, blob_file);
             int res = statement.executeUpdate();
-            System.out.println("report uploaded ");
+
             if(res == 1) {
                 return IReportRepository.StorageResult.SUCCESS;
             } else {
                 return StorageResult.FAILURE;
             }
         } catch (SQLException e) {
-//           throw new RuntimeException(e);
             return IReportRepository.StorageResult.FAILURE;
         }
     }

@@ -1,7 +1,6 @@
 package com.dal.drplus.service;
 
 import com.dal.drplus.model.IEntity.IWallet;
-import com.dal.drplus.model.entity.Wallet;
 import com.dal.drplus.repository.interfaces.IWalletRepository;
 
 public class WalletService {
@@ -35,7 +34,6 @@ public class WalletService {
                     return_result = true;
                 }
             }
-            System.out.println("return result inside wallet service"+return_result);
         }
         return return_result;
     }

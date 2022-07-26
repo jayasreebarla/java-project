@@ -68,7 +68,7 @@ public class AppointmentService {
         if(isAppointmentexistsforLabId(labId))
         {
             IAppointmentRepository.StorageResult result = appointmentRepository.deleteAppointmentbyLabID(labId);
-            System.out.println(result);
+
             if(IAppointmentRepository.StorageResult.SUCCESS.equals(result))
             {
                 return true;

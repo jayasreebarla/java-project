@@ -1,7 +1,6 @@
 package com.dal.drplus.repository.interfaces;
 
 import com.dal.drplus.model.entity.Appointment;
-
 import java.util.List;
 
 public interface INotificationRepository {

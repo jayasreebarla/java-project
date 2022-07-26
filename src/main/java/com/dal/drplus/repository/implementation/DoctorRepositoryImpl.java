@@ -1,6 +1,5 @@
 package com.dal.drplus.repository.implementation;
 
-import com.dal.drplus.model.Builder.DoctorBuilder;
 import com.dal.drplus.model.IBuilder.IDoctorBuilder;
 import com.dal.drplus.model.IEntity.IDoctor;
 import com.dal.drplus.model.entity.Doctor;
@@ -28,7 +27,6 @@ public class DoctorRepositoryImpl implements IDoctorRepository {
 
     @Override
     public StorageResult saveDoctor(IDoctor doctor) {
-
 
         PreparedStatement statement = null;
         try {
@@ -67,7 +65,6 @@ public class DoctorRepositoryImpl implements IDoctorRepository {
             statement.setString(1,id);
             ResultSet rs = statement.executeQuery();
             while(rs.next()) {
-                System.out.println("inside rs");
                 doctorObject = createDoctor(rs);
             }
         } catch (SQLException e) {
@@ -108,14 +105,12 @@ public class DoctorRepositoryImpl implements IDoctorRepository {
             ResultSet rs = statement.executeQuery();
             while (rs.next()){
                 password = rs.getString("doctor_password");
-                System.out.println("password"+password);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         return password;
     }
-
 
     @Override
     public List<Doctor> findAllDoctorsBySpecializationAndPincode(String specialization, String pincode) {
@@ -148,14 +143,13 @@ public class DoctorRepositoryImpl implements IDoctorRepository {
             statement = databaseConfiguration.getDBConnection().prepareStatement("Delete from Doctor where doctor_id = ?");
             statement.setString(1,id);
             int result = statement.executeUpdate();
-            System.out.println("result inside repo"+result);
+
             if(result==1){
             return IDoctorRepository.StorageResult.SUCCESS;
             }else {
                 return IDoctorRepository.StorageResult.FAILURE;
             }
         } catch (SQLException e) {
-            //throw new RuntimeException(e);
             return IDoctorRepository.StorageResult.FAILURE;
         }
     }

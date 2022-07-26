@@ -1,11 +1,10 @@
 package com.dal.drplus.service;
-import com.dal.drplus.model.entity.Promotions;
 
+import com.dal.drplus.model.entity.Promotions;
 import com.dal.drplus.repository.interfaces.IPromotionsRepository;
 
 import java.time.LocalDate;
 import java.util.List;
-
 
 public class PromotionsService {
    IPromotionsRepository promotionsRepository;
@@ -22,14 +21,14 @@ public class PromotionsService {
          return false;
       }
    }
+
    public List<Promotions> listAllPromotions(){
       return promotionsRepository.findAll();
    }
 
    public boolean deletePromotionsbyId(String promotionId){
-      System.out.println("promotions service");
+
       IPromotionsRepository.StorageResult result = promotionsRepository.deleteById(promotionId);
-      System.out.println("promotions service res "+result);
       if(result.equals(IPromotionsRepository.StorageResult.SUCCESS)){
          return true;
       } else {
