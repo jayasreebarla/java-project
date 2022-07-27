@@ -25,7 +25,7 @@ public class LabController {
 
     @GetMapping("/patient_lab_home")
     public String getLabHome(){
-        return "/patient/patient_lab_home";
+        return "patient/patient_lab_home";
     }
 
     @GetMapping("/show_labs")
