@@ -9,7 +9,7 @@ public class RatingDoctor extends IRatingDoctor {
 
     public RatingDoctor(IRatingDoctorBuilder builder) {
         this.doctorId= builder.getDoctorId();
-        this.doctorRating= builder.getRatingId();
+        this.doctorRating= builder.getDoctorRating();
         this.patientId= builder.getPatientId();
         this.review= builder.getReview();
     }
