@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <style>
+        table, th, td {
+            border: 1px solid;
+        }
+    </style>
+</head>
+<br>
+<a href="/home">Home</a>
+<br>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th> Appointment Id </th>
+        <th> Appointment Date </th>
+        <th> Appointment Time </th>
+        <th> Patient Id </th>
+        <th> Bill Id </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${notifications.isEmpty()}">
+        <td colspan="2"> No Appointments Available </td>
+    </tr>
+    <tr th:each="notification : ${notifications}">
+        <td><span th:text="${notification.getAppointmentId()}"> Appointment Id </span></td>
+        <td><span th:text="${notification.getAppointmentDate()}"> Appointment Date </span></td>
+        <td><span th:text="${notification.getAppointmentTime()}"> Appointment Time </span></td>
+        <td><span th:text="${notification.getPatientId()}"> Patient Id </span></td>
+        <td><span th:text="${notification.getBillId()}"> Bill Id </span></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

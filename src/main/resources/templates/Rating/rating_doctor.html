@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+  <title>Rating</title>
+</head>
+<br>
+<a href="/auth/logout">Logout</a>
+<br>
+<a href="/home">Home</a>
+<br>
+<body>
+<p><strong>This is rating page for Doctor</strong></p>
+
+<p><strong>Rating for Doctor: </strong></p>
+<form action="#" th:action="@{/add_rating/}" method="post">
+
+<!--  <p>Doctor name/ Doctor ID:-->
+<!--    <input type="text" th:field="*{doctorId}" th:value=""/>-->
+<!--    <input type="text" th.field="*{doctorId}"/><br></p>-->
+Comments:<textarea th:name="review" rows="4" cols="50"> </textarea><br>
+
+  <p>Choose a rating:
+  <select required="required" th:name="doctorRating">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select></p>
+  <input type="submit" value="Submit"><br><br><br>
+</form>
+</body>
+</html>

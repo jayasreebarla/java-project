@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lab Login</title>
+    
+</head>
+<body>
+<form action="/auth_lab/lab_login" method = "post" >
+    Enter Lab ID: <input type="text" id = "name" name = "name" required="required" th:name="labId" placeholder = "Lab ID"> <br>
+    Enter password: <input type="password" id = "password" name = "password"  required="required" th:name="labPassword"  placeholder = "password"><br><br><br>
+    <button type="submit">Login</button>
+</form>
+</body>
+</html>

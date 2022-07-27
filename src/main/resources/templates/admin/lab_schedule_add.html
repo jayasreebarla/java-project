@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Lab Schedule</title>
+</head>
+<body>
+<a href="/home">Home</a>
+<a href="/auth_admin/logout">Logout</a>
+<h2> Add Lab Slots</h2>
+
+<form action="#" th:action="@{/admin/lab_slot_add}" th:object="${labSchedule}" method="post">
+    <!--p>Slot ID: <input type="text" required="required" th:field="*{slotId}" /></p-->
+    <p>Slot Date : <input type="date" required="required" th:field="*{slotDate}" /></p>
+    <p>Slot Timing : <input type="time" required="required" th:name="fromTime" />
+        - <input type="time" required="required" th:name="toTime" /></p>
+    <p>Lab ID : <input type="text" required="required" th:field="*{labId}" /></p>
+    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+</form>
+</body>
+</html>

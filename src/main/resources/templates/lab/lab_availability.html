@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <style>
+    table, th, td {
+      border: 1px solid;
+    }
+  </style>
+  <meta charset="UTF-8">
+  <title>Lab Availability</title>
+</head>
+<br>
+<a href="/home">Home</a>
+<br>
+<body>
+
+<h2> Lab Availability List: </h2>
+<table class = "table table-striped table-bordered">
+  <thead>
+  <tr>
+    <th> Slot Id </th>
+    <th> Slot Date </th>
+    <th> Slot Timing </th>
+    <th> Actions </th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:if="${labSlots.isEmpty()}">
+    <td colspan="2"> No Slots Available </td>
+  </tr>
+  <tr th:each="labSlot : ${labSlots}">
+    <td><span th:text="${labSlot.slotId}"> Title </span></td>
+    <td><span th:text="${labSlot.slotDate}"> Author </span></td>
+    <td><span th:text="${labSlot.slotTiming}"> Author </span></td>
+    <td><a th:href = "@{/labSlot/{slotId}/{labId}(slotId=${labSlot.slotId},labId=${labSlot.labId})}"
+           class = "btn btn-primary">Book Appointment</a></td>
+  </tr>
+  </tbody>
+</table>
+
+</body>
+</html>

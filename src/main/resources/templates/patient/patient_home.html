@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Patient Home</title>
+</head>
+<a href="/auth/logout">Logout</a>
+<br>
+<a href="/add-payment">Add Money To Wallet</a>
+<br>
+<a href="/notification_patient"> Notifications </a>
+<br>
+
+
+<a href="/appointment_list">View Appointments</a>
+<br>
+<a href="/display_promotions">View Available Promotions</a>
+<br>
+<a href="/FAQs">FAQs</a>
+<br>
+<a href="/patient_lab_home">Book a lab</a>
+<body>
+<p>This patient homepage</p>
+
+<form action="/show_doctors" >
+    <p>Enter Pincode: <input type="text" id = "name" name = "name" required="required" th:name="pincode" placeholder = "pincode"></p> <br>
+    <p>Select Specialization: <select required="required" th:name="specialization">
+        <option value="Cardiologist">Cardiologist</option>
+        <option value="Ophthalmologist">Ophthalmologist</option>
+        <option value="Dermatologist">Dermatologist</option>
+        <option value="Gynaecologist">Gynaecologist</option>
+        <option value="Orthopedic">Orthopedic</option>
+    </select></p><br><br><br>
+    <button type="submit">SUBMIT</button>
+</form>
+
+
+</body>
+</html>

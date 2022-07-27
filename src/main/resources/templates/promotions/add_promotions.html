@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> Add Promotions </title>
+</head>
+<br>
+<a href="/home">Home</a>
+<br>
+<body>
+
+<form action="#" th:action="@{/promotion_add}" th:object="${promotions}" method="post">
+    <p>Promotion Id: <input type="text" required="required" th:field="*{promotionId}" /></p>
+    <p>Promotion name: <input type="text" required="required" th:field="*{promotionName}" /></p>
+    <p>Promotion start date: <input type="date" required="required" th:field="*{promotionStartDate}" /></p>
+    <p>Promotion end date: <input type="date" required="required" th:field="*{promotionEndDate}" /></p>
+    <p>Promotion amount off: <input type="number" required="required" th:field="*{amountOff}" /></p>
+    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+</form>
+</body>
+</html>

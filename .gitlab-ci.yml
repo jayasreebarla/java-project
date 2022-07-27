@@ -1,7 +1,8 @@
 stages:          # List of stages for jobs, and their order of execution
   - build
   - test
-  - deploy
+  - deploy_develop
+  - deploy_main
 
 variables:
   GIT_STRATEGY: clone
@@ -10,7 +11,7 @@ variables:
 build:
   stage: build
   tags: 
-    - dalfcs_docker_kvm
+    - dalfcs_docker_autoscale
   image: gradle:latest
   script: 
     - ./gradlew assemble --scan
@@ -18,18 +19,36 @@ build:
 test:
   stage: test
   tags:
-    - dalfcs_docker_kvm
+    - dalfcs_docker_autoscale
   image: gradle:latest
   script: 
     - ./gradlew check
 
 deploy-test:
-  stage: deploy
+  type: deploy
+  stage: deploy_develop
   tags:
-    - dalfcs_docker_kvm
+    - dalfcs_docker_autoscale
+  image: ruby:2.6
+  script:
+    - apt-get update -qy
+    - apt-get install -y ruby-dev
+    - gem install dpl
+    - dpl --provider=heroku --app=$HEROKU_DEV_APPLICATION_NAME --api-key=$HEROKU_API_KEY
+  only:
+    - Develop
+    
+deploy-main:
+  type: deploy
+  stage: deploy_main
+  tags:
+    - dalfcs_docker_autoscale
   image: ruby:2.6
   script:
     - apt-get update -qy
     - apt-get install -y ruby-dev
     - gem install dpl
     - dpl --provider=heroku --app=$HEROKU_APPLICATION_NAME --api-key=$HEROKU_API_KEY
+  only:
+    - main
+    - release

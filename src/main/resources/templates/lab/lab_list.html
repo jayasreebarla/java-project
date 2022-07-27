@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <style>
+        table, th, td {
+            border: 1px solid;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <title>Lab List</title>
+</head>
+<a href="/auth/logout">Logout</a>
+<br>
+<a href="/home">Home</a>
+<br>
+<body>
+<h2> Lab Table List</h2>
+<table class = "table table-striped table-bordered">
+    <thead>
+    <tr>
+        <th> Lab Id </th>
+        <th> Lab Name </th>
+        <th> Lab Email</th>
+        <th> Lab Phone No</th>
+        <th> Lab Clinic Address</th>
+        <th> Lab Pincode</th>
+        <th> Lab Fee</th>
+        <th> Lab Rating</th>
+        <th> Lab Reviews</th>
+        <th> Actions </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${labs.isEmpty()}">
+        <td colspan="2"> No Labs Available </td>
+    </tr>
+    <tr th:each="lab : ${labs}">
+        <td><span th:text="${lab.labId}"> Lab Id </span></td>
+        <td><span th:text="${lab.labPersonName}"> Lab Name </span></td>
+        <td><span th:text="${lab.labEmailId}"> Lab Email </span></td>
+        <td><span th:text="${lab.labContactInfo}"> Lab PhoneNo </span></td>
+        <td><span th:text="${lab.labAddress}"> Lab Clinic Address </span></td>
+        <td><span th:text="${lab.labPincode}"> Lab Pincode </span></td>
+        <td><span th:text="${lab.labFee}"> Lab Fee </span></td>
+        <td><span th:text="${lab.labRating}"> Lab Rating </span></td>
+        <td><a th:href = "@{/reviews_lab/{labId}(labId=${lab.labId})}"
+               class = "btn btn-primary">Check Reviews</a></td>
+        <td><a th:href = "@{/lab/{labId}(labId=${lab.labId})}"
+               class = "btn btn-primary">Check Availability</a></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
+
+

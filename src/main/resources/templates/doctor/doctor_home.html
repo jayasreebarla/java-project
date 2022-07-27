@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <style>
+    table, th, td {
+      border: 1px solid;
+    }
+  </style>
+  <meta charset="UTF-8">
+  <title>Doctor Home</title>
+</head>
+<a href="/auth_doctor/logout">Logout</a>
+<br>
+<a href="/notification_doctor"> Notifications </a>
+<body>
+<p>This doctor homepage</p>
+<table>
+  <thead>
+  <tr>
+    <th> Appointment Id </th>
+    <th> Appointment Date </th>
+    <th> Appointment Time </th>
+    <th> Appointment Description </th>
+    <!--th> Appointment Type </th-->
+    <th> Patient Id </th>
+    <th> Bill Id </th>
+    <th> Actions </th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:if="${appointments.isEmpty()}">
+    <td colspan="2"> No Appointments Available </td>
+  </tr>
+  <tr th:each="appointment : ${appointments}">
+    <td><span th:text="${appointment.getAppointmentId()}"> Appointment Id </span></td>
+    <td><span th:text="${appointment.getAppointmentDate()}"> Appointment Date </span></td>
+    <td><span th:text="${appointment.getAppointmentTime()}"> Appointment Time </span></td>
+    <td><span th:text="${appointment.getAppointmentDescription()}"> Appointment Description </span></td>
+    <!--td><span th:text="${appointment.getAppointmentType()}"> Appointment Type </span></td-->
+    <td><span th:text="${appointment.getPatientId()}"> Patient Id </span></td>
+    <td><span th:text="${appointment.getBillId()}"> Bill Id </span></td>
+    <td><a th:href="@{/cancel_appointment_doc/{id}/{slotId}(id=${appointment.getAppointmentId()},slotId=${appointment.getSlotId()})}"><button>Delete Appointment</button></a></td>
+    <td><a th:href="@{/upload_prescription/{id}(id=${appointment.getAppointmentId()})}"><button>Upload Prescription</button></a></td>
+    <td><a th:href="@{/download_prescription/{appointment_id}(appointment_id=${appointment.getAppointmentId()})}"><button>View Prescription</button></a></td>
+    <td><a th:href="@{/download_report/{appointment_id}(appointment_id=${appointment.getAppointmentId()})}"><button>View Report</button></a></td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

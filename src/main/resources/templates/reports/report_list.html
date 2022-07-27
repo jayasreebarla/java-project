@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <style>
+        table, th, td {
+            border: 1px solid;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <title>Report_List</title>
+</head>
+<br>
+<a href="/home">Home</a>
+<br>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th> Report Id </th>
+        <th> Appointment Id </th>
+        <th> Report Details </th>
+        <th> Actions </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${reports.isEmpty()}">
+        <td colspan="2"> No Reports Available </td>
+    </tr>
+    <tr th:each="report : ${reports}">
+        <td><span th:text="${report.reportId}"> doctor Id </span></td>
+        <td><span th:text="${report.appointmentId}"> doctor Name </span></td>
+        <td><span th:text="${report.reportDetails}"> doctor Email </span></td>
+        <td><a th:href = "@{/download_file_report/{report_id}(report_id=${report.reportId})}"
+               class = "btn btn-primary">Download</a></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
